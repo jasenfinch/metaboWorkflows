@@ -1,9 +1,20 @@
 Package: metaboWorkflows
-Title: What the Package Does (one line, title case)
+Title: Workflows for metabolomics analyses
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
+Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
-License: What license is it under?
+Imports: binneRlyse,
+    metabolyseR,
+    dplyr,
+    magrittr
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
+Collate: 
+    'allGenerics.R'
+    'allClasses.R'
+    'workflowParameters.R'
+    'FIE-method.R'
+    'workflow.R'
