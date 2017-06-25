@@ -18,7 +18,7 @@ workflow <- function(files,parameters){
              binLog = character(),
              binParameters = parameters@processing,
              files = character(),
-             info = tbl_df(data.frame(t = 1:10)),
+             info = tbl_df(data.frame()),
              binnedData = list(),
              accurateMZ = tbl_df(data.frame())
   )
@@ -28,7 +28,8 @@ workflow <- function(files,parameters){
                   rawData = list(),
                   preTreated = list(),
                   classification = list(),
-                  featureSelection = list()
+                  featureSelection = list(),
+                  correlations = tbl_df(data.frame())
   )
   
   wf <- new('Workflow',
