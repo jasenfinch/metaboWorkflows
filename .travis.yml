@@ -1,0 +1,24 @@
+language: r
+
+sudo: required
+bioc_required: true
+warnings_are_errors: true
+
+apt_packages:
+ - libnetcdf-dev
+ - udunits-bin
+ - libudunits2-dev
+ 
+bioc_packages:
+    - mzR
+
+r_github_packages:
+    - jasenfinch/binneR
+    - jasenfinch/binneRlyse
+    - wilsontom/FIEmspro
+    - jasenfinch/metabolyseR
+
+notifications:
+    email:
+    on_success: change
+    on_failure: change
