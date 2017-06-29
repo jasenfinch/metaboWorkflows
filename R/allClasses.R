@@ -5,7 +5,7 @@ setClass('WorkflowParameters',
          slots = list(
            technique = 'character',
            processing = 'BinParameters',
-           analysis = 'AnalysisParameters'
+           analysis = 'Parameters'
          )
 )
 
