@@ -1,11 +1,11 @@
 #' @importClassesFrom binneRlyse BinParameters Binalysis
-#' @importClassesFrom metabolyseR Parameters Analysis
+#' @importClassesFrom metabolyseR AnalysisParameters Analysis
 
 setClass('WorkflowParameters',
          slots = list(
            technique = 'character',
            processing = 'BinParameters',
-           analysis = 'Parameters'
+           analysis = 'AnalysisParameters'
          )
 )
 
