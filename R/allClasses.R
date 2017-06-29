@@ -1,5 +1,5 @@
 #' @importClassesFrom binneRlyse BinParameters Binalysis
-#' @importClassesFrom metabolyseR AnalysisParameters Analysis
+#' @importClassesFrom metabolyseR Parameters Analysis
 
 setClass('WorkflowParameters',
          slots = list(
