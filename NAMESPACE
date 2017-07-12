@@ -2,6 +2,8 @@
 
 export(workflow)
 export(workflowParameters)
+importClassesFrom(MFassign,Annotation)
+importClassesFrom(MFassign,AnnotationParameters)
 importClassesFrom(binneRlyse,BinParameters)
 importClassesFrom(binneRlyse,Binalysis)
 importClassesFrom(metabolyseR,Analysis)
