@@ -6,8 +6,13 @@
 \usage{
 workflow(files, parameters)
 }
+\arguments{
+\item{files}{character vector of file paths to raw data and info files}
+
+\item{parameters}{S4 object of class WorkflowParameters containing the workflow parameters.}
+}
 \description{
-workflow
+execute workflow based on specified worklow parameters and a file list.
 }
 \examples{
 \dontrun{

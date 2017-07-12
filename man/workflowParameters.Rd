@@ -4,8 +4,11 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(technique = NULL)
+workflowParameters(workflow = NULL)
+}
+\arguments{
+\item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
 }
 \description{
-workflowParameters
+Initiate default workflow parameters for a selected workflow.
 }

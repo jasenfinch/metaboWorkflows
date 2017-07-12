@@ -1,6 +1,10 @@
 #' workflow
+#' @description execute workflow based on specified worklow parameters and a file list.
+#' @param files character vector of file paths to raw data and info files
+#' @param parameters S4 object of class WorkflowParameters containing the workflow parameters.
 #' @importFrom dplyr tbl_df
 #' @importFrom magrittr %>%
+#' @importFrom methods new
 #' @examples 
 #' \dontrun{
 #' analysis <- workflow(
