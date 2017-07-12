@@ -4,7 +4,7 @@
 
 setClass('WorkflowParameters',
          slots = list(
-           technique = 'character',
+           workflow = 'character',
            processing = 'BinParameters',
            analysis = 'AnalysisParameters',
            annotation = 'AnnotationParameters'
@@ -18,6 +18,6 @@ setClass('Workflow',
            workflowParameters = 'WorkflowParameters',
            processed = 'Binalysis',
            analysed = 'Analysis',
-           annotation = 'Annotation'
+           annotated = 'Annotation'
            )
 )
