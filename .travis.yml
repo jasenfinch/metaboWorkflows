@@ -17,6 +17,7 @@ r_github_packages:
     - jasenfinch/binneRlyse
     - wilsontom/FIEmspro
     - jasenfinch/metabolyseR
+    - jasenfinch/MFassign
 
 notifications:
     email:
