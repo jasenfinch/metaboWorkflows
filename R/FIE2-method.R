@@ -49,6 +49,7 @@ setMethod('FIE2', signature = 'Workflow',
             
             x@processed <- binnedDat
             x@analysed <- analysis
+            x@annotated <- assignments
             x@logs <- list(date())
             return(x)
           })
