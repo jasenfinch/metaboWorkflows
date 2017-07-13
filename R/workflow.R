@@ -2,7 +2,7 @@
 #' @description execute workflow based on specified worklow parameters and a file list.
 #' @param files character vector of file paths to raw data and info files
 #' @param parameters S4 object of class WorkflowParameters containing the workflow parameters.
-#' @importFrom dplyr tbl_df
+#' @importFrom tibble tibble
 #' @importFrom magrittr %>%
 #' @importFrom methods new
 #' @examples 
@@ -22,18 +22,18 @@ workflow <- function(files,parameters){
              binLog = character(),
              binParameters = parameters@processing,
              files = character(),
-             info = tbl_df(data.frame()),
+             info = tibble(),
              binnedData = list(),
-             accurateMZ = tbl_df(data.frame())
+             accurateMZ = tibble()
   )
   analysis <- new('Analysis',
                   log = list(),
                   parameters = parameters@analysis,
                   rawData = list(),
                   preTreated = list(),
-                  classification = list(),
-                  featureSelection = list(),
-                  correlations = tbl_df(data.frame())
+                  classification = tibble(),
+                  featureSelection = tibble(),
+                  correlations = tibble()
   )
   
   wf <- new('Workflow',
@@ -42,7 +42,7 @@ workflow <- function(files,parameters){
             workflowParameters = parameters,
             processed = bin,
             analysed = analysis)
-  technique <- get(parameters@technique)
+  technique <- get(parameters@workflow)
   wf <- wf %>% technique()
   return(wf)
 }
