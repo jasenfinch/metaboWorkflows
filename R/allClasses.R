@@ -1,11 +1,13 @@
 #' @importClassesFrom binneRlyse BinParameters Binalysis
 #' @importClassesFrom metabolyseR AnalysisParameters Analysis
+#' @importClassesFrom MFassign AssignmentParameters Assignment
 
 setClass('WorkflowParameters',
          slots = list(
            workflow = 'character',
            processing = 'BinParameters',
-           analysis = 'AnalysisParameters'
+           analysis = 'AnalysisParameters',
+           annotation = 'AssignmentParameters'
          )
 )
 
@@ -16,5 +18,7 @@ setClass('Workflow',
            files = 'character',
            workflowParameters = 'WorkflowParameters',
            processed = 'Binalysis',
-           analysed = 'Analysis')
+           analysed = 'Analysis',
+           annotated = 'Assignment'
+           )
 )

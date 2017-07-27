@@ -6,10 +6,11 @@ Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
 Imports: binneRlyse,
     metabolyseR,
-    dplyr,
     magrittr,
     methods,
-    tibble
+    MFassign,
+    tibble,
+    dplyr
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
@@ -19,6 +20,7 @@ Collate:
     'allClasses.R'
     'workflowParameters.R'
     'FIE_HRMSfingerprinting.R'
+    'FIE_HRMSfingerprinting2.R'
     'workflow.R'
     'doWorkflow-method.R'
     'retryWorkflow.R'

@@ -2,9 +2,9 @@
 #' @description execute workflow based on specified worklow parameters and a file list.
 #' @param files character vector of file paths to raw data and info files
 #' @param parameters S4 object of class WorkflowParameters containing the workflow parameters.
-#' @importFrom tibble tibble
 #' @importFrom magrittr %>%
 #' @importFrom methods new
+#' @importFrom tibble tibble
 #' @examples 
 #' \dontrun{
 #' analysis <- workflow(
@@ -35,6 +35,14 @@ workflow <- function(files,parameters){
                   featureSelection = tibble(),
                   correlations = tibble()
   )
+  annotation <-   new('Assignment',
+                      parameters = parameters@annotation,
+                      correlations = tibble(),
+                      relationships = tibble(),
+                      addIsoAssign = list(),
+                      transAssign = list(),
+                      assignments  = tibble()
+  )
   
   wf <- new('Workflow',
             logs = list(),
@@ -42,7 +50,8 @@ workflow <- function(files,parameters){
             files = files,
             workflowParameters = parameters,
             processed = bin,
-            analysed = analysis)
+            analysed = analysis,
+            annotated = annotation)
   
   wf <- wf %>% doWorkflow()
   return(wf)
