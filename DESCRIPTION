@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
@@ -8,7 +8,10 @@ Imports: binneRlyse,
     metabolyseR,
     magrittr,
     methods,
+<<<<<<< HEAD
     MFassign,
+=======
+>>>>>>> master
     tibble
 License: GPL (>= 2)
 Encoding: UTF-8
