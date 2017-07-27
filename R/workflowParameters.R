@@ -3,11 +3,11 @@
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
 #' @importFrom binneRlyse binParameters
 #' @importFrom metabolyseR analysisParameters
-#' @importFrom MFassign annotationParameters
+#' @importFrom MFassign assignmentParameters
 #' @export
 
 workflowParameters <- function(workflow = NULL){
-  availWorkflows <- c('FIE','FIE2')
+  availWorkflows <- c('FIE_HRMSfingerprinting','FIE2')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
@@ -21,7 +21,7 @@ workflowParameters <- function(workflow = NULL){
           workflow = workflow,
           processing = binParameters(),
           analysis = analysisParameters(),
-          annotation = annotationParameters(w)
+          annotation = assignmentParameters(w)
       )
     }
   }

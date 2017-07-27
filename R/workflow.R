@@ -13,7 +13,7 @@
 #'            'DataSets/FIE-HRMS/BdistachyonEcotypes',
 #'            package = 'metaboData'),
 #'        full.names = TRUE), 
-#'        workflowParameters('FIE')
+#'        workflowParameters('FIE_HRMSfingerprinting')
 #'    )}
 #' @export
 
@@ -35,7 +35,7 @@ workflow <- function(files,parameters){
                   featureSelection = tibble(),
                   correlations = tibble()
   )
-  annotation <-   new('Annotation',
+  annotation <-   new('Assignment',
                       parameters = parameters@annotation,
                       correlations = tibble(),
                       relationships = tibble(),
@@ -46,12 +46,13 @@ workflow <- function(files,parameters){
   
   wf <- new('Workflow',
             logs = list(),
+            flags = character(),
             files = files,
             workflowParameters = parameters,
             processed = bin,
             analysed = analysis,
             annotated = annotation)
-  workflow <- get(parameters@workflow)
-  wf <- wf %>% workflow()
+  
+  wf <- wf %>% doWorkflow()
   return(wf)
 }

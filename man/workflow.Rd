@@ -22,6 +22,6 @@ analysis <- workflow(
            'DataSets/FIE-HRMS/BdistachyonEcotypes',
            package = 'metaboData'),
        full.names = TRUE), 
-       workflowParameters('FIE')
+       workflowParameters('FIE_HRMSfingerprinting')
    )}
 }
