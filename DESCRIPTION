@@ -8,7 +8,8 @@ Imports: binneRlyse,
     metabolyseR,
     dplyr,
     magrittr,
-    methods
+    methods,
+    tibble
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
