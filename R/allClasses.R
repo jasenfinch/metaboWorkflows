@@ -12,6 +12,7 @@ setClass('WorkflowParameters',
 setClass('Workflow',
          slots = list(
            logs = 'list',
+           flags = 'character',
            files = 'character',
            workflowParameters = 'WorkflowParameters',
            processed = 'Binalysis',

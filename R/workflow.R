@@ -13,7 +13,7 @@
 #'            'DataSets/FIE-HRMS/BdistachyonEcotypes',
 #'            package = 'metaboData'),
 #'        full.names = TRUE), 
-#'        workflowParameters('FIE')
+#'        workflowParameters('FIE_HRMSfingerprinting')
 #'    )}
 #' @export
 
@@ -38,11 +38,12 @@ workflow <- function(files,parameters){
   
   wf <- new('Workflow',
             logs = list(),
+            flags = character(),
             files = files,
             workflowParameters = parameters,
             processed = bin,
             analysed = analysis)
-  technique <- get(parameters@workflow)
-  wf <- wf %>% technique()
+  
+  wf <- wf %>% doWorkflow()
   return(wf)
 }

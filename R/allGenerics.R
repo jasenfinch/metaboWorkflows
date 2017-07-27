@@ -1,4 +1,4 @@
 
-setGeneric("FIE", function(x) {
-  standardGeneric("FIE")
+setGeneric("doWorkflow", function(y) {
+  standardGeneric("doWorkflow")
 })
