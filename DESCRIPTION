@@ -25,3 +25,4 @@ Collate:
     'workflow.R'
     'doWorkflow-method.R'
     'retryWorkflow.R'
+    'RP_LC_HRMSprofiling.R'

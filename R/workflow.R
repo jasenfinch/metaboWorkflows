@@ -18,14 +18,27 @@
 #' @export
 
 workflow <- function(files,parameters){
-  bin <- new('Binalysis',
-             binLog = character(),
-             binParameters = parameters@processing,
-             files = character(),
-             info = tibble(),
-             binnedData = list(),
-             accurateMZ = tibble()
-  )
+  if (grepl('BinParameters',class(parameters@processing))) {
+    process <- new('Binalysis',
+                   binLog = character(),
+                   binParameters = parameters@processing,
+                   files = character(),
+                   info = tibble(),
+                   binnedData = list(),
+                   accurateMZ = tibble()
+    )
+  }
+  if (grepl('ProfileParameters',class(parameters@processing))) {
+   process <- new('MetaboProfile',
+                  log = character(),
+                  files = character(),
+                  processingParameters = parameters@processing,
+                  Info = tibble(),
+                  Data = list(),
+                  processingResults = list()
+                  ) 
+  }
+  
   analysis <- new('Analysis',
                   log = list(),
                   parameters = parameters@analysis,
@@ -49,7 +62,7 @@ workflow <- function(files,parameters){
             flags = character(),
             files = files,
             workflowParameters = parameters,
-            processed = bin,
+            processed = process,
             analysed = analysis,
             annotated = annotation)
   
