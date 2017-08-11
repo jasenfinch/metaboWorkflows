@@ -20,6 +20,7 @@ r_github_packages:
     - jasenfinch/metabolyseR
     - jasenfinch/mzAnnotation
     - jasenfinch/MFassign
+    - jasenfinch/profilePro
 
 notifications:
     email:
