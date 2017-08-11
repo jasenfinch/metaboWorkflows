@@ -18,7 +18,7 @@ workflowParameters <- function(workflow = NULL){
       
       if (grepl('FIE',workflow)) {
         w <- 'FIE'
-        new('WorkflowParameters',
+        param <- new('WorkflowParameters',
             workflow = workflow,
             processing = binParameters(),
             analysis = analysisParameters(),
@@ -28,7 +28,7 @@ workflowParameters <- function(workflow = NULL){
       
       if (grepl('RP_LC_HRMS',workflow)) {
         w <- 'FIE'
-        new('WorkflowParameters',
+        param <- new('WorkflowParameters',
             workflow = workflow,
             processing = profileParameters('LCMS-RP'),
             analysis = analysisParameters(),
@@ -38,4 +38,5 @@ workflowParameters <- function(workflow = NULL){
       
     }
   }
+  return(param)
 }
