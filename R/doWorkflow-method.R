@@ -19,6 +19,9 @@ setMethod('doWorkflow',signature = 'Workflow',
                 return(y)
               # stop('Failed at workflow element ',i)
               }
+              if (grepl('CheckPoint',i)) {
+                return(y)
+              }
             }
             return(y)
           }

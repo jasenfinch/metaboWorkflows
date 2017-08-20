@@ -31,6 +31,11 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       return(x)
     },
     
+    dataQualityCheckPoint = function(x){
+      cat('\nData pre-treatment complete. Break point for data quality check. Use retryWorkflow() to continue analysis.\n\n') 
+      return(x)
+    },
+    
     classification = function(x){
       p <- analysisParameters('classification')
       p@classification <- x@workflowParameters@analysis@classification
