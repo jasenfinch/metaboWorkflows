@@ -7,5 +7,7 @@ R workflows for metabolomics data
 ## Installation
 
 ``` r
-devtools::install_github('jasenfinch/metaboWorkflows')
+devtools::install_github('jasenfinch/metaboWorkflows',build_vignette = T)
+
+vignette('metaboWorkflows-usage', package = 'metaboWorkflows')
 ```
