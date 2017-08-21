@@ -13,12 +13,12 @@ vignette: >
 
 ## Introduction
 
-Metabolomics analysis encompasses a wide range of techniques that includes both fingerprinting and profiling.
+Metabolomics encompasses a wide range of techniques that includes both fingerprinting and profiling.
 These require the application of a diverse range of proccessing algorithms, pre-treatment strategies and statistical analyses to extract the biological information.
-In turn these can be spread across numerous software packages, each providing targeted at just a small aspect of the metabolomics workflow.
+In turn, these often require numerous software packages, each providing just a small part of the metabolomics workflow.
 However, these can be wrapped together to provide metabolomics analysis pipelines.
 
-The aim of *metaboWorkflows* is to provide a framework for metabolomics analysis piplines that is easy to use routinely, encompassing a wide range of metabolomics techniques.
+The aim of *metaboWorkflows* is to provide a high-level framework for metabolomics analysis piplines that is simple to use for routine analyses, encompassing a wide range of metabolomics techniques.
 *metaboWorkflows* breaks metabolomics analysis into three main sections:
 
 * processing
@@ -34,21 +34,83 @@ For instance annotation could occur prior to certain analysis steps to make the 
 
 This document will first discuss how to use metaboWorkflows followed by more detailed discussion of each of the workflows that are available in the package.
 
-
 ## Basic Usage
 
-* workflowSelection
-* flags
+The [*hrm*](https://github.com/jasenfinch/hrm) package provides utility for easy loading of the packages that can be required whilst using *metaboWorklows*.
+This can be installed by running:
+
+```{r hrm, eval=FALSE}
+devtools::install_github('jasenfinch/hrm')
+```
+
+The packages can then easily be loaded using:
+
+```{r hrmAttach}
+hrm::hrmAttach()
+```
+
+There are three main functions that are used within the *metaboWorkflows* package:
+
+* `workflowParameters` - allows the selection of the workflow to use and returns the relevant default parameters.
+* `workflow` - input files paths and workflow parameters to execute the workflow. 
+* `restartWorkflow` - used to restart a workflow after a check point stopage or failure.
+
+The availble workflows within the package can be found by running:
+```{r availbleWorkflows}
+workflowParameters()
+```
+
+More detailed discussion of each workflow can be found in their respective sections below.
+
+### Sample Information
+
+*metaboWorkflows* requires the of sample information (info) for the experimental run to be processed. 
+This should be in csv format and the recommended column headers include:
+
+* _fileOrder_ - the file order in alphabetical order as returned by `list.files`  
+* _injOrder_ - the injection order of the samples during FIE-HRMS analysis
+* _fileName_ - the sample file name
+* _batch_ - the sample batch
+* _batchBlock_ - the randomised block of the sample
+* _name_ - the sample name
+* _class_ - the sample class
+
+The row orders of the info file should match the order in which the files paths are submitted to the `workflow` function.
+Further columns could be added to this file to denote different class labelling.
 
 ### Parameter Selection
 
+The default parameters for a particular can be retrieved for the `FIE-HRMSfingerprinting` workflow using the following. 
+
 ```{r parameters}
-library(metaboWorkflows)
 parameters <- workflowParameters('FIE_HRMSfingerprinting')
 parameters
 ```
 
+The parameters of a given workflow can be returned and altered for a given workflow section using the following functions:
+
+* `parametersProcessing`
+* `parametersAnalysis`
+* `parametersAnnotatation`
+
+For instance the processing parameters could be returned using:
+
+```{r processingParameters}
+parametersProcessing(parameters)
+```
+
+Then the scan numbers for spectral binning could be altered using:
+
+```{r bin}
+parametersProcessing(parameters) <- binParameters(scans = 5:11)
+parametersProcessing(parameters)
+```
+
 ### Workflow
+
+Executing a workflow is simple using the `workflow` function.
+This requires the input of the paths to the data files and info file as a vector as well as the workflow parameters.
+An example of a suitable vector of file paths is shown below. 
 
 ```{r files}
 files <-  list.files(
@@ -60,20 +122,53 @@ files <-  list.files(
 tail(files)
 ```
 
+The workflow can then be executed using the following.
 
 ```{r workflow, eval=FALSE}
 analysis <- workflow(files,parameters)
 ```
 
+The following functions can be used for extracting the worklow results of the relevant section:
+
+* `resultsParameters`
+* `resultsProcessing`
+* `resultsAnalysis`
+* `resultsAnnotation`
+
+For instance to extract the processing results of a `Workflow` object:
+
+```{r processingResults,eval=FALSE}
+resultsProcessing(analysis)
+```
+
 #### Check Points
+
+Some workflows can include check points where a workflow is intermediately stopped.
+Reasons for this could include a step that requires a manual curation of data quality such as identifying outlier samples that might need removing prior to more compuationaly intensive steps in the analysis.
+After these check points the workflow can easily be restarted from the stop point using the following.
 
 ```{r continueWorkflow, eval=FALSE}
 analysis <- restartWorkflow(analysis)
 ```
 
-```{r workflow, eval=FALSE}
+A checkpoint can be skipped simply by piping the output form the initial `workflow` call directly into `restartWorkflow` as shown below.
+
+```{r completeWorkflow, eval=FALSE}
 analysis <- workflow(files,parameters) %>%
   restartWorkflow()
 ```
 
 #### Failiure
+
+There can often be times were a workflow will fail mid analysis potentially as a result of an unsuitably set parameter.
+The included workflows are broken up into flag points to allow failures to be isolated and data processed from previous protentially time time consuming steps to be returned.
+The point of failure will also be printed to the console if an error occurs.
+This allows the reason of the error to potentially be fixed then the workflow to be restarted from the point of failure using:
+
+```{r restartWorkflow, eval=FALSE}
+analysis <- restartWorkflow(analysis)
+```
+
+## Available Workflows
+
+### FIE_HRMSfingerprinting
