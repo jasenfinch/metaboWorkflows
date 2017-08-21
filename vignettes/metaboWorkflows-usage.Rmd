@@ -1,0 +1,79 @@
+---
+title: "metaboWorkflows"
+author: "Jasen Finch"
+date: "August 2017"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+Metabolomics analysis encompasses a wide range of techniques that includes both fingerprinting and profiling.
+These require the application of a diverse range of proccessing algorithms, pre-treatment strategies and statistical analyses to extract the biological information.
+In turn these can be spread across numerous software packages, each providing targeted at just a small aspect of the metabolomics workflow.
+However, these can be wrapped together to provide metabolomics analysis pipelines.
+
+The aim of *metaboWorkflows* is to provide a framework for metabolomics analysis piplines that is easy to use routinely, encompassing a wide range of metabolomics techniques.
+*metaboWorkflows* breaks metabolomics analysis into three main sections:
+
+* processing
+* analysis
+* annotation
+
+Processing encompasses the signal proccessing aspect where an intensity matix is constructed using algorithms specific to the metabolomics technique. 
+Analysis encompases the statistical analysis aspects where the data is analysed in the context of the biological question. This can include data pre-treatment, classifcation and feature selection steps.
+Annotation can include assignment of molecular formulas or metabolite names to features extracted during processing.
+
+These sections don't necessarily need to occur in that particular order for a given workflow. 
+For instance annotation could occur prior to certain analysis steps to make the results more interpretable in a biological context.
+
+This document will first discuss how to use metaboWorkflows followed by more detailed discussion of each of the workflows that are available in the package.
+
+
+## Basic Usage
+
+* workflowSelection
+* flags
+
+### Parameter Selection
+
+```{r parameters}
+library(metaboWorkflows)
+parameters <- workflowParameters('FIE_HRMSfingerprinting')
+parameters
+```
+
+### Workflow
+
+```{r files}
+files <-  list.files(
+       system.file(
+           'DataSets/FIE-HRMS/BdistachyonEcotypes',
+           package = 'metaboData'),
+       full.names = TRUE)
+
+tail(files)
+```
+
+
+```{r workflow, eval=FALSE}
+analysis <- workflow(files,parameters)
+```
+
+#### Check Points
+
+```{r continueWorkflow, eval=FALSE}
+analysis <- restartWorkflow(analysis)
+```
+
+```{r workflow, eval=FALSE}
+analysis <- workflow(files,parameters) %>%
+  restartWorkflow()
+```
+
+#### Failiure
