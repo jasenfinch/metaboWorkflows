@@ -21,6 +21,10 @@ r_github_packages:
     - jasenfinch/mzAnnotation
     - jasenfinch/MFassign
     - jasenfinch/profilePro
+    - jasenfinch/metaboData
+    - jasenfinch/metaboWorkflows
+    - jasenfinch/metaboVis
+    - jasenfinch/hrm
 
 notifications:
     email:
