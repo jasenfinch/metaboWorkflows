@@ -2,6 +2,7 @@
 #' @rdname parametersProcessing
 #' @description modify or return the processing parameters for a given WorkflowParameters object.
 #' @param parameters an object of class Workflow Parameters 
+#' @param value new parameters value
 #' @export
 
 setMethod('parametersProcessing',signature = 'WorkflowParameters',

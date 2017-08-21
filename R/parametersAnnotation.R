@@ -2,6 +2,7 @@
 #' @rdname parametersAnnotation
 #' @description modify or return the Annotation parameters for a given WorkflowParameters object.
 #' @param parameters an object of class Workflow Parameters 
+#' @param value new parameters value
 #' @export
 
 setMethod('parametersAnnotation',signature = 'WorkflowParameters',

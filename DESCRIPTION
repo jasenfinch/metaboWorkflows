@@ -34,10 +34,12 @@ Collate:
     'results.R'
 Suggests: knitr,
     rmarkdown,
-    hrm
+    hrm,
+    metaboData
 Remote: jasenfinch/binneRlyse
         jasenfinch/metabolyseR
         jasenfinch/MFassign
         jasenfinch/profilePro
         jasenfinch/hrm
+        jasenfinch/metaboData
 VignetteBuilder: knitr

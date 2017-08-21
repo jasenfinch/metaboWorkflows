@@ -2,7 +2,6 @@
 #' @description show method for WorkflowParameters class
 #' @param object S4 object of class WorkflowParameters
 #' @importFrom methods show
-#' @importFrom stringr str_c
 #' @export
 
 setMethod('show',signature = 'WorkflowParameters',
@@ -10,6 +9,13 @@ setMethod('show',signature = 'WorkflowParameters',
             cat('Parameters for Workflow:',object@workflow)
           }
 )
+
+#' show-Workflow
+#' @description show method for Workflows class
+#' @param object S4 object of class Workflow
+#' @importFrom methods show
+#' @importFrom stringr str_c
+#' @export
 
 setMethod('show',signature = 'Workflow',
           function(object){

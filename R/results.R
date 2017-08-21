@@ -1,4 +1,5 @@
 #' resultsParameters
+#' @rdname resultsParameters
 #' @description return parameters from a Workflow object
 #' @param object S4 object of class Workflow
 #' @export
@@ -10,6 +11,7 @@ setMethod('resultsParameters', signature = 'Workflow',
 )
 
 #' resultsProcessing
+#' @rdname resultsProcessing
 #' @description return processing results from a Workflow object
 #' @param object S4 object of class Workflow
 #' @export
@@ -21,6 +23,7 @@ setMethod('resultsProcessing', signature = 'Workflow',
 )
 
 #' resultsAnalysis
+#' @rdname resultsAnalysis
 #' @description return analysis results from a Workflow object
 #' @param object S4 object of class Workflow
 #' @export
@@ -32,6 +35,7 @@ setMethod('resultsAnalysis', signature = 'Workflow',
 )
 
 #' resultsAnnotation
+#' @rdname resultsAnnotation
 #' @description return annotation results from a Workflow object
 #' @param object S4 object of class Workflow
 #' @export

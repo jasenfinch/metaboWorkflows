@@ -2,6 +2,7 @@
 #' @rdname parametersAnalysis
 #' @description modify or return the Analysis parameters for a given WorkflowParameters object.
 #' @param parameters an object of class Workflow Parameters 
+#' @param value new parameters value
 #' @export
 
 setMethod('parametersAnalysis',signature = 'WorkflowParameters',
