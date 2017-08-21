@@ -26,6 +26,9 @@ Collate:
     'doWorkflow-method.R'
     'restartWorkflow.R'
     'RP_LC_HRMSprofiling.R'
+    'parametersProcessing.R'
+    'parametersAnalysis.R'
+    'parametersAnnotation.R'
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

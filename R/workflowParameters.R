@@ -22,7 +22,7 @@ workflowParameters <- function(workflow = NULL){
             workflow = workflow,
             processing = binParameters(),
             analysis = analysisParameters(),
-            annotation = assignmentParameters(w)
+            annotation = new('AssignmentParameters')
         )
       }
       
@@ -35,8 +35,7 @@ workflowParameters <- function(workflow = NULL){
             annotation = assignmentParameters(w)
         )
       }
-      
+      return(param) 
     }
   }
-  return(param)
 }
