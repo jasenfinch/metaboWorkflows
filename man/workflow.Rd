@@ -4,10 +4,12 @@
 \alias{workflow}
 \title{workflow}
 \usage{
-workflow(files, parameters)
+workflow(files, info, parameters)
 }
 \arguments{
-\item{files}{character vector of file paths to raw data and info files}
+\item{files}{list of file paths to raw data}
+
+\item{info}{file path to sample information file}
 
 \item{parameters}{S4 object of class WorkflowParameters containing the workflow parameters.}
 }
@@ -16,12 +18,15 @@ execute workflow based on specified worklow parameters and a file list.
 }
 \examples{
 \dontrun{
-analysis <- workflow(
-   list.files(
+
+files <- list.files(
        system.file(
            'DataSets/FIE-HRMS/BdistachyonEcotypes',
            package = 'metaboData'),
-       full.names = TRUE), 
-       workflowParameters('FIE_HRMSfingerprinting')
-   )}
+       full.names = TRUE)
+info <- files[grepl('runinfo',files)]
+files <- list(files[!grepl('runinfo',files)])
+
+analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
+}
 }

@@ -8,7 +8,7 @@
 #' @export
 
 workflowParameters <- function(workflow = NULL){
-  availWorkflows <- c('FIE_HRMSfingerprinting','FIE_HRMSfingerprinting2','RP_LC_HRMSprofiling')
+  availWorkflows <- c('FIE_HRMSfingerprinting','FIE_HRMSfingerprinting2','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
@@ -26,13 +26,20 @@ workflowParameters <- function(workflow = NULL){
         )
       }
       
-      if (grepl('RP_LC_HRMS',workflow)) {
+      if (grepl('RP_LC_HRMS',workflow) | grepl('NP_LC_HRMS',workflow)) {
         w <- 'FIE'
         ap <- analysisParameters()
         ap <- changeParameter('RSDthresh', 0.25, ap)
+        if (grepl('RP',workflow)) {
+          p <- profileParameters('LCMS-RP')
+        }
+        if (grepl('NP',workflow)) {
+          p <- profileParameters('LCMS-NP')
+        }
+        
         param <- new('WorkflowParameters',
                      workflow = workflow,
-                     processing = profileParameters('LCMS-RP'),
+                     processing = p,
                      analysis = ap,
                      annotation = assignmentParameters(w)
         )

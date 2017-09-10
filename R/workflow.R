@@ -1,28 +1,32 @@
 #' workflow
 #' @description execute workflow based on specified worklow parameters and a file list.
-#' @param files character vector of file paths to raw data and info files
+#' @param files list of file paths to raw data
+#' @param info file path to sample information file
 #' @param parameters S4 object of class WorkflowParameters containing the workflow parameters.
 #' @importFrom magrittr %>%
 #' @importFrom methods new
 #' @importFrom tibble tibble
 #' @examples 
 #' \dontrun{
-#' analysis <- workflow(
-#'    list.files(
+#' 
+#' files <- list.files(
 #'        system.file(
 #'            'DataSets/FIE-HRMS/BdistachyonEcotypes',
 #'            package = 'metaboData'),
-#'        full.names = TRUE), 
-#'        workflowParameters('FIE_HRMSfingerprinting')
-#'    )}
+#'        full.names = TRUE)
+#' info <- files[grepl('runinfo',files)]
+#' files <- list(files[!grepl('runinfo',files)])
+#' 
+#' analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
+#' }
 #' @export
 
-workflow <- function(files,parameters){
+workflow <- function(files,info,parameters){
   if (grepl('BinParameters',class(parameters@processing))) {
     process <- new('Binalysis',
                    binLog = character(),
                    binParameters = parameters@processing,
-                   files = character(),
+                   files = list(),
                    info = tibble(),
                    binnedData = list(),
                    accurateMZ = tibble()
@@ -57,14 +61,10 @@ workflow <- function(files,parameters){
                       assignments  = tibble()
   )
   
-  if (!(is.list(files))) {
-    files <- list(files)
-  }
-  
   wf <- new('Workflow',
             logs = list(),
             flags = character(),
-            files = files,
+            files = list(Files = files,Info = info),
             workflowParameters = parameters,
             processed = process,
             analysed = analysis,

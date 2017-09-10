@@ -33,6 +33,7 @@ Collate:
     'parametersAnnotation.R'
     'show-method.R'
     'results.R'
+    'NP_LC_HRMSprofiling.R'
 Suggests: knitr,
     rmarkdown,
     hrm,
