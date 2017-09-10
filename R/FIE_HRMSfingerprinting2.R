@@ -33,7 +33,7 @@ FIE_HRMSfingerprinting2 <- function(elements = NULL){
     },
     
     dataQualityCheckPoint = function(x){
-      cat('\nData pre-treatment complete. Break point for data quality check. Use retryWorkflow() to continue analysis.\n\n') 
+      cat('\nData pre-treatment complete. Break point for data quality check. Use restartWorkflow() to continue analysis.\n\n') 
       return(x)
     },
     

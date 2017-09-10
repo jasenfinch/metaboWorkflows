@@ -31,7 +31,7 @@ workflow <- function(files,parameters){
   if (grepl('ProfileParameters',class(parameters@processing))) {
    process <- new('MetaboProfile',
                   log = character(),
-                  files = character(),
+                  files = list(),
                   processingParameters = parameters@processing,
                   Info = tibble(),
                   Data = list(),
@@ -56,6 +56,10 @@ workflow <- function(files,parameters){
                       transAssign = list(),
                       assignments  = tibble()
   )
+  
+  if (!(is.list(files))) {
+    files <- list(files)
+  }
   
   wf <- new('Workflow',
             logs = list(),

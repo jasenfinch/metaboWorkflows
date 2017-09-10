@@ -12,7 +12,8 @@ Imports: binneRlyse,
     tibble,
     dplyr,
     profilePro,
-    stringr
+    stringr,
+    purrr
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

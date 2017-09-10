@@ -3,7 +3,7 @@
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
 #' @importFrom binneRlyse binParameters
 #' @importFrom profilePro profileParameters
-#' @importFrom metabolyseR analysisParameters
+#' @importFrom metabolyseR analysisParameters changeParameter
 #' @importFrom MFassign assignmentParameters
 #' @export
 
@@ -19,20 +19,22 @@ workflowParameters <- function(workflow = NULL){
       if (grepl('FIE',workflow)) {
         w <- 'FIE'
         param <- new('WorkflowParameters',
-            workflow = workflow,
-            processing = binParameters(),
-            analysis = analysisParameters(),
-            annotation = new('AssignmentParameters')
+                     workflow = workflow,
+                     processing = binParameters(),
+                     analysis = analysisParameters(),
+                     annotation = new('AssignmentParameters')
         )
       }
       
       if (grepl('RP_LC_HRMS',workflow)) {
         w <- 'FIE'
+        ap <- analysisParameters()
+        ap <- changeParameter('RSDthresh', 0.25, ap)
         param <- new('WorkflowParameters',
-            workflow = workflow,
-            processing = profileParameters('LCMS-RP'),
-            analysis = analysisParameters(),
-            annotation = assignmentParameters(w)
+                     workflow = workflow,
+                     processing = profileParameters('LCMS-RP'),
+                     analysis = ap,
+                     annotation = assignmentParameters(w)
         )
       }
       return(param) 

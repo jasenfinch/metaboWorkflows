@@ -19,7 +19,7 @@ setClass('Workflow',
          slots = list(
            logs = 'list',
            flags = 'character',
-           files = 'character',
+           files = 'list',
            workflowParameters = 'WorkflowParameters',
            processed = 'Processed',
            analysed = 'Analysis',
