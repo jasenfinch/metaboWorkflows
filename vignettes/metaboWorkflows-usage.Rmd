@@ -51,9 +51,9 @@ hrm::hrmAttach()
 
 There are three main functions that are used within the *metaboWorkflows* package:
 
-* `workflowParameters` - allows the selection of the workflow to use and returns the relevant default parameters.
-* `workflow` - input files paths and workflow parameters to execute the workflow. 
-* `restartWorkflow` - used to restart a workflow after a check point stoppage or failure.
+* `workflowParameters()` - allows the selection of the workflow to use and returns the relevant default parameters.
+* `workflow()` - input files paths and workflow parameters to execute the workflow. 
+* `restartWorkflow()` - used to restart a workflow after a check point stoppage or failure.
 
 The available workflows within the package can be found by running:
 ```{r availbleWorkflows}
@@ -69,7 +69,7 @@ More detailed discussion of each individual workflows provided by *metaboWorkflo
 *metaboWorkflows* requires the of sample information (info) for the experimental run to be processed. 
 This should be in csv format and the recommended column headers include:
 
-* _fileOrder_ - the file order in alphabetical order as returned by `list.files`  
+* _fileOrder_ - the file order in alphabetical order as returned by `list.files()`  
 * _injOrder_ - the injection order of the samples during FIE-HRMS analysis
 * _fileName_ - the sample file name
 * _batch_ - the sample batch
@@ -77,12 +77,12 @@ This should be in csv format and the recommended column headers include:
 * _name_ - the sample name
 * _class_ - the sample class
 
-The row orders of the info file should match the order in which the files paths are submitted to the `workflow` function.
+The row orders of the info file should match the order in which the files paths are submitted to the `workflow()` function.
 Further columns could be added to this file to denote different class labelling.
 
 ### Parameter Selection
 
-The default parameters for a particular workflow can be retrieved using the `workflowParameters` function. For instance, the `FIE_HRMSfingerprinting` workflow can be retrieved using the following. 
+The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. For instance, the `FIE_HRMSfingerprinting` workflow can be retrieved using the following. 
 
 ```{r parameters}
 parameters <- workflowParameters('FIE_HRMSfingerprinting')
@@ -91,9 +91,9 @@ parameters
 
 The parameters can altered for a given workflow section using the following functions:
 
-* `parametersProcessing`
-* `parametersAnalysis`
-* `parametersAnnotatation`
+* `parametersProcessing()`
+* `parametersAnalysis()`
+* `parametersAnnotatation()`
 
 For instance the processing parameters could be returned using:
 
@@ -110,32 +110,36 @@ parametersProcessing(parameters)
 
 ### Workflow
 
-Executing a workflow is simple using the `workflow` function.
-This requires the input of the paths to the data files and info file as a vector as well as the workflow parameters.
-An example of a suitable vector of file paths is shown below. 
+Executing a workflow is simple using the `workflow()` function.
+This requires the input of the paths to the data files, info file and the workflow parameters.
+An example of a suitable file and info input paths is shown below. 
 
 ```{r files}
 files <-  list.files(
-       system.file(
-           'DataSets/FIE-HRMS/BdistachyonEcotypes',
-           package = 'metaboData'),
-       full.names = TRUE)
+    system.file(
+        'DataSets/FIE-HRMS/BdistachyonEcotypes',
+        package = 'metaboData'),
+    full.names = TRUE)
 
-tail(files)
+info <- files[grepl('runinfo',files)]
+files <- files[!grepl('runinfo',files)]
+
+head(files)
+info
 ```
 
 The workflow can then be executed using the following.
 
 ```{r workflow, eval=FALSE}
-analysis <- workflow(files,parameters)
+analysis <- workflow(files,info,parameters)
 ```
 
 The following functions can be used for extracting the workflow results of the relevant section:
 
-* `resultsParameters`
-* `resultsProcessing`
-* `resultsAnalysis`
-* `resultsAnnotation`
+* `resultsParameters()`
+* `resultsProcessing()`
+* `resultsAnalysis()`
+* `resultsAnnotation()`
 
 For instance to extract the processing results of a `Workflow` object:
 
@@ -153,7 +157,7 @@ After these check points the workflow can easily be restarted from the stop poin
 analysis <- restartWorkflow(analysis)
 ```
 
-A checkpoint can be skipped simply by piping the output form the initial `workflow` call directly into `restartWorkflow` as shown below.
+A checkpoint can be skipped simply by piping the output form the initial `workflow()` call directly into `restartWorkflow()` as shown below.
 
 ```{r completeWorkflow, eval=FALSE}
 analysis <- workflow(files,parameters) %>%
@@ -170,7 +174,3 @@ This allows the error to potentially be fixed then the workflow to be restarted 
 ```{r restartWorkflow, eval=FALSE}
 analysis <- restartWorkflow(analysis)
 ```
-
-## Available Workflows
-
-### FIE_HRMSfingerprinting
