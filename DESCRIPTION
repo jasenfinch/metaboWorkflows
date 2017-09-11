@@ -34,6 +34,7 @@ Collate:
     'show-method.R'
     'results.R'
     'NP_LC_HRMSprofiling.R'
+    'GC_MSprofilingDeconvolution.R'
 Suggests: knitr,
     rmarkdown,
     hrm,
