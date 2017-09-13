@@ -4,6 +4,7 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
     
     deconvolve = function(x){
       x@processed <- profileProcess(x@files[!(names(x@files) == 'Info')],x@files$Info,x@workflowParameters@processing)
+      return(x)
     },
     
     preTreat = function(x){
@@ -12,7 +13,7 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
       
       modes <- names(x@processed@Data)
       
-      pt <- metabolyse(x@processed@Data[[.]],x@processed@Info,preTreatParameters)
+      pt <- metabolyse(x@processed@Data,x@processed@Info,preTreatParameters)
       
       dat <- pt@preTreated$Data
       info <- pt@preTreated$Info
