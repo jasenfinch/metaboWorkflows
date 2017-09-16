@@ -6,7 +6,7 @@
 FIE_HRMSfingerprinting2 <- function(elements = NULL){
   methods <- list(
     spectralBin = function(x){
-      binnedDat <- binneRlyse(x@files,x@workflowParameters@processing)
+      binnedDat <- binneRlyse(files = unlist(x@files$Files),info = x@files$Info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       return(x)
     },
