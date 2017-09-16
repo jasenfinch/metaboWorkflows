@@ -6,7 +6,7 @@
 RP_LC_HRMSprofiling <- function(elements = NULL){
   methods <- list(
     peakPick = function(x){
-      x@processed <- profileProcess(x@files[!(names(x@files) == 'Info')],x@files$Info,x@workflowParameters@processing)
+      x@processed <- profileProcess(x@files$Files,x@files$Info,x@workflowParameters@processing)
       return(x)
     },
     
