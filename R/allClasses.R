@@ -6,6 +6,7 @@
 setClassUnion('Processed',c('Binalysis','MetaboProfile'))
 setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 
+#' @export
 setClass('WorkflowParameters',
          slots = list(
            workflow = 'character',
@@ -15,6 +16,7 @@ setClass('WorkflowParameters',
          )
 )
 
+#' @export
 setClass('Workflow',
          slots = list(
            logs = 'list',
