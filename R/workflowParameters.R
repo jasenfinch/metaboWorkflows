@@ -16,7 +16,13 @@ workflowParameters <- function(workflow = NULL){
   } else {
     if (workflow %in% availWorkflows) {
       
-      if (grepl('FIE',workflow)) {
+      if (grepl('FIE',workflow) & grepl('2',workflow)) {
+        param <- new('WorkflowParameters',
+                     workflow = workflow,
+                     processing = binParameters(),
+                     analysis = analysisParameters(),
+                     annotation = assignmentParameters('FIE'))
+      } else {
         w <- 'FIE'
         param <- new('WorkflowParameters',
                      workflow = workflow,
