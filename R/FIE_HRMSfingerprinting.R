@@ -1,4 +1,4 @@
-#' @importFrom binneRlyse binneRlyse
+#' @importFrom binneRlyse binneRlyse binnedData
 #' @importFrom metabolyseR analysisParameters metabolyse reAnalyse
 #' @importFrom dplyr bind_cols
 
@@ -22,7 +22,7 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       x@analysed <- new('Analysis',
                         log = list(analysis = date()),
                         parameters = x@workflowParameters@analysis,
-                        rawData = list(),
+                        rawData = list(Data = bind_cols(binnedData(resultsProcessing(x))),Info = info(resultsProcessing(x))),
                         preTreated = list(Data = dat,Info = info),
                         classification = tibble(),
                         featureSelection = tibble(),
