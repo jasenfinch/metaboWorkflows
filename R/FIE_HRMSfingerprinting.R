@@ -1,6 +1,7 @@
 #' @importFrom binneRlyse binneRlyse binnedData
 #' @importFrom metabolyseR analysisParameters metabolyse reAnalyse
 #' @importFrom dplyr bind_cols
+#' @importFrom binneRlyse info
 
 FIE_HRMSfingerprinting <- function(elements = NULL){
   methods <- list(
