@@ -160,7 +160,7 @@ analysis <- restartWorkflow(analysis)
 A checkpoint can be skipped simply by piping the output form the initial `workflow()` call directly into `restartWorkflow()` as shown below.
 
 ```{r completeWorkflow, eval=FALSE}
-analysis <- workflow(files,parameters) %>%
+analysis <- workflow(files,info,parameters) %>%
   restartWorkflow()
 ```
 
