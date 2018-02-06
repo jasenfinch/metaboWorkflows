@@ -9,7 +9,7 @@ workflow(files, info, parameters)
 \arguments{
 \item{files}{list of file paths to raw data}
 
-\item{info}{file path to sample information file}
+\item{info}{tibble containing sample information}
 
 \item{parameters}{S4 object of class WorkflowParameters containing the workflow parameters.}
 }
@@ -24,7 +24,7 @@ files <- list.files(
            'DataSets/FIE-HRMS/BdistachyonEcotypes',
            package = 'metaboData'),
        full.names = TRUE)
-info <- files[grepl('runinfo',files)]
+info <- readr::read_csv(files[grepl('runinfo',files)])
 files <- list(files[!grepl('runinfo',files)])
 
 analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))

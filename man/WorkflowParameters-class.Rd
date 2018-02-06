@@ -19,3 +19,6 @@ An S4 class to store workflow parameters
 \item{\code{annotation}}{AssignmentParameters object containing the annotation parameters}
 }}
 
+\seealso{
+\code{\link[metabolyseR]{AnalysisParameters}} \code{\link[MFassign]{AssignmentParameters}} \code{\link[binneRlyse]{BinParameters}} \code{\link[profilePro]{ProfileParameters}}
+}
