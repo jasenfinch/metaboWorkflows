@@ -3,7 +3,7 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
   methods <- list(
     
     deconvolve = function(x){
-      x@processed <- profileProcess(x@files[!(names(x@files) == 'Info')],x@files$Info,x@workflowParameters@processing)
+      x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
       return(x)
     },
     

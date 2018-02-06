@@ -1,11 +1,12 @@
 #' workflow
 #' @description execute workflow based on specified worklow parameters and a file list.
 #' @param files list of file paths to raw data
-#' @param info file path to sample information file
+#' @param info tibble containing sample information
 #' @param parameters S4 object of class WorkflowParameters containing the workflow parameters.
 #' @importFrom magrittr %>%
 #' @importFrom methods new
 #' @importFrom tibble tibble
+#' @importFrom utils packageVersion
 #' @examples 
 #' \dontrun{
 #' 
@@ -14,7 +15,7 @@
 #'            'DataSets/FIE-HRMS/BdistachyonEcotypes',
 #'            package = 'metaboData'),
 #'        full.names = TRUE)
-#' info <- files[grepl('runinfo',files)]
+#' info <- readr::read_csv(files[grepl('runinfo',files)])
 #' files <- list(files[!grepl('runinfo',files)])
 #' 
 #' analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
@@ -26,7 +27,7 @@ workflow <- function(files,info,parameters){
     process <- new('Binalysis',
                    binLog = character(),
                    binParameters = parameters@processing,
-                   files = list(),
+                   files = character(),
                    info = tibble(),
                    binnedData = list(),
                    accurateMZ = tibble()
@@ -64,11 +65,15 @@ workflow <- function(files,info,parameters){
   wf <- new('Workflow',
             logs = list(),
             flags = character(),
-            files = list(Files = files,Info = info),
+            files = files,
+            info = info,
             workflowParameters = parameters,
             processed = process,
             analysed = analysis,
             annotated = annotation)
+  
+  wf@logs$packageVersion <- packageVersion('metaboWorkflows')
+  wf@logs$initialisation <- date()
   
   wf <- wf %>% doWorkflow()
   return(wf)

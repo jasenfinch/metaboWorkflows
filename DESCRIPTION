@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
@@ -13,7 +13,8 @@ Imports: binneRlyse,
     dplyr,
     profilePro,
     stringr,
-    purrr
+    purrr,
+    crayon
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -38,7 +39,8 @@ Collate:
 Suggests: knitr,
     rmarkdown,
     hrm,
-    metaboData
+    metaboData,
+    readr
 Remote: jasenfinch/binneRlyse
         jasenfinch/metabolyseR
         jasenfinch/MFassign

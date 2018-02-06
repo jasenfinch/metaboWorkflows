@@ -16,6 +16,8 @@ An S4 class to store workflow results
 
 \item{\code{files}}{list file names to process}
 
+\item{\code{info}}{tibble containing sample information}
+
 \item{\code{workflowParameters}}{WorkflowParameters object containing parameters used}
 
 \item{\code{processed}}{Processed object containing processing results}

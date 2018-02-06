@@ -10,7 +10,8 @@ setMethod('doWorkflow',signature = 'Workflow',
               flag <- 'fail'
               try({
                 y <- method(y)
-                y@logs <- list(date())
+                y@logs <- c(y@logs,list(date()))
+                names(y@logs)[length(y@logs)] <- i
                 y@flags <- c(y@flags,i)
                 flag <- 'success'
               })
