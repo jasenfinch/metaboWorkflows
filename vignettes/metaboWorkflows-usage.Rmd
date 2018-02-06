@@ -52,7 +52,7 @@ hrm::hrmAttach()
 There are three main functions that are used within the *metaboWorkflows* package:
 
 * `workflowParameters()` - allows the selection of the workflow to use and returns the relevant default parameters.
-* `workflow()` - input files paths and workflow parameters to execute the workflow. 
+* `workflow()` - input files paths, sample information and workflow parameters to execute the workflow. 
 * `restartWorkflow()` - used to restart a workflow after a check point stoppage or failure.
 
 The available workflows within the package can be found by running:
@@ -67,7 +67,7 @@ More detailed discussion of each individual workflows provided by *metaboWorkflo
 ### Sample Information
 
 *metaboWorkflows* requires the of sample information (info) for the experimental run to be processed. 
-This should be in csv format and the recommended column headers include:
+This should be a tibble with the recommended column headers that include:
 
 * _fileOrder_ - the file order in alphabetical order as returned by `list.files()`  
 * _injOrder_ - the injection order of the samples during FIE-HRMS analysis
@@ -77,8 +77,8 @@ This should be in csv format and the recommended column headers include:
 * _name_ - the sample name
 * _class_ - the sample class
 
-The row orders of the info file should match the order in which the files paths are submitted to the `workflow()` function.
-Further columns could be added to this file to denote different class labelling.
+The row orders of the info table should match the order in which the files paths are submitted to the `workflow()` function.
+Further columns can be added to this file to denote different class labelling.
 
 ### Parameter Selection
 
@@ -121,7 +121,7 @@ files <-  list.files(
         package = 'metaboData'),
     full.names = TRUE)
 
-info <- files[grepl('runinfo',files)]
+info <- readr::read_csv(files[grepl('runinfo',files)])
 files <- files[!grepl('runinfo',files)]
 
 head(files)

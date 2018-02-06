@@ -6,6 +6,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom methods new
 #' @importFrom tibble tibble
+#' @importFrom utils packageVersion
 #' @examples 
 #' \dontrun{
 #' 

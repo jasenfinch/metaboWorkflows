@@ -12,7 +12,7 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 #' @slot processing Processing object containing processing parameters for the specified workflow
 #' @slot analysis AnalysisParameters object containing the analysis parameters
 #' @slot annotation AssignmentParameters object containing the annotation parameters
-#' @seealso \code{\link[metabolyseR]{AnalysisParameters}} \code{\link[MFassign]{AssignmentParameters}} \code{\link[binneRlyse]{BinParameters}} \code{\link[profilePro]{ProfileParameters}}
+#' @seealso \code{\link[metabolyseR]{AnalysisParameters-class}} \code{\link[MFassign]{AssignmentParameters-class}} \code{\link[binneRlyse]{BinParameters-class}} \code{\link[profilePro]{ProfileParameters-class}}
 #' @export
 setClass('WorkflowParameters',
          slots = list(
@@ -28,6 +28,7 @@ setClass('WorkflowParameters',
 #' @slot logs list containing workflow dates and times
 #' @slot flags character containing workflow sections completed
 #' @slot files list file names to process
+#' @slot info tibble containing sample information
 #' @slot workflowParameters WorkflowParameters object containing parameters used 
 #' @slot processed Processed object containing processing results
 #' @slot analysed Analysis object containing analysis results
