@@ -14,7 +14,12 @@ apt_packages:
  - udunits-bin
  - libudunits2-dev
  - netcdf-bin
- 
+
+r_packages:
+ - rlang
+ - digest
+ - devtools
+
 bioc_packages:
     - mzR
 
