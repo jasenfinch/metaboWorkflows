@@ -19,6 +19,7 @@ r_packages:
  - rlang
  - digest
  - devtools
+ - ncdf4
 
 bioc_packages:
     - mzR
