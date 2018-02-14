@@ -19,7 +19,7 @@ r_packages:
  - rlang
  - digest
  - devtools
- - ncdf4
+ - shiny
 
 bioc_packages:
     - mzR
@@ -33,7 +33,6 @@ r_github_packages:
     - jasenfinch/MFassign
     - jasenfinch/profilePro
     - jasenfinch/metaboData
-    - jasenfinch/metaboWorkflows
     - jasenfinch/metaboVis
     - jasenfinch/hrm
     - jasenfinch/metaboReports
