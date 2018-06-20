@@ -45,8 +45,13 @@ devtools::install_github('jasenfinch/hrm')
 
 The packages can then easily be loaded using:
 
-```{r hrmAttach}
+```{r hrmAttach,eval=FALSE}
 hrm::hrmAttach()
+```
+
+```{r libraryLoad,include=FALSE}
+library(metaboWorkflows)
+library(binneRlyse)
 ```
 
 There are three main functions that are used within the *metaboWorkflows* package:
