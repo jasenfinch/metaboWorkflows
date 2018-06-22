@@ -20,13 +20,15 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
-      neg <- metabolyse(x@processed@binnedData$n,x@processed@info,preTreatParameters)
-      pos <- metabolyse(x@processed@binnedData$p,x@processed@info,preTreatParameters)
+      neg <- metabolyse(x@processed@binnedData$n,x@processed@info,preTreatParameters,verbose = F)
+      pos <- metabolyse(x@processed@binnedData$p,x@processed@info,preTreatParameters,verbose = F)
       
       dat <- bind_cols(neg@preTreated$Data,pos@preTreated$Data)
       info <- neg@preTreated$Info
+      version <- packageVersion('metabolyseR')
+      analysisStart <- date()
       x@analysed <- new('Analysis',
-                        log = list(analysis = date()),
+                        log = list(packageVersion = version,analysis = analysisStart,verbose = F),
                         parameters = x@workflowParameters@analysis,
                         rawData = list(Data = bind_cols(binnedData(resultsProcessing(x))),Info = info(resultsProcessing(x))),
                         preTreated = list(Data = dat,Info = info),
