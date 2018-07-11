@@ -18,13 +18,15 @@ execute workflow based on specified worklow parameters and a file list.
 }
 \examples{
 \dontrun{
-
+library(magrittr)
 files <- list.files(
        system.file(
            'DataSets/FIE-HRMS/BdistachyonEcotypes',
            package = 'metaboData'),
        full.names = TRUE)
-info <- readr::read_csv(files[grepl('runinfo',files)])
+info <- readr::read_csv(files[grepl('runinfo',files)]) \%>\%
+       arrange(fileName) \%>\% 
+       mutate(fileOrder = 1:nrow(.))
 files <- list(files[!grepl('runinfo',files)])
 
 analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
