@@ -1,4 +1,3 @@
-#' @importFrom binneRlyse binneRlyse
 #' @importFrom metabolyseR analysisParameters metabolyse
 #' @importFrom MFassign assignMFs
 #' @importFrom dplyr left_join
