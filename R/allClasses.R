@@ -1,4 +1,4 @@
-#' @importClassesFrom binneRlyse BinParameters Binalysis
+#' @importClassesFrom binneR BinParameters Binalysis
 #' @importClassesFrom metabolyseR AnalysisParameters Analysis
 #' @importClassesFrom MFassign AssignmentParameters Assignment
 #' @importClassesFrom profilePro ProfileParameters MetaboProfile 
