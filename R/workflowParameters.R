@@ -1,7 +1,7 @@
 #' workflowParameters
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
-#' @importFrom binneRlyse binParameters
+#' @importFrom binneR binParameters
 #' @importFrom profilePro profileParameters
 #' @importFrom metabolyseR analysisParameters changeParameter
 #' @importFrom MFassign assignmentParameters

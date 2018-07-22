@@ -51,7 +51,7 @@ hrm::hrmAttach()
 
 ```{r libraryLoad,include=FALSE}
 library(metaboWorkflows)
-library(binneRlyse)
+library(binneR)
 ```
 
 There are three main functions that are used within the *metaboWorkflows* package:

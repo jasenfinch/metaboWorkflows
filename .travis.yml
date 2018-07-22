@@ -27,7 +27,6 @@ bioc_packages:
 
 r_github_packages:
     - jasenfinch/binneR
-    - jasenfinch/binneRlyse
     - wilsontom/FIEmspro
     - jasenfinch/metabolyseR
     - jasenfinch/mzAnnotation
