@@ -28,5 +28,5 @@ An S4 class to store workflow results
 }}
 
 \seealso{
-\code{\link[metabolyseR]{Analysis-class}} \code{\link[MFassign]{Assignment-class}} \code{\link[binneRlyse]{Binalysis-class}} \code{\link[profilePro]{MetaboProfile-class}}
+\code{\link[metabolyseR]{Analysis-class}} \code{\link[MFassign]{Assignment-class}} \code{\link[binneR]{Binalysis-class}} \code{\link[profilePro]{MetaboProfile-class}}
 }

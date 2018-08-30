@@ -75,3 +75,31 @@ RP_LC_HRMSprofiling <- function(elements = NULL){
   
   return(methods)
 }
+
+RP_LC_HRMSprofiling2 <- function(elements = NULL){
+  methods <- list(
+    peakPick = RP_LC_HRMSprofiling('peakPick'),
+    
+    preTreat = RP_LC_HRMSprofiling('preTreat'),
+    
+    dataQualityCheckPoint = RP_LC_HRMSprofiling('dataQualityCheckPoint'),
+    
+    correlations1 =  RP_LC_HRMSprofiling('correlations'),
+    
+    annotation = FIE_HRMSfingerprinting2('annotation'),
+    
+    MFassignmentCheckPoint = FIE_HRMSfingerprinting2('MFassignmentCheckPoint'),
+    
+    classification = RP_LC_HRMSprofiling('classification'),
+    
+    featureSelection = RP_LC_HRMSprofiling('featureSelection'),
+    
+    correlations = RP_LC_HRMSprofiling('correlations')
+  )
+  
+  if (!is.null(elements)) {
+    methods <- methods[[elements]]
+  }
+  
+  return(methods)
+}
