@@ -14,7 +14,5 @@ resultsAnalysis(object)
 \item{object}{S4 object of class Workflow}
 }
 \description{
-@rdname resultsAnalysis
-
 return analysis results from a Workflow object
 }

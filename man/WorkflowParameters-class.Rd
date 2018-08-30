@@ -20,5 +20,5 @@ An S4 class to store workflow parameters
 }}
 
 \seealso{
-\code{\link[metabolyseR]{AnalysisParameters-class}} \code{\link[MFassign]{AssignmentParameters-class}} \code{\link[binneRlyse]{BinParameters-class}} \code{\link[profilePro]{ProfileParameters-class}}
+\code{\link[metabolyseR]{AnalysisParameters-class}} \code{\link[MFassign]{AssignmentParameters-class}} \code{\link[binneR]{BinParameters-class}} \code{\link[profilePro]{ProfileParameters-class}}
 }

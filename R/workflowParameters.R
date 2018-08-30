@@ -43,11 +43,18 @@ workflowParameters <- function(workflow = NULL){
           p <- profileParameters('LCMS-NP')
         }
         
+        if (grepl('RP_LC_HRMS',workflow)) {
+          m <- 'RP-LC'
+        }
+        if (grepl('NP_LC_HRMS',workflow)) {
+          m <- 'NP-LC'
+        }
+        
         param <- new('WorkflowParameters',
                      workflow = workflow,
                      processing = p,
                      analysis = ap,
-                     annotation = assignmentParameters(w)
+                     annotation = assignmentParameters(m)
         )
       }
       
