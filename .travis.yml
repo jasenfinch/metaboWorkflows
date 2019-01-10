@@ -26,8 +26,6 @@ r_github_packages:
     - jasenfinch/MFassign
     - jasenfinch/profilePro
     - jasenfinch/metaboData
-    - jasenfinch/metaboVis
-    - jasenfinch/metaboReports
 
 notifications:
     email:
