@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
@@ -39,13 +39,11 @@ Collate:
     'GC_MSprofilingDeconvolution.R'
 Suggests: knitr,
     rmarkdown,
-    hrm,
     metaboData,
     readr
 Remote: jasenfinch/binneR
         jasenfinch/metabolyseR
         jasenfinch/MFassign
         jasenfinch/profilePro
-        jasenfinch/hrm
         jasenfinch/metaboData
 VignetteBuilder: knitr

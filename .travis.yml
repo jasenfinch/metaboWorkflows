@@ -27,7 +27,6 @@ r_github_packages:
     - jasenfinch/profilePro
     - jasenfinch/metaboData
     - jasenfinch/metaboVis
-    - jasenfinch/hrm
     - jasenfinch/metaboReports
 
 notifications:
