@@ -16,17 +16,10 @@ apt_packages:
  - netcdf-bin
  - libopenbabel-dev
 
-r_packages:
- - rlang
- - digest
- - devtools
- - shiny
-
 bioc_packages:
     - mzR
 
 r_github_packages:
-    - jasenfinch/binneR
     - wilsontom/FIEmspro
     - jasenfinch/metabolyseR
     - jasenfinch/mzAnnotation
