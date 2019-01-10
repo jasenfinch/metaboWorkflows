@@ -14,7 +14,5 @@ resultsAnnotation(object)
 \item{object}{S4 object of class Workflow}
 }
 \description{
-@rdname resultsAnnotation
-
 return annotation results from a Workflow object
 }

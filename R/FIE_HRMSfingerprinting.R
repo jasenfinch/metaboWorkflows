@@ -1,7 +1,6 @@
-#' @importFrom binneRlyse binneRlyse binnedData
+#' @importFrom binneR binneRlyse binnedData info
 #' @importFrom metabolyseR analysisParameters metabolyse reAnalyse
 #' @importFrom dplyr bind_cols
-#' @importFrom binneRlyse info
 #' @importFrom cli symbol
 #' @importFrom crayon green
 
