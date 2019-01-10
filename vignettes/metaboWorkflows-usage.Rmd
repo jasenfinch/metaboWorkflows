@@ -169,7 +169,7 @@ analysis <- workflow(files,info,parameters) %>%
   restartWorkflow()
 ```
 
-#### Failiure
+#### Failure
 
 There are likely to be times where a workflow will fail mid-analysis, potentially as a result of an unsuitably set parameter.
 The included workflows are broken up into flag points to allow failures to be isolated and data processed from previous, potentially time consuming steps, to be returned.
