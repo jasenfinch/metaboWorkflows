@@ -20,12 +20,11 @@ bioc_packages:
     - mzR
 
 r_github_packages:
-    - wilsontom/FIEmspro
+    - thomasp85/patchwork
     - jasenfinch/metabolyseR
     - jasenfinch/mzAnnotation
     - jasenfinch/MFassign
     - jasenfinch/profilePro
-    - jasenfinch/metaboData
 
 notifications:
     email:
