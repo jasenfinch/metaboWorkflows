@@ -47,3 +47,4 @@ Remote: jasenfinch/binneR
         jasenfinch/profilePro
         jasenfinch/metaboData
 VignetteBuilder: knitr
+Additional_repositories: https://aberhrml.github.io/drat/
