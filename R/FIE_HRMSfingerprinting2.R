@@ -44,7 +44,7 @@ FIE_HRMSfingerprinting2 <- function(elements = NULL){
       cat('\nCorrelations',cli::symbol$continue,'\r')
       p <- analysisParameters('correlations')
       p@correlations <- x@workflowParameters@analysis@correlations
-      x@analysed <- reAnalyse(x@analysed,p) 
+      x@analysed <- reAnalyse(x@analysed,p,verbose = T) 
       x@analysed@parameters <- x@workflowParameters@analysis
       cat('\rCorrelations',green(cli::symbol$tick),'\n')
       return(x)
