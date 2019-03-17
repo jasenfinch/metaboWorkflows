@@ -4,51 +4,13 @@
 
 FIE_HRMSfingerprinting2 <- function(elements = NULL){
   methods <- list(
-    spectralBin = function(x){
-      cat('\nSpectral binning',cli::symbol$continue,'\r')
-      binnedDat <- binneRlyse(files = unlist(x@files),info = x@info,parameters = x@workflowParameters@processing)
-      x@processed <- binnedDat
-      cat('\rSpectral binning',green(cli::symbol$tick),'\n')
-      return(x)
-    },
+    spectralBin = FIE_HRMSfingerprinting('spectralBin'),
     
-    preTreat = function(x){
-      cat('\nPre-treatment',cli::symbol$continue,'\r')
-      preTreatParameters <- analysisParameters('preTreat')
-      preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
-      
-      neg <- metabolyse(x@processed@binnedData$n,x@processed@info,preTreatParameters)
-      pos <- metabolyse(x@processed@binnedData$p,x@processed@info,preTreatParameters)
-      
-      dat <- bind_cols(neg@preTreated$Data,pos@preTreated$Data)
-      info <- neg@preTreated$Info
-      x@analysed <- new('Analysis',
-                        log = list(analysis = date()),
-                        parameters = x@workflowParameters@analysis,
-                        rawData = list(),
-                        preTreated = list(Data = dat,Info = info),
-                        classification = tibble(),
-                        featureSelection = tibble(),
-                        correlations = tibble()
-      )
-      cat('\rPre-treatment',green(cli::symbol$tick),'\n')
-      return(x)
-    },
+    preTreat = FIE_HRMSfingerprinting('preTreat'),
     
-    dataQualityCheckPoint = function(x){
-      cat(blue('\nBreak point for data quality check. Use restartWorkflow() to continue analysis.\n') )
-      return(x)
-    },
+    dataQualityCheckPoint = FIE_HRMSfingerprinting('dataQualityCheckPoint'),
     
-    correlations1 = function(x){
-      cat('\nCorrelations',cli::symbol$continue,'\r')
-      p <- analysisParameters('correlations')
-      p@correlations <- x@workflowParameters@analysis@correlations
-      x@analysed <- reAnalyse(x@analysed,p,verbose = T) 
-      x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rCorrelations',green(cli::symbol$tick),'\n')
-      return(x)
-    },
+    correlations1 = FIE_HRMSfingerprinting('correlations'),
     
     annotation = function(x){
       cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
@@ -78,35 +40,11 @@ FIE_HRMSfingerprinting2 <- function(elements = NULL){
       return(x)
     },
     
-    classification = function(x){
-      cat('\nClassification',cli::symbol$continue,'\r')
-      p <- analysisParameters('classification')
-      p@classification <- x@workflowParameters@analysis@classification
-      x@analysed <- reAnalyse(x@analysed,p) 
-      x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rClassification',green(cli::symbol$tick),'\n')
-      return(x)
-    },
+    classification = FIE_HRMSfingerprinting('classification'),
     
-    featureSelection = function(x){
-      cat('\nFeature selection',cli::symbol$continue,'\r')
-      p <- analysisParameters('featureSelection')
-      p@featureSelection <- x@workflowParameters@analysis@featureSelection
-      x@analysed <- reAnalyse(x@analysed,p) 
-      x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rFeature selection',green(cli::symbol$tick),'\n')
-      return(x)
-    },
+    featureSelection = FIE_HRMSfingerprinting('featureSelection'),
     
-    correlations2 = function(x){
-      cat('\nCorrelations',cli::symbol$continue,'\r')
-      p <- analysisParameters('correlations')
-      p@correlations <- x@workflowParameters@analysis@correlations
-      x@analysed <- reAnalyse(x@analysed,p) 
-      x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rCorrelations',green(cli::symbol$tick),'\n')
-      return(x)
-    }
+    correlations2 = FIE_HRMSfingerprinting('correlations')
   )
   
   if (!is.null(elements)) {

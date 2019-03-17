@@ -9,17 +9,14 @@
 #' @importFrom utils packageVersion
 #' @examples 
 #' \dontrun{
-#' library(magrittr)
-#' files <- list.files(
-#'        system.file(
-#'            'DataSets/FIE-HRMS/BdistachyonEcotypes',
-#'            package = 'metaboData'),
-#'        full.names = TRUE)
-#' info <- readr::read_csv(files[grepl('runinfo',files)]) %>%
-#'        dplyr::arrange(fileName) %>% 
-#'        dplyr::mutate(fileOrder = 1:nrow(.))
-#' files <- list(files[!grepl('runinfo',files)])
+#' library(metaboData)
 #' 
+#' files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
+#' info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+#' 
+#' wp <- workflowParameters('FIE_HRMSfingerprinting2')
+#' wp@processing@scans <- detectInfusionScans(files)
+#'
 #' analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
 #' }
 #' @export
