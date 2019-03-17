@@ -27,7 +27,7 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       version <- packageVersion('metabolyseR')
       analysisStart <- date()
       x@analysed <- new('Analysis',
-                        log = list(packageVersion = version,analysis = analysisStart,verbose = F),
+                        log = list(packageVersion = version,analysis = analysisStart,verbose = T),
                         parameters = x@workflowParameters@analysis,
                         rawData = list(Data = bind_cols(binnedData(resultsProcessing(x))),Info = info(resultsProcessing(x))),
                         preTreated = list(Data = dat,Info = info),
