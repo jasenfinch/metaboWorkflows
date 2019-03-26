@@ -34,7 +34,7 @@ workflow <- function(files,info,parameters){
   }
   if (grepl('ProfileParameters',class(parameters@processing))) {
    process <- new('MetaboProfile',
-                  log = character(),
+                  log = list(),
                   files = list(),
                   processingParameters = parameters@processing,
                   Info = tibble(),
