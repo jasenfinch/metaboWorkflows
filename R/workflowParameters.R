@@ -8,7 +8,7 @@
 #' @export
 
 workflowParameters <- function(workflow = NULL){
-  availWorkflows <- c('FIE_HRMSfingerprinting','FIE_HRMSfingerprinting2','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling','GC_MSprofilingDeconvolution')
+  availWorkflows <- c('FIE_HRMSfingerprinting','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling','GC_MSprofilingDeconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')

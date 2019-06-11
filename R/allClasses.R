@@ -39,7 +39,7 @@ setClass('Workflow',
          slots = list(
            logs = 'list',
            flags = 'character',
-           files = 'list',
+           files = 'character',
            info = 'tbl_df',
            workflowParameters = 'WorkflowParameters',
            processed = 'Processed',

@@ -8,7 +8,7 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
   methods <- list(
     spectralBin = function(x){
       cat('\nSpectral binning',cli::symbol$continue,'\r')
-      binnedDat <- binneRlyse(files = unlist(x@files),info = x@info,parameters = x@workflowParameters@processing)
+      binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       cat('\rSpectral binning',green(cli::symbol$tick),'\n')
       return(x)
@@ -41,6 +41,44 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
     
     dataQualityCheckPoint = function(x){
       cat(blue('\nBreak point for data quality check. Use restartWorkflow() to continue analysis.\n') )
+      return(x)
+    },
+    
+    correlations1 = function(x){
+      cat('\nCorrelations',cli::symbol$continue,'\r')
+      p <- analysisParameters('correlations')
+      p@correlations <- x@workflowParameters@analysis@correlations
+      x@analysed <- reAnalyse(x@analysed,p) 
+      x@analysed@parameters <- x@workflowParameters@analysis
+      cat('\rCorrelations',green(cli::symbol$tick),'\n')
+      return(x)
+    },
+    
+    annotation = function(x){
+      cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
+      x@annotated <- assignMFs(x@analysed@correlations,x@workflowParameters@annotation)
+      
+      assignedFeats <- paste(x@annotated@assignments$Mode,x@annotated@assignments$`Measured m/z`,sep = '')
+      isoNames <- x@annotated@assignments$Isotope 
+      isoNames[is.na(isoNames)] <- ''
+      assignNames <-  paste(paste(x@annotated@assignments$Mode,
+                                  x@annotated@assignments$`Measured m/z`,sep = ''),
+                            x@annotated@assignments$MF,
+                            isoNames,
+                            x@annotated@assignments$Adduct,
+                            sep = ' ')
+      assignedFeats <- tibble(Feature = assignedFeats, Name = assignNames)
+      
+      assignedFeats <- left_join(tibble(Feature = colnames(x@analysed@preTreated$Data)),assignedFeats)
+      assignedFeats$Name[which(is.na(assignedFeats$Name))] <- assignedFeats$Feature[which(is.na(assignedFeats$Name))] 
+      
+      colnames(x@analysed@preTreated$Data) <- assignedFeats$Name 
+      cat('\rMolecular formula assignment',green(cli::symbol$tick),'\n')
+      return(x)
+    },
+    
+    MFassignmentCheckPoint = function(x){
+      cat(blue('\nBreak point to check MF assignments. Use restartWorkflow() to continue analysis.\n') )
       return(x)
     },
     
