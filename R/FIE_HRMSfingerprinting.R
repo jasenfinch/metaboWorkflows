@@ -3,6 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
+#' @importFrom metaboMisc addAssignments preTreatModes
 
 FIE_HRMSfingerprinting <- function(elements = NULL){
   methods <- list(
@@ -19,22 +20,8 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
-      neg <- metabolyse(x@processed@binnedData$n,x@processed@info,preTreatParameters,verbose = F)
-      pos <- metabolyse(x@processed@binnedData$p,x@processed@info,preTreatParameters,verbose = F)
+      x@analysed <- preTreatModes(x@processed,x@workflowParameters@analysis)
       
-      dat <- bind_cols(neg@preTreated$Data,pos@preTreated$Data)
-      info <- neg@preTreated$Info
-      version <- packageVersion('metabolyseR')
-      analysisStart <- date()
-      x@analysed <- new('Analysis',
-                        log = list(packageVersion = version,analysis = analysisStart,verbose = T),
-                        parameters = x@workflowParameters@analysis,
-                        rawData = list(Data = bind_cols(binnedData(resultsProcessing(x))),Info = info(resultsProcessing(x))),
-                        preTreated = list(Data = dat,Info = info),
-                        classification = tibble(),
-                        featureSelection = tibble(),
-                        correlations = tibble()
-      )
       cat('\rPre-treatment',green(cli::symbol$tick),'\n')
       return(x)
     },
@@ -44,35 +31,18 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       return(x)
     },
     
-    correlations1 = function(x){
-      cat('\nCorrelations',cli::symbol$continue,'\r')
+    MFassignment = function(x){
+      cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
+      
       p <- analysisParameters('correlations')
       p@correlations <- x@workflowParameters@analysis@correlations
       x@analysed <- reAnalyse(x@analysed,p) 
       x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rCorrelations',green(cli::symbol$tick),'\n')
-      return(x)
-    },
-    
-    annotation = function(x){
-      cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
+      
       x@annotated <- assignMFs(x@analysed@correlations,x@workflowParameters@annotation)
       
-      assignedFeats <- paste(x@annotated@assignments$Mode,x@annotated@assignments$`Measured m/z`,sep = '')
-      isoNames <- x@annotated@assignments$Isotope 
-      isoNames[is.na(isoNames)] <- ''
-      assignNames <-  paste(paste(x@annotated@assignments$Mode,
-                                  x@annotated@assignments$`Measured m/z`,sep = ''),
-                            x@annotated@assignments$MF,
-                            isoNames,
-                            x@annotated@assignments$Adduct,
-                            sep = ' ')
-      assignedFeats <- tibble(Feature = assignedFeats, Name = assignNames)
+      x@analysed <- addAssignments(x@analysed,x@annotated)
       
-      assignedFeats <- left_join(tibble(Feature = colnames(x@analysed@preTreated$Data)),assignedFeats)
-      assignedFeats$Name[which(is.na(assignedFeats$Name))] <- assignedFeats$Feature[which(is.na(assignedFeats$Name))] 
-      
-      colnames(x@analysed@preTreated$Data) <- assignedFeats$Name 
       cat('\rMolecular formula assignment',green(cli::symbol$tick),'\n')
       return(x)
     },

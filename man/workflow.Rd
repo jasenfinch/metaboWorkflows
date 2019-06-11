@@ -19,13 +19,13 @@ execute workflow based on specified worklow parameters and a file list.
 \examples{
 \dontrun{
 library(metaboData)
+library(binneR)
 
 files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-wp <- workflowParameters('FIE_HRMSfingerprinting2')
+wp <- workflowParameters('FIE_HRMSfingerprinting')
 wp@processing@scans <- detectInfusionScans(files)
-
-analysis <- workflow(files, info, workflowParameters('FIE_HRMSfingerprinting'))
+analysis <- workflow(files, info, wp)
 }
 }

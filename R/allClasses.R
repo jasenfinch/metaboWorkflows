@@ -17,6 +17,7 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 setClass('WorkflowParameters',
          slots = list(
            workflow = 'character',
+           flags = 'character',
            processing = 'Processing',
            analysis = 'AnalysisParameters',
            annotation = 'AssignmentParameters'

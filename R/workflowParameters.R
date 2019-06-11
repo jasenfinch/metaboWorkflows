@@ -16,20 +16,13 @@ workflowParameters <- function(workflow = NULL){
   } else {
     if (workflow %in% availWorkflows) {
       
-      if (grepl('FIE',workflow) & grepl('2',workflow)) {
+      if (grepl('FIE',workflow)) {
         param <- new('WorkflowParameters',
                      workflow = workflow,
+                     flags = workflowFlags(workflow),
                      processing = binParameters(),
                      analysis = analysisParameters(),
                      annotation = assignmentParameters('FIE'))
-      } else {
-        w <- 'FIE'
-        param <- new('WorkflowParameters',
-                     workflow = workflow,
-                     processing = binParameters(),
-                     analysis = analysisParameters(),
-                     annotation = new('AssignmentParameters')
-        )
       }
       
       if (grepl('RP_LC_HRMS',workflow) | grepl('NP_LC_HRMS',workflow)) {
@@ -52,6 +45,7 @@ workflowParameters <- function(workflow = NULL){
         
         param <- new('WorkflowParameters',
                      workflow = workflow,
+                     flags = workflowFlags(workflow),
                      processing = p,
                      analysis = ap,
                      annotation = assignmentParameters(m)
@@ -61,11 +55,12 @@ workflowParameters <- function(workflow = NULL){
       if (grepl('GC_MSprofilingDeconvolution',workflow)) {
         w <- 'FIE'
         ap <- analysisParameters()
-        ap <- changeParameter('RSDthresh', 0.25, ap)
+        ap <- changeParameter('RSDthresh', 0.30, ap)
         p <- profileParameters('GCMS-eRah')
         
         param <- new('WorkflowParameters',
                      workflow = workflow,
+                     flags = workflowFlags(workflow),
                      processing = p,
                      analysis = ap,
                      annotation = assignmentParameters(w)

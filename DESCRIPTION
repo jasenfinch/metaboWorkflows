@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.3.4
+Version: 0.4.0
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 Depends: R (>= 3.4.0)
@@ -15,7 +15,8 @@ Imports: binneR,
     stringr,
     purrr,
     crayon,
-    cli
+    cli,
+    metaboMisc
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -25,7 +26,6 @@ Collate:
     'allClasses.R'
     'workflowParameters.R'
     'FIE_HRMSfingerprinting.R'
-    'FIE_HRMSfingerprinting2.R'
     'workflow.R'
     'doWorkflow-method.R'
     'restartWorkflow.R'
@@ -37,10 +37,12 @@ Collate:
     'results.R'
     'NP_LC_HRMSprofiling.R'
     'GC_MSprofilingDeconvolution.R'
+    'flags.R'
 Suggests: knitr,
     rmarkdown,
     metaboData,
-    readr
+    readr,
+    prettydoc
 Remote: jasenfinch/binneR
         jasenfinch/metabolyseR
         jasenfinch/MFassign
