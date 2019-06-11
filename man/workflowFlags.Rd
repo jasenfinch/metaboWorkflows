@@ -13,5 +13,5 @@ workflowFlags(w)
 Return possible flags for a given workflow.
 }
 \examples{
-workFlowFlags('FIE_HRMSfingerprinting')
+workflowFlags('FIE_HRMSfingerprinting')
 }

@@ -12,6 +12,8 @@ An S4 class to store workflow parameters
 \describe{
 \item{\code{workflow}}{character containing the workflow to use}
 
+\item{\code{flags}}{character vector containing the workflow elements to analyse}
+
 \item{\code{processing}}{Processing object containing processing parameters for the specified workflow}
 
 \item{\code{analysis}}{AnalysisParameters object containing the analysis parameters}

@@ -4,6 +4,7 @@
 #' @importFrom cli symbol
 #' @importFrom crayon green
 #' @importFrom metaboMisc addAssignments preTreatModes
+#' @importFrom MFassign assignMFs
 
 FIE_HRMSfingerprinting <- function(elements = NULL){
   methods <- list(

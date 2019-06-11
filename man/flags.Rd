@@ -15,6 +15,8 @@ flags(x) <- value
 }
 \arguments{
 \item{x}{S4 object of class WorkflowParameters}
+
+\item{value}{new flags}
 }
 \description{
 methods for setting and returning workflow flags

@@ -38,6 +38,7 @@ Collate:
     'NP_LC_HRMSprofiling.R'
     'GC_MSprofilingDeconvolution.R'
     'flags.R'
+    'metaboWorkflows.R'
 Suggests: knitr,
     rmarkdown,
     metaboData,

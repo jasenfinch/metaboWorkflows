@@ -9,6 +9,7 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 #' WorkflowParameters
 #' @description An S4 class to store workflow parameters
 #' @slot workflow character containing the workflow to use
+#' @slot flags character vector containing the workflow elements to analyse
 #' @slot processing Processing object containing processing parameters for the specified workflow
 #' @slot analysis AnalysisParameters object containing the analysis parameters
 #' @slot annotation AssignmentParameters object containing the annotation parameters
