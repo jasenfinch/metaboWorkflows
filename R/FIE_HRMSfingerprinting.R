@@ -3,7 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
-#' @importFrom metaboMisc addAssignments preTreatModes
+#' @importFrom metaboMisc addAssignments preTreatModes filterCorrelations
 #' @importFrom MFassign assignMFs
 #' @importFrom utils data
 
@@ -36,8 +36,8 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
     MFassignment = function(x){
       cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
       
-      data('Adducts',package = 'mzAnnotation',envir = environment())
-      data('Isotopes',package = 'mzAnnotation',envir = environment())
+      data('Adducts',package = 'mzAnnotation')
+      data('Isotopes',package = 'mzAnnotation')
       data('Transformations',package = 'mzAnnotation',envir = environment())
       
       p <- analysisParameters('correlations')
@@ -45,7 +45,9 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       x@analysed <- reAnalyse(x@analysed,p) 
       x@analysed@parameters <- x@workflowParameters@analysis
       
-      x@annotated <- assignMFs(x@analysed@correlations,x@workflowParameters@annotation)
+      x@annotated <- x@analysed@correlations %>%
+        filterCorrelations() %>%
+        assignMFs(x@workflowParameters@annotation)
       
       x@analysed <- addAssignments(x@analysed,x@annotated)
       
