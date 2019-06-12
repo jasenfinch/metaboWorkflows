@@ -37,3 +37,8 @@ setGeneric("resultsAnalysis", function(object) {
 setGeneric("resultsAnnotation", function(object) {
   standardGeneric("resultsAnnotation")
 })
+
+#' @rdname flags
+setGeneric("flags", function(x) {
+  standardGeneric("flags")
+})

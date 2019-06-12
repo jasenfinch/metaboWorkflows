@@ -2,7 +2,7 @@
 setMethod('doWorkflow',signature = 'Workflow',
           function(y){
             Workflow <- get(y@workflowParameters@workflow)
-            elements <- names(Workflow())
+            elements <- y@workflowParameters@flags
             elements <- elements[!(elements %in% y@flags)]
             
             for (i in elements) {

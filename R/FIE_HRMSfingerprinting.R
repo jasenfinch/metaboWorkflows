@@ -3,12 +3,15 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
+#' @importFrom metaboMisc addAssignments preTreatModes filterCorrelations
+#' @importFrom MFassign assignMFs
+#' @importFrom utils data
 
 FIE_HRMSfingerprinting <- function(elements = NULL){
   methods <- list(
     spectralBin = function(x){
       cat('\nSpectral binning',cli::symbol$continue,'\r')
-      binnedDat <- binneRlyse(files = unlist(x@files),info = x@info,parameters = x@workflowParameters@processing)
+      binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       cat('\rSpectral binning',green(cli::symbol$tick),'\n')
       return(x)
@@ -19,28 +22,41 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
-      neg <- metabolyse(x@processed@binnedData$n,x@processed@info,preTreatParameters,verbose = F)
-      pos <- metabolyse(x@processed@binnedData$p,x@processed@info,preTreatParameters,verbose = F)
+      x@analysed <- preTreatModes(x@processed,x@workflowParameters@analysis)
       
-      dat <- bind_cols(neg@preTreated$Data,pos@preTreated$Data)
-      info <- neg@preTreated$Info
-      version <- packageVersion('metabolyseR')
-      analysisStart <- date()
-      x@analysed <- new('Analysis',
-                        log = list(packageVersion = version,analysis = analysisStart,verbose = T),
-                        parameters = x@workflowParameters@analysis,
-                        rawData = list(Data = bind_cols(binnedData(resultsProcessing(x))),Info = info(resultsProcessing(x))),
-                        preTreated = list(Data = dat,Info = info),
-                        classification = tibble(),
-                        featureSelection = tibble(),
-                        correlations = tibble()
-      )
       cat('\rPre-treatment',green(cli::symbol$tick),'\n')
       return(x)
     },
     
     dataQualityCheckPoint = function(x){
       cat(blue('\nBreak point for data quality check. Use restartWorkflow() to continue analysis.\n') )
+      return(x)
+    },
+    
+    MFassignment = function(x){
+      cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
+      
+      data('Adducts',package = 'mzAnnotation')
+      data('Isotopes',package = 'mzAnnotation')
+      data('Transformations',package = 'mzAnnotation',envir = environment())
+      
+      p <- analysisParameters('correlations')
+      p@correlations <- x@workflowParameters@analysis@correlations
+      x@analysed <- reAnalyse(x@analysed,p) 
+      x@analysed@parameters <- x@workflowParameters@analysis
+      
+      x@annotated <- x@analysed@correlations %>%
+        filterCorrelations() %>%
+        assignMFs(x@workflowParameters@annotation)
+      
+      x@analysed <- addAssignments(x@analysed,x@annotated)
+      
+      cat('\rMolecular formula assignment',green(cli::symbol$tick),'\n')
+      return(x)
+    },
+    
+    MFassignmentCheckPoint = function(x){
+      cat(blue('\nBreak point to check MF assignments. Use restartWorkflow() to continue analysis.\n') )
       return(x)
     },
     
