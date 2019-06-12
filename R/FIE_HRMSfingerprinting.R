@@ -36,9 +36,9 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
     MFassignment = function(x){
       cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
       
-      data('Adducts',package = 'mzAnnotation')
-      data('Isotopes',package = 'mzAnnotation')
-      data('Transformations',package = 'mzAnnotation')
+      data('Adducts',package = 'mzAnnotation',envir = environment())
+      data('Isotopes',package = 'mzAnnotation',envir = environment())
+      data('Transformations',package = 'mzAnnotation',envir = environment())
       
       p <- analysisParameters('correlations')
       p@correlations <- x@workflowParameters@analysis@correlations
