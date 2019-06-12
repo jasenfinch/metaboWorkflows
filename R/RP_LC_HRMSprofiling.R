@@ -6,7 +6,9 @@
 RP_LC_HRMSprofiling <- function(elements = NULL){
   methods <- list(
     peakPick = function(x){
+      cat('\nPeak picking',cli::symbol$continue,'\r')
       x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
+      cat('\rPeak picking',green(cli::symbol$tick),'\n')
       return(x)
     },
     
@@ -18,13 +20,7 @@ RP_LC_HRMSprofiling <- function(elements = NULL){
     
     MFassignmentCheckPoint = FIE_HRMSfingerprinting('MFassignmentCheckPoint'),
     
-    classification = function(x){
-      p <- analysisParameters('classification')
-      p@classification <- x@workflowParameters@analysis@classification
-      x@analysed <- reAnalyse(x@analysed,p)
-      x@analysed@parameters <- x@workflowParameters@analysis
-      return(x)
-    },
+    classification = FIE_HRMSfingerprinting('classification'),
     
     featureSelection = FIE_HRMSfingerprinting('featureSelection'),
     
