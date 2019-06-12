@@ -26,6 +26,7 @@ r_github_packages:
     - jasenfinch/MFassign
     - jasenfinch/profilePro
     - jasenfinch/metaboMisc
+    - jasenfinch/binneR
 
 notifications:
     email:
