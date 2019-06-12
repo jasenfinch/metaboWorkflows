@@ -21,12 +21,12 @@ bioc_packages:
 
 r_github_packages:
     - thomasp85/patchwork
+    - jasenfinch/binneR
     - jasenfinch/metabolyseR
     - jasenfinch/mzAnnotation
     - jasenfinch/MFassign
     - jasenfinch/profilePro
     - jasenfinch/metaboMisc
-    - jasenfinch/binneR
 
 notifications:
     email:
