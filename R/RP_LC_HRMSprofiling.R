@@ -12,6 +12,10 @@ RP_LC_HRMSprofiling <- function(elements = NULL){
       return(x)
     },
     
+    detectBatchDiff = FIE_HRMSfingerprinting('detectBatchDiff'),
+    
+    detectMissInjections = FIE_HRMSfingerprinting('detectMissInjections'),
+    
     preTreat = FIE_HRMSfingerprinting('preTreat'),
     
     dataQualityCheckPoint = FIE_HRMSfingerprinting('dataQualityCheckPoint'),

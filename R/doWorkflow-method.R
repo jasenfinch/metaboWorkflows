@@ -1,3 +1,4 @@
+#' @importFrom callr r
 
 setMethod('doWorkflow',signature = 'Workflow',
           function(y){
@@ -9,7 +10,10 @@ setMethod('doWorkflow',signature = 'Workflow',
               method <- Workflow(i)
               flag <- 'fail'
               try({
-                y <- method(y)
+                y <- r(function(x,m){
+                  suppressMessages(library(metaboWorkflows))
+                  m(x)
+                },args = list(x = y,m = method),show = TRUE)
                 y@logs <- c(y@logs,list(date()))
                 names(y@logs)[length(y@logs)] <- i
                 y@flags <- c(y@flags,i)
