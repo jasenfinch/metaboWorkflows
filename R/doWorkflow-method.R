@@ -11,7 +11,7 @@ setMethod('doWorkflow',signature = 'Workflow',
               flag <- 'fail'
               try({
                 y <- r(function(x,m){
-                  suppressMessages(library(metaboWorkflows))
+                  library(metaboWorkflows)
                   m(x)
                 },args = list(x = y,m = method),show = TRUE)
                 y@logs <- c(y@logs,list(date()))
