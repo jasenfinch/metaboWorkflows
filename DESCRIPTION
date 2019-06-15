@@ -16,7 +16,8 @@ Imports: binneR,
     purrr,
     crayon,
     cli,
-    metaboMisc
+    metaboMisc,
+    callr
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

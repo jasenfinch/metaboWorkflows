@@ -3,7 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
-#' @importFrom metaboMisc addAssignments preTreatModes filterCorrelations
+#' @importFrom metaboMisc addAssignments preTreatModes filterCorrelations detectBatchDiff detectMissInjections
 #' @importFrom MFassign assignMFs
 #' @importFrom utils data
 
@@ -14,6 +14,45 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       cat('\rSpectral binning',green(cli::symbol$tick),'\n')
+      return(x)
+    },
+    
+    detectBatchDiff = function(x){
+      cat('\nChecking if batch correction is needed',cli::symbol$continue,'\r')
+      
+      bd <- detectBatchDiff(x@processed)
+      
+      if (T %in% bd$`Correction needed`) {
+        x@workflowParameters@analysis@preTreat <- c(
+          list(
+            correction = list(
+              center = list(block = 'block',type = 'median')
+            )),
+          x@workflowParameters@analysis@preTreat
+        )
+      }
+      
+      cat('\rChecking if batch correction is needed',green(cli::symbol$tick),'\n')
+      return(x)
+    },
+    
+    detectMissInjections = function(x){
+      cat('\nChecking for miss injections',cli::symbol$continue,'\r')
+      
+      mi <- detectMissInjections(x@processed)
+      
+      if (length(mi$missInjections) > 0) {
+        x@processed@spectra$missInjections <- mi
+        x@workflowParameters@analysis@preTreat <- c(
+          list(
+            remove = list(
+              sample = list(idx = mi$idx,samples = mi$missInjections)
+            )),
+          x@workflowParameters@analysis@preTreat
+        )  
+      }
+      
+      cat('\rChecking for miss injections',green(cli::symbol$tick),'\n')
       return(x)
     },
     
