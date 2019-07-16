@@ -13,7 +13,7 @@ setMethod('doWorkflow',signature = 'Workflow',
                 y <- r(function(x,m){
                   suppressPackageStartupMessages(library(metaboWorkflows))
                   m(x)
-                },args = list(x = y,m = method),show = TRUE)
+                },args = list(x = y,m = method),show = TRUE,spinner = FALSE)
                 y@logs <- c(y@logs,list(date()))
                 names(y@logs)[length(y@logs)] <- i
                 y@flags <- c(y@flags,i)

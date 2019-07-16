@@ -4,6 +4,7 @@
 \name{flags}
 \alias{flags}
 \alias{flags,WorkflowParameters-method}
+\alias{flags,Workflow-method}
 \alias{flags<-}
 \title{flags}
 \usage{
@@ -11,10 +12,12 @@ flags(x)
 
 \S4method{flags}{WorkflowParameters}(x)
 
+\S4method{flags}{Workflow}(x)
+
 flags(x) <- value
 }
 \arguments{
-\item{x}{S4 object of class WorkflowParameters}
+\item{x}{S4 object of class WorkflowParameters or Workflow}
 
 \item{value}{new flags}
 }
