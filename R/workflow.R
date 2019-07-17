@@ -54,7 +54,9 @@ workflow <- function(files,info,parameters){
   )
   annotation <-   new('Assignment',
                       parameters = parameters@annotation,
+                      data = tibble(),
                       correlations = tibble(),
+                      preparedCorrelations = tibble(),
                       relationships = tibble(),
                       addIsoAssign = list(),
                       transAssign = list(),
