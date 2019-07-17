@@ -5,7 +5,6 @@ Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "
 Description: Workflows for metabolomics analyses.
 biocViews:  Metabolomics
 Depends: R (>= 3.4.0),
-    mzAnnotation,
     MSnbase
 Imports: binneR,
     metabolyseR,
@@ -43,6 +42,7 @@ Collate:
     'GC_MSprofilingDeconvolution.R'
     'flags.R'
     'metaboWorkflows.R'
+    'access.R'
 Suggests: knitr,
     rmarkdown,
     metaboData,
