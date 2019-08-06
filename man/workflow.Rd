@@ -25,7 +25,7 @@ files <- filePaths('FIE-HRMS','BdistachyonEcotypes')
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
 wp <- workflowParameters('FIE_HRMSfingerprinting')
-wp@processing@scans <- detectInfusionScans(files)
+wp@processing <- detectParameters(files)
 analysis <- workflow(files, info, wp)
 }
 }
