@@ -89,9 +89,9 @@ This should be a tibble with the recommended column headers that include:
 The row orders of the info table should match the order in which the files paths are submitted to the `workflow()` function.
 Further columns can be added to this file to denote different class labelling.
 
-The file paths and sample info can be loaded using the following:
+The file paths and sample info can be loaded for the example data using the following:
 
-```{r files}
+```{r files,message=FALSE}
 files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
