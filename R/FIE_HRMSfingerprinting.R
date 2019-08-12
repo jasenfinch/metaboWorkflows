@@ -90,23 +90,13 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
       return(x)
     },
     
-    classification = function(x){
-      cat('\nClassification',cli::symbol$continue,'\r')
-      p <- analysisParameters('classification')
-      p@classification <- x@workflowParameters@analysis@classification
+    modelling = function(x){
+      cat('\nModelling',cli::symbol$continue,'\r')
+      p <- analysisParameters('modelling')
+      p@modelling <- x@workflowParameters@analysis@modelling
       x@analysed <- reAnalyse(x@analysed,p) 
       x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rClassification',green(cli::symbol$tick),'\n')
-      return(x)
-    },
-    
-    featureSelection = function(x){
-      cat('\nFeature selection',cli::symbol$continue,'\r')
-      p <- analysisParameters('featureSelection')
-      p@featureSelection <- x@workflowParameters@analysis@featureSelection
-      x@analysed <- reAnalyse(x@analysed,p) 
-      x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rFeature selection',green(cli::symbol$tick),'\n')
+      cat('\rModelling',green(cli::symbol$tick),'\n')
       return(x)
     },
     

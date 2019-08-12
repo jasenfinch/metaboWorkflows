@@ -1,13 +1,15 @@
 #' workflowParameters
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
-#' @importFrom binneR binParameters
+#' @param files supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow
+#' @importFrom binneR binParameters detectParameters
 #' @importFrom profilePro profileParameters
-#' @importFrom metabolyseR analysisParameters changeParameter
+#' @importFrom metabolyseR analysisParameters changeParameter getClusterType
 #' @importFrom MFassign assignmentParameters
+#' @importFrom parallel detectCores
 #' @export
 
-workflowParameters <- function(workflow = NULL){
+workflowParameters <- function(workflow = NULL, files = NULL){
   availWorkflows <- c('FIE_HRMSfingerprinting','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling','GC_MSprofilingDeconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
@@ -16,18 +18,28 @@ workflowParameters <- function(workflow = NULL){
   } else {
     if (workflow %in% availWorkflows) {
       
+      ap <- analysisParameters()
+      ap <- changeParameter('reps', 10, ap)
+      ap <- changeParameter('perm', 100, ap)
+      ap <- changeParameter('clusterType', getClusterType(), ap)
+      ap <- changeParameter('nCores', detectCores() * 0.75, ap)
+      
       if (grepl('FIE',workflow)) {
+        if (is.null(files)) {
+          bp <- binParameters()
+        } else {
+          bp <- detectParameters(files)
+        }
         param <- new('WorkflowParameters',
                      workflow = workflow,
                      flags = workflowFlags(workflow),
-                     processing = binParameters(),
-                     analysis = analysisParameters(),
+                     processing = bp,
+                     analysis = ap,
                      annotation = assignmentParameters('FIE'))
       }
       
       if (grepl('RP_LC_HRMS',workflow) | grepl('NP_LC_HRMS',workflow)) {
         w <- 'FIE'
-        ap <- analysisParameters()
         ap <- changeParameter('RSDthresh', 0.25, ap)
         if (grepl('RP',workflow)) {
           p <- profileParameters('LCMS-RP')
