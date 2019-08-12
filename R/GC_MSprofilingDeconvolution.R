@@ -35,21 +35,7 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
       return(x)
     },
     
-    classification = function(x){
-      p <- analysisParameters('classification')
-      p@classification <- x@workflowParameters@analysis@classification
-      x@analysed <- reAnalyse(x@analysed,p)
-      x@analysed@parameters <- x@workflowParameters@analysis
-      return(x)
-    },
-    
-    featureSelection = function(x){
-      p <- analysisParameters('featureSelection')
-      p@featureSelection <- x@workflowParameters@analysis@featureSelection
-      x@analysed <- reAnalyse(x@analysed,p)
-      x@analysed@parameters <- x@workflowParameters@analysis
-      return(x)
-    },
+    modelling = FIE_HRMSfingerprinting('modelling'),
     
     correlations = function(x){
       p <- analysisParameters('correlations')
