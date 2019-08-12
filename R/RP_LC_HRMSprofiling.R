@@ -24,9 +24,7 @@ RP_LC_HRMSprofiling <- function(elements = NULL){
     
     MFassignmentCheckPoint = FIE_HRMSfingerprinting('MFassignmentCheckPoint'),
     
-    classification = FIE_HRMSfingerprinting('classification'),
-    
-    featureSelection = FIE_HRMSfingerprinting('featureSelection'),
+    modelling = FIE_HRMSfingerprinting('modelling'),
     
     correlations = FIE_HRMSfingerprinting('correlations')
   )

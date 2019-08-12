@@ -24,8 +24,7 @@ library(binneR)
 files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-wp <- workflowParameters('FIE_HRMSfingerprinting')
-wp@processing <- detectParameters(files)
+wp <- workflowParameters('FIE_HRMSfingerprinting',files = files)
 analysis <- workflow(files, info, wp)
 }
 }

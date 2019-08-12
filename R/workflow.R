@@ -15,8 +15,7 @@
 #' files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 #' info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
-#' wp <- workflowParameters('FIE_HRMSfingerprinting')
-#' wp@processing <- detectParameters(files)
+#' wp <- workflowParameters('FIE_HRMSfingerprinting',files = files)
 #' analysis <- workflow(files, info, wp)
 #' }
 #' @export
@@ -48,8 +47,7 @@ workflow <- function(files,info,parameters){
                   parameters = parameters@analysis,
                   rawData = new('AnalysisData'),
                   preTreated = new('AnalysisData'),
-                  classification = tibble(),
-                  featureSelection = tibble(),
+                  modelling = list(),
                   correlations = tibble()
   )
   annotation <-   new('Assignment',
