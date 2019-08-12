@@ -54,6 +54,7 @@ hrm::hrmAttach()
 
 ```{r libraryLoad,include=FALSE}
 library(metaboWorkflows)
+library(metaboData)
 library(binneR)
 ```
 
@@ -88,12 +89,24 @@ This should be a tibble with the recommended column headers that include:
 The row orders of the info table should match the order in which the files paths are submitted to the `workflow()` function.
 Further columns can be added to this file to denote different class labelling.
 
+The file paths and sample info can be loaded using the following:
+
+```{r files}
+files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
+info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+head(files)
+info
+```
+
 ### Parameter Selection
 
-The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. For instance, the `FIE_HRMSfingerprinting` workflow can be retrieved using the following. 
+The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. 
+For instance, the `FIE_HRMSfingerprinting` workflow can be retrieved using the following. 
+The addition of the vector containing the file paths allows for automatic parameter detection.
 
 ```{r parameters}
-parameters <- workflowParameters('FIE_HRMSfingerprinting')
+parameters <- workflowParameters('FIE_HRMSfingerprinting',files = files)
 parameters
 ```
 
@@ -111,31 +124,13 @@ parametersProcessing(parameters)
 
 Then the scan numbers for spectral binning could be altered using:
 
-```{r bin}
+```{r bin,eval=FALSE}
 parametersProcessing(parameters) <- binParameters(scans = 5:11)
-parametersProcessing(parameters)
 ```
 
 ### Workflow
 
 Executing a workflow is simple using the `workflow()` function.
-This requires the input of the paths to the data files, info file and the workflow parameters.
-An example of a suitable file and info input paths is shown below. 
-
-```{r files}
-files <-  list.files(
-    system.file(
-        'DataSets/FIE-HRMS/BdistachyonEcotypes',
-        package = 'metaboData'),
-    full.names = TRUE)
-
-info <- readr::read_csv(files[grepl('runinfo',files)])
-files <- files[!grepl('runinfo',files)]
-
-head(files)
-info
-```
-
 The workflow can then be executed using the following.
 
 ```{r workflow, eval=FALSE}
