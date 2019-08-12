@@ -9,7 +9,7 @@ output:
     highlight: github
     theme: tactile
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{metaboWorkflows-usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
