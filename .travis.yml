@@ -18,6 +18,9 @@ apt_packages:
  - r-cran-igraph
  - r-cran-httpuv
  - r-cran-dplyr
+ - r-cran-stringi
+ - r-cran-readr
+ - r-bioc-affyio 
 
 r_github_packages:
     - thomasp85/patchwork
