@@ -19,7 +19,6 @@ execute workflow based on specified worklow parameters and a file list.
 \examples{
 \dontrun{
 library(metaboData)
-library(binneR)
 
 files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')

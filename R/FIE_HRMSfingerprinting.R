@@ -3,7 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
-#' @importFrom metaboMisc addAssignments preTreatModes detectBatchDiff detectMissInjections
+#' @importFrom metaboMisc addAssignments preTreatModes detectBatchDiff detectMissInjections reduce
 #' @importFrom MFassign assignMFs
 #' @importFrom utils data
 
@@ -87,6 +87,13 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
     
     MFassignmentCheckPoint = function(x){
       cat(blue('\nBreak point to check MF assignments. Use restartWorkflow() to continue analysis.\n') )
+      return(x)
+    },
+    
+    reduceIsotopes = function(x){
+      cat('\nReducing isotopic features',cli::symbol$continue,'\r')
+      x@analysed <- metaboMisc::reduce(x %>% resultsAnalysis(),adducts = F)
+      cat('\rReducing isotopic features',green(cli::symbol$tick),'\n')
       return(x)
     },
     
