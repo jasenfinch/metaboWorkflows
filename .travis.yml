@@ -11,10 +11,16 @@ r:
 
 apt_packages:
  - libnetcdf-dev
- - udunits-bin
- - libudunits2-dev
  - netcdf-bin
  - libopenbabel-dev
+ - mesa-common-dev
+ - libglu1-mesa-dev
+ - r-cran-igraph
+ - r-cran-httpuv
+ - r-cran-dplyr
+ - r-cran-stringi
+ - r-cran-readr
+ - r-bioc-affyio 
 
 r_github_packages:
     - thomasp85/patchwork
