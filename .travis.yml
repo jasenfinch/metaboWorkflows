@@ -11,10 +11,10 @@ r:
 
 apt_packages:
  - libnetcdf-dev
- - udunits-bin
- - libudunits2-dev
  - netcdf-bin
  - libopenbabel-dev
+ - mesa-common-dev
+ - libglu1-mesa-dev
 
 r_github_packages:
     - thomasp85/patchwork
