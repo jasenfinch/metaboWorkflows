@@ -15,6 +15,9 @@ apt_packages:
  - libopenbabel-dev
  - mesa-common-dev
  - libglu1-mesa-dev
+ - r-cran-igraph
+ - r-cran-httpuv
+ - r-cran-dplyr
 
 r_github_packages:
     - thomasp85/patchwork
