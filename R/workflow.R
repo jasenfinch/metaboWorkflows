@@ -10,7 +10,6 @@
 #' @examples 
 #' \dontrun{
 #' library(metaboData)
-#' library(binneR)
 #' 
 #' files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 #' info <- runinfo('FIE-HRMS','BdistachyonEcotypes')

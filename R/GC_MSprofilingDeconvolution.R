@@ -3,47 +3,32 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
   methods <- list(
     
     deconvolve = function(x){
+      cat('\nDeconvolution',cli::symbol$continue,'\r')
       x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
+      cat('\rDeconvolution',green(cli::symbol$tick),'\n')
       return(x)
     },
     
+    detectBatchDiff = FIE_HRMSfingerprinting('detectBatchDiff'),
+    
+    detectMissInjections = FIE_HRMSfingerprinting('detectMissInjections'),
+    
     preTreat = function(x){
+      cat('\nPre-treatment',cli::symbol$continue,'\r')
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
-      modes <- names(x@processed@Data)
+      x@analysed <- metabolyse(x@processed@Data,x@processed@Info,preTreatParameters)
       
-      pt <- metabolyse(x@processed@Data,x@processed@Info,preTreatParameters)
-      
-      dat <- pt@preTreated$Data
-      info <- pt@preTreated$Info
-      
-      x@analysed <- new('Analysis',
-                        log = list(analysis = date()),
-                        parameters = x@workflowParameters@analysis,
-                        rawData = list(),
-                        preTreated = list(Data = dat,Info = info),
-                        classification = tibble(),
-                        featureSelection = tibble(),
-                        correlations = tibble()
-      )
+      cat('\rPre-treatment',green(cli::symbol$tick),'\n')
       return(x)
     },
     
-    dataQualityCheckPoint = function(x){
-      cat('\nData pre-treatment complete. Break point for data quality check. Use restartWorkflow() to continue analysis.\n\n') 
-      return(x)
-    },
+    dataQualityCheckPoint = FIE_HRMSfingerprinting('dataQualityCheckPoint'),
     
     modelling = FIE_HRMSfingerprinting('modelling'),
     
-    correlations = function(x){
-      p <- analysisParameters('correlations')
-      p@correlations <- x@workflowParameters@analysis@correlations
-      x@analysed <- reAnalyse(x@analysed,p)
-      x@analysed@parameters <- x@workflowParameters@analysis
-      return(x)
-    }
+    correlations = FIE_HRMSfingerprinting('correlations')
   )
   
   if (!is.null(elements)) {
