@@ -66,7 +66,6 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       
       if (grepl('GC_MSprofilingDeconvolution',workflow)) {
         w <- 'FIE'
-        ap <- analysisParameters()
         ap <- changeParameter('RSDthresh', 0.30, ap)
         p <- profileParameters('GCMS-eRah')
         
