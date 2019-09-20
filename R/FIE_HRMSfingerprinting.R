@@ -26,7 +26,7 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
         x@workflowParameters@analysis@preTreat <- c(
           list(
             correction = list(
-              center = list(block = 'block',type = 'median')
+              center = list(block = 'block',type = 'median',nCores = detectCores() * 0.75,clusterType = getClusterType())
             )),
           x@workflowParameters@analysis@preTreat
         )
