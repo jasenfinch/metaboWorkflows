@@ -20,7 +20,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       
       ap <- analysisParameters()
       ap <- changeParameter('reps', 10, ap)
-      ap <- changeParameter('perm', 100, ap)
+      ap <- changeParameter('perm', 1000, ap)
       ap <- changeParameter('clusterType', getClusterType(), ap)
       ap <- changeParameter('nCores', detectCores() * 0.75, ap)
       
