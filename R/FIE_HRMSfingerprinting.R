@@ -46,7 +46,7 @@ FIE_HRMSfingerprinting <- function(elements = NULL){
         x@workflowParameters@analysis@preTreat <- c(
           list(
             remove = list(
-              sample = list(idx = mi$idx,samples = mi$missInjections)
+              samples = list(idx = mi$idx,samples = mi$missInjections)
             )),
           x@workflowParameters@analysis@preTreat
         )  
