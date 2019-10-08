@@ -65,9 +65,18 @@ There are three main functions that are used within the *metaboWorkflows* packag
 * `restartWorkflow()` - used to restart a workflow after a check point stoppage or failure.
 
 The available workflows within the package can be found by running:
+
 ```{r availbleWorkflows}
 workflowParameters()
 ```
+
+These workflows include:
+
+* `FIE-HRMS fingerprinting` - Flow infusion electrospray high resolution mass spectrometry fingerprinting
+* `NSI-HRMS fingerprinting` - Nanospray ionisation high resolution mass spectrometry fingerprinting
+* `RP-LC-HRMS profiling` - Reverse phase liquid chromatography high resolution mass spectrometry profiling
+* `NP-LC-HRMS profiling` - Normal phase liquid chromatography high resolution mass spectrometry profiling
+* `GC-MS profiling deconvolution` - Gas chromatography mass spectrometry profiling using deconvolution
 
 *metaboWorkflows* provides methods for the modification of parameters and extraction of results for the objects that are returned by these functions. However, because *metaboWorkflows* encompasses a number of different analysis packages, the user is referred to the documentation of the particular package for information on how to interact with their respective outputs.
 
@@ -102,11 +111,11 @@ info
 ### Parameter Selection
 
 The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. 
-For instance, the `FIE-HRMS_fingerprinting` workflow can be retrieved using the following. 
+For instance, the `FIE-HRMS fingerprinting` workflow can be retrieved using the following. 
 The addition of the vector containing the file paths allows for automatic parameter detection.
 
 ```{r parameters}
-parameters <- workflowParameters('FIE-HRMS_fingerprinting',files = files)
+parameters <- workflowParameters('FIE-HRMS fingerprinting',files = files)
 parameters
 ```
 
@@ -184,7 +193,7 @@ Each workflow is made up of sections (flags) each with its own function.
 The flags for a given workflow can be retreived using the following:
 
 ```{r, showFlags}
-wp <- workflowParameters('FIE-HRMS_fingerprinting')
+wp <- workflowParameters('FIE-HRMS fingerprinting')
 flags(wp)
 ```
 

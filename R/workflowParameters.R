@@ -11,11 +11,12 @@
 #' @export
 
 workflowParameters <- function(workflow = NULL, files = NULL){
-  availWorkflows <- c('FIE-HRMS_fingerprinting','NS-HRMS_fingerprinting','RP-LC-HRMS_profiling','NP-LC-HRMS_profiling','GC-MS_profiling_deconvolution')
+  availWorkflows <- c('FIE-HRMS fingerprinting','NSI-HRMS fingerprinting','RP-LC-HRMS profiling','NP-LC-HRMS profiling','GC-MS profiling deconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
     cat('\nAvailable Workflows:',availWorkflows,sep = '')
+    cat("\n\nSee vignette('metaboWorkflows-usage') for details on these workflows.")
   } else {
     if (workflow %in% availWorkflows) {
       
@@ -79,6 +80,8 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       }
       
       return(param) 
+    } else {
+      stop('Workflow not recognised. Use workflowParameters() to see available workflows.')
     }
   }
 }

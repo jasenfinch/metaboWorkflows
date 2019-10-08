@@ -3,7 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 
-`RP-LC-HRMS_profiling` <- function(elements = NULL){
+`RP-LC-HRMS profiling` <- function(elements = NULL){
   methods <- list(
     peakPick = function(x){
       cat('\nPeak picking',cli::symbol$continue,'\r')
@@ -12,21 +12,21 @@
       return(x)
     },
     
-    detectBatchDiff = `FIE-HRMS_fingerprinting`('detectBatchDiff'),
+    detectBatchDiff = `FIE-HRMS fingerprinting`('detectBatchDiff'),
     
-    detectMissInjections = `FIE-HRMS_fingerprinting`('detectMissInjections'),
+    detectMissInjections = `FIE-HRMS fingerprinting`('detectMissInjections'),
     
-    preTreat = `FIE-HRMS_fingerprinting`('preTreat'),
+    preTreat = `FIE-HRMS fingerprinting`('preTreat'),
     
-    dataQualityCheckPoint = `FIE-HRMS_fingerprinting`('dataQualityCheckPoint'),
+    dataQualityCheckPoint = `FIE-HRMS fingerprinting`('dataQualityCheckPoint'),
     
-    MFassignment = `FIE-HRMS_fingerprinting`('MFassignment'),
+    MFassignment = `FIE-HRMS fingerprinting`('MFassignment'),
     
-    MFassignmentCheckPoint = `FIE-HRMS_fingerprinting`('MFassignmentCheckPoint'),
+    MFassignmentCheckPoint = `FIE-HRMS fingerprinting`('MFassignmentCheckPoint'),
     
-    modelling = `FIE-HRMS_fingerprinting`('modelling'),
+    modelling = `FIE-HRMS fingerprinting`('modelling'),
     
-    correlations = `FIE-HRMS_fingerprinting`('correlations')
+    correlations = `FIE-HRMS fingerprinting`('correlations')
   )
   
   if (!is.null(elements)) {

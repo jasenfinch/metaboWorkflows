@@ -1,4 +1,4 @@
 
-`NP-LC-HRMS_profiling` <- function(elements = NULL){
-  `RP-LC-HRMS_profiling`(elements)
+`NP-LC-HRMS profiling` <- function(elements = NULL){
+  `RP-LC-HRMS profiling`(elements)
 }
