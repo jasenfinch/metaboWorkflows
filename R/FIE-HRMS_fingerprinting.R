@@ -1,10 +1,10 @@
 #' @importFrom binneR binneRlyse binnedData info
-#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse
+#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
-#' @importFrom metaboMisc addAssignments preTreatModes detectBatchDiff detectMissInjections reduce
-#' @importFrom MFassign assignMFs
+#' @importFrom metaboMisc preTreatModes detectBatchDiff detectMissInjections reduce
+#' @importFrom MFassign assignMFs assignedData
 #' @importFrom utils data
 
 `FIE-HRMS fingerprinting` <- function(elements = NULL){
@@ -79,7 +79,7 @@
         preTreatedData() %>%
         assignMFs(x@workflowParameters@annotation,verbose = TRUE)
       
-      x@analysed <- addAssignments(x@analysed,x@annotated)
+      dat(x@analysed@preTreated) <- assignedData(x@annotated)
       
       cat('\rMolecular formula assignment',green(cli::symbol$tick),'\n')
       return(x)

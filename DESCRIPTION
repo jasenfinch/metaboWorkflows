@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.5.12
+Version: 0.6.0
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 biocViews: Metabolomics
@@ -29,7 +29,7 @@ Collate:
     allClasses.R
     workflowParameters.R
     FIE-HRMS_fingerprinting.R
-    NS-HRMS_fingerprinting.R
+    NSI-HRMS_fingerprinting.R
     workflow.R
     doWorkflow-method.R
     restartWorkflow.R
