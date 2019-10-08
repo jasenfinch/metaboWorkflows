@@ -26,7 +26,7 @@ workflowParameters <- function(workflow = NULL, files = NULL, ...){
       ap <- changeParameter('clusterType', getClusterType(), ap)
       ap <- changeParameter('nCores', detectCores() * 0.75, ap)
       
-      if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NS-HRMS')) {
+      if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
         if (is.null(files)) {
           bp <- binParameters()
         } else {
