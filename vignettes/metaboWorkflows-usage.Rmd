@@ -114,7 +114,11 @@ The default parameters for a particular workflow can be retrieved using the `wor
 For instance, the `FIE-HRMS fingerprinting` workflow can be retrieved using the following. 
 The addition of the vector containing the file paths allows for automatic parameter detection.
 
-```{r parameters}
+```{r getParameters,include=FALSE}
+parameters <- workflowParameters('FIE-HRMS fingerprinting',files = files,nCores = 2)
+```
+
+```{r parameters,eval=FALSE}
 parameters <- workflowParameters('FIE-HRMS fingerprinting',files = files)
 parameters
 ```

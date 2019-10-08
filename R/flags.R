@@ -2,7 +2,7 @@
 #' @description Return possible flags for a given workflow.
 #' @param w workflow name as returned by \code{workflowParameters()}
 #' @examples 
-#' workflowFlags('FIE_HRMSfingerprinting')
+#' workflowFlags('FIE-HRMS fingerprinting')
 #' @export
 
 workflowFlags <- function(w){

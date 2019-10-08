@@ -2,6 +2,7 @@
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
 #' @param files supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow
+#' @param ... arguments to pass to binneR::detectParameters
 #' @importFrom binneR binParameters detectParameters
 #' @importFrom profilePro profileParameters
 #' @importFrom metabolyseR analysisParameters changeParameter getClusterType
@@ -10,7 +11,7 @@
 #' @importFrom stringr str_detect
 #' @export
 
-workflowParameters <- function(workflow = NULL, files = NULL){
+workflowParameters <- function(workflow = NULL, files = NULL, ...){
   availWorkflows <- c('FIE-HRMS fingerprinting','NSI-HRMS fingerprinting','RP-LC-HRMS profiling','NP-LC-HRMS profiling','GC-MS profiling deconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
@@ -29,7 +30,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
         if (is.null(files)) {
           bp <- binParameters()
         } else {
-          bp <- detectParameters(files)
+          bp <- detectParameters(files,...)
         }
         param <- new('WorkflowParameters',
                      workflow = workflow,

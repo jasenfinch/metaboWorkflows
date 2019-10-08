@@ -4,12 +4,14 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(workflow = NULL, files = NULL)
+workflowParameters(workflow = NULL, files = NULL, ...)
 }
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
 
 \item{files}{supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow}
+
+\item{...}{arguments to pass to binneR::detectParameters}
 }
 \description{
 Initiate default workflow parameters for a selected workflow.
