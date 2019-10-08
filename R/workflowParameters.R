@@ -2,19 +2,22 @@
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
 #' @param files supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow
+#' @param ... arguments to pass to binneR::detectParameters
 #' @importFrom binneR binParameters detectParameters
 #' @importFrom profilePro profileParameters
 #' @importFrom metabolyseR analysisParameters changeParameter getClusterType
 #' @importFrom MFassign assignmentParameters
 #' @importFrom parallel detectCores
+#' @importFrom stringr str_detect
 #' @export
 
-workflowParameters <- function(workflow = NULL, files = NULL){
-  availWorkflows <- c('FIE_HRMSfingerprinting','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling','GC_MSprofilingDeconvolution')
+workflowParameters <- function(workflow = NULL, files = NULL, ...){
+  availWorkflows <- c('FIE-HRMS fingerprinting','NSI-HRMS fingerprinting','RP-LC-HRMS profiling','NP-LC-HRMS profiling','GC-MS profiling deconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
     cat('\nAvailable Workflows:',availWorkflows,sep = '')
+    cat("\n\nSee vignette('metaboWorkflows-usage') for details on these workflows.")
   } else {
     if (workflow %in% availWorkflows) {
       
@@ -23,11 +26,11 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       ap <- changeParameter('clusterType', getClusterType(), ap)
       ap <- changeParameter('nCores', detectCores() * 0.75, ap)
       
-      if (grepl('FIE',workflow)) {
+      if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NS-HRMS')) {
         if (is.null(files)) {
           bp <- binParameters()
         } else {
-          bp <- detectParameters(files)
+          bp <- detectParameters(files,...)
         }
         param <- new('WorkflowParameters',
                      workflow = workflow,
@@ -37,7 +40,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
                      annotation = assignmentParameters('FIE'))
       }
       
-      if (grepl('RP_LC_HRMS',workflow) | grepl('NP_LC_HRMS',workflow)) {
+      if (grepl('RP-LC-HRMS',workflow) | grepl('NP-LC-HRMS',workflow)) {
         w <- 'FIE'
         ap <- changeParameter('RSDthresh', 0.25, ap)
         if (grepl('RP',workflow)) {
@@ -47,10 +50,10 @@ workflowParameters <- function(workflow = NULL, files = NULL){
           p <- profileParameters('LCMS-NP')
         }
         
-        if (grepl('RP_LC_HRMS',workflow)) {
+        if (grepl('RP-LC-HRMS',workflow)) {
           m <- 'RP-LC'
         }
-        if (grepl('NP_LC_HRMS',workflow)) {
+        if (grepl('NP-LC-HRMS',workflow)) {
           m <- 'NP-LC'
         }
         
@@ -63,7 +66,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
         )
       }
       
-      if (grepl('GC_MSprofilingDeconvolution',workflow)) {
+      if (grepl('GC-MS_profiling_deconvolution',workflow)) {
         w <- 'FIE'
         ap <- changeParameter('RSDthresh', 0.30, ap)
         p <- profileParameters('GCMS-eRah')
@@ -78,6 +81,8 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       }
       
       return(param) 
+    } else {
+      stop('Workflow not recognised. Use workflowParameters() to see available workflows.')
     }
   }
 }

@@ -14,7 +14,7 @@
 #' files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 #' info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
-#' wp <- workflowParameters('FIE_HRMSfingerprinting',files = files)
+#' wp <- workflowParameters('FIE-HRMS_fingerprinting',files = files)
 #' analysis <- workflow(files, info, wp)
 #' }
 #' @export

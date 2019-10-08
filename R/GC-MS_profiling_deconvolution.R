@@ -1,5 +1,5 @@
 
-GC_MSprofilingDeconvolution <- function(elements = NULL){
+`GC-MS profiling deconvolution` <- function(elements = NULL){
   methods <- list(
     
     deconvolve = function(x){
@@ -9,9 +9,9 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
       return(x)
     },
     
-    detectBatchDiff = FIE_HRMSfingerprinting('detectBatchDiff'),
+    detectBatchDiff = `FIE-HRMS fingerprinting`('detectBatchDiff'),
     
-    detectMissInjections = FIE_HRMSfingerprinting('detectMissInjections'),
+    detectMissInjections = `FIE-HRMS fingerprinting`('detectMissInjections'),
     
     preTreat = function(x){
       cat('\nPre-treatment',cli::symbol$continue,'\r')
@@ -24,11 +24,11 @@ GC_MSprofilingDeconvolution <- function(elements = NULL){
       return(x)
     },
     
-    dataQualityCheckPoint = FIE_HRMSfingerprinting('dataQualityCheckPoint'),
+    dataQualityCheckPoint = `FIE-HRMS fingerprinting`('dataQualityCheckPoint'),
     
-    modelling = FIE_HRMSfingerprinting('modelling'),
+    modelling = `FIE-HRMS fingerprinting`('modelling'),
     
-    correlations = FIE_HRMSfingerprinting('correlations')
+    correlations = `FIE-HRMS fingerprinting`('correlations')
   )
   
   if (!is.null(elements)) {
