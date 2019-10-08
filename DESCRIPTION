@@ -25,24 +25,25 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Collate:
-    'allGenerics.R'
-    'allClasses.R'
-    'workflowParameters.R'
-    'FIE_HRMSfingerprinting.R'
-    'workflow.R'
-    'doWorkflow-method.R'
-    'restartWorkflow.R'
-    'RP_LC_HRMSprofiling.R'
-    'parametersProcessing.R'
-    'parametersAnalysis.R'
-    'parametersAnnotation.R'
-    'show-method.R'
-    'results.R'
-    'NP_LC_HRMSprofiling.R'
-    'GC_MSprofilingDeconvolution.R'
-    'flags.R'
-    'metaboWorkflows.R'
-    'access.R'
+    allGenerics.R
+    allClasses.R
+    workflowParameters.R
+    FIE-HRMS_fingerprinting.R
+    NS-HRMS_fingerprinting.R
+    workflow.R
+    doWorkflow-method.R
+    restartWorkflow.R
+    RP-LC-HRMS_profiling.R
+    parametersProcessing.R
+    parametersAnalysis.R
+    parametersAnnotation.R
+    show-method.R
+    results.R
+    NP-LC-HRMS_profiling.R
+    GC-MS_profiling_deconvolution.R
+    flags.R
+    metaboWorkflows.R
+    access.R
 Suggests: knitr,
     rmarkdown,
     metaboData,

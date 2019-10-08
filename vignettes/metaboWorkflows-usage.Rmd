@@ -102,11 +102,11 @@ info
 ### Parameter Selection
 
 The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. 
-For instance, the `FIE_HRMSfingerprinting` workflow can be retrieved using the following. 
+For instance, the `FIE-HRMS_fingerprinting` workflow can be retrieved using the following. 
 The addition of the vector containing the file paths allows for automatic parameter detection.
 
 ```{r parameters}
-parameters <- workflowParameters('FIE_HRMSfingerprinting',files = files)
+parameters <- workflowParameters('FIE-HRMS_fingerprinting',files = files)
 parameters
 ```
 
@@ -184,7 +184,7 @@ Each workflow is made up of sections (flags) each with its own function.
 The flags for a given workflow can be retreived using the following:
 
 ```{r, showFlags}
-wp <- workflowParameters('FIE_HRMSfingerprinting')
+wp <- workflowParameters('FIE-HRMS_fingerprinting')
 flags(wp)
 ```
 

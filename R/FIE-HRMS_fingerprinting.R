@@ -7,7 +7,7 @@
 #' @importFrom MFassign assignMFs
 #' @importFrom utils data
 
-FIE_HRMSfingerprinting <- function(elements = NULL){
+`FIE-HRMS_fingerprinting` <- function(elements = NULL){
   methods <- list(
     spectralBin = function(x){
       cat('\nSpectral binning',cli::symbol$continue,'\r')

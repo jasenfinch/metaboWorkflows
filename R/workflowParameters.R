@@ -7,10 +7,11 @@
 #' @importFrom metabolyseR analysisParameters changeParameter getClusterType
 #' @importFrom MFassign assignmentParameters
 #' @importFrom parallel detectCores
+#' @importFrom stringr str_detect
 #' @export
 
 workflowParameters <- function(workflow = NULL, files = NULL){
-  availWorkflows <- c('FIE_HRMSfingerprinting','RP_LC_HRMSprofiling','NP_LC_HRMSprofiling','GC_MSprofilingDeconvolution')
+  availWorkflows <- c('FIE-HRMS_fingerprinting','NS-HRMS_fingerprinting','RP-LC-HRMS_profiling','NP-LC-HRMS_profiling','GC-MS_profiling_deconvolution')
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
@@ -23,7 +24,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
       ap <- changeParameter('clusterType', getClusterType(), ap)
       ap <- changeParameter('nCores', detectCores() * 0.75, ap)
       
-      if (grepl('FIE',workflow)) {
+      if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NS-HRMS')) {
         if (is.null(files)) {
           bp <- binParameters()
         } else {
@@ -37,7 +38,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
                      annotation = assignmentParameters('FIE'))
       }
       
-      if (grepl('RP_LC_HRMS',workflow) | grepl('NP_LC_HRMS',workflow)) {
+      if (grepl('RP-LC-HRMS',workflow) | grepl('NP-LC-HRMS',workflow)) {
         w <- 'FIE'
         ap <- changeParameter('RSDthresh', 0.25, ap)
         if (grepl('RP',workflow)) {
@@ -47,10 +48,10 @@ workflowParameters <- function(workflow = NULL, files = NULL){
           p <- profileParameters('LCMS-NP')
         }
         
-        if (grepl('RP_LC_HRMS',workflow)) {
+        if (grepl('RP-LC-HRMS',workflow)) {
           m <- 'RP-LC'
         }
-        if (grepl('NP_LC_HRMS',workflow)) {
+        if (grepl('NP-LC-HRMS',workflow)) {
           m <- 'NP-LC'
         }
         
@@ -63,7 +64,7 @@ workflowParameters <- function(workflow = NULL, files = NULL){
         )
       }
       
-      if (grepl('GC_MSprofilingDeconvolution',workflow)) {
+      if (grepl('GC-MS_profiling_deconvolution',workflow)) {
         w <- 'FIE'
         ap <- changeParameter('RSDthresh', 0.30, ap)
         p <- profileParameters('GCMS-eRah')
