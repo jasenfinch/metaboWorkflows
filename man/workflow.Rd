@@ -23,7 +23,7 @@ library(metaboData)
 files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
 info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-wp <- workflowParameters('FIE-HRMS_fingerprinting',files = files)
+wp <- workflowParameters('FIE-HRMS fingerprinting',files = files)
 analysis <- workflow(files, info, wp)
 }
 }
