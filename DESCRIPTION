@@ -44,6 +44,7 @@ Collate:
     flags.R
     metaboWorkflows.R
     access.R
+    plotting.R
 Suggests: knitr,
     rmarkdown,
     metaboData,
