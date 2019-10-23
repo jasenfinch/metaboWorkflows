@@ -11,5 +11,5 @@
 \item{x}{S4 object of class Workflow}
 }
 \description{
-Extract processed metabolomics profiling data from an object of class Workflow
+Extract processed metabolomics data from an object of class Workflow
 }

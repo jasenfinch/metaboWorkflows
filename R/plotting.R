@@ -16,10 +16,10 @@
 
 setMethod('plotPCA',signature = 'Workflow',
           function(analysis, cls = 'class', label = NULL, scale = T, center = T, xAxis = 'PC1', yAxis = 'PC2', ellipses = T, title = 'Principle Component Analysis (PCA)', legendPosition = 'bottom', labelSize = 2){
-  analysis %>%
-    resultsAnalysis() %>%
-    plotPCA(cls = cls, label = label, scale = scale, center = center, xAxis = xAxis, yAxis = yAxis, ellipses = ellipses, title = title, legendPosition = legendPosition, labelSize = labelSize)
-})
+            analysis %>%
+              resultsAnalysis() %>%
+              plotPCA(cls = cls, label = label, scale = scale, center = center, xAxis = xAxis, yAxis = yAxis, ellipses = ellipses, title = title, legendPosition = legendPosition, labelSize = labelSize)
+          })
 
 #' plotLDA
 #' @description Plot linear discriminant analysis resultus of pre-treated data
@@ -122,3 +122,31 @@ setMethod('plotRSD',signature = 'Workflow',
               resultsAnalysis() %>%
               plotRSD(cls = cls, QCidx = QCidx, QCparameters = QCparameters, modes = modes, histBins = histBins, title = title)
           })
+
+#' plotTIC
+#' @rdname plotTIC
+#' @description Plot processed sample total ion counts. 
+#' @param x S4 object of class Workflow
+#' @param ... arguments to pass to individal object methods depending on what spectral processing has been used (see \code{?binneR::plotTIC} or \code{?profilePro::plotTIC})
+#' @importFrom utils getFromNamespace
+#' @export
+
+setMethod('plotTIC',signature = 'Workflow',
+          function(x,...){
+            
+            d <- x %>%
+              resultsProcessing()
+            
+            if (class(d) == 'Binalysis') {
+              plotFunc <- getFromNamespace('plotTIC','binneR')
+            }
+            
+            if (class(d) == 'MetaboProfile') {
+              plotFunc <- getFromNamespace('plotTIC','profilePro')
+            }
+            
+            plotFunc(d,...)
+          }
+)
+
+

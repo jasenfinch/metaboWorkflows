@@ -34,42 +34,11 @@ setMethod('preTreated',signature = 'Workflow',function(x){
     preTreated()
 })
 
-#' binnedData
-#' @description Extract binned data from a Workflow object.
-#' @param x S4 object of class Workflow 
-#' @importMethodsFrom binneR binnedData
-#' @export
-
-setMethod('binnedData',signature = 'Workflow',function(x){
-  if (x %>% resultsProcessing() %>% class() == 'Binalysis') {
-    x %>%
-      resultsProcessing() %>%
-      binnedData() 
-  } else {
-    stop('The processed data should be an S4 object of class Binalysis!')
-  }
-})
-
-#' info
-#' @description Extract raw binning runinfo data from a Workflow object.
-#' @param x S4 object of class Workflow 
-#' @importMethodsFrom binneR info
-#' @export
-
-setMethod('info',signature = 'Workflow',function(x){
-  if (x %>% resultsProcessing() %>% class() == 'Binalysis') {
-    x %>%
-      resultsProcessing() %>%
-      info()
-  } else {
-    stop('The processed data should be an S4 object of class Binalysis!')
-  }
-})
-
 #' processedData
-#' @description Extract processed metabolomics profiling data from an object of class Workflow
+#' @description Extract processed metabolomics data from an object of class Workflow
 #' @param x S4 object of class Workflow
 #' @importMethodsFrom profilePro processedData
+#' @importFrom binneR binnedData
 #' @export
 
 setMethod('processedData',signature = 'Workflow',function(x){
@@ -77,24 +46,32 @@ setMethod('processedData',signature = 'Workflow',function(x){
     x %>%
       resultsProcessing() %>%
       processedData()  
-  } else {
-    stop('The processed data should be an S4 object of class MetaboProfile!')
+  } 
+  if (x %>% resultsProcessing() %>% class() == 'Binalysis') {
+    x %>%
+      resultsProcessing() %>%
+      binnedData()
   }
 })
 
-#' sampleInfo
-#' @description Extract raw profiling sample info from an object of class Workflow.
+#' processedInfo
+#' @rdname processedInfo
+#' @description Extract processed sample info from an object of class Workflow.
 #' @param x S4 object of class Workflow
-#' @importMethodsFrom profilePro sampleInfo
+#' @importFrom profilePro sampleInfo
+#' @importFrom binneR info
 #' @export
 
-setMethod('info',signature = 'Workflow',function(x){
+setMethod('processedInfo',signature = 'Workflow',function(x){
   if (x %>% resultsProcessing() %>% class() == 'MetaboProfile') {
     x %>%
       resultsProcessing() %>%
       sampleInfo()  
-  } else {
-    stop('The processed data should be an S4 object of class MetaboProfile!')
+  } 
+  if (x %>% resultsProcessing() %>% class() == 'Binalysis') {
+    x %>%
+      resultsProcessing() %>%
+      info()
   }
 })
 
