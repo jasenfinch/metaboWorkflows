@@ -18,10 +18,9 @@ execute workflow based on specified worklow parameters and a file list.
 }
 \examples{
 \dontrun{
-library(metaboData)
 
-files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
-info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
 wp <- workflowParameters('FIE-HRMS fingerprinting',files = files)
 analysis <- workflow(files, info, wp)
