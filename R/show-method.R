@@ -34,6 +34,6 @@ setMethod('show',signature = 'Workflow',
             cat('\n',object@logs$initialisation,'\n',sep = '')
             cat('Workflow:',bold(blue(object@workflowParameters@workflow)),'\n')
             cat('Completed Flags:',str_c(object@flags,collapse = ' '),'\n')
-            cat('No. Samples:',length(object@files[[1]]), '\n\n')
+            cat('No. Samples:',length(object@files), '\n\n')
           }
 )
