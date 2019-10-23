@@ -9,10 +9,9 @@
 #' @importFrom utils packageVersion
 #' @examples 
 #' \dontrun{
-#' library(metaboData)
 #' 
-#' files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
-#' info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+#' files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+#' info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
 #' wp <- workflowParameters('FIE-HRMS fingerprinting',files = files)
 #' analysis <- workflow(files, info, wp)
