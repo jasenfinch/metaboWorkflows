@@ -150,7 +150,7 @@ The workflow can then be executed using the following.
 analysis <- workflow(files,info,parameters)
 ```
 
-The following functions can be used for extracting the workflow results of the relevant section:
+The following functions can be used for extracting the workflow results for each of the relevant sections:
 
 * `resultsParameters()`
 * `resultsProcessing()`
@@ -162,6 +162,13 @@ For instance to extract the processing results of a `Workflow` object:
 ```{r processingResults,eval=FALSE}
 resultsProcessing(analysis)
 ```
+
+Alternatively the processed and pre-treated data matrices and sample info can be retrieved using:
+
+* `processedInfo()`
+* `processedData()`
+* `preTreatedInfo()`
+* `preTreatedData()`
 
 #### Check Points
 
@@ -194,7 +201,7 @@ analysis <- restartWorkflow(analysis)
 ### Flags
 
 Each workflow is made up of sections (flags) each with its own function. 
-The flags for a given workflow can be retreived using the following:
+The flags for a given workflow can be retrieved using the following:
 
 ```{r, showFlags}
 wp <- workflowParameters('FIE-HRMS fingerprinting')
@@ -209,5 +216,14 @@ flags(wp) <- flags(wp)[-(4:5)]
 flags(wp)
 ```
 
+### Plotting
 
+A number of plotting methods are available for processed and pre-treated data that are extensions of the functions found within the `binneR`, `profilePro` and `metabolyseR` packages.
+These functions include:
 
+* `plotTIC()`
+* `plotRSD()`
+* `plotPCA()`
+* `plotLDA()`
+* `plotUnsupervisedRF()`
+* `plotSupervisedRF()`

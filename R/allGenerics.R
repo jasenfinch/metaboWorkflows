@@ -42,3 +42,13 @@ setGeneric("resultsAnnotation", function(object) {
 setGeneric("flags", function(x) {
   standardGeneric("flags")
 })
+
+#' @rdname plotTIC
+setGeneric("plotTIC", function(x,...) {
+  standardGeneric("plotTIC")
+})
+
+#' @rdname processedInfo
+setGeneric("processedInfo", function(x) {
+  standardGeneric("processedInfo")
+})

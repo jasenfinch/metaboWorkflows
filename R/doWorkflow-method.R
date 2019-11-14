@@ -10,14 +10,19 @@ setMethod('doWorkflow',signature = 'Workflow',
               method <- Workflow(i)
               flag <- 'fail'
               try({
-                y <- r(function(x,m){
-                  suppressPackageStartupMessages(library(metaboWorkflows))
-                  m(x)
-                },args = list(x = y,m = method),show = TRUE,spinner = FALSE)
-                y@logs <- c(y@logs,list(date()))
-                names(y@logs)[length(y@logs)] <- i
-                y@flags <- c(y@flags,i)
-                flag <- 'success'
+                res <- r(function(x,m){
+                  requireNamespace('metaboWorkflows',quietly = T)
+                  try(m(x))
+                },args = list(x = y,m = method),
+                show = TRUE,
+                spinner = FALSE)
+                if (isS4(res)) {
+                  y <- res
+                  y@logs <- c(y@logs,list(date()))
+                  names(y@logs)[length(y@logs)] <- i
+                  y@flags <- c(y@flags,i)
+                  flag <- 'success' 
+                }
               })
               if (flag == 'fail') {
                 cat('Failed at workflow element',i)
