@@ -8,13 +8,13 @@ setMethod('show',signature = 'WorkflowParameters',
           function(object){
             cat('Parameters for Workflow:',object@workflow,'\n')
             
-            cat(blue('\nProcessing paramters:'))
+            cat(blue('\nProcessing parameters:'))
             print(object@processing)
             
-            cat(blue('\nAnalysis paramters:\n'))
+            cat(blue('\nAnalysis parameters:\n'))
             print(object@analysis)
             
-            cat(blue('\nAnnotation paramters:'))
+            cat(blue('\nAnnotation parameters:'))
             print(object@annotation)
           }
 )
