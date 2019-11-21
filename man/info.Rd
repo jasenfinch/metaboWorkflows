@@ -17,6 +17,8 @@ info(x) <- value
 }
 \arguments{
 \item{x}{S4 object of class Workflow or WorflowParameters}
+
+\item{value}{tibble containing sample information}
 }
 \description{
 Get and set sample information.

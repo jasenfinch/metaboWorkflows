@@ -20,6 +20,8 @@ files(x) <- value
 }
 \arguments{
 \item{x}{S4 object of class Workflow or WorflowParameters}
+
+\item{value}{character vector of file paths}
 }
 \description{
 Get and set sample file paths.
