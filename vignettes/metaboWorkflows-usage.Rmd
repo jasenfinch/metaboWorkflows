@@ -66,8 +66,8 @@ There are three main functions that are used within the *metaboWorkflows* packag
 
 The available workflows within the package can be found by running:
 
-```{r availbleWorkflows}
-workflowParameters()
+```{r availbleWorkflows,message=TRUE}
+availableWorkflows()
 ```
 
 These workflows include:
