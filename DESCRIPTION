@@ -45,6 +45,7 @@ Collate:
     metaboWorkflows.R
     access.R
     plotting.R
+    availableWorkflows.R
 Suggests: knitr,
     rmarkdown,
     metaboData,
