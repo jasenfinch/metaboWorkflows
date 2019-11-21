@@ -4,7 +4,13 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(workflow = NULL, files = NULL, ...)
+workflowParameters(
+  workflow = NULL,
+  files = NULL,
+  info = NULL,
+  cls = "class",
+  ...
+)
 }
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
