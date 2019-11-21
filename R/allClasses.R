@@ -17,12 +17,15 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 #' @export
 setClass('WorkflowParameters',
          slots = list(
+           files = 'character',
+           info = 'tbl_df',
            workflow = 'character',
            flags = 'character',
            processing = 'Processing',
            analysis = 'AnalysisParameters',
            annotation = 'AssignmentParameters'
-         )
+         ),
+         prototype = list(info = tibble())
 )
 
 #' Workflow
@@ -48,5 +51,5 @@ setClass('Workflow',
            analysed = 'Analysis',
            annotated = 'Assignment'
            ),
-         prototype = list(logs = list(packageVersion = packageVersion('metaboWorkflows')))
+         prototype = list(logs = list(packageVersion = packageVersion('metaboWorkflows'))),
 )

@@ -4,13 +4,7 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(
-  workflow = NULL,
-  files = NULL,
-  info = NULL,
-  cls = "class",
-  ...
-)
+workflowParameters(workflow, files, info, cls = "class", ...)
 }
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
@@ -21,4 +15,10 @@ workflowParameters(
 }
 \description{
 Initiate default workflow parameters for a selected workflow.
+}
+\examples{
+files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
 }
