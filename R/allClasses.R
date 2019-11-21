@@ -47,5 +47,6 @@ setClass('Workflow',
            processed = 'Processed',
            analysed = 'Analysis',
            annotated = 'Assignment'
-           )
+           ),
+         prototype = list(logs = list(packageVersion = packageVersion('metaboWorkflows')))
 )
