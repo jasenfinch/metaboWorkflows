@@ -60,7 +60,6 @@ workflow <- function(files,info,parameters){
   )
   
   wf <- new('Workflow',
-            logs = list(),
             flags = character(),
             files = files,
             info = info,
@@ -69,7 +68,6 @@ workflow <- function(files,info,parameters){
             analysed = analysis,
             annotated = annotation)
   
-  wf@logs$packageVersion <- packageVersion('metaboWorkflows')
   wf@logs$initialisation <- date()
   
   wf <- wf %>% doWorkflow()

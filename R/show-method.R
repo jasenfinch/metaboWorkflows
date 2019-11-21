@@ -29,8 +29,7 @@ setMethod('show',signature = 'WorkflowParameters',
 
 setMethod('show',signature = 'Workflow',
           function(object){
-            cat('\nmetaboWorkflows Workflow\n')
-            cat('Analysed by package version',bold(red(object@logs$packageVersion[1])))
+            cat(str_c('\n',blue('metaboWorkflows'),' ',red(str_c('v',object@logs$packageVersion %>% as.character())),'\n'))
             cat('\n',object@logs$initialisation,'\n',sep = '')
             cat('Workflow:',bold(blue(object@workflowParameters@workflow)),'\n')
             cat('Completed Flags:',str_c(object@flags,collapse = ' '),'\n')
