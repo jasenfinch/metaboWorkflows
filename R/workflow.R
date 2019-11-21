@@ -9,10 +9,10 @@
 #' @examples 
 #' \dontrun{
 #' 
-#' files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
-#' info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+#' fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+#' si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
-#' wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
+#' wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 #' analysis <- workflow(wp)
 #' }
 #' @export

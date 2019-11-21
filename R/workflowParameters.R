@@ -1,11 +1,13 @@
 #' workflowParameters
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
-#' @param files supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow
+#' @param files list of file paths to raw data
+#' @param info tibble containing sample information
+#' @param cls info column containing class information to use as default for pre-treatment and modelling
 #' @param ... arguments to pass to binneR::detectParameters
 #' @examples 
-#' files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
-#' info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+#' fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+#' si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
 #' wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
 #' @importFrom binneR binParameters detectParameters
@@ -21,9 +23,6 @@
 workflowParameters <- function(workflow, files, info, cls = 'class', ...){
   if (workflow %in% availableWorkflows(quiet = T,return = T)) {
     ap <- analysisParameters()
-    ap <- changeParameter('reps', 10, ap)
-    ap <- changeParameter('clusterType', getClusterType(), ap)
-    ap <- changeParameter('nCores', detectCores() * 0.75, ap)
     
     i <- info %>%
       select(cls) %>%
@@ -37,6 +36,11 @@ workflowParameters <- function(workflow, files, info, cls = 'class', ...){
     } else {
       
     }
+    
+    ap <- changeParameter('reps', 10, ap)
+    ap <- changeParameter('clusterType', getClusterType(), ap)
+    ap <- changeParameter('nCores', detectCores() * 0.75, ap)
+    ap <- changeParameter('cls',cls,ap)
     
     if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
       if (is.null(files)) {

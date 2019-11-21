@@ -9,7 +9,11 @@ workflowParameters(workflow, files, info, cls = "class", ...)
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
 
-\item{files}{supply vector of file paths for auto detection of parameters. Currently only enabled for the FIE_HRMSfingerprinting workflow}
+\item{files}{list of file paths to raw data}
+
+\item{info}{tibble containing sample information}
+
+\item{cls}{info column containing class information to use as default for pre-treatment and modelling}
 
 \item{...}{arguments to pass to binneR::detectParameters}
 }
@@ -17,8 +21,8 @@ workflowParameters(workflow, files, info, cls = "class", ...)
 Initiate default workflow parameters for a selected workflow.
 }
 \examples{
-files <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
-info <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
 wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
 }
