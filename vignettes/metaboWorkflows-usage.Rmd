@@ -52,7 +52,9 @@ The packages can then easily be loaded using:
 hrm::hrmAttach()
 ```
 
-```{r libraryLoad,include=FALSE}
+Otherwise run:
+
+```{r libraryLoad,message=FALSE}
 library(metaboWorkflows)
 library(metaboData)
 library(binneR)
@@ -101,11 +103,11 @@ Further columns can be added to this file to denote different class labelling.
 The file paths and sample info can be loaded for the example data using the following:
 
 ```{r files,message=FALSE}
-files <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
-info <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+fp <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
+si <- runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-head(files)
-info
+head(fp)
+si
 ```
 
 ### Parameter Selection
@@ -115,12 +117,24 @@ For instance, the `FIE-HRMS fingerprinting` workflow can be retrieved using the 
 The addition of the vector containing the file paths allows for automatic parameter detection.
 
 ```{r getParameters,include=FALSE}
-parameters <- workflowParameters('FIE-HRMS fingerprinting',files = files,nCores = 2)
+parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)
 ```
 
 ```{r parameters,eval=FALSE}
-parameters <- workflowParameters('FIE-HRMS fingerprinting',files = files)
+parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 parameters
+```
+
+The files paths of sample information can be returned or set from a give set of workflow parameters using the `files()` and `info()` methods.
+For instance the files paths can be returned using:
+
+```{r parameterFilePaths,eval=FALSE}
+files(parameters)
+```
+
+Or for example the first file path could be remove:
+```{r removedFilePath}
+files(parameters) <- files(parameters)[-1]
 ```
 
 The parameters can altered for a given workflow section using the following functions:
@@ -147,7 +161,7 @@ Executing a workflow is simple using the `workflow()` function.
 The workflow can then be executed using the following.
 
 ```{r workflow, eval=FALSE}
-analysis <- workflow(files,info,parameters)
+analysis <- workflow(parameters)
 ```
 
 The following functions can be used for extracting the workflow results for each of the relevant sections:
@@ -204,7 +218,7 @@ Each workflow is made up of sections (flags) each with its own function.
 The flags for a given workflow can be retrieved using the following:
 
 ```{r, showFlags}
-wp <- workflowParameters('FIE-HRMS fingerprinting')
+wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 flags(wp)
 ```
 
