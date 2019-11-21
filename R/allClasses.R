@@ -9,6 +9,8 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 #' WorkflowParameters
 #' @description An S4 class to store workflow parameters
 #' @slot workflow character containing the workflow to use
+#' @slot files file paths for sampels to process
+#' @slot info tibble containing sample information
 #' @slot flags character vector containing the workflow elements to analyse
 #' @slot processing Processing object containing processing parameters for the specified workflow
 #' @slot analysis AnalysisParameters object containing the analysis parameters
@@ -17,9 +19,9 @@ setClassUnion('Processing',c('BinParameters','ProfileParameters'))
 #' @export
 setClass('WorkflowParameters',
          slots = list(
+           workflow = 'character',
            files = 'character',
            info = 'tbl_df',
-           workflow = 'character',
            flags = 'character',
            processing = 'Processing',
            analysis = 'AnalysisParameters',
@@ -32,7 +34,7 @@ setClass('WorkflowParameters',
 #' @description  An S4 class to store workflow results
 #' @slot logs list containing workflow dates and times
 #' @slot flags character containing workflow sections completed
-#' @slot files list file names to process
+#' @slot files file paths for sampels to process
 #' @slot info tibble containing sample information
 #' @slot workflowParameters WorkflowParameters object containing parameters used 
 #' @slot processed Processed object containing processing results

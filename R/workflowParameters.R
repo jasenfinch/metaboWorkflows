@@ -1,15 +1,17 @@
 #' workflowParameters
 #' @description Initiate default workflow parameters for a selected workflow.
 #' @param workflow the workflow analysis to use. NULL prints the available workflows.
-#' @param files list of file paths to raw data
-#' @param info tibble containing sample information
+#' @param fp list of file paths to raw data
+#' @param si tibble containing sample information
 #' @param cls info column containing class information to use as default for pre-treatment and modelling
 #' @param ... arguments to pass to binneR::detectParameters
 #' @examples 
+#' \dontrun{
 #' fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
 #' si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
-#' wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
+#' wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
+#' }
 #' @importFrom binneR binParameters detectParameters
 #' @importFrom profilePro profileParameters
 #' @importFrom metabolyseR analysisParameters changeParameter getClusterType
@@ -20,11 +22,11 @@
 #' @importFrom dplyr select
 #' @export
 
-workflowParameters <- function(workflow, files, info, cls = 'class', ...){
+workflowParameters <- function(workflow, fp, si, cls = 'class', ...){
   if (workflow %in% availableWorkflows(quiet = T,return = T)) {
     ap <- analysisParameters()
     
-    i <- info %>%
+    i <- si %>%
       select(cls) %>%
       deframe()
     
@@ -43,11 +45,7 @@ workflowParameters <- function(workflow, files, info, cls = 'class', ...){
     ap <- changeParameter('cls',cls,ap)
     
     if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
-      if (is.null(files)) {
-        bp <- binParameters()
-      } else {
-        bp <- detectParameters(files,...)
-      }
+      bp <- detectParameters(fp,...)
       param <- new('WorkflowParameters',
                    workflow = workflow,
                    flags = workflowFlags(workflow),
@@ -96,8 +94,8 @@ workflowParameters <- function(workflow, files, info, cls = 'class', ...){
       )
     }
     
-    files(param) <- files
-    info(param) <- info
+    files(param) <- fp
+    info(param) <- si
     
     return(param) 
   } else {

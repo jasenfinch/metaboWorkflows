@@ -217,9 +217,13 @@ analysis <- restartWorkflow(analysis)
 Each workflow is made up of sections (flags) each with its own function. 
 The flags for a given workflow can be retrieved using the following:
 
-```{r, showFlags}
+```{r, showFlagsExample,eval=FALSE}
 wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 flags(wp)
+```
+
+```{r, showFlags,include=FALSE}
+wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)
 ```
 
 Workflows can be customised using these flags.

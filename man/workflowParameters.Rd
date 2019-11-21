@@ -4,14 +4,14 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(workflow, files, info, cls = "class", ...)
+workflowParameters(workflow, fp, si, cls = "class", ...)
 }
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
 
-\item{files}{list of file paths to raw data}
+\item{fp}{list of file paths to raw data}
 
-\item{info}{tibble containing sample information}
+\item{si}{tibble containing sample information}
 
 \item{cls}{info column containing class information to use as default for pre-treatment and modelling}
 
@@ -21,8 +21,10 @@ workflowParameters(workflow, files, info, cls = "class", ...)
 Initiate default workflow parameters for a selected workflow.
 }
 \examples{
+\dontrun{
 fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
 si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-wp <- workflowParameters('FIE-HRMS fingerprinting',files,info)
+wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
+}
 }
