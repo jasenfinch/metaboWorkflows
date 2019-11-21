@@ -9,10 +9,12 @@
 #' @importFrom MFassign assignmentParameters
 #' @importFrom parallel detectCores
 #' @importFrom stringr str_detect
+#' @importFrom tibble deframe
 #' @export
 
-workflowParameters <- function(workflow = NULL, files = NULL, ...){
+workflowParameters <- function(workflow = NULL, files = NULL, info = NULL, cls = 'class', ...){
   availWorkflows <- c('FIE-HRMS fingerprinting','NSI-HRMS fingerprinting','RP-LC-HRMS profiling','NP-LC-HRMS profiling','GC-MS profiling deconvolution')
+  
   if (is.null(workflow)) {
     availWorkflows <- paste(availWorkflows,collapse = '\n\t\t\t')
     availWorkflows <- paste('\n\t\t\t',availWorkflows,sep = '')
@@ -25,6 +27,19 @@ workflowParameters <- function(workflow = NULL, files = NULL, ...){
       ap <- changeParameter('reps', 10, ap)
       ap <- changeParameter('clusterType', getClusterType(), ap)
       ap <- changeParameter('nCores', detectCores() * 0.75, ap)
+      
+      i <- info %>%
+        select(cls) %>%
+        deframe()
+      
+      if (is.numeric(i)) {
+        ap@preTreat <- list(QC = list(),
+                            occupancyFilter = list(),
+                            impute = list(),
+                            transform = list())
+      } else {
+        
+      }
       
       if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
         if (is.null(files)) {
