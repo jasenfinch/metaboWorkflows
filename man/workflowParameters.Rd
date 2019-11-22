@@ -4,7 +4,7 @@
 \alias{workflowParameters}
 \title{workflowParameters}
 \usage{
-workflowParameters(workflow, fp, si, cls = "class", ...)
+workflowParameters(workflow, fp, si, cls = "class", QCidx = "QC", ...)
 }
 \arguments{
 \item{workflow}{the workflow analysis to use. NULL prints the available workflows.}
@@ -14,6 +14,8 @@ workflowParameters(workflow, fp, si, cls = "class", ...)
 \item{si}{tibble containing sample information}
 
 \item{cls}{info column containing class information to use as default for pre-treatment and modelling}
+
+\item{QCidx}{QC sample label. QC processing skipped if label not present in column \code{cls}.}
 
 \item{...}{arguments to pass to binneR::detectParameters}
 }
