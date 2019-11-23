@@ -126,7 +126,7 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
     info(param) <- si
     
     if (isFALSE(breaks)) {
-      flags(param) <- flags(param)[!str_detect(flags(a),'CheckPoint')]
+      flags(param) <- flags(param)[!str_detect(flags(param),'CheckPoint')]
     }
     
     return(param) 
