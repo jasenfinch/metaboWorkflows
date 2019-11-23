@@ -8,13 +8,13 @@ setMethod('show',signature = 'WorkflowParameters',
           function(object){
             cat('Parameters for Workflow:',object@workflow,'\n')
             
-            cat(blue('\nProcessing paramters:'))
+            cat(blue('\nProcessing parameters:'))
             print(object@processing)
             
-            cat(blue('\nAnalysis paramters:\n'))
+            cat(blue('\nAnalysis parameters:\n'))
             print(object@analysis)
             
-            cat(blue('\nAnnotation paramters:'))
+            cat(blue('\nAnnotation parameters:'))
             print(object@annotation)
           }
 )
@@ -29,8 +29,7 @@ setMethod('show',signature = 'WorkflowParameters',
 
 setMethod('show',signature = 'Workflow',
           function(object){
-            cat('\nmetaboWorkflows Workflow\n')
-            cat('Analysed by package version',bold(red(object@logs$packageVersion[1])))
+            cat(str_c('\n',blue('metaboWorkflows'),' ',red(str_c('v',object@logs$packageVersion %>% as.character())),'\n'))
             cat('\n',object@logs$initialisation,'\n',sep = '')
             cat('Workflow:',bold(blue(object@workflowParameters@workflow)),'\n')
             cat('Completed Flags:',str_c(object@flags,collapse = ' '),'\n')

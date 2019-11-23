@@ -23,7 +23,7 @@ Imports: binneR,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 Collate:
     allGenerics.R
     allClasses.R
@@ -34,9 +34,7 @@ Collate:
     doWorkflow-method.R
     restartWorkflow.R
     RP-LC-HRMS_profiling.R
-    parametersProcessing.R
-    parametersAnalysis.R
-    parametersAnnotation.R
+    parameters.R
     show-method.R
     results.R
     NP-LC-HRMS_profiling.R
@@ -45,11 +43,14 @@ Collate:
     metaboWorkflows.R
     access.R
     plotting.R
+    availableWorkflows.R
 Suggests: knitr,
     rmarkdown,
     metaboData,
     readr,
-    prettydoc
+    prettydoc,
+    testthat,
+    covr
 Remote: jasenfinch/binneR
         jasenfinch/metabolyseR
         jasenfinch/MFassign

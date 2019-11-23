@@ -14,7 +14,7 @@ An S4 class to store workflow results
 
 \item{\code{flags}}{character containing workflow sections completed}
 
-\item{\code{files}}{list file names to process}
+\item{\code{files}}{file paths for sampels to process}
 
 \item{\code{info}}{tibble containing sample information}
 
