@@ -5,6 +5,7 @@
 #' @param si tibble containing sample information
 #' @param cls info column containing class information to use as default for pre-treatment and modelling
 #' @param QCidx QC sample label. QC processing skipped if label not present in column \code{cls}.
+#' @param breaks should workflow check point breaks be included
 #' @param ... arguments to pass to binneR::detectParameters
 #' @examples 
 #' \dontrun{
@@ -23,7 +24,7 @@
 #' @importFrom dplyr select mutate group_by_at summarise n filter
 #' @export
 
-workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', ...){
+workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', breaks = T, ...){
   if (workflow %in% availableWorkflows(quiet = T,return = T)) {
     ap <- analysisParameters()
     ap <- changeParameter(ap,'cls',cls)
@@ -123,6 +124,10 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', ..
     
     files(param) <- fp
     info(param) <- si
+    
+    if (isFALSE(breaks)) {
+      flags(param) <- flags(param)[!str_detect(flags(a),'CheckPoint')]
+    }
     
     return(param) 
   } else {
