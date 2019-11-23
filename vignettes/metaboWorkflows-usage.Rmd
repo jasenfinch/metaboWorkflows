@@ -63,7 +63,7 @@ library(binneR)
 There are three main functions that are used within the *metaboWorkflows* package:
 
 * `workflowParameters()` - allows the selection of the workflow to use and returns the relevant default parameters.
-* `workflow()` - input files paths, sample information and workflow parameters to execute the workflow. 
+* `workflow()` - execute the workflow for the given parameters. 
 * `restartWorkflow()` - used to restart a workflow after a check point stoppage or failure.
 
 The available workflows within the package can be found by running:
@@ -97,7 +97,7 @@ This should be a tibble with the recommended column headers that include:
 * _name_ - the sample name
 * _class_ - the sample class
 
-The row orders of the info table should match the order in which the files paths are submitted to the `workflow()` function.
+The row orders of the info table should match the order in which the files paths are submitted to the `workflowParameters()` function.
 Further columns can be added to this file to denote different class labelling.
 
 The file paths and sample info can be loaded for the example data using the following:
@@ -112,9 +112,8 @@ si
 
 ### Parameter Selection
 
-The default parameters for a particular workflow can be retrieved using the `workflowParameters()` function. 
+Appropriate default parameters for a particular workflow can be retrieved using the `workflowParameters()` function to which the file paths and sample information are submitted. 
 For instance, the `FIE-HRMS fingerprinting` workflow can be retrieved using the following. 
-The addition of the vector containing the file paths allows for automatic parameter detection.
 
 ```{r getParameters,include=FALSE}
 parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)
@@ -126,18 +125,13 @@ parameters
 ```
 
 The files paths of sample information can be returned or set from a give set of workflow parameters using the `files()` and `info()` methods.
-For instance the files paths can be returned using:
 
 ```{r parameterFilePaths,eval=FALSE}
 files(parameters)
+info(parameters)
 ```
 
-Or for example the first file path could be remove:
-```{r removedFilePath}
-files(parameters) <- files(parameters)[-1]
-```
-
-The parameters can altered for a given workflow section using the following functions:
+The parameters can be altered for a given workflow section using the following functions:
 
 * `parametersProcessing()`
 * `parametersAnalysis()`
@@ -158,7 +152,6 @@ parametersProcessing(parameters) <- binParameters(scans = 5:11)
 ### Workflow
 
 Executing a workflow is simple using the `workflow()` function.
-The workflow can then be executed using the following.
 
 ```{r workflow, eval=FALSE}
 analysis <- workflow(parameters)
@@ -187,14 +180,21 @@ Alternatively the processed and pre-treated data matrices and sample info can be
 #### Check Points
 
 Some workflows can include check points where a workflow is intermediately stopped.
-Reasons for this could include a step that requires a manual curation of data quality such as identifying outlier samples. These may need removing prior to more computationally intensive steps in the analysis.
-After these check points the workflow can easily be restarted from the stop point using the following.
+Reasons for this could include a step that requires a manual curation of data quality such as identifying outlier samples. 
+
+Breaks can be removed by specifying the `breaks` argument when the workflow parmeters are detected.
+
+```{r breaks,eval=FALSE}
+parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si,breaks = F)
+```
+
+A workflow can easily be restarted after a break point using the following.
 
 ```{r continueWorkflow, eval=FALSE}
 analysis <- restartWorkflow(analysis)
 ```
 
-A checkpoint can be skipped simply by piping the output form the initial `workflow()` call directly into `restartWorkflow()` as shown below.
+Alternatively a checkpoint can be skipped simply by piping the output form the initial `workflow()` call directly into `restartWorkflow()` as shown below.
 
 ```{r completeWorkflow, eval=FALSE}
 analysis <- workflow(files,info,parameters) %>%
