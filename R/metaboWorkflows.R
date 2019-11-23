@@ -1,1 +1,1 @@
-globalVariables(c('.'))
+globalVariables(c('.','Freq'))
