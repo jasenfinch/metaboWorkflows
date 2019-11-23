@@ -1,3 +1,55 @@
+#' files
+#' @rdname files
+#' @description Get and set sample file paths.
+#' @param x S4 object of class Workflow or WorflowParameters
+#' @param value character vector of file paths
+#' @export
+
+setMethod('files',signature = 'WorkflowParameters',function(x){
+  x@files
+})
+
+#' @rdname files
+#' @export
+
+setMethod('files<-',signature = 'WorkflowParameters',function(x,value){
+  x@files <- value
+  return(x)
+})
+
+#' @rdname files
+#' @export
+
+setMethod('files',signature = 'Workflow',function(x){
+  x@files
+})
+
+#' info
+#' @rdname info
+#' @description Get and set sample information.
+#' @param x S4 object of class Workflow or WorflowParameters
+#' @param value tibble containing sample information
+#' @export
+
+setMethod('info',signature = 'WorkflowParameters',function(x){
+  x@info
+})
+
+#' @rdname info
+#' @export
+
+setMethod('info<-',signature = 'WorkflowParameters',function(x,value){
+  x@info <- value
+  return(x)
+})
+
+#' @rdname info
+#' @export
+
+setMethod('info',signature = 'Workflow',function(x){
+  x@info
+})
+
 #' preTreatedData
 #' @description return pre-treated data from a Workflow object.
 #' @param x S4 object of class Workflow 
@@ -74,4 +126,3 @@ setMethod('processedInfo',signature = 'Workflow',function(x){
       info()
   }
 })
-
