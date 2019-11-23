@@ -31,6 +31,9 @@ r_github_packages:
 - jasenfinch/MFassign
 - jasenfinch/metaboMisc
 
+after_success:
+    - Rscript -e 'covr::codecov()'
+
 notifications:
     email: false
     slack:

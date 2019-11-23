@@ -48,7 +48,9 @@ Suggests: knitr,
     rmarkdown,
     metaboData,
     readr,
-    prettydoc
+    prettydoc,
+    testthat,
+    covr
 Remote: jasenfinch/binneR
         jasenfinch/metabolyseR
         jasenfinch/MFassign
