@@ -74,6 +74,11 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
     
     if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
       bp <- detectParameters(fp,...)
+      
+      if (str_detect(workflow,'NSI-HRMS')) {
+        ap <- changeParameter(ap,'RSDthresh', 0.25)
+      }
+      
       param <- new('WorkflowParameters',
                    workflow = workflow,
                    flags = workflowFlags(workflow),
@@ -81,6 +86,7 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
                    analysis = ap,
                    annotation = assignmentParameters('FIE'))
     }
+    
     
     if (grepl('RP-LC-HRMS',workflow) | grepl('NP-LC-HRMS',workflow)) {
       w <- 'FIE'
