@@ -117,10 +117,10 @@ setMethod('plotFeature',signature = 'Workflow',
 #' @export
 
 setMethod('plotRSD',signature = 'Workflow',
-          function(analysis, cls = 'class', QCidx = 'QC', QCparameters = NULL, modes = T, histBins = 30, title = 'Relative standard deviation distributions'){
+          function(analysis, cls = 'class', QCidx = 'QC', QCparameters = NULL, histBins = 30, title = 'Relative standard deviation distributions'){
             analysis %>%
               resultsAnalysis() %>%
-              plotRSD(cls = cls, QCidx = QCidx, QCparameters = QCparameters, modes = modes, histBins = histBins, title = title)
+              plotRSD(cls = cls, QCidx = QCidx, QCparameters = QCparameters, histBins = histBins, title = title)
           })
 
 #' plotTIC
