@@ -109,7 +109,6 @@ setMethod('plotFeature',signature = 'Workflow',
 #' @param cls info column to use for class labels
 #' @param QCidx QC sample label
 #' @param QCparameters alternative parameters for QC sample pre-treatment. See details
-#' @param modes split modes if present
 #' @param histBins number of bins to use for histogram plotting
 #' @param title plot title
 #' @details If QCparameters is set as \code{NULL}, the default QC pre-treatment parameters are used as given by \code{analysisParameters('preTreat')}. Alternative pre-treatment routines can be used by specifying an \code{AnalysisParameters} object for \code{QCparameters}.
