@@ -10,15 +10,15 @@
 `FIE-HRMS fingerprinting` <- function(elements = NULL){
   methods <- list(
     spectralBin = function(x){
-      cat('\nSpectral binning',cli::symbol$continue,'\r')
+      message('\nSpectral binning ',cli::symbol$continue,'\r',appendLF = FALSE)
       binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
-      cat('\rSpectral binning',green(cli::symbol$tick),'\n')
+      message('\rSpectral binning ',green(cli::symbol$tick))
       return(x)
     },
     
     detectBatchDiff = function(x){
-      cat('\nChecking if batch correction is needed',cli::symbol$continue,'\r')
+      message('\nChecking if batch correction is needed ',cli::symbol$continue,'\r',appendLF = FALSE)
       
       bd <- detectBatchDiff(x@processed)
       
@@ -32,12 +32,12 @@
         )
       }
       
-      cat('\rChecking if batch correction is needed',green(cli::symbol$tick),'\n')
+      message('\rChecking if batch correction is needed ',green(cli::symbol$tick))
       return(x)
     },
     
     detectMissInjections = function(x){
-      cat('\nChecking for miss injections',cli::symbol$continue,'\r')
+      message('\nChecking for miss injections ',cli::symbol$continue,'\r',appendLF = FALSE)
       
       mi <- detectMissInjections(x@processed)
       
@@ -52,28 +52,28 @@
         )  
       }
       
-      cat('\rChecking for miss injections',green(cli::symbol$tick),'\n')
+      message('\rChecking for miss injections ',green(cli::symbol$tick))
       return(x)
     },
     
     preTreat = function(x){
-      cat('\nPre-treatment',cli::symbol$continue,'\r')
+      message('\nPre-treatment ',cli::symbol$continue,'\r',appendLF = FALSE)
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
       x@analysed <- preTreatModes(x@processed,x@workflowParameters@analysis)
       
-      cat('\rPre-treatment',green(cli::symbol$tick),'\n')
+      message('\rPre-treatment ',green(cli::symbol$tick))
       return(x)
     },
     
     dataQualityCheckPoint = function(x){
-      cat(blue('\nBreak point for data quality check. Use restartWorkflow() to continue analysis.\n') )
+      message(blue('\nBreak point for data quality check. Use restartWorkflow() to continue analysis.'))
       return(x)
     },
     
     MFassignment = function(x){
-      cat('\nMolecular formula assignment',cli::symbol$continue,'\r')
+      message('\nMolecular formula assignment ',cli::symbol$continue,'\r',appendLF = FALSE)
       
       x@annotated <- x %>%
         preTreatedData() %>%
@@ -81,39 +81,39 @@
       
       dat(x@analysed@preTreated) <- assignedData(x@annotated)
       
-      cat('\rMolecular formula assignment',green(cli::symbol$tick),'\n')
+      message('\rMolecular formula assignment ',green(cli::symbol$tick))
       return(x)
     },
     
     MFassignmentCheckPoint = function(x){
-      cat(blue('\nBreak point to check MF assignments. Use restartWorkflow() to continue analysis.\n') )
+      message(blue('\nBreak point to check MF assignments. Use restartWorkflow() to continue analysis.') )
       return(x)
     },
     
     reduceIsotopes = function(x){
-      cat('\nReducing isotopic features',cli::symbol$continue,'\r')
+      message('\nReducing isotopic features ',cli::symbol$continue,'\r',appendLF = FALSE)
       x@analysed <- metaboMisc::reduce(x %>% resultsAnalysis(),adducts = F)
-      cat('\rReducing isotopic features',green(cli::symbol$tick),'\n')
+      message('\rReducing isotopic features ',green(cli::symbol$tick))
       return(x)
     },
     
     modelling = function(x){
-      cat('\nModelling',cli::symbol$continue,'\r')
+      message('\nModelling ',cli::symbol$continue,'\r',appendLF = FALSE)
       p <- analysisParameters('modelling')
       p@modelling <- x@workflowParameters@analysis@modelling
       x@analysed <- reAnalyse(x@analysed,p) 
       x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rModelling',green(cli::symbol$tick),'\n')
+      message('\rModelling ',green(cli::symbol$tick))
       return(x)
     },
     
     correlations = function(x){
-      cat('\nCorrelations',cli::symbol$continue,'\r')
+      message('\nCorrelations ',cli::symbol$continue,'\r',appendLF = FALSE)
       p <- analysisParameters('correlations')
       p@correlations <- x@workflowParameters@analysis@correlations
       x@analysed <- reAnalyse(x@analysed,p) 
       x@analysed@parameters <- x@workflowParameters@analysis
-      cat('\rCorrelations',green(cli::symbol$tick),'\n')
+      message('\rCorrelations ',green(cli::symbol$tick))
       return(x)
     }
   )
