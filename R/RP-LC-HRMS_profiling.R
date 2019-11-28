@@ -6,9 +6,9 @@
 `RP-LC-HRMS profiling` <- function(elements = NULL){
   methods <- list(
     peakPick = function(x){
-      cat('\nPeak picking',cli::symbol$continue,'\r')
+      message('\nPeak picking',cli::symbol$continue,'\r',appendLF = TRUE)
       x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
-      cat('\rPeak picking',green(cli::symbol$tick),'\n')
+      message('\rPeak picking',green(cli::symbol$tick))
       return(x)
     },
     
