@@ -25,7 +25,7 @@ setMethod('doWorkflow',signature = 'Workflow',
                 }
               })
               if (flag == 'fail') {
-                cat('Failed at workflow element',i)
+                cat('Failed at workflow element',i,'\n')
                 return(y)
               }
               if (grepl('CheckPoint',i)) {
