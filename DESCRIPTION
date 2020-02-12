@@ -1,11 +1,11 @@
 Package: metaboWorkflows
 Title: Workflows for metabolomics analyses
-Version: 0.8.2
+Version: 0.8.3
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 biocViews: Metabolomics
 Depends: R (>= 3.4.0),
-    MSnbase
+    profilePro
 Imports: binneR,
     metabolyseR,
     magrittr,
@@ -13,7 +13,6 @@ Imports: binneR,
     MFassign,
     tibble,
     dplyr,
-    profilePro,
     stringr,
     purrr,
     crayon,
@@ -23,7 +22,7 @@ Imports: binneR,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Collate:
     allGenerics.R
     allClasses.R
