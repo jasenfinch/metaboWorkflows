@@ -5,7 +5,9 @@
 
 `RP-LC-HRMS profiling` <- function(elements = NULL){
   methods <- list(
+    
     peakPick = function(x){
+      eval(parse(text = 'suppressPackageStartupMessages(library(profilePro))'))
       message('\nPeak picking',cli::symbol$continue,'\r',appendLF = TRUE)
       x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
       message('\rPeak picking',green(cli::symbol$tick))
