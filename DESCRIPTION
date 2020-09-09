@@ -53,6 +53,7 @@ Suggests: knitr,
 Remotes: aberHRML/binneR,
         jasenfinch/metabolyseR,
         jasenfinch/MFassign,
-        jasenfinch/profilePro
+        jasenfinch/profilePro,
+        jasenfinch/metaboMisc
 VignetteBuilder: knitr
 Additional_repositories: https://aberhrml.github.io/drat/
