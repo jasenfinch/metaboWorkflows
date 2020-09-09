@@ -50,10 +50,9 @@ Suggests: knitr,
     prettydoc,
     testthat,
     covr
-Remotes: jasenfinch/binneR
-        jasenfinch/metabolyseR
-        jasenfinch/MFassign
+Remotes: aberHRML/binneR,
+        jasenfinch/metabolyseR,
+        jasenfinch/MFassign,
         jasenfinch/profilePro
-        jasenfinch/metaboData
 VignetteBuilder: knitr
 Additional_repositories: https://aberhrml.github.io/drat/
