@@ -1,6 +1,6 @@
 Package: metaboWorkflows
-Title: Workflows for metabolomics analyses
-Version: 0.8.4
+Title: Workflows for Metabolomics Analyses
+Version: 0.8.5
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
 biocViews: Metabolomics
@@ -50,10 +50,10 @@ Suggests: knitr,
     prettydoc,
     testthat,
     covr
-Remote: jasenfinch/binneR
-        jasenfinch/metabolyseR
-        jasenfinch/MFassign
-        jasenfinch/profilePro
-        jasenfinch/metaboData
+Remotes: aberHRML/binneR,
+        jasenfinch/metabolyseR,
+        jasenfinch/MFassign,
+        jasenfinch/profilePro,
+        jasenfinch/metaboMisc
 VignetteBuilder: knitr
 Additional_repositories: https://aberhrml.github.io/drat/
