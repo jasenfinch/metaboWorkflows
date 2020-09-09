@@ -3,9 +3,9 @@
   methods <- list(
     
     deconvolve = function(x){
-      cat('\nDeconvolution',cli::symbol$continue,'\r')
+      message('\nDeconvolution',cli::symbol$continue,'\r',appendLF = TRUE)
       x@processed <- profileProcess(x@files,x@info,x@workflowParameters@processing)
-      cat('\rDeconvolution',green(cli::symbol$tick),'\n')
+      message('\rDeconvolution',green(cli::symbol$tick))
       return(x)
     },
     
@@ -14,13 +14,13 @@
     detectMissInjections = `FIE-HRMS fingerprinting`('detectMissInjections'),
     
     preTreat = function(x){
-      cat('\nPre-treatment',cli::symbol$continue,'\r')
+      message('\nPre-treatment',cli::symbol$continue,'\r',appendLF = TRUE)
       preTreatParameters <- analysisParameters('preTreat')
       preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
       
       x@analysed <- metabolyse(x@processed@Data,x@processed@Info,preTreatParameters)
       
-      cat('\rPre-treatment',green(cli::symbol$tick),'\n')
+      message('\rPre-treatment',green(cli::symbol$tick))
       return(x)
     },
     

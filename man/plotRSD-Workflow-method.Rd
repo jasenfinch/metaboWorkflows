@@ -9,7 +9,6 @@
   cls = "class",
   QCidx = "QC",
   QCparameters = NULL,
-  modes = T,
   histBins = 30,
   title = "Relative standard deviation distributions"
 )
@@ -22,8 +21,6 @@
 \item{QCidx}{QC sample label}
 
 \item{QCparameters}{alternative parameters for QC sample pre-treatment. See details}
-
-\item{modes}{split modes if present}
 
 \item{histBins}{number of bins to use for histogram plotting}
 
