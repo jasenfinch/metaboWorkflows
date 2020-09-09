@@ -51,7 +51,7 @@ Suggests: knitr,
     prettydoc,
     testthat,
     covr
-Remote: jasenfinch/binneR
+Remotes: jasenfinch/binneR
         jasenfinch/metabolyseR
         jasenfinch/MFassign
         jasenfinch/profilePro
