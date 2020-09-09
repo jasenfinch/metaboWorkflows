@@ -1,5 +1,5 @@
 Package: metaboWorkflows
-Title: Workflows for metabolomics analyses
+Title: ‘Workflows for Metabolomics Analyses
 Version: 0.8.5
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Workflows for metabolomics analyses.
