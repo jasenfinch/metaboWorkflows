@@ -1,19 +1,21 @@
 
 `FIE-HRMS fingerprinting` <- function(elements = NULL){
   methods <- list(
-    spectralBin = workflow_elements$spectralBin,
+    `spectral binning` = workflow_elements$spectralBin,
 
-    detectBatchDiff =  workflow_elements$detectBatchDiff,
+    `detect batch differences` =  workflow_elements$detectBatchDiff,
 
-    detectMissInjections =  workflow_elements$detectMissInjections,
+    `detect missed injections` =  workflow_elements$detectMissInjections,
 
-    preTreat =  workflow_elements$preTreat,
+    `pre-treatment` =  workflow_elements$preTreat,
+    
+    `data quality check point` = workflow_elements$dataQualityCheckPoint,
 
-    MFassignment =  workflow_elements$MFassignment,
+    `molecular formula assignment` =  workflow_elements$MFassignment,
 
-    MFassignmentCheckPoint =  workflow_elements$MFassignmentCheckPoint,
+    `molecular formula assignment check point` =  workflow_elements$MFassignmentCheckPoint,
 
-    reduceIsotopes =  workflow_elements$reduceIsotopes,
+    `reduce isotopes` =  workflow_elements$reduceIsotopes,
 
     modelling =  workflow_elements$modelling,
 
@@ -36,13 +38,13 @@
     
     deconvolve = workflow_elements$deconvolve,
     
-    detectBatchDiff = workflow_elements$detectBatchDiff,
+    `detect batch differences` = workflow_elements$detectBatchDiff,
     
-    detectMissInjections = workflow_elements$detectMissInjections,
+    `detect missed injections` = workflow_elements$detectMissInjections,
     
-    preTreat = workflow_elements$preTreat_GC,
+    `pre-treatment` = workflow_elements$preTreat_GC,
     
-    dataQualityCheckPoint = workflow_elements$dataQualityCheckPoint,
+    `data quality check point` = workflow_elements$dataQualityCheckPoint,
     
     modelling = workflow_elements$modelling,
     
@@ -59,19 +61,19 @@
 `RP-LC-HRMS profiling` <- function(elements = NULL){
   methods <- list(
     
-    peakPick = workflow_elements$peakPick(),
+    `peak picking` = workflow_elements$peakPick(),
     
-    detectBatchDiff = workflow_elements$detectBatchDiff(),
+    `detect batch differences` = workflow_elements$detectBatchDiff(),
     
-    detectMissInjections = workflow_elements$detectMissInjections(),
+    `detect missed injections` = workflow_elements$detectMissInjections(),
     
-    preTreat = workflow_elements$preTreat(),
+    `pre-treatment` = workflow_elements$preTreat(),
     
-    dataQualityCheckPoint = workflow_elements$dataQualityCheckPoint(),
+    `data quality check point` = workflow_elements$dataQualityCheckPoint(),
     
-    MFassignment = workflow_elements$MFassignment(),
+    `molecular formula assignment` = workflow_elements$MFassignment(),
     
-    MFassignmentCheckPoint = workflow_elements$MFassignmentCheckPoint(),
+    `molecular formula assignment check point` = workflow_elements$MFassignmentCheckPoint(),
     
     modelling = workflow_elements$modelling(),
     
