@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jasenfinch/metaboWorkflows/blob/master/DESCRIPTION) 
 <!-- badges: end -->
 
-R workflows for metabolomics analyses based on the [hrm]() package ecosystem.
+R workflows for metabolomics analyses based on the [hrm](https://jasenfinch.github.io/hrm/) package ecosystem.
 
 ## Installation
 
