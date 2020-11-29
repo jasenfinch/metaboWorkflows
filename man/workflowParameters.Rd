@@ -10,8 +10,7 @@ workflowParameters(
   si,
   cls = "class",
   QCidx = "QC",
-  breaks = T,
-  ...
+  breaks = TRUE
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ workflowParameters(
 \item{QCidx}{QC sample label. QC processing skipped if label not present in column \code{cls}.}
 
 \item{breaks}{should workflow check point breaks be included}
-
-\item{...}{arguments to pass to binneR::detectParameters}
 }
 \description{
 Initiate default workflow parameters for a selected workflow.

@@ -6,7 +6,6 @@
 #' @param cls info column containing class information to use as default for pre-treatment and modelling
 #' @param QCidx QC sample label. QC processing skipped if label not present in column \code{cls}.
 #' @param breaks should workflow check point breaks be included
-#' @param ... arguments to pass to binneR::detectParameters
 #' @examples 
 #' \dontrun{
 #' fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
@@ -24,8 +23,8 @@
 #' @importFrom dplyr select mutate group_by_at summarise n filter
 #' @export
 
-workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', breaks = T, ...){
-  if (workflow %in% availableWorkflows(quiet = T,return = T)) {
+workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', breaks = TRUE){
+  if (workflow %in% availableWorkflows(quiet = TRUE,return = TRUE)) {
     ap <- analysisParameters()
     ap <- changeParameter(ap,'cls',cls)
     
@@ -73,7 +72,7 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
     ap <- changeParameter(ap,'reps', 10)
     
     if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
-      bp <- detectParameters(fp,...)
+      bp <- detectParameters(fp)
       
       if (str_detect(workflow,'NSI-HRMS')) {
         ap <- changeParameter(ap,'RSDthresh', 0.25)
