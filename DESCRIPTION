@@ -27,22 +27,19 @@ Collate:
     allGenerics.R
     allClasses.R
     workflowParameters.R
-    FIE-HRMS_fingerprinting.R
-    NSI-HRMS_fingerprinting.R
     workflow.R
     doWorkflow-method.R
     restartWorkflow.R
-    RP-LC-HRMS_profiling.R
     parameters.R
     show-method.R
     results.R
-    NP-LC-HRMS_profiling.R
-    GC-MS_profiling_deconvolution.R
     flags.R
     metaboWorkflows.R
     access.R
     plotting.R
     availableWorkflows.R
+    workflows.R
+    elements.R
 Suggests: knitr,
     rmarkdown,
     metaboData,
