@@ -8,8 +8,7 @@ si <- si[c(which(si$class == 'ABR6')[1:3],which(si$class == 'BD21')[1:3]),] %>%
 context('workflow')
 
 test_that('workflow works',{
-  wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)  
-  parametersProcessing(wp)@nCores <- 2
+  wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)  
   flags(wp) <- flags(wp)[1]
   analysis <- workflow(wp)
   expect_s4_class(wp,'WorkflowParameters')

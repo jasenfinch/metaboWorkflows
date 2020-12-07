@@ -1,4 +1,4 @@
-#' @importFrom binneR binneRlyse binnedData info
+#' @importFrom binneR binneRlyse binnedData
 #' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<-
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
@@ -11,7 +11,7 @@
   methods <- list(
     spectralBin = function(x){
       message('\nSpectral binning ',cli::symbol$continue,'\r',appendLF = FALSE)
-      binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
+      binnedDat <- binneRlyse(files = as.character(x@files),info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       message('\rSpectral binning ',green(cli::symbol$tick))
       return(x)

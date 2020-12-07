@@ -21,13 +21,7 @@ setMethod('workflow',signature = 'WorkflowParameters',
           function(parameters){
             if (grepl('BinParameters',class(parameters@processing))) {
               process <- new('Binalysis',
-                             binLog = character(),
-                             binParameters = parameters@processing,
-                             files = character(),
-                             info = tibble(),
-                             binnedData = list(),
-                             accurateMZ = tibble()
-              )
+                             parameters@processing)
             }
             if (grepl('ProfileParameters',class(parameters@processing))) {
               process <- new('MetaboProfile',

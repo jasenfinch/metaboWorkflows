@@ -89,6 +89,11 @@ setGeneric("files<-", function(x,value) {
 })
 
 #' @rdname info
+setGeneric("info", function(x,value) {
+  standardGeneric("info")
+})
+
+#' @rdname info
 setGeneric("info<-", function(x,value) {
   standardGeneric("info<-")
 })

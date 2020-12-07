@@ -110,19 +110,17 @@ setMethod('processedData',signature = 'Workflow',function(x){
 #' @rdname processedInfo
 #' @description Extract processed sample info from an object of class Workflow.
 #' @param x S4 object of class Workflow
-#' @importFrom profilePro sampleInfo
-#' @importFrom binneR info
 #' @export
 
 setMethod('processedInfo',signature = 'Workflow',function(x){
   if (x %>% resultsProcessing() %>% class() == 'MetaboProfile') {
     x %>%
       resultsProcessing() %>%
-      sampleInfo()  
+      profilePro::sampleInfo()  
   } 
   if (x %>% resultsProcessing() %>% class() == 'Binalysis') {
     x %>%
       resultsProcessing() %>%
-      info()
+      binneR::sampleInfo()
   }
 })
