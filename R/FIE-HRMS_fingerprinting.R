@@ -11,7 +11,7 @@
   methods <- list(
     spectralBin = function(x){
       message('\nSpectral binning ',cli::symbol$continue,'\r',appendLF = FALSE)
-      binnedDat <- binneRlyse(files = x@files,info = x@info,parameters = x@workflowParameters@processing)
+      binnedDat <- binneRlyse(files = as.character(x@files),info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       message('\rSpectral binning ',green(cli::symbol$tick))
       return(x)
