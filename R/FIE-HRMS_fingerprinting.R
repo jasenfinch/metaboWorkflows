@@ -1,4 +1,4 @@
-#' @importFrom binneR binneRlyse binnedData info
+#' @importFrom binneR binneRlyse binnedData
 #' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<-
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
