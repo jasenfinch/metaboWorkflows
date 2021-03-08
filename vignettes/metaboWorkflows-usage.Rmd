@@ -103,8 +103,8 @@ Further columns can be added to this file to denote different class labelling.
 The file paths and sample info can be loaded for the example data using the following:
 
 ```{r files,message=FALSE}
-fp <- filePaths('FIE-HRMS','BdistachyonEcotypes') 
-si <- runinfo('FIE-HRMS','BdistachyonEcotypes')
+fp <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes') 
+si <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
 head(fp)
 si
@@ -116,7 +116,7 @@ Appropriate default parameters for a particular workflow can be retrieved using 
 For instance, the `FIE-HRMS fingerprinting` workflow can be retrieved using the following. 
 
 ```{r getParameters,include=FALSE}
-parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)
+parameters <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 ```
 
 ```{r parameters,eval=FALSE}
@@ -223,7 +223,7 @@ flags(wp)
 ```
 
 ```{r, showFlags,include=FALSE}
-wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si,nCores = 2)
+wp <- workflowParameters('FIE-HRMS fingerprinting',fp,si)
 ```
 
 Workflows can be customised using these flags.
