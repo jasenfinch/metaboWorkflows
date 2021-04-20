@@ -16,7 +16,7 @@
 #' }
 #' @importFrom binneR binParameters detectParameters
 #' @importFrom profilePro profileParameters
-#' @importFrom metabolyseR analysisParameters changeParameter getClusterType modellingParameters
+#' @importFrom metabolyseR analysisParameters changeParameter<- modellingParameters
 #' @importFrom MFassign assignmentParameters
 #' @importFrom parallel detectCores
 #' @importFrom stringr str_detect
@@ -27,14 +27,14 @@
 workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', breaks = T, ...){
   if (workflow %in% availableWorkflows(quiet = T,return = T)) {
     ap <- analysisParameters()
-    ap <- changeParameter(ap,'cls',cls)
+    changeParameter(ap,'cls') <- cls
     
     i <- si %>%
       select(cls) %>%
       deframe()
     
     if (!(QCidx %in% i)) {
-      ap@preTreat$QC <- NULL
+      ap@`pre-treatment`$QC <- NULL
     }
     
     if (is.numeric(i)) {
@@ -48,12 +48,10 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
       }
       
       ap <- changeParameter(ap,'cls','class1',elements = 'preTreat')
-      ap@preTreat$impute <- list(
+      ap@`pre-treatment`$impute <- list(
         all = list(
           occupancy = 2/3,
           parallel = "variables",
-          nCores = detectCores() * 0.75,
-          clusterType = getClusterType(),
           seed = 1234 
         )
       )
@@ -70,13 +68,13 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
       }
     }
     
-    ap <- changeParameter(ap,'reps', 10)
+    changeParameter(ap,'reps') <- 10
     
     if (str_detect(workflow,'FIE-HRMS') | str_detect(workflow,'NSI-HRMS')) {
       bp <- detectParameters(fp,...)
       
       if (str_detect(workflow,'NSI-HRMS')) {
-        ap <- changeParameter(ap,'RSDthresh', 0.25)
+        changeParameter(ap,'RSDthresh') <- 0.25
       }
       
       param <- new('WorkflowParameters',
@@ -90,7 +88,7 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
     
     if (grepl('RP-LC-HRMS',workflow) | grepl('NP-LC-HRMS',workflow)) {
       w <- 'FIE'
-      ap <- changeParameter(ap,'RSDthresh', 0.25)
+      changeParameter(ap,'RSDthresh') <- 0.25
       if (grepl('RP',workflow)) {
         p <- profileParameters('LCMS-RP')
       }
@@ -116,7 +114,7 @@ workflowParameters <- function(workflow, fp, si, cls = 'class', QCidx = 'QC', br
     
     if (grepl('GC-MS_profiling_deconvolution',workflow)) {
       w <- 'FIE'
-      ap <- changeParameter(ap,'RSDthresh', 0.30)
+      changeParameter(ap,'RSDthresh') <- 0.30
       p <- profileParameters('GCMS-eRah')
       
       param <- new('WorkflowParameters',

@@ -50,28 +50,30 @@ setMethod('info',signature = 'Workflow',function(x){
   x@info
 })
 
-#' preTreatedData
-#' @description return pre-treated data from a Workflow object.
+#' dat
+#' @description return analysis data from a Workflow object.
 #' @param x S4 object of class Workflow 
-#' @importMethodsFrom metabolyseR preTreatedData
+#' @param type get or set raw or pre-treated data
+#' @importFrom metabolyseR dat
 #' @export
 
-setMethod('preTreatedData',signature = 'Workflow',function(x){
+setMethod('dat',signature = 'Workflow',function(x,type = c('raw','pre-treated')){
   x %>%
     resultsAnalysis() %>%
-    preTreatedData()
+    dat(type = type)
 })
 
-#' preTreatedData
-#' @description return pre-treated sample information from a Workflow object.
+#' sinfo
+#' @description return sample information from a Workflow object.
 #' @param x S4 object of class Workflow 
-#' @importMethodsFrom metabolyseR preTreatedInfo
+#' @param type get or set raw or pre-treated data
+#' @importFrom metabolyseR sinfo
 #' @export
 
-setMethod('preTreatedInfo',signature = 'Workflow',function(x){
+setMethod('sinfo',signature = 'Workflow',function(x,type = c('raw','pre-treated')){
   x %>%
     resultsAnalysis() %>%
-    preTreatedInfo()
+    sinfo(type = type)
 })
 
 #' preTreated
