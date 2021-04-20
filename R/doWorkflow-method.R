@@ -11,7 +11,7 @@ setMethod('doWorkflow',signature = 'Workflow',
               flag <- 'fail'
               try({
                 res <- r(function(x,m){
-                  requireNamespace('metaboWorkflows',quietly = T)
+                  requireNamespace('metaboWorkflows',quietly = TRUE)
                   try(m(x))
                 },args = list(x = y,m = method),
                 show = TRUE,

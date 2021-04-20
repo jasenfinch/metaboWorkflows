@@ -1,5 +1,5 @@
 #' @importFrom binneR binneRlyse binnedData
-#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<-
+#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<- dat parameters<- parameters
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
@@ -23,12 +23,12 @@
       bd <- detectBatchDiff(x@processed)
       
       if (T %in% bd$`Correction needed`) {
-        x@workflowParameters@analysis@preTreat <- c(
+        parameters(x@workflowParameters@analysis,'pre-treatment') <- c(
           list(
             correction = list(
-              center = list(block = 'block',type = 'median',nCores = detectCores() * 0.75,clusterType = getClusterType())
+              center = list(block = 'block',type = 'median')
             )),
-          x@workflowParameters@analysis@preTreat
+          x@workflowParameters@analysis@`pre-treated`
         )
       }
       
@@ -43,12 +43,12 @@
       
       if (length(mi$missInjections) > 0) {
         x@processed@spectra$missInjections <- mi
-        x@workflowParameters@analysis@preTreat <- c(
+        parameters(x@workflowParameters@analysis,'pre-treatment') <- c(
           list(
             remove = list(
               samples = list(idx = mi$idx,samples = mi$missInjections)
             )),
-          x@workflowParameters@analysis@preTreat
+          x@workflowParameters@analysis@`pre-treated`
         )  
       }
       
@@ -59,7 +59,8 @@
     preTreat = function(x){
       message('\nPre-treatment ',cli::symbol$continue,'\r',appendLF = FALSE)
       preTreatParameters <- analysisParameters('preTreat')
-      preTreatParameters@preTreat <- x@workflowParameters@analysis@preTreat
+      parameters(preTreatParameters,'pre-treatment') <- parameters(x@workflowParameters@analysis,
+                                                                   'pre-treatment')
       
       x@analysed <- preTreatModes(x@processed,x@workflowParameters@analysis)
       
@@ -76,7 +77,7 @@
       message('\nMolecular formula assignment ',cli::symbol$continue,'\r',appendLF = FALSE)
       
       x@annotated <- x %>%
-        preTreatedData() %>%
+        dat(type = 'pre-treated') %>%
         assignMFs(x@workflowParameters@annotation,verbose = TRUE)
       
       dat(x@analysed@preTreated) <- assignedData(x@annotated)

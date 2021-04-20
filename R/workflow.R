@@ -37,8 +37,8 @@ setMethod('workflow',signature = 'WorkflowParameters',
             analysis <- new('Analysis',
                             log = list(),
                             parameters = parameters@analysis,
-                            rawData = new('AnalysisData'),
-                            preTreated = new('AnalysisData'),
+                            raw = new('AnalysisData'),
+                            `pre-treated` = new('AnalysisData'),
                             modelling = list(),
                             correlations = tibble()
             )
