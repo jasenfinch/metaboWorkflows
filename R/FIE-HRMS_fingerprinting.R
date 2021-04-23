@@ -1,5 +1,5 @@
 #' @importFrom binneR binneRlyse binnedData
-#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<- dat parameters<- parameters
+#' @importFrom metabolyseR analysisParameters metabolyse reAnalyse dat<- dat parameters<- parameters plan
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
@@ -22,13 +22,13 @@
       
       bd <- detectBatchDiff(x@processed)
       
-      if (T %in% bd$`Correction needed`) {
+      if (TRUE %in% bd$`Correction needed`) {
         parameters(x@workflowParameters@analysis,'pre-treatment') <- c(
           list(
             correction = list(
               center = list(block = 'block',type = 'median')
             )),
-          x@workflowParameters@analysis@`pre-treated`
+          parameters(x@workflowParameters@analysis,'pre-treatment')
         )
       }
       
@@ -48,7 +48,7 @@
             remove = list(
               samples = list(idx = mi$idx,samples = mi$missInjections)
             )),
-          x@workflowParameters@analysis@`pre-treated`
+          parameters(x@workflowParameters@analysis,'pre-treatment')
         )  
       }
       
@@ -58,11 +58,13 @@
     
     preTreat = function(x){
       message('\nPre-treatment ',cli::symbol$continue,'\r',appendLF = FALSE)
-      preTreatParameters <- analysisParameters('preTreat')
+      preTreatParameters <- analysisParameters('pre-treatment')
       parameters(preTreatParameters,'pre-treatment') <- parameters(x@workflowParameters@analysis,
                                                                    'pre-treatment')
       
-      x@analysed <- preTreatModes(x@processed,x@workflowParameters@analysis)
+      metabolyseR::plan(future::multisession,workers = future::availableCores() * 0.75)
+      
+      x@analysed <- preTreatModes(x@processed,preTreatParameters)
       
       message('\rPre-treatment ',green(cli::symbol$tick))
       return(x)
