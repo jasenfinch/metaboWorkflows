@@ -10,36 +10,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-<<<<<<< Updated upstream
-Collate:
-    allGenerics.R
-    allClasses.R
-    workflowParameters.R
-    workflow.R
-    doWorkflow-method.R
-    restartWorkflow.R
-    parameters.R
-    show-method.R
-    results.R
-    flags.R
-    metaboWorkflows.R
-    access.R
-    plotting.R
-    availableWorkflows.R
-    workflows.R
-    elements.R
-Suggests: knitr,
-    rmarkdown,
-    metaboData,
-    readr,
-    prettydoc,
-    testthat,
-    covr
-Remotes: aberHRML/binneR,
-        jasenfinch/metabolyseR,
-        jasenfinch/MFassign,
-        jasenfinch/profilePro,
-        jasenfinch/metaboMisc
-=======
->>>>>>> Stashed changes
 VignetteBuilder: knitr
