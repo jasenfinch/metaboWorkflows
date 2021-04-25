@@ -5,24 +5,12 @@ Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "
 Description: Workflows for metabolomics analyses.
 biocViews: Metabolomics
 Depends: R (>= 3.4.0)
-Imports: binneR,
-    metabolyseR,
-    magrittr,
-    methods,
-    MFassign,
-    tibble,
-    dplyr,
-    stringr,
-    purrr,
-    crayon,
-    cli,
-    metaboMisc,
-    callr,
-    profilePro
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+<<<<<<< Updated upstream
 Collate:
     allGenerics.R
     allClasses.R
@@ -52,5 +40,6 @@ Remotes: aberHRML/binneR,
         jasenfinch/MFassign,
         jasenfinch/profilePro,
         jasenfinch/metaboMisc
+=======
+>>>>>>> Stashed changes
 VignetteBuilder: knitr
-Additional_repositories: https://aberhrml.github.io/drat/
