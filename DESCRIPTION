@@ -5,9 +5,16 @@ Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "
 Description: Workflows for metabolomics analyses.
 biocViews: Metabolomics
 Depends: R (>= 3.4.0)
+Imports: projecttemplates, 
+          cli, 
+          crayon, 
+          glue
+Suggests: knitr,
+  testthat
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Remotes: jasenfinch/projecttemplates
