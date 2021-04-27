@@ -147,7 +147,7 @@ setClass('GroverInput',
            instrument = 'character',
            directory = 'character',
            host = 'character',
-           port = 'character',
+           port = 'numeric',
            auth = 'character'
          ))
 
@@ -322,6 +322,7 @@ setMethod('auth<-',signature = 'GroverInput',
 #' @export
 
 groverInput <- function(instrument,directory,host,port,auth){
+  
   new('GroverInput',
       instrument = instrument,
       directory = directory,
