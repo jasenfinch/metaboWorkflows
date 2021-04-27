@@ -9,7 +9,9 @@ Imports: projecttemplates,
           cli, 
           crayon, 
           glue,
-          magrittr
+          magrittr,
+          rlang,
+          purrr
 Suggests: knitr,
   testthat,
   metaboData
