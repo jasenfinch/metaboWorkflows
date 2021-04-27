@@ -23,6 +23,15 @@ setClass('Workflow',
            targets = workflowTargets(availableWorkflows()[1])
          ))
 
+setValidity('Workflow',function(object){
+  
+  if (!(type(object) %in% availableWorkflows())) {
+   return('Workflow not found, run availableWorkflows() to see the available workflows.') 
+  }
+  
+  return(TRUE)
+})
+
 setMethod('show',signature = 'Workflow',
           function(object){
             cat('Workflow: ',type(object),'\n\n')
@@ -49,6 +58,7 @@ setMethod('type',signature = 'Workflow',
 setMethod('type<-',signature = 'Workflow',
           function(x,value){
             x@type <- value
+            validObject(x)
             return(x)
           })
 
