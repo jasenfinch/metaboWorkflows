@@ -3,6 +3,7 @@
 #' @slot name the target name
 #' @slot command the R code to run the target
 #' @slot type the target archetype
+#' @slot pattern target branching definition
 #' @slot args arguments to pass to the specified target archetype
 #' @importFrom rlang exprs
 
@@ -11,12 +12,14 @@ setClass('Target',
            name = 'character',
            command = 'list',
            type = 'character',
+           pattern = 'list',
            args = 'list'
          ),
          prototype = list(
            name = 'a_target',
            command = rlang::exprs(1 + 1),
            type = 'tar_target',
+           pattern = rlang::exprs(NULL),
            args = list()
          ))
 
@@ -134,6 +137,33 @@ setMethod('type<-',signature = 'Target',
 #' @rdname Target-accessors
 #' @export
 
+setGeneric('pattern',function(x)
+  standardGeneric('pattern'))
+
+#' @rdname Target-accessors
+
+setMethod('pattern',signature = 'Target',
+          function(x){
+            x@pattern
+          })
+
+#' @rdname Target-accessors
+#' @export
+
+setGeneric('pattern<-',function(x,value)
+  standardGeneric('pattern<-'))
+
+#' @rdname Target-accessors
+
+setMethod('pattern<-',signature = 'Target',
+          function(x,value){
+            x@pattern <- value
+            return(x)
+          })
+
+#' @rdname Target-accessors
+#' @export
+
 setGeneric('args',function(x)
   standardGeneric('args'))
 
@@ -172,7 +202,7 @@ setMethod('code',signature = 'Target',
           function(x){
             target_arguments <- x %>% 
               args() 
-            
+              
             if (length(target_arguments) > 0){
               target_arguments <- target_arguments %>% 
                 names() %>% 
@@ -188,7 +218,8 @@ setMethod('code',signature = 'Target',
             glue('
 {type(x)}(
   {name(x)},
-  {command(x)}{target_arguments}
+  {command(x)}
+  pattern = {pattern(x)}{target_arguments}
 )
 ') 
           })
@@ -198,6 +229,7 @@ setMethod('code',signature = 'Target',
 #' @param name the target name
 #' @param command the R command to run the target
 #' @param type the target archetype
+#' @param pattern target branching definition
 #' @param args a list of arguments to pass the the specified target archetype
 #' @return An S4 object of class Target. 
 #' @details 
@@ -208,13 +240,15 @@ setMethod('code',signature = 'Target',
 #' workflow_target
 #' @export
 
-target <- function(name,command,type = 'tar_target',args = list()){
+target <- function(name,command,type = 'tar_target',pattern = NULL,args = list()){
   target_command <- enexprs(command)
+  pattern_command <- enexprs(pattern)
   
   new('Target',
       name = name,
       command = target_command,
       type = type,
+      pattern = pattern_command,
       args = args
       )
 }

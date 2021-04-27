@@ -13,6 +13,10 @@
 \alias{type,Target-method}
 \alias{type<-}
 \alias{type<-,Target-method}
+\alias{pattern}
+\alias{pattern,Target-method}
+\alias{pattern<-}
+\alias{pattern<-,Target-method}
 \alias{args}
 \alias{args,Target-method}
 \alias{args<-}
@@ -44,6 +48,14 @@ type(x)
 type(x) <- value
 
 \S4method{type}{Target}(x) <- value
+
+pattern(x)
+
+\S4method{pattern}{Target}(x)
+
+pattern(x) <- value
+
+\S4method{pattern}{Target}(x) <- value
 
 args(x)
 

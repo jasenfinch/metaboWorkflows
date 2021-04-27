@@ -4,7 +4,7 @@
 \alias{target}
 \title{Create a workflow target definition}
 \usage{
-target(name, command, type = "tar_target", args = list())
+target(name, command, type = "tar_target", pattern = NULL, args = list())
 }
 \arguments{
 \item{name}{the target name}
@@ -12,6 +12,8 @@ target(name, command, type = "tar_target", args = list())
 \item{command}{the R command to run the target}
 
 \item{type}{the target archetype}
+
+\item{pattern}{target branching definition}
 
 \item{args}{a list of arguments to pass the the specified target archetype}
 }
