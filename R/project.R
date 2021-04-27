@@ -19,6 +19,16 @@ setClass('Project',
            private = 'logical',
            github_actions = 'logical',
            force = 'logical'
+         ),
+         prototype = list(
+           project_name = 'A project name',
+           path = '.',
+           rebuild = FALSE,
+           docker = TRUE,
+           github = FALSE,
+           private = FALSE,
+           github_actions = FALSE,
+           force = FALSE
          ))
 
 setMethod('show',signature = 'Project',
