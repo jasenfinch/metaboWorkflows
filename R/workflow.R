@@ -20,7 +20,7 @@ setClass('Workflow',
          ),
          prototype = list(
            type = availableWorkflows()[1],
-           targets = workflowTargets(availableWorkflows()[1])
+           targets = list()
          ))
 
 setValidity('Workflow',function(object){
