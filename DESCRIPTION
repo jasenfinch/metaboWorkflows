@@ -10,8 +10,10 @@ Imports: projecttemplates,
           crayon, 
           glue,
           magrittr,
+          purrr,
           rlang,
-          purrr
+          tarchetypes,
+          targets
 Suggests: knitr,
   testthat,
   metaboData
