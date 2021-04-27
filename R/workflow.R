@@ -5,18 +5,13 @@ availableWorkflows <- function(){
 setClassUnion('Input',members = c('FilePathInput','GroverInput'))
 
 setClass('Workflow',
+         contains = c('Project','Input'),
          slots = list(
            type = 'character',
-           input = 'Input', 
            targets = 'list'
          ),
          prototype = list(
            type = availableWorkflows()[1],
-           input = groverInput('An_instrument',
-                               'A_directory',
-                               'A.host.address',
-                               8000,
-                               '1234'),
            targets = workflowTargets(availableWorkflows()[1])
          ))
 

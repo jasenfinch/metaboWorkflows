@@ -2,46 +2,26 @@
 % Please edit documentation in R/project.R
 \name{createProject}
 \alias{createProject}
+\alias{createProject,Project-method}
 \title{Create a project directory}
 \usage{
-createProject(
-  project_name,
-  workflow = availableWorkflows(),
-  path = ".",
-  rebuild = FALSE,
-  docker = TRUE,
-  github = FALSE,
-  private = FALSE,
-  github_actions = FALSE,
-  force = FALSE
-)
+createProject(project, workflow)
+
+\S4method{createProject}{Project}(project, workflow)
 }
 \arguments{
-\item{project_name}{project name/title}
+\item{project}{S4 object of class \code{Project}}
 
 \item{workflow}{workflow to use. See \code{availableWorkflows()} for a list of available workflows.}
-
-\item{path}{target file path for project directory}
-
-\item{rebuild}{force rebuild of R packages installed into project \code{renv} cache}
-
-\item{docker}{TRUE/FALSE. Create project infrastructure for building a docker container to compile the project.}
-
-\item{github}{TRUE/FALSE. Create a GitHub repository?}
-
-\item{private}{TRUE/FALSE. Should the GitHub repository be private? Evaluated only if argument \code{github} is TRUE.}
-
-\item{github_actions}{TRUE/FALSE. Add Github actions infrastructure? Evaluated only if argument \code{github} is TRUE.}
-
-\item{force}{force project creation if project directory already exists}
 }
 \description{
 Create a project directory for a workflow.
 }
 \examples{
 \dontrun{
-createProject('test',
-              workflow = 'FIE-HRMS fingerprinting',
-              path = '.')
+workflow_project <- defineProject('A metabolomics project')
+
+createProject(workflow_project,
+              workflow = 'FIE-HRMS fingerprinting')
 }
 }

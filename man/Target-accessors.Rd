@@ -19,7 +19,7 @@
 \alias{args<-,Target-method}
 \alias{code}
 \alias{code,Target-method}
-\title{Target class get and set methods}
+\title{\code{Target} class get and set methods}
 \usage{
 name(x)
 

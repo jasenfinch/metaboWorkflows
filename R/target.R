@@ -45,7 +45,7 @@ setMethod('show',signature = 'Target',
               print()
           })
 
-#' Target class get and set methods
+#' `Target` class get and set methods
 #' @rdname Target-accessors
 #' @description Get and set methods for the Target S4 class.
 #' @param x S4 object of class Target
