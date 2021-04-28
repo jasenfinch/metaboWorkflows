@@ -69,6 +69,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          metaboData::downloadDataSet('FIE-HRMS','BdistachyonEcotypes',ask = FALSE)
         shell: Rscript {0}
 
       - name: Check

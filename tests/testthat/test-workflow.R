@@ -52,12 +52,12 @@ test_that('Workflow slots can be set',{
                                     'FIE-HRMS fingerprinting',
                                     'Example project')
   
-  input(workflow_file_path) <- filePathInput(character(),tibble::tibble())
+  input(workflow_file_path) <- filePathInput(file_paths[1],sample_information[1,])
   targets(workflow_file_path) <- list('test')
   
   expect_error(type(workflow_file_path) <- 'test')
   expect_length(input(workflow_file_path) %>% 
-                  filePaths(),0)
+                  filePaths(),1)
   expect_identical(targets(workflow_file_path),list('test'))
   
   filePaths(workflow_file_path) <- file_paths
