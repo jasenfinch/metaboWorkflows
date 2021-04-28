@@ -21,9 +21,9 @@ setMethod('workflowTargets',signature = 'Workflow',
           function(x){
             list(
               input = inputTargets(x),
-              `spectral processing` = spectralProcessingTargets(x),
-              `pre-treatment` = pretreatmentTargets(x),
-              `MF assignment` = MFassignmentTargets(x),
+              spectral_processing = spectralProcessingTargets(x),
+              pre_treatment = pretreatmentTargets(x),
+              MF_assignment = MFassignmentTargets(x),
               modelling = modellingTargets(x),
               correlations = correlationsTargets(x)
             )

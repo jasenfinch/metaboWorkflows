@@ -218,7 +218,7 @@ setMethod('code',signature = 'Target',
             glue('
 {type(x)}(
   {name(x)},
-  {command(x)}
+  {command(x)},
   pattern = {pattern(x)}{target_arguments}
 )
 ') 
