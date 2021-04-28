@@ -45,6 +45,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
                   cran = c('purrr','targets','tarchetypes'),
                   github = githubDependencies(workflow))
             
+            inputPrep(workflow)
+            
             output(project_directory)
             
             renvInitialise(project_directory,

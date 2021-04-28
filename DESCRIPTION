@@ -21,7 +21,7 @@ Suggests: knitr,
   metaboData,
   covr
 Collate: input.R metaboWorkflows.R project.R target.R 
-         workflow.R targets.R generate.R
+         workflow.R targets.R utils.R generate.R
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
