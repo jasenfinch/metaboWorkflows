@@ -18,7 +18,8 @@ Imports: projecttemplates,
           targets
 Suggests: knitr,
   testthat,
-  metaboData
+  metaboData,
+  covr
 Collate: input.R metaboWorkflows.R project.R target.R workflow.R targets.R
 Encoding: UTF-8
 LazyData: true
