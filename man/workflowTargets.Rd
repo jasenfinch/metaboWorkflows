@@ -17,7 +17,7 @@
 \alias{modellingTargets,Workflow-method}
 \alias{correlationsTargets}
 \alias{correlationsTargets,Workflow-method}
-\title{Workflow input targets}
+\title{Workflow pipeline targets}
 \usage{
 workflowTargets(x)
 
@@ -66,5 +66,9 @@ sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
 workflow_input <- filePathInput(file_paths,sample_information)
 
-inputTargets(workflow_input)
+workflow_definition <- defineWorkflow(workflow_input,
+                                     'FIE-HRMS fingerprinting',
+                                     'Example project')
+
+workflowTargets(workflow_input)
 }

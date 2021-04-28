@@ -1,4 +1,4 @@
-#' Workflow input targets
+#' Workflow pipeline targets
 #' @rdname workflowTargets
 #' @description Target definitions for workflow input.
 #' @param x S4 object of class `FilePathInput` or `GroverInput`
@@ -6,10 +6,14 @@
 #' @examples 
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
-#' 
+#'
 #' workflow_input <- filePathInput(file_paths,sample_information)
 #'
-#' inputTargets(workflow_input)
+#' workflow_definition <- defineWorkflow(workflow_input,
+#'                                      'FIE-HRMS fingerprinting',
+#'                                      'Example project')
+#'
+#' workflowTargets(workflow_input)
 #' @export
 
 setGeneric('workflowTargets',function(x)
