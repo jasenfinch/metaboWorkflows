@@ -53,7 +53,7 @@ setMethod('inputTargets',signature = 'FilePathInput',
               ),
               sample_information = target(
                 'sample_information',
-                "readr::read_csv('runinfo.csv')"
+                "readr::read_csv(sample_information_file)"
               ))
           })
 
@@ -147,7 +147,7 @@ setMethod('spectralProcessingTargets',signature = 'Workflow',
                   'spectral_processing',
                   'binneR::binneRlyse(converted_files,
                                      sample_information,
-                                     spectral_binning_parameters)'
+                                     spectral_processing_parameters)'
                 )
               )
             )
@@ -168,7 +168,7 @@ setMethod('pretreatmentTargets',signature = 'Workflow',
             list(
               pre_treatment_parameters = target(
                 'pre_treatment_parameters',
-                'metaboMisc::detectPretreatmentParameters(spectral_binning)'
+                'metaboMisc::detectPretreatmentParameters(spectral_processing)'
               ),
               pre_treated = target(
                 'pre_treated',
