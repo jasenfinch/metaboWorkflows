@@ -92,8 +92,8 @@ setMethod('inputTargets',signature = 'GroverInput',
                                     raw_files,
                                     args = conversionArgsPeakPick(),
                                     outDir = 'data/mzML') %>% 
-                  .[!str_detect(.,'Ctrl')] %>%
-                  .[!str_detect(.,'Play')],
+                  .[!grepl('Ctrl',.)] %>%
+                  .[!grepl('Play',.)],
                 pattern = map(raw_files)
               ),
               raw_sample_information = target(

@@ -33,6 +33,7 @@ setValidity('Workflow',function(object){
 })
 
 #' @importFrom purrr flatten
+#' @importFrom methods as
 
 setMethod('show',signature = 'Workflow',
           function(object){
@@ -61,6 +62,7 @@ setMethod('type',signature = 'Workflow',
           })
 
 #' @rdname Workflow-accessors
+#' @importFrom methods validObject
 
 setMethod('type<-',signature = 'Workflow',
           function(x,value){
@@ -261,7 +263,8 @@ setMethod('auth<-',signature = 'Workflow',
 #' @rdname defineWorkflow
 #' @description Define a metabolomics data analysis workflow for a given input type and workflow name.
 #' @param input S4 object of class `GroverInput` or `FilePathInput`
-#' @param workflow 
+#' @param workflow workflow name as returned by `availableWorkflows()`
+#' @param project_name the project name
 #' @param ... arguments to pass to `defineProject`
 #' @return An S4 object of class `Workflow`
 #' @examples 
@@ -280,6 +283,7 @@ setGeneric('defineWorkflow',function(input,workflow,project_name,...)
   standardGeneric('defineWorkflow'))
 
 #' @rdname defineWorkflow
+#' @importFrom methods new
 
 setMethod('defineWorkflow',signature = 'GroverInput',function(input,workflow,project_name,...){
   workflow <- match.arg(workflow,

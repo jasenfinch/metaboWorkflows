@@ -11,6 +11,12 @@
 \alias{spectralProcessingTargets,Workflow-method}
 \alias{pretreatmentTargets}
 \alias{pretreatmentTargets,Workflow-method}
+\alias{MFassignmentTargets}
+\alias{MFassignmentTargets,Workflow-method}
+\alias{modellingTargets}
+\alias{modellingTargets,Workflow-method}
+\alias{correlationsTargets}
+\alias{correlationsTargets,Workflow-method}
 \title{Workflow input targets}
 \usage{
 workflowTargets(x)
@@ -32,6 +38,18 @@ spectralProcessingTargets(x)
 pretreatmentTargets(x)
 
 \S4method{pretreatmentTargets}{Workflow}(x)
+
+MFassignmentTargets(x)
+
+\S4method{MFassignmentTargets}{Workflow}(x)
+
+modellingTargets(x)
+
+\S4method{modellingTargets}{Workflow}(x)
+
+correlationsTargets(x)
+
+\S4method{correlationsTargets}{Workflow}(x)
 }
 \arguments{
 \item{x}{S4 object of class \code{FilePathInput} or \code{GroverInput}}

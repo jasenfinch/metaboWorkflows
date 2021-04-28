@@ -15,7 +15,9 @@ defineWorkflow(input, workflow, project_name, ...)
 \arguments{
 \item{input}{S4 object of class \code{GroverInput} or \code{FilePathInput}}
 
-\item{workflow}{}
+\item{workflow}{workflow name as returned by \code{availableWorkflows()}}
+
+\item{project_name}{the project name}
 
 \item{...}{arguments to pass to \code{defineProject}}
 }
