@@ -41,11 +41,14 @@ setMethod('generateWorkflow',signature = 'Workflow',
             targetsRun(project_directory)
             writeTargets(targets(workflow),paste0(project_directory,'/_targets.R'))
             
-            utils(project_directory,type = 'report')
+            utils(glue('{project_directory}/R'),
+                  cran = c('purrr','targets','tarchetypes'),
+                  github = githubDependencies(workflow))
             
             output(project_directory)
             
-            renvInitialise(project_directory, 
+            renvInitialise(project_directory,
+                           github = githubDependencies(workflow), 
                            rebuild = rebuild(workflow))
             
             projecttemplates::docker(projectName(workflow),

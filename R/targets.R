@@ -90,7 +90,7 @@ setMethod('inputTargets',signature = 'GroverInput',
                                     instrument,
                                     experiment,
                                     raw_files,
-                                    args = conversionArgsPeakPick(),
+                                    args = grover::conversionArgsPeakPick(),
                                     outDir = "data/mzML") %>% 
                   .[!grepl("Ctrl",.)] %>%
                   .[!grepl("Play",.)]',
@@ -218,11 +218,11 @@ setMethod('modellingTargets',signature = 'Workflow',
             list(
               modelling_parameters = target(
                 'modelling_parameters',
-                'detectModellingParameters(assigned_data,cls = "class")'
+                'metaboMisc::detectModellingParameters(assigned_data,cls = "class")'
               ),
               modelling = target(
                 'modelling',
-                'reAnalyse(assigned_data,
+                'metabolyseR::reAnalyse(assigned_data,
                           modelling_parameters)'
               )
             )
@@ -241,11 +241,11 @@ setMethod('correlationsTargets',signature = 'Workflow',
             list(
               correlations_parameters = target(
                 'correlations_parameters',
-                'analysisParameters("correlations")'
+                'metabolyseR::analysisParameters("correlations")'
               ),
               correlations = target(
                 'correlations',
-                'reAnalyse(assigned_data,
+                'metabolyseR::reAnalyse(assigned_data,
                           correlations_parameters)'
               )
             )
