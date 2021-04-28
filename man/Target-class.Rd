@@ -12,11 +12,11 @@ An S4 class for storing a workflow target definition.
 \describe{
 \item{\code{name}}{the target name}
 
-\item{\code{command}}{the R code to run the target}
+\item{\code{command}}{the R code to run the target as a string}
 
 \item{\code{type}}{the target archetype}
 
-\item{\code{pattern}}{target branching definition}
+\item{\code{pattern}}{target branching definition as a string}
 
 \item{\code{args}}{arguments to pass to the specified target archetype}
 }}

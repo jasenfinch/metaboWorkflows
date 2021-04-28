@@ -4,7 +4,7 @@
 \alias{target}
 \title{Create a workflow target definition}
 \usage{
-target(name, command, type = "tar_target", pattern = NULL, args = list())
+target(name, command, type = "tar_target", pattern = "NULL", args = list())
 }
 \arguments{
 \item{name}{the target name}
@@ -27,7 +27,7 @@ Create a workflow target definition.
 Target types can be one of any provided by the \code{targets} or \code{tarchetypes} packages.
 }
 \examples{
-workflow_target <- target('a_target',1 + 1,args = list(memory = 'persistent'))
+workflow_target <- target('a_target','1 + 1',args = list(memory = 'persistent'))
 
 workflow_target
 }

@@ -346,18 +346,18 @@ setMethod('createProject',signature = 'Project',
             renvInitialise(project_directory, 
                            rebuild = rebuild(project))
             
-            projecttemplates::docker(project_name,
+            projecttemplates::docker(projectName(project),
                                      path(project))
             
             if (all(github(project), githubActions(project))) {
-              projecttemplates::githubActions(project_name, 
+              projecttemplates::githubActions(projectName(project), 
                                               path(project))
             }
             
             createGit(project_directory,type = 'report')
             
             if (isTRUE(github)) {
-              createGithub(project_name, 
+              createGithub(projectName(project), 
                            path(project), 
                            private(project))
             }

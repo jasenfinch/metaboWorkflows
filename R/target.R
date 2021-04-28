@@ -235,7 +235,7 @@ setMethod('code',signature = 'Target',
 #' @details 
 #' Target types can be one of any provided by the `targets` or `tarchetypes` packages.
 #' @examples 
-#' workflow_target <- target('a_target',1 + 1,args = list(memory = 'persistent'))
+#' workflow_target <- target('a_target','1 + 1',args = list(memory = 'persistent'))
 #' 
 #' workflow_target
 #' @export
