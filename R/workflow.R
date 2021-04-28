@@ -26,11 +26,13 @@ setClass('Workflow',
 setValidity('Workflow',function(object){
   
   if (!(type(object) %in% availableWorkflows())) {
-   return('Workflow not found, run availableWorkflows() to see the available workflows.') 
+    return('Workflow not found, run availableWorkflows() to see the available workflows.') 
   }
   
   return(TRUE)
 })
+
+#' @importFrom purrr flatten
 
 setMethod('show',signature = 'Workflow',
           function(object){
@@ -40,7 +42,12 @@ setMethod('show',signature = 'Workflow',
             cat('\n')
             input(object) %>% 
               print()
-})
+            cat('\n\n')
+            cat('# targets:',object %>% 
+                  targets() %>% 
+                  flatten() %>% 
+                  length())
+          })
 
 #' `Workflow` class get and set methods
 #' @rdname Workflow-accessors
@@ -139,7 +146,7 @@ setMethod('filePaths<-',signature = 'Workflow',
 
 setMethod('sampleInformation',signature = 'Workflow',
           function(x){
-           x %>% 
+            x %>% 
               input() %>% 
               sampleInformation()
           })
@@ -280,12 +287,15 @@ setMethod('defineWorkflow',signature = 'GroverInput',function(input,workflow,pro
   
   workflow_project <- defineProject(project_name = project_name,
                                     ...)
+  workflow <- new('Workflow',
+                  workflow_project,
+                  type = workflow,
+                  input = input,
+                  targets = list())
   
-  new('Workflow',
-      workflow_project,
-      type = workflow,
-      input = input,
-      targets = list())
+  targets(workflow) <- workflowTargets(workflow)
+  
+  return(workflow)
   
 })
 
@@ -297,11 +307,13 @@ setMethod('defineWorkflow',signature = 'FilePathInput',function(input,workflow,p
   
   workflow_project <- defineProject(project_name = project_name,
                                     ...)
+  workflow <- new('Workflow',
+                  workflow_project,
+                  type = workflow,
+                  input = input,
+                  targets = list())
   
-  new('Workflow',
-      workflow_project,
-      type = workflow,
-      input = input,
-      targets = list())
+  targets(workflow) <- workflowTargets(workflow)
   
+  return(workflow)
 })

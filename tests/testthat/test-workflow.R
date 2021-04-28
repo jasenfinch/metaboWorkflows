@@ -26,7 +26,7 @@ test_that('Workflow slots can be returned',{
   
   expect_identical(type(workflow_file_path),"FIE-HRMS fingerprinting")
   expect_s4_class(input(workflow_file_path),'FilePathInput')
-  expect_identical(targets(workflow_file_path),list())
+  expect_type(targets(workflow_file_path),'list')
   
   expect_identical(filePaths(workflow_file_path),file_paths)
   expect_identical(sampleInformation(workflow_file_path),sample_information)

@@ -20,7 +20,12 @@ setGeneric('workflowTargets',function(x)
 setMethod('workflowTargets',signature = 'Workflow',
           function(x){
             list(
-              input = inputTargets(x)
+              input = inputTargets(x),
+              `spectral processing` = spectralProcessingTargets(x),
+              `pre-treatment` = pretreatmentTargets(x),
+              `MF assignment` = MFassignmentTargets(x),
+              modelling = modellingTargets(x),
+              correlations = correlationsTargets(x)
             )
           })
 
@@ -38,8 +43,8 @@ setMethod('inputTargets',signature = 'FilePathInput',
               file_paths_list = target('file_paths_list',
                                        c('data/file_paths.txt'),
                                        type = 'tar_file'),
-              file_paths = target('file_paths',
-                                  readLines(file_path_list)),
+              converted_files = target('converted_files',
+                                       readLines(file_path_list)),
               sample_information_file = target(
                 'sample_information_file',
                 c('data/runinfo.csv'),
@@ -123,60 +128,125 @@ setMethod('inputTargets',signature = 'Workflow',
 setGeneric('spectralProcessingTargets',function(x)
   standardGeneric('spectralProcessingTargets'))
 
-# spectralProcessing
-# 
-# list(
-#   ,
-#   tar_target(
-#     spectral_binning_parameters,
-#     binneR::detectParameters(files)
-#   ),
-#   tar_target(
-#     spectral_binning,
-#     binneR::binneRlyse(files,
-#                        sample_information,
-#                        spectral_binning_parameters)
-#   ),
-#   tar_target(
-#     pre_treatment_parameters,
-#     detectPretreatmentParameters(spectral_binning)
-#   ),
-#   tar_target(
-#     pre_treated,
-#     metaboMisc::preTreatModes(spectral_binning,
-#                               pre_treatment_parameters)
-#   ),
-#   tar_target(
-#     molecular_formula_assignment_parameters,
-#     MFassign::assignmentParameters('FIE')
-#   ),
-#   tar_target(
-#     molecular_formula_assignment,
-#     MFassign::assignMFs(metabolyseR::dat(pre_treated,
-#                                          type = 'pre-treated') %>% 
-#                           .[,1:20],
-#                         molecular_formula_assignment_parameters)
-#   ),
-#   tar_target(
-#     assigned_data,
-#     metabolyseR::dat(pre_treated,'pre-treated') <- MFassign::assignedData(molecular_formula_assignment)
-#   ),
-#   tar_target(
-#     modelling_parameters,
-#     detectModellingParameters(assigned_data,cls = 'class')
-#   ),
-#   tar_target(
-#     modelling,
-#     reAnalyse(assigned_data,
-#               modelling_parameters)
-#   ),
-#   tar_target(
-#     correlations_parameters,
-#     analysisParameters('correlations')
-#   ),
-#   tar_target(
-#     correlations,
-#     reAnalyse(assigned_data,
-#               correlations_parameters)
-#   )
-# )
+
+#' @rdname workflowTargets
+
+setMethod('spectralProcessingTargets',signature = 'Workflow',
+          function(x){
+            
+            workflow <- type(x)
+            
+            processing_workflows <- list(
+              `FIE-HRMS fingerprinting` = list(
+                spectral_processing_parameters = target(
+                  'spectral_processing_parameters',
+                  binneR::detectParameters(files)
+                ),
+                spectral_processing = target(
+                  'spectral_processing',
+                  binneR::binneRlyse(files,
+                                     sample_information,
+                                     spectral_binning_parameters)
+                )
+              )
+            )
+            
+            return(processing_workflows[[workflow]])
+          })
+
+#' @rdname workflowTargets
+#' @export
+
+setGeneric('pretreatmentTargets',function(x)
+  standardGeneric('pretreatmentTargets'))
+
+#' @rdname workflowTargets
+
+setMethod('pretreatmentTargets',signature = 'Workflow',
+          function(x){
+            list(
+              pre_treatment_parameters = target(
+                'pre_treatment_parameters',
+                metaboMisc::detectPretreatmentParameters(spectral_binning)
+              ),
+              pre_treated = target(
+                'pre_treated',
+                metaboMisc::preTreatModes(spectral_processing,
+                                          pre_treatment_parameters)
+              )
+            )
+          })
+
+#' @rdname workflowTargets
+#' @export
+
+setGeneric('MFassignmentTargets',function(x)
+  standardGeneric('MFassignmentTargets'))
+
+#' @rdname workflowTargets
+
+setMethod('MFassignmentTargets',signature = 'Workflow',
+          function(x){
+            list(
+              molecular_formula_assignment_parameters = target(
+                'molecular_formula_assignment_parameters',
+                MFassign::assignmentParameters('FIE')
+              ),
+              molecular_formula_assingment = target(
+                'molecular_formula_assignment',
+                pre_treated %>% 
+                  metabolyseR::dat(type = 'pre-treated') %>% 
+                  MFassign::assignMFs(molecular_formula_assignment_parameters)
+              ),
+              assigned_data = target(
+                'assigned_data',
+                metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)
+              )
+            )
+          })
+
+#' @rdname workflowTargets
+#' @export
+
+setGeneric('modellingTargets',function(x)
+  standardGeneric('modellingTargets'))
+
+#' @rdname workflowTargets
+
+setMethod('modellingTargets',signature = 'Workflow',
+          function(x){
+            list(
+              modelling_parameters = target(
+                'modelling_parameters',
+                detectModellingParameters(assigned_data,cls = 'class')
+              ),
+              modelling = target(
+                'modelling',
+                reAnalyse(assigned_data,
+                          modelling_parameters)
+              )
+            )
+          })
+
+#' @rdname workflowTargets
+#' @export
+
+setGeneric('correlationsTargets',function(x)
+  standardGeneric('correlationsTargets'))
+
+#' @rdname workflowTargets
+
+setMethod('correlationsTargets',signature = 'Workflow',
+          function(x){
+            list(
+              correlations_parameters = target(
+                'correlations_parameters',
+                analysisParameters('correlations')
+              ),
+              correlations = target(
+                'correlations',
+                reAnalyse(assigned_data,
+                          correlations_parameters)
+              )
+            )
+          })
