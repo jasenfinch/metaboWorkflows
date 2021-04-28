@@ -140,11 +140,11 @@ setMethod('spectralProcessingTargets',signature = 'Workflow',
               `FIE-HRMS fingerprinting` = list(
                 spectral_processing_parameters = target(
                   'spectral_processing_parameters',
-                  'binneR::detectParameters(files)'
+                  'binneR::detectParameters(converted_files)'
                 ),
                 spectral_processing = target(
                   'spectral_processing',
-                  'binneR::binneRlyse(files,
+                  'binneR::binneRlyse(converted_files,
                                      sample_information,
                                      spectral_binning_parameters)'
                 )
