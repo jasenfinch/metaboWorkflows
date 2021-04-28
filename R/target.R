@@ -1,25 +1,25 @@
 #' S4 class to store target a definition
 #' @description An S4 class for storing a workflow target definition.
 #' @slot name the target name
-#' @slot command the R code to run the target
+#' @slot command the R code to run the target as a string
 #' @slot type the target archetype
-#' @slot pattern target branching definition
+#' @slot pattern target branching definition as a string
 #' @slot args arguments to pass to the specified target archetype
 #' @importFrom rlang exprs
 
 setClass('Target',
          slots = list(
            name = 'character',
-           command = 'list',
+           command = 'character',
            type = 'character',
-           pattern = 'list',
+           pattern = 'character',
            args = 'list'
          ),
          prototype = list(
            name = 'a_target',
-           command = rlang::exprs(1 + 1),
+           command = '1 + 1',
            type = 'tar_target',
-           pattern = rlang::exprs(NULL),
+           pattern = 'NULL',
            args = list()
          ))
 
@@ -240,15 +240,13 @@ setMethod('code',signature = 'Target',
 #' workflow_target
 #' @export
 
-target <- function(name,command,type = 'tar_target',pattern = NULL,args = list()){
-  target_command <- enexprs(command)
-  pattern_command <- enexprs(pattern)
+target <- function(name,command,type = 'tar_target',pattern = 'NULL',args = list()){
   
   new('Target',
       name = name,
-      command = target_command,
+      command = command,
       type = type,
-      pattern = pattern_command,
+      pattern = pattern,
       args = args
       )
 }

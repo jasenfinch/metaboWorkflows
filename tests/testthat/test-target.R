@@ -1,38 +1,38 @@
 test_that("target defintion works", {
-  workflow_target <- target('a_target',1 + 1)
+  workflow_target <- target('a_target','1 + 1')
   
   expect_s4_class(workflow_target,'Target')
 })
 
 test_that('invalid targets are correctly detected',{
-  expect_error(target('a target',1 + 1))
-  expect_error(target('a_target',1 + 1,type = 'wrong'))
+  expect_error(target('a target','1 + 1'))
+  expect_error(target('a_target','1 + 1',type = 'wrong'))
 })
 
 test_that('target elements can be returned',{
-  workflow_target <- target('a_target',1 + 1)
+  workflow_target <- target('a_target','1 + 1')
   
   expect_identical(name(workflow_target),'a_target')
-  expect_identical(command(workflow_target),exprs(1 + 1))
+  expect_identical(command(workflow_target),'1 + 1')
   expect_identical(type(workflow_target),'tar_target')
-  expect_identical(pattern(workflow_target),exprs(NULL))
+  expect_identical(pattern(workflow_target),'NULL')
   expect_identical(args(workflow_target),list())
   expect_type(code(workflow_target),'character')
 })
 
 test_that('target elements can be set',{
-  workflow_target <- target('a_target',1 + 1)
+  workflow_target <- target('a_target','1 + 1')
   
   name(workflow_target) <- 'new_target'
-  command(workflow_target) <- exprs(2 + 2)
+  command(workflow_target) <- '2 + 2'
   type(workflow_target) <- 'tar_file'
-  pattern(workflow_target) <- exprs(map(x))
+  pattern(workflow_target) <- 'map(x)'
   args(workflow_target) <- list(format = 'file')
   
   expect_identical(name(workflow_target),'new_target')
-  expect_identical(command(workflow_target),exprs(2 + 2))
+  expect_identical(command(workflow_target),'2 + 2')
   expect_identical(type(workflow_target),'tar_file')
-  expect_identical(pattern(workflow_target),exprs(map(x)))
+  expect_identical(pattern(workflow_target),'map(x)')
   expect_identical(args(workflow_target),list(format = 'file'))
   expect_type(code(workflow_target),'character') 
 })

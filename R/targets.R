@@ -41,18 +41,18 @@ setMethod('inputTargets',signature = 'FilePathInput',
           function(x){
             list(
               file_paths_list = target('file_paths_list',
-                                       c('data/file_paths.txt'),
+                                       '"data/file_paths.txt"',
                                        type = 'tar_file'),
               converted_files = target('converted_files',
-                                       readLines(file_path_list)),
+                                       'readLines(file_path_list)'),
               sample_information_file = target(
                 'sample_information_file',
-                c('data/runinfo.csv'),
+                '"data/runinfo.csv"',
                 type = 'tar_file'
               ),
               sample_information = target(
                 'sample_information',
-                readr::read_csv('runinfo.csv')
+                "readr::read_csv('runinfo.csv')"
               ))
           })
 
@@ -62,55 +62,55 @@ setMethod('inputTargets',signature = 'GroverInput',
           function(x){
             list(
               instrument = target(
-                c('instrument'),
+                'instrument',
                 instrument(x)
               ),
               experiment = target(
-                c('experiment'),
+                'experiment',
                 directory(x)
               ),
               grover_client_config = target(
                 'grover_client_config',
-                c('data/grover_client.yml'),
+                '"data/grover_client.yml"',
                 type = 'tar_file'
               ),
               grover_client = target(
                 'grover_client',
-                readGrover(grover_client_config)
+                'grover::readGrover(grover_client_config)'
               ),
               raw_files = target(
                 'raw_files',
-                listRawFiles(grover_client,
+                'grover::listRawFiles(grover_client,
                              instrument,
-                             experiment)
+                             experiment)'
               ),
               converted_files = target(
                 'converted_files',
-                grover::convertFile(grover_client,
+                'grover::convertFile(grover_client,
                                     instrument,
                                     experiment,
                                     raw_files,
                                     args = conversionArgsPeakPick(),
-                                    outDir = 'data/mzML') %>% 
-                  .[!grepl('Ctrl',.)] %>%
-                  .[!grepl('Play',.)],
-                pattern = map(raw_files)
+                                    outDir = "data/mzML") %>% 
+                  .[!grepl("Ctrl",.)] %>%
+                  .[!grepl("Play",.)]',
+                pattern = 'map(raw_files)'
               ),
               raw_sample_information = target(
                 'raw_sample_information',
-                suppressMessages(grover::sampleInfo(grover_client,
-                                                    instrument,
-                                                    experiment,
-                                                    raw_files)),
-                pattern = map(raw_files)
-              ),
-              sample_information = target(
-                'sample_information',
-                raw_sample_information %>%
-                  metaboMiscconvertSampleInfo() %>%
-                  filter(class != 'Play',class != 'Ctrl')
-              )
+                'grover::sampleInfo(grover_client,
+                                   instrument,
+                                   experiment,
+                                   raw_files))',
+              pattern = 'map(raw_files)'
+            ),
+            sample_information = target(
+              'sample_information',
+              'raw_sample_information %>%
+                metaboMisc::convertSampleInfo() %>%
+                dplyr::filter(class != "Play",class != "Ctrl")'
             )
+)
           })
 
 #' @rdname workflowTargets
@@ -140,13 +140,13 @@ setMethod('spectralProcessingTargets',signature = 'Workflow',
               `FIE-HRMS fingerprinting` = list(
                 spectral_processing_parameters = target(
                   'spectral_processing_parameters',
-                  binneR::detectParameters(files)
+                  'binneR::detectParameters(files)'
                 ),
                 spectral_processing = target(
                   'spectral_processing',
-                  binneR::binneRlyse(files,
+                  'binneR::binneRlyse(files,
                                      sample_information,
-                                     spectral_binning_parameters)
+                                     spectral_binning_parameters)'
                 )
               )
             )
@@ -167,12 +167,12 @@ setMethod('pretreatmentTargets',signature = 'Workflow',
             list(
               pre_treatment_parameters = target(
                 'pre_treatment_parameters',
-                metaboMisc::detectPretreatmentParameters(spectral_binning)
+                'metaboMisc::detectPretreatmentParameters(spectral_binning)'
               ),
               pre_treated = target(
                 'pre_treated',
-                metaboMisc::preTreatModes(spectral_processing,
-                                          pre_treatment_parameters)
+                'metaboMisc::preTreatModes(spectral_processing,
+                                          pre_treatment_parameters)'
               )
             )
           })
@@ -190,17 +190,17 @@ setMethod('MFassignmentTargets',signature = 'Workflow',
             list(
               molecular_formula_assignment_parameters = target(
                 'molecular_formula_assignment_parameters',
-                MFassign::assignmentParameters('FIE')
+                'MFassign::assignmentParameters("FIE")'
               ),
               molecular_formula_assingment = target(
                 'molecular_formula_assignment',
-                pre_treated %>% 
-                  metabolyseR::dat(type = 'pre-treated') %>% 
-                  MFassign::assignMFs(molecular_formula_assignment_parameters)
+                'pre_treated %>% 
+                  metabolyseR::dat(type = "pre-treated") %>% 
+                  MFassign::assignMFs(molecular_formula_assignment_parameters)'
               ),
               assigned_data = target(
                 'assigned_data',
-                metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)
+                'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
               )
             )
           })
@@ -218,12 +218,12 @@ setMethod('modellingTargets',signature = 'Workflow',
             list(
               modelling_parameters = target(
                 'modelling_parameters',
-                detectModellingParameters(assigned_data,cls = 'class')
+                'detectModellingParameters(assigned_data,cls = "class")'
               ),
               modelling = target(
                 'modelling',
-                reAnalyse(assigned_data,
-                          modelling_parameters)
+                'reAnalyse(assigned_data,
+                          modelling_parameters)'
               )
             )
           })
@@ -241,12 +241,12 @@ setMethod('correlationsTargets',signature = 'Workflow',
             list(
               correlations_parameters = target(
                 'correlations_parameters',
-                analysisParameters('correlations')
+                'analysisParameters("correlations")'
               ),
               correlations = target(
                 'correlations',
-                reAnalyse(assigned_data,
-                          correlations_parameters)
+                'reAnalyse(assigned_data,
+                          correlations_parameters)'
               )
             )
           })
