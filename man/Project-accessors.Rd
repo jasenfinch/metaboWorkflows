@@ -9,6 +9,10 @@
 \alias{path,Project-method}
 \alias{path<-}
 \alias{path<-,Project-method}
+\alias{renv}
+\alias{renv,Project-method}
+\alias{renv<-}
+\alias{renv<-,Project-method}
 \alias{rebuild}
 \alias{rebuild,Project-method}
 \alias{rebuild<-}
@@ -50,6 +54,14 @@ path(x)
 path(x) <- value
 
 \S4method{path}{Project}(x) <- value
+
+renv(x)
+
+\S4method{renv}{Project}(x)
+
+renv(x) <- value
+
+\S4method{renv}{Project}(x) <- value
 
 rebuild(x)
 

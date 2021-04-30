@@ -2,6 +2,7 @@
 #' @description An S4 class to store the workflow project directory definitions.
 #' @slot project_name the project name
 #' @slot path the project directory path
+#' @slot renv add infrastructure for reproducible R package environment management from the `renv` package
 #' @slot rebuild force rebuild of packages installed into project `renv` cache
 #' @slot docker creation for project docker infrastructure
 #' @slot github creation of a GitHub repository
@@ -13,6 +14,7 @@ setClass('Project',
          slots = list(
            project_name = 'character',
            path = 'character',
+           renv = 'logical',
            rebuild = 'logical',
            docker = 'logical',
            github = 'logical',
@@ -23,6 +25,7 @@ setClass('Project',
          prototype = list(
            project_name = 'A project name',
            path = '.',
+           renv = TRUE,
            rebuild = FALSE,
            docker = TRUE,
            github = FALSE,
@@ -35,6 +38,7 @@ setMethod('show',signature = 'Project',
           function(object){
             cat('Project name:',projectName(object),'\n')
             cat('Directory path:',path(object),'\n')
+            cat('Use renv:',renv(object),'\n')
             cat('Package rebuild:',rebuild(object),'\n')
             cat('Docker:',docker(object),'\n')
             cat('GitHub repository:',github(object),'\n')
@@ -98,6 +102,33 @@ setGeneric('path<-',function(x,value)
 setMethod('path<-',signature = 'Project',
           function(x,value){
             x@path <- value
+            return(x)
+          })
+
+#' @rdname Project-accessors
+#' @export
+
+setGeneric('renv',function(x)
+  standardGeneric('renv'))
+
+#' @rdname Project-accessors
+
+setMethod('renv',signature = 'Project',
+          function(x){
+            x@rebuild
+          })
+
+#' @rdname Project-accessors
+#' @export
+
+setGeneric('renv<-',function(x,value)
+  standardGeneric('renv<-'))
+
+#' @rdname Project-accessors
+
+setMethod('renv<-',signature = 'Project',
+          function(x,value){
+            x@rebuild <- value
             return(x)
           })
 
