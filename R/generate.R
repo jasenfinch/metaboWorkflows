@@ -38,20 +38,25 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             message('Adding targets infrastructure')
             targetsScript(project_directory,type = 'report')
+            write('\nmetaboMisc::suitableParallelPlan()\n',
+                  file = paste0(project_directory,'/_targets.R'),
+                  append = TRUE)
             targetsRun(project_directory)
             writeTargets(targets(workflow),paste0(project_directory,'/_targets.R'))
             
             utils(glue('{project_directory}/R'),
-                  cran = c('purrr','targets','tarchetypes'),
+                  cran = c('purrr','targets','tarchetypes','future'),
                   github = githubDependencies(workflow))
             
             inputPrep(workflow)
             
             output(project_directory)
             
-            renvInitialise(project_directory,
-                           github = githubDependencies(workflow), 
-                           rebuild = rebuild(workflow))
+            if (isTRUE(renv(workflow))){
+              renvInitialise(project_directory,
+                             github = githubDependencies(workflow), 
+                             rebuild = rebuild(workflow)) 
+            }
             
             projecttemplates::docker(projectName(workflow),
                                      path(workflow))
