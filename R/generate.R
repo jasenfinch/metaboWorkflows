@@ -146,3 +146,33 @@ writeTargets <- function(workflow_targets,file_path){
   
   out <- capture.output(style_file(file_path))
 }
+
+setGeneric('inputPrep',function(x)
+  standardGeneric('inputPrep'))
+
+setMethod('inputPrep',signature = 'Workflow',
+          function(x){
+            input_type <- x %>% 
+              input() %>% class()
+            
+            project_directory <- projectDirectory(
+              projectName(x),
+              path(x)
+            )
+            
+            if (input_type == 'FilePathInput') {
+              x %>% 
+                filePaths() %>% 
+                writeLines(glue('{project_directory}/data/file_paths.txt'))
+              x %>% 
+                sampleInformation() %>% 
+                write.csv(glue('{project_directory}/data/runinfo.csv'),
+                          row.names = FALSE,)
+              
+            }
+            
+            if (input_type == 'GroverInput') {
+              glue('{project_directory}/data/mzML') %>% 
+                dir.create()
+            }
+          })
