@@ -13,10 +13,6 @@
 \alias{renv,Project-method}
 \alias{renv<-}
 \alias{renv<-,Project-method}
-\alias{rebuild}
-\alias{rebuild,Project-method}
-\alias{rebuild<-}
-\alias{rebuild<-,Project-method}
 \alias{docker}
 \alias{docker,Project-method}
 \alias{docker<-}
@@ -62,14 +58,6 @@ renv(x)
 renv(x) <- value
 
 \S4method{renv}{Project}(x) <- value
-
-rebuild(x)
-
-\S4method{rebuild}{Project}(x)
-
-rebuild(x) <- value
-
-\S4method{rebuild}{Project}(x) <- value
 
 docker(x)
 

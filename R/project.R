@@ -3,7 +3,6 @@
 #' @slot project_name the project name
 #' @slot path the project directory path
 #' @slot renv add infrastructure for reproducible R package environment management from the `renv` package
-#' @slot rebuild force rebuild of packages installed into project `renv` cache
 #' @slot docker creation for project docker infrastructure
 #' @slot github creation of a GitHub repository
 #' @slot private private GitHub repository
@@ -15,7 +14,6 @@ setClass('Project',
            project_name = 'character',
            path = 'character',
            renv = 'logical',
-           rebuild = 'logical',
            docker = 'logical',
            github = 'logical',
            private = 'logical',
@@ -26,7 +24,6 @@ setClass('Project',
            project_name = 'A project name',
            path = '.',
            renv = TRUE,
-           rebuild = FALSE,
            docker = TRUE,
            github = FALSE,
            private = FALSE,
@@ -39,7 +36,6 @@ setMethod('show',signature = 'Project',
             cat('Project name:',projectName(object),'\n')
             cat('Directory path:',path(object),'\n')
             cat('Use renv:',renv(object),'\n')
-            cat('Package rebuild:',rebuild(object),'\n')
             cat('Docker:',docker(object),'\n')
             cat('GitHub repository:',github(object),'\n')
             cat('Private repository:',private(object),'\n')
@@ -115,7 +111,7 @@ setGeneric('renv',function(x)
 
 setMethod('renv',signature = 'Project',
           function(x){
-            x@rebuild
+            x@renv
           })
 
 #' @rdname Project-accessors
@@ -128,34 +124,7 @@ setGeneric('renv<-',function(x,value)
 
 setMethod('renv<-',signature = 'Project',
           function(x,value){
-            x@rebuild <- value
-            return(x)
-          })
-
-#' @rdname Project-accessors
-#' @export
-
-setGeneric('rebuild',function(x)
-  standardGeneric('rebuild'))
-
-#' @rdname Project-accessors
-
-setMethod('rebuild',signature = 'Project',
-          function(x){
-            x@rebuild
-          })
-
-#' @rdname Project-accessors
-#' @export
-
-setGeneric('rebuild<-',function(x,value)
-  standardGeneric('rebuild<-'))
-
-#' @rdname Project-accessors
-
-setMethod('rebuild<-',signature = 'Project',
-          function(x,value){
-            x@rebuild <- value
+            x@renv <- value
             return(x)
           })
 
@@ -298,7 +267,7 @@ setMethod('force<-',signature = 'Project',
 #' @description Define the project directory for a workflow
 #' @param project_name project name/title
 #' @param path target file path for project directory 
-#' @param rebuild force rebuild of R packages installed into project `renv` cache
+#' @param renv add infrastructure for reproducible R package environment management from the `renv` package
 #' @param docker TRUE/FALSE. Create project infrastructure for building a docker container to compile the project.
 #' @param github TRUE/FALSE. Create a GitHub repository?
 #' @param private TRUE/FALSE. Should the GitHub repository be private? Evaluated only if argument `github` is TRUE.
@@ -311,7 +280,7 @@ setMethod('force<-',signature = 'Project',
 
 defineProject <- function(project_name,
                           path = '.',
-                          rebuild = FALSE,
+                          renv = TRUE,
                           docker = TRUE,
                           github = FALSE,
                           private = FALSE,
@@ -320,7 +289,7 @@ defineProject <- function(project_name,
   new('Project',
       project_name = project_name,
       path = path,
-      rebuild = rebuild,
+      renv = renv,
       docker = docker,
       github = github,
       private = private,

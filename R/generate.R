@@ -54,8 +54,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
-                             github = githubDependencies(workflow), 
-                             rebuild = rebuild(workflow)) 
+                             github = githubDependencies(workflow))
             }
             
             projecttemplates::docker(projectName(workflow),

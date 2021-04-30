@@ -16,8 +16,6 @@ An S4 class to store the workflow project directory definitions.
 
 \item{\code{renv}}{add infrastructure for reproducible R package environment management from the \code{renv} package}
 
-\item{\code{rebuild}}{force rebuild of packages installed into project \code{renv} cache}
-
 \item{\code{docker}}{creation for project docker infrastructure}
 
 \item{\code{github}}{creation of a GitHub repository}

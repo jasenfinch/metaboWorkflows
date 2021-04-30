@@ -7,7 +7,7 @@
 defineProject(
   project_name,
   path = ".",
-  rebuild = FALSE,
+  renv = TRUE,
   docker = TRUE,
   github = FALSE,
   private = FALSE,
@@ -20,7 +20,7 @@ defineProject(
 
 \item{path}{target file path for project directory}
 
-\item{rebuild}{force rebuild of R packages installed into project \code{renv} cache}
+\item{renv}{add infrastructure for reproducible R package environment management from the \code{renv} package}
 
 \item{docker}{TRUE/FALSE. Create project infrastructure for building a docker container to compile the project.}
 
