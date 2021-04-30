@@ -15,7 +15,8 @@ Imports: projecttemplates,
           purrr,
           rlang,
           tarchetypes,
-          targets
+          targets,
+          styler
 Suggests: knitr,
   testthat,
   metaboData,
