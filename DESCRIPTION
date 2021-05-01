@@ -15,12 +15,13 @@ Imports: projecttemplates,
           purrr,
           rlang,
           tarchetypes,
-          targets,
-          styler
-Suggests: knitr,
-  testthat,
-  metaboData,
-  covr
+          targets
+Suggests: 
+    knitr,
+    testthat (>= 3.0.0),
+    metaboData,
+    covr,
+    visNetwork
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R utils.R generate.R
 Encoding: UTF-8
@@ -32,3 +33,4 @@ Remotes: jasenfinch/projecttemplates,
          ropensci/targets,
          ropensci/tarchetypes,
          aberHRML/metaboData
+Config/testthat/edition: 3
