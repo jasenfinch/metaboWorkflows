@@ -10,8 +10,8 @@ test_that('Project elements can be returned',{
   expect_identical(projectName(workflow_project),
                    'A metabolomics project')
   expect_identical(path(workflow_project),'.')
-  expect_identical(rebuild(workflow_project),
-                   FALSE)
+  expect_identical(renv(workflow_project),
+                   TRUE)
   expect_identical(docker(workflow_project),
                    TRUE)
   expect_identical(github(workflow_project),
@@ -29,7 +29,7 @@ test_that('Project elements can be set',{
   
   projectName(workflow_project) <- 'A new name'
   path(workflow_project) <- '../'
-  rebuild(workflow_project) <- TRUE
+  renv(workflow_project) <- FALSE
   docker(workflow_project) <- FALSE
   github(workflow_project) <- TRUE
   private(workflow_project) <- TRUE
@@ -39,8 +39,8 @@ test_that('Project elements can be set',{
   expect_identical(projectName(workflow_project),
                    'A new name')
   expect_identical(path(workflow_project),'../')
-  expect_identical(rebuild(workflow_project),
-                   TRUE)
+  expect_identical(renv(workflow_project),
+                   FALSE)
   expect_identical(docker(workflow_project),
                    FALSE)
   expect_identical(github(workflow_project),
