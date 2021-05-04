@@ -3,7 +3,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom cli symbol
 #' @importFrom crayon green
-#' @importFrom metaboMisc preTreatModes detectBatchDiff detectMissInjections reduce
+#' @importFrom metaboMisc preTreatModes detectBatchDiff detectMissInjections reduce suitableParallelPlan
 #' @importFrom MFassign assignMFs assignedData
 #' @importFrom utils data
 
@@ -11,6 +11,7 @@
   methods <- list(
     spectralBin = function(x){
       message('\nSpectral binning ',cli::symbol$continue,'\r',appendLF = FALSE)
+      
       binnedDat <- binneRlyse(files = as.character(x@files),info = x@info,parameters = x@workflowParameters@processing)
       x@processed <- binnedDat
       message('\rSpectral binning ',green(cli::symbol$tick))
@@ -61,9 +62,6 @@
       preTreatParameters <- analysisParameters('pre-treatment')
       parameters(preTreatParameters,'pre-treatment') <- parameters(x@workflowParameters@analysis,
                                                                    'pre-treatment')
-      
-      metabolyseR::plan(future::multisession,workers = future::availableCores() * 0.75)
-      
       x@analysed <- preTreatModes(x@processed,preTreatParameters)
       
       message('\rPre-treatment ',green(cli::symbol$tick))

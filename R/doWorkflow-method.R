@@ -1,4 +1,5 @@
 #' @importFrom callr r
+#' @importFrom metaboMisc suitableParallelPlan
 
 setMethod('doWorkflow',signature = 'Workflow',
           function(y){
@@ -12,6 +13,7 @@ setMethod('doWorkflow',signature = 'Workflow',
               try({
                 res <- r(function(x,m){
                   requireNamespace('metaboWorkflows',quietly = TRUE)
+                  metaboMisc::suitableParallelPlan()
                   try(m(x))
                 },args = list(x = y,m = method),
                 show = TRUE,
