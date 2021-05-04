@@ -70,5 +70,5 @@ workflow_definition <- defineWorkflow(workflow_input,
                                      'FIE-HRMS fingerprinting',
                                      'Example project')
 
-targetsWorkflow(workflow_input)
+targetsWorkflow(workflow_definition)
 }

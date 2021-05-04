@@ -13,7 +13,7 @@
 #'                                      'FIE-HRMS fingerprinting',
 #'                                      'Example project')
 #'
-#' targetsWorkflow(workflow_input)
+#' targetsWorkflow(workflow_definition)
 #' @export
 
 setGeneric('targetsWorkflow',function(x)
