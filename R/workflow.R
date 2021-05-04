@@ -126,6 +126,21 @@ setMethod('targets<-',signature = 'Workflow',
           })
 
 #' @rdname Workflow-accessors
+#' @export
+
+setGeneric('modules',function(x)
+  standardGeneric('modules'))
+
+#' @rdname Workflow-accessors
+
+setMethod('modules',signature = 'Workflow',
+          function(x){
+            x %>% 
+              targets() %>% 
+              names()
+          })
+
+#' @rdname Workflow-accessors
 
 setMethod('filePaths',signature = 'Workflow',
           function(x){
@@ -297,7 +312,7 @@ setMethod('defineWorkflow',signature = 'GroverInput',function(input,workflow,pro
                   input = input,
                   targets = list())
   
-  targets(workflow) <- workflowTargets(workflow)
+  targets(workflow) <- targetsWorkflow(workflow)
   
   return(workflow)
   
@@ -317,7 +332,7 @@ setMethod('defineWorkflow',signature = 'FilePathInput',function(input,workflow,p
                   input = input,
                   targets = list())
   
-  targets(workflow) <- workflowTargets(workflow)
+  targets(workflow) <- targetsWorkflow(workflow)
   
   return(workflow)
 })

@@ -11,6 +11,8 @@
 \alias{targets,Workflow-method}
 \alias{targets<-}
 \alias{targets<-,Workflow-method}
+\alias{modules}
+\alias{modules,Workflow-method}
 \alias{filePaths,Workflow-method}
 \alias{filePaths<-,Workflow-method}
 \alias{sampleInformation,Workflow-method}
@@ -46,6 +48,10 @@ targets(x)
 targets(x) <- value
 
 \S4method{targets}{Workflow}(x) <- value
+
+modules(x)
+
+\S4method{modules}{Workflow}(x)
 
 \S4method{filePaths}{Workflow}(x)
 

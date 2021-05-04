@@ -1,5 +1,5 @@
 #' Workflow pipeline targets
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @description Target definitions for workflow input.
 #' @param x S4 object of class `FilePathInput` or `GroverInput`
 #' @return A list of `Target` S4 class target definitions.
@@ -13,13 +13,13 @@
 #'                                      'FIE-HRMS fingerprinting',
 #'                                      'Example project')
 #'
-#' workflowTargets(workflow_input)
+#' targetsWorkflow(workflow_input)
 #' @export
 
-setGeneric('workflowTargets',function(x)
-  standardGeneric('workflowTargets'))
+setGeneric('targetsWorkflow',function(x)
+  standardGeneric('targetsWorkflow'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' 
 setMethod('targetsWorkflow',signature = 'Workflow',
           function(x){
@@ -33,13 +33,13 @@ setMethod('targetsWorkflow',signature = 'Workflow',
             )
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsInput',function(x)
   standardGeneric('targetsInput'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsInput',signature = 'FilePathInput',
           function(x){
@@ -61,7 +61,7 @@ setMethod('targetsInput',signature = 'FilePathInput',
               ))
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsInput',signature = 'GroverInput',
           function(x){
@@ -118,23 +118,23 @@ setMethod('targetsInput',signature = 'GroverInput',
             )
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsInput',signature = 'Workflow',
           function(x){
             x %>% 
               input() %>% 
-              inputTargets()
+              targetsInput()
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsSpectralProcessing',function(x)
   standardGeneric('targetsSpectralProcessing'))
 
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsSpectralProcessing',signature = 'Workflow',
           function(x){
@@ -159,13 +159,13 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
             return(processing_workflows[[workflow]])
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsPretreatment',function(x)
   standardGeneric('targetsPretreatment'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsPretreatment',signature = 'Workflow',
           function(x){
@@ -182,13 +182,13 @@ setMethod('targetsPretreatment',signature = 'Workflow',
             )
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsMFassignment',function(x)
   standardGeneric('targetsMFassignment'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsMFassignment',signature = 'Workflow',
           function(x){
@@ -210,13 +210,13 @@ setMethod('targetsMFassignment',signature = 'Workflow',
             )
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsModelling',function(x)
   standardGeneric('targetsModelling'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsModelling',signature = 'Workflow',
           function(x){
@@ -233,13 +233,13 @@ setMethod('targetsModelling',signature = 'Workflow',
             )
           })
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 #' @export
 
 setGeneric('targetsCorrelations',function(x)
   standardGeneric('targetsCorrelations'))
 
-#' @rdname workflowTargets
+#' @rdname targetsWorkflow
 
 setMethod('targetsCorrelations',signature = 'Workflow',
           function(x){
