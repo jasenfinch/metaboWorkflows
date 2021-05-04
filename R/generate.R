@@ -54,6 +54,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
+                             bioc = biocDependencies(workflow),
                              github = githubDependencies(workflow))
             }
             
