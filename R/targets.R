@@ -21,27 +21,27 @@ setGeneric('workflowTargets',function(x)
 
 #' @rdname workflowTargets
 #' 
-setMethod('workflowTargets',signature = 'Workflow',
+setMethod('targetsWorkflow',signature = 'Workflow',
           function(x){
             list(
-              input = inputTargets(x),
-              spectral_processing = spectralProcessingTargets(x),
-              pre_treatment = pretreatmentTargets(x),
-              MF_assignment = MFassignmentTargets(x),
-              modelling = modellingTargets(x),
-              correlations = correlationsTargets(x)
+              input = targetsInput(x),
+              spectral_processing = targetsSpectralProcessing(x),
+              pre_treatment = targetsPretreatment(x),
+              MF_assignment = targetsMFassignment(x),
+              modelling = targetsModelling(x),
+              correlations = targetsCorrelations(x)
             )
           })
 
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('inputTargets',function(x)
-  standardGeneric('inputTargets'))
+setGeneric('targetsInput',function(x)
+  standardGeneric('targetsInput'))
 
 #' @rdname workflowTargets
 
-setMethod('inputTargets',signature = 'FilePathInput',
+setMethod('targetsInput',signature = 'FilePathInput',
           function(x){
             list(
               file_paths_list = target('file_paths_list',
@@ -63,7 +63,7 @@ setMethod('inputTargets',signature = 'FilePathInput',
 
 #' @rdname workflowTargets
 
-setMethod('inputTargets',signature = 'GroverInput',
+setMethod('targetsInput',signature = 'GroverInput',
           function(x){
             list(
               instrument = target(
@@ -120,7 +120,7 @@ setMethod('inputTargets',signature = 'GroverInput',
 
 #' @rdname workflowTargets
 
-setMethod('inputTargets',signature = 'Workflow',
+setMethod('targetsInput',signature = 'Workflow',
           function(x){
             x %>% 
               input() %>% 
@@ -130,13 +130,13 @@ setMethod('inputTargets',signature = 'Workflow',
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('spectralProcessingTargets',function(x)
-  standardGeneric('spectralProcessingTargets'))
+setGeneric('targetsSpectralProcessing',function(x)
+  standardGeneric('targetsSpectralProcessing'))
 
 
 #' @rdname workflowTargets
 
-setMethod('spectralProcessingTargets',signature = 'Workflow',
+setMethod('targetsSpectralProcessing',signature = 'Workflow',
           function(x){
             
             workflow <- type(x)
@@ -162,12 +162,12 @@ setMethod('spectralProcessingTargets',signature = 'Workflow',
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('pretreatmentTargets',function(x)
-  standardGeneric('pretreatmentTargets'))
+setGeneric('targetsPretreatment',function(x)
+  standardGeneric('targetsPretreatment'))
 
 #' @rdname workflowTargets
 
-setMethod('pretreatmentTargets',signature = 'Workflow',
+setMethod('targetsPretreatment',signature = 'Workflow',
           function(x){
             list(
               pre_treatment_parameters = target(
@@ -185,12 +185,12 @@ setMethod('pretreatmentTargets',signature = 'Workflow',
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('MFassignmentTargets',function(x)
-  standardGeneric('MFassignmentTargets'))
+setGeneric('targetsMFassignment',function(x)
+  standardGeneric('targetsMFassignment'))
 
 #' @rdname workflowTargets
 
-setMethod('MFassignmentTargets',signature = 'Workflow',
+setMethod('targetsMFassignment',signature = 'Workflow',
           function(x){
             list(
               molecular_formula_assignment_parameters = target(
@@ -213,12 +213,12 @@ setMethod('MFassignmentTargets',signature = 'Workflow',
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('modellingTargets',function(x)
-  standardGeneric('modellingTargets'))
+setGeneric('targetsModelling',function(x)
+  standardGeneric('targetsModelling'))
 
 #' @rdname workflowTargets
 
-setMethod('modellingTargets',signature = 'Workflow',
+setMethod('targetsModelling',signature = 'Workflow',
           function(x){
             list(
               modelling_parameters = target(
@@ -236,12 +236,12 @@ setMethod('modellingTargets',signature = 'Workflow',
 #' @rdname workflowTargets
 #' @export
 
-setGeneric('correlationsTargets',function(x)
-  standardGeneric('correlationsTargets'))
+setGeneric('targetsCorrelations',function(x)
+  standardGeneric('targetsCorrelations'))
 
 #' @rdname workflowTargets
 
-setMethod('correlationsTargets',signature = 'Workflow',
+setMethod('targetsCorrelations',signature = 'Workflow',
           function(x){
             list(
               correlations_parameters = target(
