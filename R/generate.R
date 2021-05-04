@@ -178,7 +178,7 @@ setMethod('inputPrep',signature = 'Workflow',
               x %>% 
                 sampleInformation() %>% 
                 write.csv(glue('{project_directory}/data/runinfo.csv'),
-                          row.names = FALSE,)
+                          row.names = FALSE)
               
             }
             

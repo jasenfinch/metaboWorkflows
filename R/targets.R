@@ -114,6 +114,11 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'raw_sample_information %>%
                 metaboMisc::convertSampleInfo() %>%
                 dplyr::filter(class != "Play",class != "Ctrl")'
+              ),
+              export_sample_information = target(
+                'export_sample_information',
+                "write.csv('data/runinfo.csv',row.names = FALSE)",
+                type = 'tar_file'
               )
             )
           })
@@ -147,12 +152,24 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                   'spectral_processing_parameters',
                   'binneR::detectParameters(converted_files)'
                 ),
-                spectral_processing = target(
-                  'spectral_processing',
+                spectral_processed = target(
+                  'spectral_processed',
                   'binneR::binneRlyse(converted_files,
                                      sample_information,
                                      spectral_processing_parameters)'
-                )
+                ),
+                ionisation_modes = target(
+                  'ionisation_modes',
+                  'binneR::binnedData(spectral_processed) %>% names()'
+                ),
+                export_processed_data = target(
+                  'export_processed_data',
+                  'spectral_processed %>% 
+                    binneR::binnedData() %>% 
+                    .[[ionisation_modes]] %>% 
+                    metaboMisc::exportCSV(glue::glue("exports/spectral_processed/spectral_processed_{ionisation_modes}_data.csv"))',
+                  pattern = 'map(ionisation_modes)',
+                  type = 'tar_file')
               )
             )
             
@@ -172,12 +189,26 @@ setMethod('targetsPretreatment',signature = 'Workflow',
             list(
               pre_treatment_parameters = target(
                 'pre_treatment_parameters',
-                'metaboMisc::detectPretreatmentParameters(spectral_processing)'
+                'metaboMisc::detectPretreatmentParameters(spectral_processed)'
               ),
               pre_treated = target(
                 'pre_treated',
-                'metaboMisc::preTreatModes(spectral_processing,
+                'metaboMisc::preTreatModes(spectral_processed,
                                           pre_treatment_parameters)'
+              ),
+              export_pre_treated_data = target(
+                'export_pre_treated',
+                'pre_treated %>% 
+                  metabolyseR::dat(type = "pre-treated") %>% 
+                  metaboMisc::exportCSV("exports/pre_treated/pre_treated_data.csv")',
+                type = 'tar_file'
+              ),
+              export_pre_treated_sample_information = target(
+                'export_pre_treated_data',
+                'pre_treated %>% 
+                  metabolyseR::sinfo(type = "pre-treated") %>% 
+                  metaboMisc::exportCSV("exports/pre_treated/pre_treated_sample_information.csv")',
+                type = 'tar_file'
               )
             )
           })
@@ -206,7 +237,29 @@ setMethod('targetsMFassignment',signature = 'Workflow',
               assigned_data = target(
                 'assigned_data',
                 'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
+              ),
+              export_assignments = target(
+                'export_assignments',
+                'molecular_formula_assignment %>% 
+                  MFassign::assignments() %>% 
+                  exportCSV("exports/molecular_formula_assignments/assignments.csv")',
+                type = 'tar_file'
+              ),
+              export_summarised_assignments = target(
+                'export_summarised_assignments',
+                'molecular_formula_assignment %>% 
+                  MFassign::summarisedAssignment() %>% 
+                  exportCSV("exports/molecular_formula_assignments/summarised_assignments.csv")',
+                type = 'tar_file'
+              ),
+              export_assigned_data = target(
+                'export_assigned_data',
+                'assigned_data %>% 
+                  metabolyseR::dat(type = "pre-treated") %>% 
+                  metaboMisc::exportCSV("exports/molecular_formula_assignments/assigned_data.csv")',
+                type = 'tar_file'
               )
+              
             )
           })
 
@@ -229,6 +282,20 @@ setMethod('targetsModelling',signature = 'Workflow',
                 'modelling',
                 'metabolyseR::reAnalyse(assigned_data,
                           modelling_parameters)'
+              ),
+              export_modelling_metrics = target(
+                'export_modelling_metrics',
+                'modelling %>% 
+                  metabolyseR::analysisResults("modelling") %>% 
+                  metabolyseR::metrics() %>% 
+                  metaboMisc::exportCSV("exports/modelling/metrics.csv")',
+                type = 'tar_file'
+              ),
+              export_modelling_importance = target(
+                'export_modelling_importance',
+                'modelling %>% 
+                  metabolyseR::importance() %>% 
+                  metaboMisc::exportCSV("exports/modelling/importance.csv")'
               )
             )
           })
@@ -252,6 +319,13 @@ setMethod('targetsCorrelations',signature = 'Workflow',
                 'correlations',
                 'metabolyseR::reAnalyse(assigned_data,
                           correlations_parameters)'
+              ),
+              export_correlations = target(
+                'export_correlations',
+                'correlations %>% 
+                  analysisResults("correlations") %>% 
+                  exportCSV("correlations/correlations.csv")',
+                type = 'tar_file'
               )
             )
           })
