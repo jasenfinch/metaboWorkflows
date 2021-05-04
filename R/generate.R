@@ -108,8 +108,7 @@ output <- function(project_directory){
 #' @importFrom glue glue_collapse
 #' @importFrom styler style_file
 
-writeTargets <- function(workflow_targets,file_path){
-  
+targetsList <- function(workflow_targets){
   workflow_targets <- workflow_targets %>%
     map(~{
       .x %>% 
@@ -143,7 +142,14 @@ writeTargets <- function(workflow_targets,file_path){
   {workflow_targets}
 )')
   
-  write(workflow_targets,file_path,append = TRUE)
+  return(workflow_targets)
+}
+
+writeTargets <- function(workflow_targets,file_path){
+  
+  targets_list <- targetsList(workflow_targets)
+  
+  write(targets_list,file_path,append = TRUE)
   
   out <- capture.output(style_file(file_path))
 }
