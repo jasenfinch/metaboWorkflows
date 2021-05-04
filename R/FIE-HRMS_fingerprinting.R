@@ -80,7 +80,7 @@
         dat(type = 'pre-treated') %>%
         assignMFs(x@workflowParameters@annotation,verbose = TRUE)
       
-      dat(x@analysed@preTreated) <- assignedData(x@annotated)
+      dat(x@analysed@`pre-treated`) <- assignedData(x@annotated)
       
       message('\rMolecular formula assignment ',green(cli::symbol$tick))
       return(x)
