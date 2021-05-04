@@ -145,6 +145,8 @@ targetsList <- function(workflow_targets){
   return(workflow_targets)
 }
 
+#' @importFrom utils capture.output
+
 writeTargets <- function(workflow_targets,file_path){
   
   targets_list <- targetsList(workflow_targets)
@@ -156,6 +158,8 @@ writeTargets <- function(workflow_targets,file_path){
 
 setGeneric('inputPrep',function(x)
   standardGeneric('inputPrep'))
+
+#' @importFrom utils write.csv
 
 setMethod('inputPrep',signature = 'Workflow',
           function(x){
