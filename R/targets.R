@@ -161,7 +161,20 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                 export_processed_data = target(
                   'export_processed_data',
                   'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
-                  type = 'tar_files')
+                  type = 'tar_files'
+                ),
+                plot_fingerprint = target(
+                  'plot_fingerprint',
+                  'binneR::plotFingerprint(spectral_processed)'
+                ),
+                plot_chromatogram = target(
+                  'plot_chromatogram',
+                  'binneR::plotChromatogram(spectral_processed)'
+                ),
+                plot_TIC = target(
+                  'plot_TIC',
+                  'binneR::plotTIC(spectral_processed)'
+                )
               )
             )
             
