@@ -47,9 +47,9 @@ setMethod('targetsInput',signature = 'FilePathInput',
               file_paths_list = target('file_paths_list',
                                        '"data/file_paths.txt"',
                                        type = 'tar_file'),
-              converted_files = target('converted_files',
-                                       'readLines(file_paths_list)',
-                                       type = 'tar_file'),
+              mzML = target('mzML',
+                            'readLines(file_paths_list)',
+                            type = 'tar_files'),
               sample_information_file = target(
                 'sample_information_file',
                 '"data/runinfo.csv"',
@@ -89,8 +89,8 @@ setMethod('targetsInput',signature = 'GroverInput',
                              instrument,
                              experiment)'
               ),
-              converted_files = target(
-                'converted_files',
+              mzML = target(
+                'mzML',
                 'grover::convertFile(grover_client,
                                     instrument,
                                     experiment,
@@ -99,7 +99,7 @@ setMethod('targetsInput',signature = 'GroverInput',
                                     outDir = "data/mzML") %>% 
                   .[!grepl("Ctrl",.)] %>%
                   .[!grepl("Play",.)]',
-                pattern = 'map(raw_files)'
+                args = list(pattern = 'map(raw_files)')
               ),
               raw_sample_information = target(
                 'raw_sample_information',
@@ -107,7 +107,7 @@ setMethod('targetsInput',signature = 'GroverInput',
                                    instrument,
                                    experiment,
                                    raw_files))',
-                pattern = 'map(raw_files)'
+                args = list(pattern = 'map(raw_files)')
               ),
               sample_information = target(
                 'sample_information',
@@ -150,26 +150,18 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
               `FIE-HRMS fingerprinting` = list(
                 spectral_processing_parameters = target(
                   'spectral_processing_parameters',
-                  'binneR::detectParameters(converted_files)'
+                  'binneR::detectParameters(mzML)'
                 ),
                 spectral_processed = target(
                   'spectral_processed',
-                  'binneR::binneRlyse(converted_files,
+                  'binneR::binneRlyse(mzML,
                                      sample_information,
                                      spectral_processing_parameters)'
                 ),
-                ionisation_modes = target(
-                  'ionisation_modes',
-                  'binneR::binnedData(spectral_processed) %>% names()'
-                ),
                 export_processed_data = target(
                   'export_processed_data',
-                  'spectral_processed %>% 
-                    binneR::binnedData() %>% 
-                    .[[ionisation_modes]] %>% 
-                    metaboMisc::exportCSV(glue::glue("exports/spectral_processed/spectral_processed_{ionisation_modes}_data.csv"))',
-                  pattern = 'map(ionisation_modes)',
-                  type = 'tar_file')
+                  'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
+                  type = 'tar_files')
               )
             )
             
@@ -198,16 +190,12 @@ setMethod('targetsPretreatment',signature = 'Workflow',
               ),
               export_pre_treated_data = target(
                 'export_pre_treated',
-                'pre_treated %>% 
-                  metabolyseR::dat(type = "pre-treated") %>% 
-                  metaboMisc::exportCSV("exports/pre_treated/pre_treated_data.csv")',
+                'metaboMisc::exportData(pre_treated,outPath = "exports/pre-treated")',
                 type = 'tar_file'
               ),
-              export_pre_treated_sample_information = target(
-                'export_pre_treated_data',
-                'pre_treated %>% 
-                  metabolyseR::sinfo(type = "pre-treated") %>% 
-                  metaboMisc::exportCSV("exports/pre_treated/pre_treated_sample_information.csv")',
+              export_pre_treated_sample_info = target(
+                'export_pre_treated_sample_info',
+                'metaboMisc::exportSampleInfo(pre_treated,outPath = "exports/pre-treated")',
                 type = 'tar_file'
               )
             )
@@ -240,26 +228,9 @@ setMethod('targetsMFassignment',signature = 'Workflow',
               ),
               export_assignments = target(
                 'export_assignments',
-                'molecular_formula_assignment %>% 
-                  MFassign::assignments() %>% 
-                  exportCSV("exports/molecular_formula_assignments/assignments.csv")',
-                type = 'tar_file'
-              ),
-              export_summarised_assignments = target(
-                'export_summarised_assignments',
-                'molecular_formula_assignment %>% 
-                  MFassign::summarisedAssignment() %>% 
-                  exportCSV("exports/molecular_formula_assignments/summarised_assignments.csv")',
-                type = 'tar_file'
-              ),
-              export_assigned_data = target(
-                'export_assigned_data',
-                'assigned_data %>% 
-                  metabolyseR::dat(type = "pre-treated") %>% 
-                  metaboMisc::exportCSV("exports/molecular_formula_assignments/assigned_data.csv")',
-                type = 'tar_file'
+                'metaboMisc::export(molecular_formula_assignment,outPath = "exports/molecular_formula_assignments")',
+                type = 'tar_files'
               )
-              
             )
           })
 
@@ -283,19 +254,10 @@ setMethod('targetsModelling',signature = 'Workflow',
                 'metabolyseR::reAnalyse(assigned_data,
                           modelling_parameters)'
               ),
-              export_modelling_metrics = target(
-                'export_modelling_metrics',
-                'modelling %>% 
-                  metabolyseR::analysisResults("modelling") %>% 
-                  metabolyseR::metrics() %>% 
-                  metaboMisc::exportCSV("exports/modelling/metrics.csv")',
-                type = 'tar_file'
-              ),
-              export_modelling_importance = target(
-                'export_modelling_importance',
-                'modelling %>% 
-                  metabolyseR::importance() %>% 
-                  metaboMisc::exportCSV("exports/modelling/importance.csv")'
+              export_modelling = target(
+                'export_modelling',
+                'metabolyseR::exportModelling(modelling,outPath = "exports/modelling")',
+                type = 'tar_files'
               )
             )
           })
@@ -322,10 +284,8 @@ setMethod('targetsCorrelations',signature = 'Workflow',
               ),
               export_correlations = target(
                 'export_correlations',
-                'correlations %>% 
-                  analysisResults("correlations") %>% 
-                  exportCSV("correlations/correlations.csv")',
-                type = 'tar_file'
+                'metaboMisc::exportCorrelations(correlations,outPath = "exports/correlations")',
+                type = 'tar_files'
               )
             )
           })
