@@ -158,11 +158,6 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                                      sample_information,
                                      spectral_processing_parameters)'
                 ),
-                export_processed_data = target(
-                  'export_processed_data',
-                  'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
-                  type = 'tar_files'
-                ),
                 plot_fingerprint = target(
                   'plot_fingerprint',
                   'binneR::plotFingerprint(spectral_processed)'
@@ -182,6 +177,15 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                 plot_centrality_dist = target(
                   'plot_centrality_dist',
                   'binneR::plotCentrality(spectral_processed)'
+                ),
+                summarise_processed_features = target(
+                  'summarise_processed_features',
+                  'metaboMisc::featureSummary(spectral_processed)'
+                ),
+                export_processed_data = target(
+                  'export_processed_data',
+                  'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
+                  type = 'tar_files'
                 )
               )
             )
@@ -233,7 +237,7 @@ setMethod('targetsPretreatment',signature = 'Workflow',
               ),
               plot_supervised_RF = target(
                 'plot_supervised_RF',
-                'metabolyseR::plotSupervisedRF(pre_treated'
+                'metabolyseR::plotSupervisedRF(pre_treated)'
               )
             )
           })
@@ -263,6 +267,10 @@ setMethod('targetsMFassignment',signature = 'Workflow',
                 'assigned_data',
                 'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
               ),
+              summarise_assignments = target(
+                'summarise_assignments',
+                'MFassign::summariseAssignment(molecular_formula_assignment)'
+              ),
               export_assignments = target(
                 'export_assignments',
                 'metaboMisc::export(molecular_formula_assignment,outPath = "exports/molecular_formula_assignments")',
@@ -291,14 +299,22 @@ setMethod('targetsModelling',signature = 'Workflow',
                 'metabolyseR::reAnalyse(assigned_data,
                           modelling_parameters)'
               ),
-              export_modelling = target(
-                'export_modelling',
-                'metabolyseR::exportModelling(modelling,outPath = "exports/modelling")',
-                type = 'tar_files'
-              ),
               plot_explanatory_heatmap = target(
                 'plot_explanatory_heatmap',
                 'metabolyseR::plotExplanatoryHeatmap(modelling)'
+              ),
+              summarise_modelling_metrics = target(
+                'summarise_model_metrics',
+                'metabolyseR::metrics(modelling)'
+              ),
+              summarise_modelling_importance = target(
+                'summarise_model_importance',
+                'metabolyseR::importance(modelling)'
+              ),
+              export_modelling = target(
+                'export_modelling',
+                'metaboMisc::exportModelling(modelling,outPath = "exports/modelling")',
+                type = 'tar_files'
               )
             )
           })
@@ -322,6 +338,10 @@ setMethod('targetsCorrelations',signature = 'Workflow',
                 'correlations',
                 'metabolyseR::reAnalyse(assigned_data,
                           correlations_parameters)'
+              ),
+              summarise_correlations = target(
+                'summarise_correlations',
+                'metabolyseR::analysisResults("correlations")'
               ),
               export_correlations = target(
                 'export_correlations',
