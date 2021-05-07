@@ -174,6 +174,14 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                 plot_TIC = target(
                   'plot_TIC',
                   'binneR::plotTIC(spectral_processed)'
+                ),
+                plot_purity_dist = target(
+                  'plot_purity_dist',
+                  'binneR::plotPurity(spectral_processed)'
+                ),
+                plot_centrality_dist = target(
+                  'plot_centrality_dist',
+                  'binneR::plotCentrality(spectral_processed)'
                 )
               )
             )
@@ -203,13 +211,29 @@ setMethod('targetsPretreatment',signature = 'Workflow',
               ),
               export_pre_treated_data = target(
                 'export_pre_treated',
-                'metaboMisc::exportData(pre_treated,outPath = "exports/pre-treated")',
+                'metaboMisc::exportData(pre_treated,type = "pre-treated",outPath = "exports/pre-treated")',
                 type = 'tar_file'
               ),
               export_pre_treated_sample_info = target(
                 'export_pre_treated_sample_info',
                 'metaboMisc::exportSampleInfo(pre_treated,outPath = "exports/pre-treated")',
                 type = 'tar_file'
+              ),
+              plot_PCA = target(
+                'plot_PCA',
+                'metabolyseR::plotPCA(pre_treated)'
+              ),
+              plot_LDA = target(
+                'plot_LDA',
+                'metabolyseR::plotLDA(pre_treated)'
+              ),
+              plot_unsupervised_RF = target(
+                'plot_unsupervised_RF',
+                'metabolyseR::plotUnsupervisedRF(pre_treated)'
+              ),
+              plot_supervised_RF = target(
+                'plot_supervised_RF',
+                'metabolyseR::plotSupervisedRF(pre_treated'
               )
             )
           })
@@ -271,6 +295,10 @@ setMethod('targetsModelling',signature = 'Workflow',
                 'export_modelling',
                 'metabolyseR::exportModelling(modelling,outPath = "exports/modelling")',
                 type = 'tar_files'
+              ),
+              plot_explanatory_heatmap = target(
+                'plot_explanatory_heatmap',
+                'metabolyseR::plotExplanatoryHeatmap(modelling)'
               )
             )
           })
