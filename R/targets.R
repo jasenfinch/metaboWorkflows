@@ -68,11 +68,11 @@ setMethod('targetsInput',signature = 'GroverInput',
             list(
               instrument = target(
                 'instrument',
-                instrument(x)
+                glue('"{instrument(x)}"')
               ),
               experiment = target(
                 'experiment',
-                directory(x)
+                glue('"{directory(x)}"')
               ),
               grover_client_config = target(
                 'grover_client_config',
@@ -106,7 +106,7 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'grover::sampleInfo(grover_client,
                                    instrument,
                                    experiment,
-                                   raw_files))',
+                                   raw_files)',
                 args = list(pattern = 'map(raw_files)')
               ),
               sample_information = target(
