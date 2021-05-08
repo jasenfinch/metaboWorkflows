@@ -177,7 +177,11 @@ setMethod('code',signature = 'Target',
               target_arguments <- target_arguments %>% 
                 names() %>% 
                 map_chr(~{
-                  glue('{.x} = "{target_arguments[[.x]]}"')
+                  if (.x == 'pattern') {
+                    glue('{.x} = {target_arguments[[.x]]}')
+                  } else {
+                    glue('{.x} = "{target_arguments[[.x]]}"') 
+                  }
                 }) %>% 
                 paste(collapse = ',\n  ') %>% 
                 paste0(',\n  ',.)
@@ -188,8 +192,7 @@ setMethod('code',signature = 'Target',
             glue('
 {type(x)}(
   {name(x)},
-  {command(x)},
-  {target_arguments}
+  {command(x)}{target_arguments}
 )
 ') 
           })
