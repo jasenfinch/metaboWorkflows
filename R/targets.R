@@ -341,7 +341,7 @@ setMethod('targetsCorrelations',signature = 'Workflow',
               ),
               summarise_correlations = target(
                 'summarise_correlations',
-                'metabolyseR::analysisResults("correlations")'
+                'metabolyseR::analysisResults(correlations,"correlations")'
               ),
               export_correlations = target(
                 'export_correlations',
