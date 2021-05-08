@@ -76,7 +76,7 @@ setMethod('targetsInput',signature = 'GroverInput',
               ),
               grover_client_config = target(
                 'grover_client_config',
-                '"data/grover_client.yml"',
+                '"misc/grover_client.yml"',
                 type = 'tar_file'
               ),
               grover_client = target(

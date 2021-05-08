@@ -161,6 +161,7 @@ setGeneric('inputPrep',function(x)
   standardGeneric('inputPrep'))
 
 #' @importFrom utils write.csv
+#' @importFrom yaml write_yaml
 
 setMethod('inputPrep',signature = 'Workflow',
           function(x){
@@ -184,6 +185,13 @@ setMethod('inputPrep',signature = 'Workflow',
             }
             
             if (input_type == 'GroverInput') {
+              
+              grover_client <- list(host = host(x),
+                                    port = port(x),
+                                    auth = auth(x))
+              write_yaml(grover_client,
+                         glue('{project_directory}/misc/grover_client.yml'))
+              
               glue('{project_directory}/data/mzML') %>% 
                 dir.create()
             }
