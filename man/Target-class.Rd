@@ -16,8 +16,6 @@ An S4 class for storing a workflow target definition.
 
 \item{\code{type}}{the target archetype}
 
-\item{\code{pattern}}{target branching definition as a string}
-
 \item{\code{args}}{arguments to pass to the specified target archetype}
 }}
 
