@@ -6,6 +6,7 @@ setMethod('githubWorkflowDependencies',signature = 'Workflow',
           function(x){
             workflow_deps <- list(
               `FIE-HRMS fingerprinting` = c(
+                'ropensci/tarchetypes',
                 'jasenfinch/metaboMisc',
                 'aberHRML/binneR',
                 'jasenfinch/MFassign',
