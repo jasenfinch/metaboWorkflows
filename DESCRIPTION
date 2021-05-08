@@ -31,7 +31,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Remotes: jasenfinch/projecttemplates,
-         ropensci/targets,
          ropensci/tarchetypes,
          aberHRML/metaboData
 Config/testthat/edition: 3
