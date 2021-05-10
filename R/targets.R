@@ -114,11 +114,6 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'raw_sample_information %>%
                 metaboMisc::convertSampleInfo() %>%
                 dplyr::filter(class != "Play",class != "Ctrl")'
-              ),
-              export_sample_information = target(
-                'export_sample_information',
-                "write.csv('data/runinfo.csv',row.names = FALSE)",
-                type = 'tar_file'
               )
             )
           })
