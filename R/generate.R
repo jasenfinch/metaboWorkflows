@@ -34,7 +34,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
                             force = force(workflow))
             readme(projectName(workflow),
                    type(workflow),
-                   path(workflow))
+                   path(workflow),
+                   renv = renv(workflow))
             
             message('Adding targets infrastructure')
             targetsScript(project_directory,type = 'report')
@@ -83,19 +84,31 @@ setMethod('generateWorkflow',signature = 'Workflow',
 
 #' @importFrom glue glue
 
-readme <- function(project_name,workflow,path){
+readme <- function(project_name,workflow,path = '.',renv = TRUE){
   message('Adding project README')
   
   project_directory <- projectDirectory(project_name, path)
+  
+  if (isTRUE(renv)){
+    renv_text <- 'The [renv](https://rstudio.github.io/renv/index.html) package is used for managing the project R package dependencies.'
+  } else {
+    renv_text <- ''
+  }
+  
   body <- glue("# {project_name}
              
-This is a {workflow} metabolomics analysis workflow project.
-This project is powered the [targets](https://docs.ropensci.org/targets/) package for workflow management and [renv](https://rstudio.github.io/renv/index.html) package for `R` environment reproducibility.
+This is an {workflow} metabolomics analysis workflow project.
+This project uses the [targets](https://docs.ropensci.org/targets/) package for workflow management and reproducibility.
+A [`git`](https://git-scm.com/) repository is initialted within the project that can be used to track changes to the analysis code.
+{renv_text}
 
-## Getting started
+The R code for the analysis targets can be found in the `_targets.R` file.
+Files containing additional functions can be placed in `R/functions` and package loading utilities can be found in `R/utils.R`.
 
-Add analysis targets to `R/targets.R`, scripts containing functions to the `R/functions` directory, data files to the `data` directory, additional miscellaneous scripts to `misc` and communicate your results in `report/report.Rmd`.
-To run the analysis, execute `targets::tar_make()` in an `R` session loaded from within the project directory.
+## Running the analysis
+
+To run the analysis, either run the `run.R` script or exucute `targets::tar_make()` in an R session loaded from within the project directory.
+
 ")
   
   writeLines(body, glue('{project_directory}/README.md'))
