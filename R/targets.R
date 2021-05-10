@@ -151,7 +151,10 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
                   'spectral_processed',
                   'binneR::binneRlyse(mzML,
                                      sample_information,
-                                     spectral_processing_parameters)'
+                                     spectral_processing_parameters)',
+                  args = list(
+                    memory = 'transient'
+                  )
                 ),
                 plot_fingerprint = target(
                   'plot_fingerprint',
