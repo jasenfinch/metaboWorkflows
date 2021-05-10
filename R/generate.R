@@ -191,8 +191,5 @@ setMethod('inputPrep',signature = 'Workflow',
                                     auth = auth(x))
               write_yaml(grover_client,
                          glue('{project_directory}/misc/grover_client.yml'))
-              
-              glue('{project_directory}/data/mzML') %>% 
-                dir.create()
             }
           })
