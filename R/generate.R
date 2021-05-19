@@ -46,8 +46,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             writeTargets(targets(workflow),paste0(project_directory,'/_targets.R'))
             
             utils(glue('{project_directory}/R'),
-                  cran = c('purrr','targets','tarchetypes','future'),
-                  github = githubDependencies(workflow))
+                  cran = c('purrr','targets','tarchetypes')
+                  )
             
             inputPrep(workflow)
             
