@@ -99,7 +99,8 @@ setMethod('targetsInput',signature = 'GroverInput',
                                     outDir = "data/mzML") %>% 
                   .[!grepl("Ctrl",.)] %>%
                   .[!grepl("Play",.)]',
-                args = list(pattern = 'map(raw_files)')
+                args = list(pattern = 'map(raw_files)',
+                            format = 'file')
               ),
               raw_sample_information = target(
                 'raw_sample_information',
@@ -259,7 +260,8 @@ setMethod('targetsMFassignment',signature = 'Workflow',
                 'molecular_formula_assignment',
                 'pre_treated %>% 
                   metabolyseR::dat(type = "pre-treated") %>% 
-                  MFassign::assignMFs(molecular_formula_assignment_parameters)'
+                  MFassign::assignMFs(molecular_formula_assignment_parameters)', 
+                args = list(memory = 'transient')
               ),
               assigned_data = target(
                 'assigned_data',
