@@ -23,14 +23,28 @@ setGeneric('targetsWorkflow',function(x)
 #' 
 setMethod('targetsWorkflow',signature = 'Workflow',
           function(x){
-            list(
-              input = targetsInput(x),
-              spectral_processing = targetsSpectralProcessing(x),
-              pre_treatment = targetsPretreatment(x),
-              MF_assignment = targetsMFassignment(x),
-              modelling = targetsModelling(x),
-              correlations = targetsCorrelations(x)
+            workflow_type <- type(x)
+            
+            workflow_targets <- list(
+              `FIE-HRMS fingerprinting` = list(
+                input = targetsInput(x),
+                spectral_processing = targetsSpectralProcessing(x),
+                pre_treatment = targetsPretreatment(x),
+                MF_assignment = targetsMFassignment(x),
+                modelling = targetsModelling(x),
+                correlations = targetsCorrelations(x) 
+              ),
+              `NSI-HRMS fingerprinting` = list(
+                input = targetsInput(x),
+                spectral_processing = targetsSpectralProcessing(x),
+                pre_treatment = targetsPretreatment(x),
+                MF_assignment = targetsMFassignment(x),
+                modelling = targetsModelling(x),
+                correlations = targetsCorrelations(x) 
+              ) 
             )
+            
+            workflow_targets[[workflow_type]]
           })
 
 #' @rdname targetsWorkflow
@@ -135,6 +149,53 @@ setGeneric('targetsSpectralProcessing',function(x)
   standardGeneric('targetsSpectralProcessing'))
 
 
+fingerprinting <- function(){
+  list(
+    spectral_processing_parameters = target(
+      'spectral_processing_parameters',
+      'binneR::detectParameters(mzML)'
+    ),
+    spectral_processed = target(
+      'spectral_processed',
+      'binneR::binneRlyse(mzML,
+                                     sample_information,
+                                     spectral_processing_parameters)',
+      args = list(
+        memory = 'transient'
+      )
+    ),
+    plot_fingerprint = target(
+      'plot_fingerprint',
+      'binneR::plotFingerprint(spectral_processed)'
+    ),
+    plot_chromatogram = target(
+      'plot_chromatogram',
+      'binneR::plotChromatogram(spectral_processed)'
+    ),
+    plot_TIC = target(
+      'plot_TIC',
+      'binneR::plotTIC(spectral_processed)'
+    ),
+    plot_purity_dist = target(
+      'plot_purity_dist',
+      'binneR::plotPurity(spectral_processed)'
+    ),
+    plot_centrality_dist = target(
+      'plot_centrality_dist',
+      'binneR::plotCentrality(spectral_processed)'
+    ),
+    summarise_processed_features = target(
+      'summarise_processed_features',
+      'metaboMisc::featureSummary(spectral_processed)'
+    ),
+    export_processed_data = target(
+      'export_processed_data',
+      'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
+      type = 'tar_files'
+    )
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsSpectralProcessing',signature = 'Workflow',
@@ -143,50 +204,8 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
             workflow <- type(x)
             
             processing_workflows <- list(
-              `FIE-HRMS fingerprinting` = list(
-                spectral_processing_parameters = target(
-                  'spectral_processing_parameters',
-                  'binneR::detectParameters(mzML)'
-                ),
-                spectral_processed = target(
-                  'spectral_processed',
-                  'binneR::binneRlyse(mzML,
-                                     sample_information,
-                                     spectral_processing_parameters)',
-                  args = list(
-                    memory = 'transient'
-                  )
-                ),
-                plot_fingerprint = target(
-                  'plot_fingerprint',
-                  'binneR::plotFingerprint(spectral_processed)'
-                ),
-                plot_chromatogram = target(
-                  'plot_chromatogram',
-                  'binneR::plotChromatogram(spectral_processed)'
-                ),
-                plot_TIC = target(
-                  'plot_TIC',
-                  'binneR::plotTIC(spectral_processed)'
-                ),
-                plot_purity_dist = target(
-                  'plot_purity_dist',
-                  'binneR::plotPurity(spectral_processed)'
-                ),
-                plot_centrality_dist = target(
-                  'plot_centrality_dist',
-                  'binneR::plotCentrality(spectral_processed)'
-                ),
-                summarise_processed_features = target(
-                  'summarise_processed_features',
-                  'metaboMisc::featureSummary(spectral_processed)'
-                ),
-                export_processed_data = target(
-                  'export_processed_data',
-                  'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
-                  type = 'tar_files'
-                )
-              )
+              `FIE-HRMS fingerprinting` = fingerprinting(),
+              `NSI-HRMS fingerprinting` = fingerprinting()
             )
             
             return(processing_workflows[[workflow]])

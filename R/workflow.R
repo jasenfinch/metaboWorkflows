@@ -6,7 +6,8 @@
 #' @export
 
 availableWorkflows <- function(){
-  c('FIE-HRMS fingerprinting')
+  c('FIE-HRMS fingerprinting',
+    'NSI-HRMS fingerprinting')
 }
 
 setClassUnion('Input',members = c('FilePathInput','GroverInput'))
