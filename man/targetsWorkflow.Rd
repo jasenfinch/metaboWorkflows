@@ -8,15 +8,10 @@
 \alias{targetsInput,GroverInput-method}
 \alias{targetsInput,Workflow-method}
 \alias{targetsSpectralProcessing}
-\alias{targetsSpectralProcessing,Workflow-method}
 \alias{targetsPretreatment}
-\alias{targetsPretreatment,Workflow-method}
 \alias{targetsMFassignment}
-\alias{targetsMFassignment,Workflow-method}
 \alias{targetsModelling}
-\alias{targetsModelling,Workflow-method}
 \alias{targetsCorrelations}
-\alias{targetsCorrelations,Workflow-method}
 \title{Workflow pipeline targets}
 \usage{
 targetsWorkflow(x)
@@ -33,26 +28,16 @@ targetsInput(x)
 
 targetsSpectralProcessing(x)
 
-\S4method{targetsSpectralProcessing}{Workflow}(x)
-
 targetsPretreatment(x)
-
-\S4method{targetsPretreatment}{Workflow}(x)
 
 targetsMFassignment(x)
 
-\S4method{targetsMFassignment}{Workflow}(x)
-
 targetsModelling(x)
 
-\S4method{targetsModelling}{Workflow}(x)
-
 targetsCorrelations(x)
-
-\S4method{targetsCorrelations}{Workflow}(x)
 }
 \arguments{
-\item{x}{S4 object of class \code{FilePathInput} or \code{GroverInput}}
+\item{x}{the workflow type or an S4 object of class \code{Workflow}, \code{FilePathInput} or \code{GroverInput}}
 }
 \value{
 A list of \code{Target} S4 class target definitions.
@@ -61,6 +46,7 @@ A list of \code{Target} S4 class target definitions.
 Target definitions for workflow input.
 }
 \examples{
+## Full workflow example
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
@@ -71,4 +57,12 @@ workflow_definition <- defineWorkflow(workflow_input,
                                      'Example project')
 
 targetsWorkflow(workflow_definition)
+
+## Examples for individual modules
+targetsSpectralProcessing('FIE-HRMS fingerprinting')
+targetsFilePathInput(workflow_input)
+targetsPretreatment('FIE-HRMS fingerprinting')
+targetsMFassignment('FIE-HRMS fingerprinting')
+targetsModelling('FIE-HRMS fingerprinting')
+targetsCorrelations('FIE-HRMS fingerprinting')
 }

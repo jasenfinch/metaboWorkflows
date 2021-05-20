@@ -1,9 +1,10 @@
 #' Workflow pipeline targets
 #' @rdname targetsWorkflow
 #' @description Target definitions for workflow input.
-#' @param x S4 object of class `FilePathInput` or `GroverInput`
+#' @param x the workflow type or an S4 object of class `Workflow`, `FilePathInput` or `GroverInput`
 #' @return A list of `Target` S4 class target definitions.
 #' @examples 
+#' ## Full workflow example
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #'
@@ -14,19 +15,29 @@
 #'                                      'Example project')
 #'
 #' targetsWorkflow(workflow_definition)
+#' 
+#' ## Examples for individual modules
+#' targetsSpectralProcessing('FIE-HRMS fingerprinting')
+#' targetsFilePathInput(workflow_input)
+#' targetsPretreatment('FIE-HRMS fingerprinting')
+#' targetsMFassignment('FIE-HRMS fingerprinting')
+#' targetsModelling('FIE-HRMS fingerprinting')
+#' targetsCorrelations('FIE-HRMS fingerprinting')
 #' @export
 
 setGeneric('targetsWorkflow',function(x)
   standardGeneric('targetsWorkflow'))
 
 fingerprinting <- function(x){
+  workflow_type <- type(x)
+  
   list(
     input = targetsInput(x),
-    spectral_processing = targetsSpectralProcessing(x),
-    pre_treatment = targetsPretreatment(x),
-    MF_assignment = targetsMFassignment(x),
-    modelling = targetsModelling(x),
-    correlations = targetsCorrelations(x) 
+    spectral_processing = targetsSpectralProcessing(workflow_type),
+    pre_treatment = targetsPretreatment(workflow_type),
+    MF_assignment = targetsMFassignment(workflow_type),
+    modelling = targetsModelling(workflow_type),
+    correlations = targetsCorrelations(workflow_type) 
   )
 }
 
@@ -35,12 +46,14 @@ LCprofiling <- function(x){
 }
 
 GCprofiling <- function(x){
+  workflow_type <- type(x)
+  
   list(
     input = targetsInput(x),
-    spectral_processing = targetsSpectralProcessing(x),
-    pre_treatment = targetsPretreatment(x),
-    modelling = targetsModelling(x),
-    correlations = targetsCorrelations(x) 
+    spectral_processing = targetsSpectralProcessing(workflow_type),
+    pre_treatment = targetsPretreatment(workflow_type),
+    modelling = targetsModelling(workflow_type),
+    correlations = targetsCorrelations(workflow_type) 
   )
 }
 
@@ -51,11 +64,11 @@ setMethod('targetsWorkflow',signature = 'Workflow',
             workflow_type <- type(x)
             
             workflow_targets <- switch(workflow_type,
-              `FIE-HRMS fingerprinting` = fingerprinting(x),
-              `NSI-HRMS fingerprinting` = fingerprinting(x),
-              `RP-LC-HRMS profiling` = LCprofiling(x),
-              `NP-LC-HRMS profiling` = LCprofiling(x),
-              `GC-MS profiling` = GCprofiling(x)
+                                       `FIE-HRMS fingerprinting` = fingerprinting(x),
+                                       `NSI-HRMS fingerprinting` = fingerprinting(x),
+                                       `RP-LC-HRMS profiling` = LCprofiling(x),
+                                       `NP-LC-HRMS profiling` = LCprofiling(x),
+                                       `GC-MS profiling` = GCprofiling(x)
             )
             
             return(workflow_targets)
@@ -156,13 +169,6 @@ setMethod('targetsInput',signature = 'Workflow',
               targetsInput()
           })
 
-#' @rdname targetsWorkflow
-#' @export
-
-setGeneric('targetsSpectralProcessing',function(x)
-  standardGeneric('targetsSpectralProcessing'))
-
-
 fingerprintProcessing <- function(){
   list(
     spectral_processing_parameters = target(
@@ -233,77 +239,63 @@ profilingProcessing <- function(x){
 }
 
 #' @rdname targetsWorkflow
+#' @export
 
-setMethod('targetsSpectralProcessing',signature = 'Workflow',
-          function(x){
-            
-            workflow <- type(x)
-            
-            processing_workflow <- switch(workflow,
-                   `FIE-HRMS fingerprinting` = fingerprintProcessing(),
-                   `NSI-HRMS fingerprinting` = fingerprintProcessing(),
-                   `RP-LC-HRMS profiling` = profilingProcessing(workflow),
-                   `NP-LC-HRMS profiling` = profilingProcessing(workflow),
-                   `GC-MS profiling` = profilingProcessing(workflow))
-            
-            return(processing_workflow)
-          })
+targetsSpectralProcessing <- function(x){
+  processing_workflow <- switch(x,
+                                `FIE-HRMS fingerprinting` = fingerprintProcessing(),
+                                `NSI-HRMS fingerprinting` = fingerprintProcessing(),
+                                `RP-LC-HRMS profiling` = profilingProcessing(x),
+                                `NP-LC-HRMS profiling` = profilingProcessing(x),
+                                `GC-MS profiling` = profilingProcessing(x))
+  
+  return(processing_workflow)
+}
 
 #' @rdname targetsWorkflow
 #' @export
 
-setGeneric('targetsPretreatment',function(x)
-  standardGeneric('targetsPretreatment'))
-
-#' @rdname targetsWorkflow
-
-setMethod('targetsPretreatment',signature = 'Workflow',
-          function(x){
-            list(
-              pre_treatment_parameters = target(
-                'pre_treatment_parameters',
-                'metaboMisc::detectPretreatmentParameters(spectral_processed)'
-              ),
-              pre_treated = target(
-                'pre_treated',
-                'metaboMisc::preTreatModes(spectral_processed,
+targetsPretreatment <- function(x){
+  workflow <- checkWorkflow(x)
+  
+  list(
+    pre_treatment_parameters = target(
+      'pre_treatment_parameters',
+      'metaboMisc::detectPretreatmentParameters(spectral_processed)'
+    ),
+    pre_treated = target(
+      'pre_treated',
+      'metaboMisc::preTreatModes(spectral_processed,
                                           pre_treatment_parameters)'
-              ),
-              export_pre_treated_data = target(
-                'export_pre_treated',
-                'metaboMisc::exportData(pre_treated,type = "pre-treated",outPath = "exports/pre-treated")',
-                type = 'tar_file'
-              ),
-              export_pre_treated_sample_info = target(
-                'export_pre_treated_sample_info',
-                'metaboMisc::exportSampleInfo(pre_treated,outPath = "exports/pre-treated")',
-                type = 'tar_file'
-              ),
-              plot_PCA = target(
-                'plot_PCA',
-                'metabolyseR::plotPCA(pre_treated)'
-              ),
-              plot_LDA = target(
-                'plot_LDA',
-                'metabolyseR::plotLDA(pre_treated)'
-              ),
-              plot_unsupervised_RF = target(
-                'plot_unsupervised_RF',
-                'metabolyseR::plotUnsupervisedRF(pre_treated)'
-              ),
-              plot_supervised_RF = target(
-                'plot_supervised_RF',
-                'metabolyseR::plotSupervisedRF(pre_treated)'
-              )
-            )
-          })
-
-#' @rdname targetsWorkflow
-#' @export
-
-setGeneric('targetsMFassignment',function(x)
-  standardGeneric('targetsMFassignment'))
-
+    ),
+    export_pre_treated_data = target(
+      'export_pre_treated',
+      'metaboMisc::exportData(pre_treated,type = "pre-treated",outPath = "exports/pre-treated")',
+      type = 'tar_file'
+    ),
+    export_pre_treated_sample_info = target(
+      'export_pre_treated_sample_info',
+      'metaboMisc::exportSampleInfo(pre_treated,outPath = "exports/pre-treated")',
+      type = 'tar_file'
+    ),
+    plot_PCA = target(
+      'plot_PCA',
+      'metabolyseR::plotPCA(pre_treated)'
+    ),
+    plot_LDA = target(
+      'plot_LDA',
+      'metabolyseR::plotLDA(pre_treated)'
+    ),
+    plot_unsupervised_RF = target(
+      'plot_unsupervised_RF',
+      'metabolyseR::plotUnsupervisedRF(pre_treated)'
+    ),
+    plot_supervised_RF = target(
+      'plot_supervised_RF',
+      'metabolyseR::plotSupervisedRF(pre_treated)'
+    )
+  )
+}
 
 assignmentParameters <- function(x){
   technique <- switch(x,
@@ -319,39 +311,35 @@ assignmentParameters <- function(x){
 }
 
 #' @rdname targetsWorkflow
-
-setMethod('targetsMFassignment',signature = 'Workflow',
-          function(x){
-            list(
-              molecular_formula_assignment_parameters = assignmentParameters(type(x)),
-              molecular_formula_assingment = target(
-                'molecular_formula_assignment',
-                'pre_treated %>% 
-                  metabolyseR::dat(type = "pre-treated") %>% 
-                  MFassign::assignMFs(molecular_formula_assignment_parameters)', 
-                args = list(memory = 'transient')
-              ),
-              assigned_data = target(
-                'assigned_data',
-                'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
-              ),
-              summarise_assignments = target(
-                'summarise_assignments',
-                'MFassign::summariseAssignment(molecular_formula_assignment)'
-              ),
-              export_assignments = target(
-                'export_assignments',
-                'metaboMisc::export(molecular_formula_assignment,outPath = "exports/molecular_formula_assignments")',
-                type = 'tar_files'
-              )
-            )
-          })
-
-#' @rdname targetsWorkflow
 #' @export
 
-setGeneric('targetsModelling',function(x)
-  standardGeneric('targetsModelling'))
+targetsMFassignment <- function(x){
+  workflow <- checkWorkflow(x)
+  
+  list(
+    molecular_formula_assignment_parameters = assignmentParameters(workflow),
+    molecular_formula_assingment = target(
+      'molecular_formula_assignment',
+      'pre_treated %>% 
+                  metabolyseR::dat(type = "pre-treated") %>% 
+                  MFassign::assignMFs(molecular_formula_assignment_parameters)', 
+      args = list(memory = 'transient')
+    ),
+    assigned_data = target(
+      'assigned_data',
+      'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
+    ),
+    summarise_assignments = target(
+      'summarise_assignments',
+      'MFassign::summariseAssignment(molecular_formula_assignment)'
+    ),
+    export_assignments = target(
+      'export_assignments',
+      'metaboMisc::export(molecular_formula_assignment,outPath = "exports/molecular_formula_assignments")',
+      type = 'tar_files'
+    )
+  )
+}
 
 modellingTargets <- function(x){
   
@@ -390,25 +378,19 @@ modellingTargets <- function(x){
 }
 
 #' @rdname targetsWorkflow
-
-setMethod('targetsModelling',signature = 'Workflow',
-          function(x){
-            workflow_type <- type(x)
-            
-           switch(workflow_type,
-                  `FIE-HRMS fingerprinting` = modellingTargets('assigned'),
-                  `NSI-HRMS fingerprinting` = modellingTargets('assigned'),
-                  `RP-LC-HRMS profiling` = modellingTargets('assigned'),
-                  `NP-LC-HRMS profiling` = modellingTargets('assigned'),
-                  `GC-MS profiling` = modellingTargets('unassigned')
-                  )
-          })
-
-#' @rdname targetsWorkflow
 #' @export
 
-setGeneric('targetsCorrelations',function(x)
-  standardGeneric('targetsCorrelations'))
+targetsModelling <- function(x){
+  workflow <- checkWorkflow(x)
+  
+  switch(workflow,
+         `FIE-HRMS fingerprinting` = modellingTargets('assigned'),
+         `NSI-HRMS fingerprinting` = modellingTargets('assigned'),
+         `RP-LC-HRMS profiling` = modellingTargets('assigned'),
+         `NP-LC-HRMS profiling` = modellingTargets('assigned'),
+         `GC-MS profiling` = modellingTargets('unassigned')
+  )
+}
 
 correlationsTargets <- function(x){
   
@@ -439,16 +421,16 @@ correlationsTargets <- function(x){
 }
 
 #' @rdname targetsWorkflow
+#' @export
 
-setMethod('targetsCorrelations',signature = 'Workflow',
-          function(x){
-            workflow_type <- type(x)
-            
-            switch(workflow_type,
-                   `FIE-HRMS fingerprinting` = correlationsTargets('assigned'),
-                   `NSI-HRMS fingerprinting` = correlationsTargets('assigned'),
-                   `RP-LC-HRMS profiling` = correlationsTargets('assigned'),
-                   `NP-LC-HRMS profiling` = correlationsTargets('assigned'),
-                   `GC-MS profiling` = correlationsTargets('unassigned')
-            )
-          })
+targetsCorrelations <- function(x){
+  workflow <- checkWorkflow(x) 
+  
+  switch(workflow,
+         `FIE-HRMS fingerprinting` = correlationsTargets('assigned'),
+         `NSI-HRMS fingerprinting` = correlationsTargets('assigned'),
+         `RP-LC-HRMS profiling` = correlationsTargets('assigned'),
+         `NP-LC-HRMS profiling` = correlationsTargets('assigned'),
+         `GC-MS profiling` = correlationsTargets('unassigned')
+  )
+}
