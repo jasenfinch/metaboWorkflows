@@ -4,17 +4,30 @@ setGeneric('githubWorkflowDependencies',function(x)
 
 setMethod('githubWorkflowDependencies',signature = 'Workflow',
           function(x){
-            workflow_deps <- list(
-              `FIE-HRMS fingerprinting` = c(
-                'ropensci/tarchetypes',
-                'jasenfinch/metaboMisc',
-                'aberHRML/binneR',
-                'jasenfinch/MFassign',
-                'jasenfinch/metabolyseR'
-              )
+
+            standard_deps <- c(
+              'ropensci/tarchetypes',
+              'jasenfinch/metaboMisc',
+              'jasenfinch/MFassign',
+              'jasenfinch/metabolyseR'
             )
             
-            return(workflow_deps[[type(x)]])
+            fingerprinting_deps <- 'aberHRML/binneR'
+            
+            profiling_deps <- 'jasenfinch/profilePro'
+            
+            workflow_deps <- switch(type(x),
+              `FIE-HRMS fingerprinting` = c(standard_deps,
+                                            fingerprinting_deps),
+              `NSI-HRMS fingerprinting` = c(standard_deps,
+                                            fingerprinting_deps),
+              `RP-LC-HRMS profiling` = c(standard_deps,
+                                            profiling_deps),
+              `NP-LC-HRMS profiling` = c(standard_deps,
+                                         profiling_deps)
+            )
+            
+            return(workflow_deps)
           })
 
 setGeneric('githubInputDependencies',function(x)

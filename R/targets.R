@@ -19,32 +19,35 @@
 setGeneric('targetsWorkflow',function(x)
   standardGeneric('targetsWorkflow'))
 
+fingerprinting <- function(x){
+  list(
+    input = targetsInput(x),
+    spectral_processing = targetsSpectralProcessing(x),
+    pre_treatment = targetsPretreatment(x),
+    MF_assignment = targetsMFassignment(x),
+    modelling = targetsModelling(x),
+    correlations = targetsCorrelations(x) 
+  )
+}
+
+LCprofiling <- function(x){
+  fingerprinting(x)
+}
+
 #' @rdname targetsWorkflow
-#' 
+
 setMethod('targetsWorkflow',signature = 'Workflow',
           function(x){
             workflow_type <- type(x)
             
-            workflow_targets <- list(
-              `FIE-HRMS fingerprinting` = list(
-                input = targetsInput(x),
-                spectral_processing = targetsSpectralProcessing(x),
-                pre_treatment = targetsPretreatment(x),
-                MF_assignment = targetsMFassignment(x),
-                modelling = targetsModelling(x),
-                correlations = targetsCorrelations(x) 
-              ),
-              `NSI-HRMS fingerprinting` = list(
-                input = targetsInput(x),
-                spectral_processing = targetsSpectralProcessing(x),
-                pre_treatment = targetsPretreatment(x),
-                MF_assignment = targetsMFassignment(x),
-                modelling = targetsModelling(x),
-                correlations = targetsCorrelations(x) 
-              ) 
+            workflow_targets <- switch(workflow_type,
+              `FIE-HRMS fingerprinting` = fingerprinting(x),
+              `NSI-HRMS fingerprinting` = fingerprinting(x),
+              `RP-LC-HRMS profiling` = LCprofiling(x),
+              `NP-LC-HRMS profiling` = LCprofiling(x)
             )
             
-            workflow_targets[[workflow_type]]
+            return(workflow_targets)
           })
 
 #' @rdname targetsWorkflow
@@ -149,7 +152,7 @@ setGeneric('targetsSpectralProcessing',function(x)
   standardGeneric('targetsSpectralProcessing'))
 
 
-fingerprinting <- function(){
+fingerprintProcessing <- function(){
   list(
     spectral_processing_parameters = target(
       'spectral_processing_parameters',
@@ -158,8 +161,8 @@ fingerprinting <- function(){
     spectral_processed = target(
       'spectral_processed',
       'binneR::binneRlyse(mzML,
-                                     sample_information,
-                                     spectral_processing_parameters)',
+                          sample_information,
+                          spectral_processing_parameters)',
       args = list(
         memory = 'transient'
       )
@@ -196,6 +199,28 @@ fingerprinting <- function(){
   )
 }
 
+LCprofilingParameters <- function(x){
+  parameter_specification <- switch(x,
+                                    `RP-LC-HRMS profiling` = 'LCMS-RP',
+                                    `NP-LC-HRMS profiling` = 'LCMS-NP')
+  target(
+    'spectral_processing_parameters',
+    glue('profilePro::profileParameters("{parameter_specification}")')
+  )
+}
+
+LCprofilingProcessing <- function(x){
+  list(
+    spectral_processing_parameters = LCprofilingParameters(x),
+    spectral_processed = target(
+      'spectral_processed',
+      'profilePro::profileProcess(mzML,
+                                  sample_information,
+                                  spectral_processing_parameters)'
+    )
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsSpectralProcessing',signature = 'Workflow',
@@ -203,12 +228,13 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
             
             workflow <- type(x)
             
-            processing_workflows <- list(
-              `FIE-HRMS fingerprinting` = fingerprinting(),
-              `NSI-HRMS fingerprinting` = fingerprinting()
-            )
+            processing_workflow <- switch(workflow,
+                   `FIE-HRMS fingerprinting` = fingerprintProcessing(),
+                   `NSI-HRMS fingerprinting` = fingerprintProcessing(),
+                   `RP-LC-HRMS profiling` = LCprofilingProcessing(workflow),
+                   `NP-LC-HRMS profiling` = LCprofilingProcessing(workflow))
             
-            return(processing_workflows[[workflow]])
+            return(processing_workflow)
           })
 
 #' @rdname targetsWorkflow
