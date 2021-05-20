@@ -292,15 +292,26 @@ setMethod('targetsPretreatment',signature = 'Workflow',
 setGeneric('targetsMFassignment',function(x)
   standardGeneric('targetsMFassignment'))
 
+
+assignmentParameters <- function(x){
+  technique <- switch(x,
+                      `FIE-HRMS fingerprinting` = 'FIE',
+                      `NSI-HRMS fingerprinting` = 'FIE',
+                      `RP-LC-HRMS profiling` = 'RP-LC',
+                      `NP-LC-HRMS profiling` = 'NP-LC')
+  
+  target(
+    'molecular_formula_assignment_parameters',
+    glue('MFassign::assignmentParameters("{technique}")')
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsMFassignment',signature = 'Workflow',
           function(x){
             list(
-              molecular_formula_assignment_parameters = target(
-                'molecular_formula_assignment_parameters',
-                'MFassign::assignmentParameters("FIE")'
-              ),
+              molecular_formula_assignment_parameters = assignmentParameters(type(x)),
               molecular_formula_assingment = target(
                 'molecular_formula_assignment',
                 'pre_treated %>% 
