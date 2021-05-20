@@ -6,7 +6,6 @@ setMethod('githubWorkflowDependencies',signature = 'Workflow',
           function(x){
 
             standard_deps <- c(
-              'ropensci/tarchetypes',
               'jasenfinch/metaboMisc',
               'jasenfinch/MFassign',
               'jasenfinch/metabolyseR'

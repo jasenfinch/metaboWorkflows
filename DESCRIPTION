@@ -26,13 +26,12 @@ Suggests:
     visNetwork
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R edit.R utils.R generate.R
-         define.R reexports.R
+         define.R reexports.R glimpse.R
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Remotes: jasenfinch/projecttemplates,
-         ropensci/tarchetypes,
          aberHRML/metaboData
 Config/testthat/edition: 3
