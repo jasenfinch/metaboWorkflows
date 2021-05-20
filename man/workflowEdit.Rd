@@ -61,7 +61,7 @@ Edit the targets of a workflow definition.
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-workflow_input <- filePathInput(file_paths,sample_information)
+workflow_input <- inputFilePath(file_paths,sample_information)
 
 workflow_definition <- defineWorkflow(workflow_input,
                                      'FIE-HRMS fingerprinting',

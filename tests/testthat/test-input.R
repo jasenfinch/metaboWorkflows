@@ -2,7 +2,7 @@ test_that("file path input works", {
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  workflow_input <- filePathInput(file_paths,sample_information)
+  workflow_input <- inputFilePath(file_paths,sample_information)
   
   expect_s4_class(workflow_input,'FilePathInput')
 })
@@ -11,7 +11,7 @@ test_that('input parameters can be returned form FilePathInput class',{
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  workflow_input <- filePathInput(file_paths,sample_information)
+  workflow_input <- inputFilePath(file_paths,sample_information)
   
   expect_identical(filePaths(workflow_input),file_paths)
   expect_identical(sampleInformation(workflow_input),sample_information)
@@ -21,7 +21,7 @@ test_that('input parameters can be set for FilePathInput class',{
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  workflow_input <- filePathInput(file_paths,sample_information)
+  workflow_input <- inputFilePath(file_paths,sample_information)
   
   new_file_paths <- file_paths[1:10]
   new_sample_information <- sample_information[1:10,]
@@ -34,7 +34,7 @@ test_that('input parameters can be set for FilePathInput class',{
 })
 
 test_that('grover input works',{
-  grover_input <- groverInput('an_instrument',
+  grover_input <- inputGrover('an_instrument',
                               'a_directory',
                               'a_host_address',
                               8000,
@@ -50,7 +50,7 @@ test_that('input parameters can be returned form GroverInput class',{
   port <- 8000
   auth <- '1234'
   
-  grover_input <- groverInput(instrument,
+  grover_input <- inputGrover(instrument,
                               directory,
                               host,
                               port,
@@ -70,7 +70,7 @@ test_that('input parameters can be set for GroverInput class',{
   port <- 8000
   auth <- '1234'
   
-  grover_input <- groverInput(instrument,
+  grover_input <- inputGrover(instrument,
                               directory,
                               host,
                               port,

@@ -2,7 +2,7 @@ test_that("workflow definition works", {
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  workflow_input <- filePathInput(file_paths,sample_information)
+  workflow_input <- inputFilePath(file_paths,sample_information)
   workflow_definition <- defineWorkflow(workflow_input,
                                         'FIE-HRMS fingerprinting',
                                         'Example project')
@@ -14,8 +14,8 @@ test_that('Workflow slots can be returned',{
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  file_path_input <- filePathInput(file_paths,sample_information)
-  grover_input <- groverInput('Instrument','Experiment','a.grover.host',80,'1234')
+  file_path_input <- inputFilePath(file_paths,sample_information)
+  grover_input <- inputGrover('Instrument','Experiment','a.grover.host',80,'1234')
   
   workflow_file_path <- defineWorkflow(file_path_input,
                                        'FIE-HRMS fingerprinting',
@@ -42,8 +42,8 @@ test_that('Workflow slots can be set',{
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
-  file_path_input <- filePathInput(file_paths,sample_information)
-  grover_input <- groverInput('Instrument','Experiment','a.grover.host',80,'1234')
+  file_path_input <- inputFilePath(file_paths,sample_information)
+  grover_input <- inputGrover('Instrument','Experiment','a.grover.host',80,'1234')
   
   workflow_file_path <- defineWorkflow(file_path_input,
                                        'FIE-HRMS fingerprinting',
@@ -52,7 +52,7 @@ test_that('Workflow slots can be set',{
                                     'FIE-HRMS fingerprinting',
                                     'Example project')
   
-  input(workflow_file_path) <- filePathInput(file_paths[1],sample_information[1,])
+  input(workflow_file_path) <- inputFilePath(file_paths[1],sample_information[1,])
   targets(workflow_file_path) <- list('test')
   
   expect_error(type(workflow_file_path) <- 'test')

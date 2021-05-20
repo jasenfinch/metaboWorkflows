@@ -123,12 +123,12 @@ setMethod('sampleInformation<-',signature = 'FilePathInput',
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #' 
-#' workflow_input <- filePathInput(file_paths,sample_information)
+#' workflow_input <- inputFilePath(file_paths,sample_information)
 #' 
 #' workflow_input
 #' @export
 
-filePathInput <- function(file_paths,sample_information){
+inputFilePath <- function(file_paths,sample_information){
   new('FilePathInput',
       file_paths = file_paths,
       sample_information = sample_information) 
@@ -321,7 +321,7 @@ setMethod('auth<-',signature = 'GroverInput',
 #' @details This specifies the retrieval of sample data files and information using a grover API. See [`grover`](jasenfinch.github.io/grover/) for more information about mass spectral data retrieval from a grover API.
 #' @export
 
-groverInput <- function(instrument,directory,host,port,auth){
+inputGrover <- function(instrument,directory,host,port,auth){
   
   new('GroverInput',
       instrument = instrument,

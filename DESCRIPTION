@@ -23,7 +23,8 @@ Suggests:
     testthat (>= 3.0.0),
     metaboData,
     covr,
-    visNetwork
+    visNetwork,
+    rmarkdown
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R edit.R utils.R generate.R
          define.R reexports.R glimpse.R check.R

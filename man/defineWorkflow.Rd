@@ -31,7 +31,7 @@ Define a metabolomics data analysis workflow for a given input type and workflow
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 
-workflow_input <- filePathInput(file_paths,sample_information)
+workflow_input <- inputFilePath(file_paths,sample_information)
 
 workflow_definition <- defineWorkflow(workflow_input,
                                       'FIE-HRMS fingerprinting',

@@ -7,7 +7,7 @@
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #'
-#' workflow_input <- filePathInput(file_paths,sample_information)
+#' workflow_input <- inputFilePath(file_paths,sample_information)
 #' 
 #' workflow_definition <- defineWorkflow(workflow_input,
 #'                                       'FIE-HRMS fingerprinting',
@@ -97,7 +97,7 @@ readme <- function(project_name,workflow,path = '.',renv = TRUE){
   
   body <- glue("# {project_name}
              
-This is an {workflow} metabolomics analysis workflow project.
+This is a {workflow} metabolomics analysis workflow project.
 This project uses the [targets](https://docs.ropensci.org/targets/) package for workflow management and reproducibility.
 A [`git`](https://git-scm.com/) repository is initialted within the project that can be used to track changes to the analysis code.
 {renv_text}
