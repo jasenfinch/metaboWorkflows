@@ -8,7 +8,8 @@
 availableWorkflows <- function(){
   c('FIE-HRMS fingerprinting',
     'NSI-HRMS fingerprinting',
-    'RP-LC-HRMS profiling')
+    'RP-LC-HRMS profiling',
+    'GC-MS profiling')
 }
 
 setClassUnion('Input',members = c('FilePathInput','GroverInput'))

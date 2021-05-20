@@ -34,6 +34,16 @@ LCprofiling <- function(x){
   fingerprinting(x)
 }
 
+GCprofiling <- function(x){
+  list(
+    input = targetsInput(x),
+    spectral_processing = targetsSpectralProcessing(x),
+    pre_treatment = targetsPretreatment(x),
+    modelling = targetsModelling(x),
+    correlations = targetsCorrelations(x) 
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsWorkflow',signature = 'Workflow',
@@ -44,7 +54,8 @@ setMethod('targetsWorkflow',signature = 'Workflow',
               `FIE-HRMS fingerprinting` = fingerprinting(x),
               `NSI-HRMS fingerprinting` = fingerprinting(x),
               `RP-LC-HRMS profiling` = LCprofiling(x),
-              `NP-LC-HRMS profiling` = LCprofiling(x)
+              `NP-LC-HRMS profiling` = LCprofiling(x),
+              `GC-MS profiling` = GCprofiling(x)
             )
             
             return(workflow_targets)
@@ -199,7 +210,7 @@ fingerprintProcessing <- function(){
   )
 }
 
-LCprofilingParameters <- function(x){
+profilingParameters <- function(x){
   parameter_specification <- switch(x,
                                     `RP-LC-HRMS profiling` = 'LCMS-RP',
                                     `NP-LC-HRMS profiling` = 'LCMS-NP')
@@ -209,9 +220,9 @@ LCprofilingParameters <- function(x){
   )
 }
 
-LCprofilingProcessing <- function(x){
+profilingProcessing <- function(x){
   list(
-    spectral_processing_parameters = LCprofilingParameters(x),
+    spectral_processing_parameters = profilingParameters(x),
     spectral_processed = target(
       'spectral_processed',
       'profilePro::profileProcess(mzML,
@@ -231,8 +242,9 @@ setMethod('targetsSpectralProcessing',signature = 'Workflow',
             processing_workflow <- switch(workflow,
                    `FIE-HRMS fingerprinting` = fingerprintProcessing(),
                    `NSI-HRMS fingerprinting` = fingerprintProcessing(),
-                   `RP-LC-HRMS profiling` = LCprofilingProcessing(workflow),
-                   `NP-LC-HRMS profiling` = LCprofilingProcessing(workflow))
+                   `RP-LC-HRMS profiling` = profilingProcessing(workflow),
+                   `NP-LC-HRMS profiling` = profilingProcessing(workflow),
+                   `GC-MS profiling` = profilingProcessing(workflow))
             
             return(processing_workflow)
           })
@@ -341,38 +353,55 @@ setMethod('targetsMFassignment',signature = 'Workflow',
 setGeneric('targetsModelling',function(x)
   standardGeneric('targetsModelling'))
 
+modellingTargets <- function(x){
+  
+  object_name <- switch(x,
+                        assigned ='assigned_data',
+                        unassigned = 'pre_treated')
+  
+  list(
+    modelling_parameters = target(
+      'modelling_parameters',
+      glue('metaboMisc::detectModellingParameters({object_name},cls = "class")')
+    ),
+    modelling = target(
+      'modelling',
+      glue('metabolyseR::reAnalyse({object_name},
+                          modelling_parameters)')
+    ),
+    plot_explanatory_heatmap = target(
+      'plot_explanatory_heatmap',
+      'metabolyseR::plotExplanatoryHeatmap(modelling)'
+    ),
+    summarise_modelling_metrics = target(
+      'summarise_model_metrics',
+      'metabolyseR::metrics(modelling)'
+    ),
+    summarise_modelling_importance = target(
+      'summarise_model_importance',
+      'metabolyseR::importance(modelling)'
+    ),
+    export_modelling = target(
+      'export_modelling',
+      'metaboMisc::exportModelling(modelling,outPath = "exports/modelling")',
+      type = 'tar_files'
+    )
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsModelling',signature = 'Workflow',
           function(x){
-            list(
-              modelling_parameters = target(
-                'modelling_parameters',
-                'metaboMisc::detectModellingParameters(assigned_data,cls = "class")'
-              ),
-              modelling = target(
-                'modelling',
-                'metabolyseR::reAnalyse(assigned_data,
-                          modelling_parameters)'
-              ),
-              plot_explanatory_heatmap = target(
-                'plot_explanatory_heatmap',
-                'metabolyseR::plotExplanatoryHeatmap(modelling)'
-              ),
-              summarise_modelling_metrics = target(
-                'summarise_model_metrics',
-                'metabolyseR::metrics(modelling)'
-              ),
-              summarise_modelling_importance = target(
-                'summarise_model_importance',
-                'metabolyseR::importance(modelling)'
-              ),
-              export_modelling = target(
-                'export_modelling',
-                'metaboMisc::exportModelling(modelling,outPath = "exports/modelling")',
-                type = 'tar_files'
-              )
-            )
+            workflow_type <- type(x)
+            
+           switch(workflow_type,
+                  `FIE-HRMS fingerprinting` = modellingTargets('assigned'),
+                  `NSI-HRMS fingerprinting` = modellingTargets('assigned'),
+                  `RP-LC-HRMS profiling` = modellingTargets('assigned'),
+                  `NP-LC-HRMS profiling` = modellingTargets('assigned'),
+                  `GC-MS profiling` = modellingTargets('unassigned')
+                  )
           })
 
 #' @rdname targetsWorkflow
@@ -381,28 +410,45 @@ setMethod('targetsModelling',signature = 'Workflow',
 setGeneric('targetsCorrelations',function(x)
   standardGeneric('targetsCorrelations'))
 
+correlationsTargets <- function(x){
+  
+  object_name <- switch(x,
+                        assigned ='assigned_data',
+                        unassigned = 'pre_treated')
+  
+  list(
+    correlations_parameters = target(
+      'correlations_parameters',
+      'metabolyseR::analysisParameters("correlations")'
+    ),
+    correlations = target(
+      'correlations',
+      glue('metabolyseR::reAnalyse({object_name},
+                          correlations_parameters)')
+    ),
+    summarise_correlations = target(
+      'summarise_correlations',
+      'metabolyseR::analysisResults(correlations,"correlations")'
+    ),
+    export_correlations = target(
+      'export_correlations',
+      'metaboMisc::exportCorrelations(correlations,outPath = "exports/correlations")',
+      type = 'tar_files'
+    )
+  )
+}
+
 #' @rdname targetsWorkflow
 
 setMethod('targetsCorrelations',signature = 'Workflow',
           function(x){
-            list(
-              correlations_parameters = target(
-                'correlations_parameters',
-                'metabolyseR::analysisParameters("correlations")'
-              ),
-              correlations = target(
-                'correlations',
-                'metabolyseR::reAnalyse(assigned_data,
-                          correlations_parameters)'
-              ),
-              summarise_correlations = target(
-                'summarise_correlations',
-                'metabolyseR::analysisResults(correlations,"correlations")'
-              ),
-              export_correlations = target(
-                'export_correlations',
-                'metaboMisc::exportCorrelations(correlations,outPath = "exports/correlations")',
-                type = 'tar_files'
-              )
+            workflow_type <- type(x)
+            
+            switch(workflow_type,
+                   `FIE-HRMS fingerprinting` = correlationsTargets('assigned'),
+                   `NSI-HRMS fingerprinting` = correlationsTargets('assigned'),
+                   `RP-LC-HRMS profiling` = correlationsTargets('assigned'),
+                   `NP-LC-HRMS profiling` = correlationsTargets('assigned'),
+                   `GC-MS profiling` = correlationsTargets('unassigned')
             )
           })
