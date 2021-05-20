@@ -36,5 +36,5 @@ setMethod('glimpse',signature = 'Workflow',
               parse_exprs() %>% 
               map(eval_tidy)
             
-            print(graph[[1]])
+            graph[[1]]
           })
