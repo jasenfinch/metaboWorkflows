@@ -25,8 +25,7 @@ setGeneric('defineWorkflow',function(input,workflow,project_name,...)
 #' @importFrom methods new
 
 setMethod('defineWorkflow',signature = 'GroverInput',function(input,workflow,project_name,...){
-  workflow <- match.arg(workflow,
-                        choices = availableWorkflows())
+  workflow <- checkWorkflow(workflow)
   
   workflow_project <- defineProject(project_name = project_name,
                                     ...)
@@ -45,8 +44,7 @@ setMethod('defineWorkflow',signature = 'GroverInput',function(input,workflow,pro
 #' @rdname defineWorkflow
 
 setMethod('defineWorkflow',signature = 'FilePathInput',function(input,workflow,project_name,...){
-  workflow <- match.arg(workflow,
-                        choices = availableWorkflows())
+  workflow <- workflow <- checkWorkflow(workflow)
   
   workflow_project <- defineProject(project_name = project_name,
                                     ...)
