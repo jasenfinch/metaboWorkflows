@@ -1,0 +1,116 @@
+---
+title: "Introduction"
+subtitle: "`r paste0('metaboWorkflows v',packageVersion('metaboWorkflows'))`"
+author: "Jasen Finch"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  prettydoc::html_pretty:
+    toc: true
+    highlight: github
+    theme: tactile
+vignette: >
+  %\VignetteIndexEntry{Introduction to metaboWorkflows}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The goal of `metaboWorkflows` is to provided project directory templates that leverage a number of tools to promote reproducible analysis, agnostic of the actual analysis code.
+
+Firstly, load the package:
+
+```{r setup}
+library(metaboWorkflows)
+```
+
+## Workflow input
+
+### Grover API input
+
+```{r grover-input}
+workflow_input <- inputGrover(instrument = 'An_instrument',
+                              directory = 'Experiment_directory',
+                              host = 'a.grover.host',
+                              port = 80,
+                              auth = '1234')
+```
+
+```{r print-grover-input}
+print(workflow_input)
+```
+
+### File path input
+
+```{r file-path-input}
+file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+workflow_input <- inputFilePath(file_paths,sample_information)
+```
+
+```{r print-file-path-input}
+print(workflow_input)
+```
+
+## Define a workflow
+
+```{r workflow-definition}
+workflow_definition <- defineWorkflow(workflow_input,
+                                      'FIE-HRMS fingerprinting',
+                                      'Example project')
+```
+
+```{r print-workflow}
+print(workflow_definition)
+```
+
+```{r workfow-modules}
+modules(workflow_definition)
+```
+
+
+```{r glimpse-workflow}
+glimpse(workflow_definition)
+```
+
+
+## Generate a workflow project directory
+
+```{r generate-workflow,eval=FALSE}
+generateWorkflow(workflow_definition)
+```
+
+## The project directory
+
+```
+Example_project/
+├── Dockerfile
+├── Example_project.Rproj
+├── R
+│   ├── functions
+│   └── utils.R
+├── README.md
+├── _targets.R
+├── data
+│   ├── file_paths.txt
+│   └── runinfo.csv
+├── exports
+├── misc
+├── renv
+│   ├── activate.R
+│   ├── library
+│   ├── local
+│   ├── settings.dcf
+│   └── staging
+├── renv.lock
+└── run.R
+```
+
