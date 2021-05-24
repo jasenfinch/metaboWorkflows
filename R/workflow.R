@@ -9,6 +9,7 @@ availableWorkflows <- function(){
   c('FIE-HRMS fingerprinting',
     'NSI-HRMS fingerprinting',
     'RP-LC-HRMS profiling',
+    'NP-LC-HRMS profiling',
     'GC-MS profiling')
 }
 
