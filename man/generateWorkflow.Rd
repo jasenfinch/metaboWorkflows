@@ -5,12 +5,14 @@
 \alias{generateWorkflow,Workflow-method}
 \title{Generate a workflow project directory}
 \usage{
-generateWorkflow(workflow)
+generateWorkflow(workflow, start = TRUE)
 
 \S4method{generateWorkflow}{Workflow}(workflow)
 }
 \arguments{
 \item{workflow}{S4 object of class \code{Workflow}}
+
+\item{start}{TRUE/FALSE. Automatically activate the project in a new RStudio session after creation}
 }
 \description{
 Generate a workflow project directory from a workflow definition.

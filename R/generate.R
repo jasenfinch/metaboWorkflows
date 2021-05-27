@@ -2,6 +2,7 @@
 #' @rdname generateWorkflow
 #' @description Generate a workflow project directory from a workflow definition.
 #' @param workflow S4 object of class `Workflow`
+#' @param start TRUE/FALSE. Automatically activate the project in a new RStudio session after creation
 #' @examples 
 #' \dontrun{
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
@@ -17,16 +18,17 @@
 #' }
 #' @export
 
-setGeneric('generateWorkflow',function(workflow)
+setGeneric('generateWorkflow',function(workflow,start = TRUE)
   standardGeneric('generateWorkflow'))
 
 #' @rdname generateWorkflow
 #' @importFrom projecttemplates projectDirectory projectSkeleton targetsScript targetsRun utils renvInitialise docker createGit githubActions createGithub
 #' @importFrom cli symbol
 #' @importFrom crayon green
+#' @importFrom rstudioapi isAvailable openProject
 
 setMethod('generateWorkflow',signature = 'Workflow',
-          function(workflow){
+          function(workflow,start = TRUE){
             project_directory <- projectDirectory(projectName(workflow),
                                                   path(workflow))
             
@@ -80,6 +82,11 @@ setMethod('generateWorkflow',signature = 'Workflow',
             message(green(symbol$tick),
                     ' ',
                     glue("Project directory creation complete. See {project_directory}/README.md for details on how to get started."))     
+            
+            if (isTRUE(start) & isAvailable()) {
+              message('Opening project in a new RStudio session')
+              openProject(project_directory,newSession = TRUE)
+            }
           })
 
 #' @importFrom glue glue
