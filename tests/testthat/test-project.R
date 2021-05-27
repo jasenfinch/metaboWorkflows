@@ -52,19 +52,3 @@ test_that('Project elements can be set',{
   expect_identical(force(workflow_project),
                    TRUE)
 })
-
-
-test_that('project creation works',{
-  
-  skip('Skipping project creation test')
-  
-  workflow_project <- defineProject('A metabolomics project')
-  
-  createProject(workflow_project,"FIE-HRMS fingerprinting")
-  
-  project_files <- list.files(paste0(tempdir(),'/test_project'),all.files = TRUE)
-  
-  expect_length(project_files,15)
-  
-  unlink(paste0(tempdir(),'/test_project'))
-})
