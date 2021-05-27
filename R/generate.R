@@ -53,7 +53,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             inputPrep(workflow)
             
-            output(project_directory)
+            message('Adding R Markdown report')
+            output(x)
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
@@ -212,4 +213,23 @@ setMethod('inputPrep',signature = 'Workflow',
               write_yaml(grover_client,
                          glue('{project_directory}/misc/grover_client.yml'))
             }
+          })
+
+setGeneric('output',function(x)
+  standardGeneric('output'))
+
+setMethod('output',signature = 'Workflow',
+          function(x){
+            project_directory <- projectDirectory(
+              projectName(x),
+              path(x)
+            )
+            
+            report_directory <- paste0(project_directory,'/report') 
+            if (!dir.exists(report_directory)){
+              dir.create(report_directory)
+            }
+            
+            rmd(x) %>% 
+              writeLines(paste0(report_directory,'/report.Rmd'))
           })

@@ -1,4 +1,3 @@
-
 reportHeader <- function(x){
   glue('
 ---
@@ -35,22 +34,31 @@ reportBody <- function(x){
   output_chunks <- output_targets %>%
     names() %>% 
     map(~{
-      title <- .x %>% 
+      
+      if (.x == 'pre_treatment'){
+        title <- 'pre-treatment' 
+      } else {
+        title <- .x
+      }
+      title <- title %>% 
         str_replace_all('_',' ') %>% 
         str_to_title() %>% 
         {glue('## {.}')}
       
       chunks <- map(output_targets[[.x]],~{
         
+        target_name <- .x %>% 
+          parse_expr()
+        
         if (str_detect(.x,'plot')){
-          target_chunk <- chunk(tar_read(!!.x)) 
+          target_chunk <- chunk(tar_read(!!target_name)) 
         }
         
         if (str_detect(.x,'summarise')){
           summary_table <- glue('DT::datatable({.x},rownames = FALSE,filter = "top")') %>% 
             as.character() %>% 
             parse_expr()
-          target_chunk <- chunk(tar_load(!!.x),
+          target_chunk <- chunk(tar_load(!!target_name),
                                 !!summary_table)
         }
         

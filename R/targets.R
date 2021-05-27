@@ -34,7 +34,7 @@ fingerprinting <- function(x){
   list(
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
-    `pre-treatment` = targetsPretreatment(workflow_type),
+    pre_treatment = targetsPretreatment(workflow_type),
     molecular_formula_assignment = targetsMFassignment(workflow_type),
     modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type) 
@@ -51,7 +51,7 @@ GCprofiling <- function(x){
   list(
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
-    `pre-treatment` = targetsPretreatment(workflow_type),
+    pre_treatment = targetsPretreatment(workflow_type),
     modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type) 
   )
