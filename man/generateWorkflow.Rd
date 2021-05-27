@@ -7,7 +7,7 @@
 \usage{
 generateWorkflow(workflow, start = TRUE)
 
-\S4method{generateWorkflow}{Workflow}(workflow)
+\S4method{generateWorkflow}{Workflow}(workflow, start = TRUE)
 }
 \arguments{
 \item{workflow}{S4 object of class \code{Workflow}}
