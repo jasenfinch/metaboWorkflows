@@ -37,7 +37,8 @@ fingerprinting <- function(x){
     pre_treatment = targetsPretreatment(workflow_type),
     molecular_formula_assignment = targetsMFassignment(workflow_type),
     modelling = targetsModelling(workflow_type),
-    correlations = targetsCorrelations(workflow_type) 
+    correlations = targetsCorrelations(workflow_type),
+    report = targetsReport(workflow_type)
   )
 }
 
@@ -53,7 +54,8 @@ GCprofiling <- function(x){
     spectral_processing = targetsSpectralProcessing(workflow_type),
     pre_treatment = targetsPretreatment(workflow_type),
     modelling = targetsModelling(workflow_type),
-    correlations = targetsCorrelations(workflow_type) 
+    correlations = targetsCorrelations(workflow_type),
+    report = targetsReport(workflow_type)
   )
 }
 
@@ -432,5 +434,19 @@ targetsCorrelations <- function(x){
          `RP-LC-HRMS profiling` = correlationsTargets('assigned'),
          `NP-LC-HRMS profiling` = correlationsTargets('assigned'),
          `GC-MS profiling` = correlationsTargets('unassigned')
+  )
+}
+
+#' @rdname targetsWorkflow
+#' @export
+
+targetsReport <- function(x){
+  list(
+    report = target(
+      'report',
+      '"report/report.Rmd"',
+      type = 'tar_render',
+      args = list(output_dir = "exports")
+    )
   )
 }
