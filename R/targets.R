@@ -35,7 +35,7 @@ fingerprinting <- function(x){
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
     `pre-treatment` = targetsPretreatment(workflow_type),
-    MF_assignment = targetsMFassignment(workflow_type),
+    molecular_formula_assignment = targetsMFassignment(workflow_type),
     modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type) 
   )
