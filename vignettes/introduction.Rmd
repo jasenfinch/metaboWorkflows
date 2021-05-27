@@ -23,9 +23,29 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-The goal of `metaboWorkflows` is to provided project directory templates that leverage a number of tools to promote reproducible analysis, agnostic of the actual analysis code.
+Metabolomics encompasses a wide range of techniques that includes mass spectrometry based fingerprinting and profiling.
+Analysis of the this data requires number of steps that includes spectral processing, data pre-treatment, quality control, data mining and visualisation in order to extract relevant biological information.
+The goal of `metaboWorkflows` is to provide project directory templates for a range of mass spectrometry based techniques.
+This leverages a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code.
+These tools include:
 
-Firstly, load the package:
+* [targets](https://docs.ropensci.org/targets/) - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.
+* [renv](https://rstudio.github.io/renv/) - an R package for project-local R package dependency management for maintaining reproducible R package environments.
+* [git](https://git-scm.com/) - a widely used, open source distributed version control system.
+* [docker](https://www.docker.com/) - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.
+
+While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of `targets` based workflows outlined [here](https://books.ropensci.org/targets/walkthrough.html).
+
+There are three steps in using `metaboWorkflows` to generate a workflow project template directory. 
+These are as follows:
+
+* **input** - define the input data source of the workflow
+* **define** - define the workflow steps based on the metabolomic technique
+* **generate** - generate the workflow project directory
+
+This introduction will outline each of these steps and provided an overview of an example workflow project directory along with how to execute one of these workflows.
+
+To begin, first load the package:
 
 ```{r setup}
 library(metaboWorkflows)
@@ -33,7 +53,15 @@ library(metaboWorkflows)
 
 ## Workflow input
 
-### Grover API input
+Prior to defining a workflow, the user needs to know what sort of input the type the workflow will use.
+`metaboWorkflows` currently supports two types: use of remote data obtained through the use of a [`grover`](https://jasenfinch.github.io/grover/) API or through providing a vector .mzML file paths and a [`tibble`](https://tibble.tidyverse.org/) of sample information.
+
+### `grover` API input
+
+The [`grover`](https://jasenfinch.github.io/grover/) R provides a framework for hosting web APIs for remote access and conversion of raw metabolomics data to mzML format.
+
+This type of input can be declared by providing the host information of the [`grover`](https://jasenfinch.github.io/grover/) API to the `inputGrover` function.
+Below shows an example for a ficticious [`grover`](https://jasenfinch.github.io/grover/) API host.
 
 ```{r grover-input}
 workflow_input <- inputGrover(instrument = 'An_instrument',
@@ -49,6 +77,10 @@ print(workflow_input)
 
 ### File path input
 
+If the raw mass spectrometry .mzML format data files are already availble for a sample set, their file paths and a [`tibble`](https://tibble.tidyverse.org/) of the sample information can be provided for workflow input.
+
+Below shows an example file path input for the FIE-HRMS fingerprinting data set of *Brachypodium distachyonn* ecotype comparisons available in the [`metaboData`](https://aberhrml.github.io/metaboData/) package.
+
 ```{r file-path-input}
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
@@ -60,29 +92,61 @@ workflow_input <- inputFilePath(file_paths,sample_information)
 print(workflow_input)
 ```
 
+This example input will be used throughout the rest of this introduction.
+
 ## Define a workflow
 
-```{r workflow-definition}
-workflow_definition <- defineWorkflow(workflow_input,
-                                      'FIE-HRMS fingerprinting',
-                                      'Example project')
+Workflow definition is simple and requires the input definition outlined in the previous section, the name of the metabolomic technique and the project name.
+
+To return the metabolomic workflow templates that are currently available, use:
+
+```{r available-workflows}
+availableWorkflows()
 ```
+
+This example uses the `FIE-HRMS fingerprinting` template and the project will be named `Example project`. 
+
+```{r workflow-definition}
+workflow_definition <- defineWorkflow(
+  input = workflow_input,
+  workflow = 'FIE-HRMS fingerprinting',
+  project_name = 'Example project'
+)
+```
+
+Printing the resulting workflow definition will provide information about the workflow.
 
 ```{r print-workflow}
 print(workflow_definition)
 ```
 
-```{r workfow-modules}
-modules(workflow_definition)
-```
-
+As shown above, this workflow definition contains `r targets(workflow_definition) %>% unlist(recursive = TRUE) %>% length()` targets.
+These targets are the individual steps in the pipeline.
+The full workflow graph, showing the relationships between these targets, can be plotted as shown below:
 
 ```{r glimpse-workflow}
 glimpse(workflow_definition)
 ```
 
+The individual workflow targets are stored as lists, nested into a number of modules.
+The modules available within a given workflow can be viewed:
+
+```{r workfow-modules}
+modules(workflow_definition)
+```
+
+The individual analysis targets can also be viewed.
+The following shows the nested list of targets found within the input module.
+
+```{r input-targets}
+targets(workflow_definition)$input
+```
+
+These workflow targets are fully customisable which is outlined in the [Workflow customisation](customisation.html) vignette.
 
 ## Generate a workflow project directory
+
+The final step is the generation of the project directory for the defined workflow.
 
 ```{r generate-workflow,eval=FALSE}
 generateWorkflow(workflow_definition)
@@ -113,4 +177,6 @@ Example_project/
 ├── renv.lock
 └── run.R
 ```
+
+## Executing an analysis workflow
 
