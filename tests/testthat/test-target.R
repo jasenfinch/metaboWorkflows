@@ -2,6 +2,7 @@ test_that("target defintion works", {
   workflow_target <- target('a_target','1 + 1')
   
   expect_s4_class(workflow_target,'Target')
+  expect_output(print(workflow_target),'tar_target')
 })
 
 test_that('invalid targets are correctly detected',{

@@ -41,6 +41,7 @@ test_that('grover input works',{
                               '1234')
   
   expect_s4_class(grover_input,'GroverInput')
+  expect_output(print(grover_input),'Grover')
 })
 
 test_that('input parameters can be returned form GroverInput class',{

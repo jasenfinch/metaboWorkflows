@@ -3,11 +3,19 @@ test_that("workflow definition works", {
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
   workflow_input <- inputFilePath(file_paths,sample_information)
-  workflow_definition <- defineWorkflow(workflow_input,
-                                        'FIE-HRMS fingerprinting',
-                                        'Example project')
   
-  expect_s4_class(workflow_definition,'Workflow')
+  available_workflows <- availableWorkflows()
+  workflow_definitions <- map(available_workflows,~{
+    defineWorkflow(workflow_input,
+                   .x,
+                   'Example project')
+  })
+  
+  definition_classes <- map_chr(workflow_definitions,class) %>% 
+    {. == 'Workflow'}
+  
+  expect_true(all(definition_classes))
+  expect_output(print(workflow_definitions[[1]]),'Workflow')
 })
 
 test_that('Workflow slots can be returned',{
@@ -21,8 +29,8 @@ test_that('Workflow slots can be returned',{
                                        'FIE-HRMS fingerprinting',
                                        'Example project')
   workflow_grover <- defineWorkflow(grover_input,
-                                       'FIE-HRMS fingerprinting',
-                                       'Example project')
+                                    'FIE-HRMS fingerprinting',
+                                    'Example project')
   
   expect_identical(type(workflow_file_path),"FIE-HRMS fingerprinting")
   expect_s4_class(input(workflow_file_path),'FilePathInput')

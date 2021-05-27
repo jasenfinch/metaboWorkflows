@@ -25,3 +25,27 @@ test_that("other dependencies returned", {
   
   expect_type(other_deps,'character')
 })
+
+test_that('GitHub dependencies returned for grover input',{
+  grover_input <- inputGrover('an_instrument',
+                              'a_directory',
+                              'a_host_address',
+                              8000,
+                              '1234')
+  
+  gh_deps <- githubInputDependencies(grover_input)
+  
+  expect_type(gh_deps,'character')
+})
+
+test_that('Other dependencies returned for grover input',{
+  grover_input <- inputGrover('an_instrument',
+                              'a_directory',
+                              'a_host_address',
+                              8000,
+                              '1234')
+  
+  other_deps <- otherInputDependencies(grover_input)
+  
+  expect_type(other_deps,'character')
+})
