@@ -212,7 +212,7 @@ isTarget <- function(target){
 }
 
 checkModule <- function(x,module){
-  if (!(module %in% modules(x))){
+  if (all(!(module %in% modules(x)))){
     available_modules <- x %>% 
       modules() %>% 
       glue_collapse(sep = ', ')
