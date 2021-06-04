@@ -8,7 +8,7 @@ output: html_document
 }
 
 reportOptions <- function(){
-  report_options <- 'knitr::opts_chunk$set(echo = TRUE,fig.align = "center")' %>% 
+  report_options <- 'knitr::opts_chunk$set(echo = FALSE,fig.align = "center")' %>% 
     parse_expr()
   
   chunk(!!report_options,
