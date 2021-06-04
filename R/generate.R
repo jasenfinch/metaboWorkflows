@@ -65,8 +65,14 @@ setMethod('generateWorkflow',signature = 'Workflow',
                                         githubDependencies(workflow)))
             }
             
-            projecttemplates::docker(projectName(workflow),
-                                     path(workflow))
+            if (isTRUE(docker(workflow))) {
+              projecttemplates::docker(projectName(workflow),
+                                       path(workflow)) 
+            }
+            
+            write(reportFooter(workflow),
+                  file = paste0(project_directory,'/README.md'),
+                  append = TRUE)
             
             if (all(github(workflow), githubActions(workflow))) {
               projecttemplates::githubActions(projectName(workflow), 
