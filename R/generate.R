@@ -53,8 +53,10 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             inputPrep(workflow)
             
-            message('Adding R Markdown report')
-            output(workflow)
+            if ('report' %in% modules(workflow)) {
+              message('Adding R Markdown report')
+              output(workflow) 
+            }
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
