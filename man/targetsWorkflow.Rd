@@ -12,6 +12,7 @@
 \alias{targetsMFassignment}
 \alias{targetsModelling}
 \alias{targetsCorrelations}
+\alias{targetsReport}
 \title{Workflow pipeline targets}
 \usage{
 targetsWorkflow(x)
@@ -35,6 +36,8 @@ targetsMFassignment(x)
 targetsModelling(x)
 
 targetsCorrelations(x)
+
+targetsReport(x)
 }
 \arguments{
 \item{x}{the workflow type or an S4 object of class \code{Workflow}, \code{FilePathInput} or \code{GroverInput}}

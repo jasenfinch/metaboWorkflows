@@ -19,15 +19,24 @@ test_that("module replacement works", {
 })
 
 test_that("module removal works", {
-  workflow_definition <- moduleRemove(workflow_definition,'input')
+  workflow_definition <- modulesRemove(workflow_definition,'input')
   
   expect_null(targets(workflow_definition)$input)
 })
 
 test_that("module removal errors when incorrect module specified", {
-  expect_error(moduleRemove(workflow_definition,'wrong'))
+  expect_error(modulesRemove(workflow_definition,'wrong'))
 })
 
+test_that("module retention works", {
+  workflow_definition <- modulesKeep(workflow_definition,'input')
+  
+  expect_identical(modules(workflow_definition),'input')
+})
+
+test_that("module retention errors when incorrect module specified", {
+  expect_error(modulesKeep(workflow_definition,'wrong'))
+})
 
 test_that('module addition works',{
   workflow_definition <- moduleAdd(workflow_definition,

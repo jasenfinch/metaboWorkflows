@@ -3,6 +3,7 @@
 #' @description Edit the targets of a workflow definition.
 #' @param x S4 object of class `Workflow`
 #' @param module the workflow module name
+#' @param modules character vector of module names
 #' @param target the workflow target name
 #' @param replacement the replacement workflow module or target
 #' @param addition the workflow module or target to add
@@ -28,7 +29,7 @@
 #'                                      list(replacement_target = target('replacement_target',
 #'                                      '1 + 2')))
 #' ## Remove the additional module
-#' workflow_definition <- moduleRemove(workflow_definition,
+#' workflow_definition <- modulesRemove(workflow_definition,
 #'                                     'additional_module')
 #' 
 #' ## Add a target to the input module
@@ -66,19 +67,39 @@ setMethod('moduleReplace',signature = 'Workflow',
 #' @rdname workflowEdit
 #' @export
 
-setGeneric('moduleRemove',function(x,module)
-  standardGeneric('moduleRemove'))
+setGeneric('modulesRemove',function(x,modules)
+  standardGeneric('modulesRemove'))
 
 #' @rdname workflowEdit
 
-setMethod('moduleRemove',signature = 'Workflow',
-          function(x,module){
+setMethod('modulesRemove',signature = 'Workflow',
+          function(x,modules){
             
-            checkModule(x,module)
+            checkModule(x,modules)
             
             available_targets <- targets(x)
             
-            targets(x) <- available_targets[names(available_targets) != module]
+            targets(x) <- available_targets[!(names(available_targets) %in% modules)]
+            
+            return(x)
+          })
+
+#' @rdname workflowEdit
+#' @export
+
+setGeneric('modulesKeep',function(x,modules)
+  standardGeneric('modulesKeep'))
+
+#' @rdname workflowEdit
+
+setMethod('modulesKeep',signature = 'Workflow',
+          function(x,modules){
+            
+            checkModule(x,modules)
+            
+            available_targets <- targets(x)
+            
+            targets(x) <- available_targets[names(available_targets) %in% modules]
             
             return(x)
           })

@@ -3,8 +3,10 @@
 \name{moduleReplace}
 \alias{moduleReplace}
 \alias{moduleReplace,Workflow-method}
-\alias{moduleRemove}
-\alias{moduleRemove,Workflow-method}
+\alias{modulesRemove}
+\alias{modulesRemove,Workflow-method}
+\alias{modulesKeep}
+\alias{modulesKeep,Workflow-method}
 \alias{moduleAdd}
 \alias{moduleAdd,Workflow-method}
 \alias{targetReplace}
@@ -19,9 +21,13 @@ moduleReplace(x, module, replacement)
 
 \S4method{moduleReplace}{Workflow}(x, module, replacement)
 
-moduleRemove(x, module)
+modulesRemove(x, modules)
 
-\S4method{moduleRemove}{Workflow}(x, module)
+\S4method{modulesRemove}{Workflow}(x, modules)
+
+modulesKeep(x, modules)
+
+\S4method{modulesKeep}{Workflow}(x, modules)
 
 moduleAdd(x, module, addition)
 
@@ -45,6 +51,8 @@ targetAdd(x, module, target, addition)
 \item{module}{the workflow module name}
 
 \item{replacement}{the replacement workflow module or target}
+
+\item{modules}{character vector of module names}
 
 \item{addition}{the workflow module or target to add}
 
@@ -77,7 +85,7 @@ workflow_definition <- moduleReplace(workflow_definition,
                                      list(replacement_target = target('replacement_target',
                                      '1 + 2')))
 ## Remove the additional module
-workflow_definition <- moduleRemove(workflow_definition,
+workflow_definition <- modulesRemove(workflow_definition,
                                     'additional_module')
 
 ## Add a target to the input module
