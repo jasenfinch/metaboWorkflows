@@ -282,19 +282,19 @@ targetsPretreatment <- function(x){
     ),
     plot_PCA = target(
       'plot_PCA',
-      'metabolyseR::plotPCA(pre_treated)'
+      'metabolyseR::plotPCA(pre_treated,type = "pre-treated")'
     ),
     plot_LDA = target(
       'plot_LDA',
-      'metabolyseR::plotLDA(pre_treated)'
+      'metabolyseR::plotLDA(pre_treated,type = "pre-treated")'
     ),
     plot_unsupervised_RF = target(
       'plot_unsupervised_RF',
-      'metabolyseR::plotUnsupervisedRF(pre_treated)'
+      'metabolyseR::plotUnsupervisedRF(pre_treated,type = "pre-treated")'
     ),
     plot_supervised_RF = target(
       'plot_supervised_RF',
-      'metabolyseR::plotSupervisedRF(pre_treated)'
+      'metabolyseR::plotSupervisedRF(pre_treated,type = "pre-treated")'
     )
   )
 }
