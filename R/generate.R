@@ -67,7 +67,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(docker(workflow))) {
               projecttemplates::docker(projectName(workflow),
-                                       path(workflow)) 
+                                       path = path(workflow)) 
             }
             
             write(reportFooter(workflow),
