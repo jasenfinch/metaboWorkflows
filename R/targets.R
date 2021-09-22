@@ -130,7 +130,9 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'raw_files',
                 'grover::listRawFiles(grover_client,
                              instrument,
-                             experiment)'
+                             experiment) %>% 
+                  .[!grepl("Ctrl",.)] %>%
+                  .[!grepl("Play",.)]'
               ),
               mzML = target(
                 'mzML',
@@ -139,9 +141,7 @@ setMethod('targetsInput',signature = 'GroverInput',
                                     experiment,
                                     raw_files,
                                     args = grover::conversionArgsPeakPick(),
-                                    outDir = "data/mzML") %>% 
-                  .[!grepl("Ctrl",.)] %>%
-                  .[!grepl("Play",.)]',
+                                    outDir = "data/mzML")',
                 args = list(pattern = 'map(raw_files)',
                             format = 'file')
               ),
@@ -156,8 +156,7 @@ setMethod('targetsInput',signature = 'GroverInput',
               sample_information = target(
                 'sample_information',
                 'raw_sample_information %>%
-                metaboMisc::convertSampleInfo() %>%
-                dplyr::filter(class != "Play",class != "Ctrl")'
+                metaboMisc::convertSampleInfo()'
               )
             )
           })
