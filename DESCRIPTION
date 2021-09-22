@@ -39,5 +39,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Remotes: jasenfinch/projecttemplates,
-        jasenfinch/chunky,
-        aberHRML/metaboData
+        jasenfinch/chunky
