@@ -44,7 +44,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             write('\nmetaboMisc::suitableParallelPlan()\n',
                   file = paste0(project_directory,'/_targets.R'),
                   append = TRUE)
-            targetsRun(project_directory)
+            targetsRun(project_directory,
+                       renv = renv(workflow))
             writeTargets(targets(workflow),paste0(project_directory,'/_targets.R'))
             
             utils(glue('{project_directory}/R'),
@@ -67,7 +68,9 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(docker(workflow))) {
               projecttemplates::docker(projectName(workflow),
-                                       path = path(workflow)) 
+                                       path = path(workflow),
+                                       renv = renv(workflow)) 
+              dockerImage(project_directory)
             }
             
             write(reportFooter(workflow),
