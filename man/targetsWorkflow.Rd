@@ -63,7 +63,7 @@ targetsWorkflow(workflow_definition)
 
 ## Examples for individual modules
 targetsSpectralProcessing('FIE-HRMS fingerprinting')
-targetsFilePathInput(workflow_input)
+targetsInput(workflow_input)
 targetsPretreatment('FIE-HRMS fingerprinting')
 targetsMFassignment('FIE-HRMS fingerprinting')
 targetsModelling('FIE-HRMS fingerprinting')
