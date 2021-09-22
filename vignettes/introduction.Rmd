@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r example-data-check, include=FALSE}
+available_datasets <- metaboData::availableDataSets()
+
+if (available_datasets$status[available_datasets$technique == 'FIE-HRMS' & 
+                              available_datasets$`data set` == 'BdistachyonEcotypes'] != 'available'){
+  metaboData::downloadDataSet('FIE-HRMS','BdistachyonEcotypes',ask = FALSE)
+}
+```
+
 ## Introduction
 
 Metabolomics encompasses a wide range of techniques that includes mass spectrometry based fingerprinting and profiling.
