@@ -64,6 +64,10 @@ test_that('Workflow slots can be set',{
   targets(workflow_file_path) <- list('test')
   
   expect_error(type(workflow_file_path) <- 'test')
+  
+  type(workflow_file_path) <- "NSI-HRMS fingerprinting"
+  expect_identical(type(workflow_file_path),"NSI-HRMS fingerprinting")
+  
   expect_length(input(workflow_file_path) %>% 
                   filePaths(),1)
   expect_identical(targets(workflow_file_path),list('test'))
