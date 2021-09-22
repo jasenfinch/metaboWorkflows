@@ -11,13 +11,15 @@ setClass('Target',
            name = 'character',
            command = 'character',
            type = 'character',
-           args = 'list'
+           args = 'list',
+           comment = 'character'
          ),
          prototype = list(
            name = 'a_target',
            command = '1 + 1',
            type = 'tar_target',
-           args = list()
+           args = list(),
+           comment = character()
          ))
 
 #' @import targets tarchetypes
@@ -100,8 +102,8 @@ setGeneric('command<-',function(x,value)
 
 setMethod('command<-',signature = 'Target',
           function(x,value){
-           x@command <- value
-           return(x)
+            x@command <- value
+            return(x)
           })
 
 #' @rdname Target-accessors
@@ -161,6 +163,34 @@ setMethod('args<-',signature = 'Target',
 #' @rdname Target-accessors
 #' @export
 
+setGeneric('comment',function(x)
+  standardGeneric('comment'))
+
+#' @rdname Target-accessors
+
+setMethod('comment',signature = 'Target',
+          function(x){
+            x@comment
+          })
+
+#' @rdname Target-accessors
+#' @export
+
+setGeneric('comment<-',function(x,value)
+  standardGeneric('comment<-'))
+
+#' @rdname Target-accessors
+
+setMethod('comment<-',signature = 'Target',
+          function(x,value){
+            x@comment <- value
+            return(x)
+          })
+
+
+#' @rdname Target-accessors
+#' @export
+
 setGeneric('code',function(x)
   standardGeneric('code'))
 
@@ -170,9 +200,10 @@ setGeneric('code',function(x)
 
 setMethod('code',signature = 'Target',
           function(x){
+            
             target_arguments <- x %>% 
               args() 
-              
+            
             if (length(target_arguments) > 0){
               target_arguments <- target_arguments %>% 
                 names() %>% 
@@ -189,12 +220,26 @@ setMethod('code',signature = 'Target',
               target_arguments <- ''
             }
             
-            glue('
+            target_code <- glue('
 {type(x)}(
   {name(x)},
   {command(x)}{target_arguments}
 )
 ') 
+
+            target_comment <- 
+
+            if (length(comment(x)) > 0){
+              target_comment <- 
+              target_comment <- x %>% 
+                comment() %>% 
+                {glue('## {.}')}
+              
+              target_code <- glue('{target_comment}
+                                  {target_code}')
+            }
+            
+            return(target_code)
           })
 
 #' Create a workflow target definition
@@ -203,22 +248,27 @@ setMethod('code',signature = 'Target',
 #' @param command the R command to run the target
 #' @param type the target archetype
 #' @param args a list of arguments to pass the the specified target archetype
+#' @param comment optional comment that precedes the target code
 #' @return An S4 object of class Target. 
 #' @details 
 #' Target types can be one of any provided by the `targets` or `tarchetypes` packages.
 #' @examples 
-#' workflow_target <- target('a_target','1 + 1',args = list(memory = 'persistent'))
+#' workflow_target <- target('a_target',
+#'                           '1 + 1',
+#'                           args = list(memory = 'persistent'), 
+#'                           comment = 'A target')
 #' 
 #' workflow_target
 #' @export
 
-target <- function(name,command,type = 'tar_target',args = list()){
+target <- function(name,command,type = 'tar_target',args = list(),comment = character()){
   
   new('Target',
       name = name,
       command = command,
       type = type,
-      args = args
-      )
+      args = args,
+      comment = comment
+  )
 }
 

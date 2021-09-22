@@ -17,6 +17,10 @@
 \alias{args,Target-method}
 \alias{args<-}
 \alias{args<-,Target-method}
+\alias{comment}
+\alias{comment,Target-method}
+\alias{comment<-}
+\alias{comment<-,Target-method}
 \alias{code}
 \alias{code,Target-method}
 \title{\code{Target} class get and set methods}
@@ -52,6 +56,14 @@ args(x)
 args(x) <- value
 
 \S4method{args}{Target}(x) <- value
+
+comment(x)
+
+\S4method{comment}{Target}(x)
+
+comment(x) <- value
+
+\S4method{comment}{Target}(x) <- value
 
 code(x)
 

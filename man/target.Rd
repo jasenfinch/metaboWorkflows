@@ -4,7 +4,13 @@
 \alias{target}
 \title{Create a workflow target definition}
 \usage{
-target(name, command, type = "tar_target", args = list())
+target(
+  name,
+  command,
+  type = "tar_target",
+  args = list(),
+  comment = character()
+)
 }
 \arguments{
 \item{name}{the target name}
@@ -14,6 +20,8 @@ target(name, command, type = "tar_target", args = list())
 \item{type}{the target archetype}
 
 \item{args}{a list of arguments to pass the the specified target archetype}
+
+\item{comment}{optional comment that precedes the target code}
 }
 \value{
 An S4 object of class Target.
@@ -25,7 +33,10 @@ Create a workflow target definition.
 Target types can be one of any provided by the \code{targets} or \code{tarchetypes} packages.
 }
 \examples{
-workflow_target <- target('a_target','1 + 1',args = list(memory = 'persistent'))
+workflow_target <- target('a_target',
+                          '1 + 1',
+                          args = list(memory = 'persistent'), 
+                          comment = 'A target')
 
 workflow_target
 }
