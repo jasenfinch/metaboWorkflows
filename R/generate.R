@@ -106,11 +106,6 @@ setMethod('generateWorkflow',signature = 'Workflow',
 #' @importFrom styler style_file
 
 targetsList <- function(workflow_targets){
-  workflow_targets <- workflow_targets %>%
-    map(~{
-      .x %>% 
-        map(code)
-    })
   
   workflow_targets <- workflow_targets %>%
     map(~{
@@ -118,8 +113,16 @@ targetsList <- function(workflow_targets){
       wt %>%
         names() %>%
         map(~{
-          glue('
-{.x} = {wt[[.x]]}')
+          target_code <- code(wt[[.x]])
+          
+          if (length(comment(wt[[.x]])) > 0) {
+            glue('
+{.x} = 
+       {target_code}')
+          } else {
+            glue('
+{.x} = {target_code}')
+          }
         }) %>%
         glue_collapse(sep = ',
 ')
