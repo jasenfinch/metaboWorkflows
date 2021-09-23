@@ -89,18 +89,22 @@ setMethod('targetsInput',signature = 'FilePathInput',
             list(
               file_paths_list = target('file_paths_list',
                                        '"data/file_paths.txt"',
-                                       type = 'tar_file'),
+                                       type = 'tar_file',
+                                       comment = 'Retrieve data file paths'),
               mzML = target('mzML',
                             'readLines(file_paths_list)',
-                            type = 'tar_files'),
+                            type = 'tar_files',
+                            comment = 'Track individual data files'),
               sample_information_file = target(
                 'sample_information_file',
                 '"data/runinfo.csv"',
-                type = 'tar_file'
+                type = 'tar_file',
+                comment = 'Sample information file path'
               ),
               sample_information = target(
                 'sample_information',
-                "readr::read_csv(sample_information_file)"
+                "readr::read_csv(sample_information_file)",
+                comment = 'Parse sample information'
               ))
           })
 
@@ -111,20 +115,24 @@ setMethod('targetsInput',signature = 'GroverInput',
             list(
               instrument = target(
                 'instrument',
-                glue('"{instrument(x)}"')
+                glue('"{instrument(x)}"'),
+                comment = 'Instrument name'
               ),
               experiment = target(
                 'experiment',
-                glue('"{directory(x)}"')
+                glue('"{directory(x)}"'),
+                comment = 'Experiment raw data directory name'
               ),
               grover_client_config = target(
                 'grover_client_config',
                 '"misc/grover_client.yml"',
-                type = 'tar_file'
+                type = 'tar_file',
+                comment = 'File path to grover API host information'
               ),
               grover_client = target(
                 'grover_client',
-                'grover::readGrover(grover_client_config)'
+                'grover::readGrover(grover_client_config)',
+                comment = 'Parse grover API host information'
               ),
               raw_files = target(
                 'raw_files',
@@ -132,7 +140,8 @@ setMethod('targetsInput',signature = 'GroverInput',
                              instrument,
                              experiment) %>% 
                   .[!grepl("Ctrl",.)] %>%
-                  .[!grepl("Play",.)]'
+                  .[!grepl("Play",.)]',
+                comment = 'Retrieve available raw data files, excluding control and play samples'
               ),
               mzML = target(
                 'mzML',
@@ -143,7 +152,8 @@ setMethod('targetsInput',signature = 'GroverInput',
                                     args = grover::conversionArgsPeakPick(),
                                     outDir = "data/mzML")',
                 args = list(pattern = 'map(raw_files)',
-                            format = 'file')
+                            format = 'file'),
+                comment = 'Retrieve converted raw data files in mzML format via grover API'
               ),
               raw_sample_information = target(
                 'raw_sample_information',
@@ -151,12 +161,14 @@ setMethod('targetsInput',signature = 'GroverInput',
                                    instrument,
                                    experiment,
                                    raw_files)',
-                args = list(pattern = 'map(raw_files)')
+                args = list(pattern = 'map(raw_files)'),
+                comment = 'Retrieve sample information from grover API'
               ),
               sample_information = target(
                 'sample_information',
                 'raw_sample_information %>%
-                metaboMisc::convertSampleInfo()'
+                metaboMisc::convertSampleInfo()',
+                comment = 'Convert sample inforrmation table into workflow compatible format'
               )
             )
           })
@@ -174,7 +186,8 @@ fingerprintProcessing <- function(){
   list(
     spectral_processing_parameters = target(
       'spectral_processing_parameters',
-      'binneR::detectParameters(mzML)'
+      'binneR::detectParameters(mzML)',
+      comment = 'Detect spectral binning parameters'
     ),
     spectral_processed = target(
       'spectral_processed',
@@ -183,36 +196,44 @@ fingerprintProcessing <- function(){
                           spectral_processing_parameters)',
       args = list(
         memory = 'transient'
-      )
+      ),
+      comment = 'Perform spectral binning'
     ),
     plot_fingerprint = target(
       'plot_fingerprint',
-      'binneR::plotFingerprint(spectral_processed)'
+      'binneR::plotFingerprint(spectral_processed)',
+      comment = 'Plot average spectrum fingerprint'
     ),
     plot_chromatogram = target(
       'plot_chromatogram',
-      'binneR::plotChromatogram(spectral_processed)'
+      'binneR::plotChromatogram(spectral_processed)',
+      comment = 'Plot average infusion chromatogram'
     ),
     plot_TIC = target(
       'plot_TIC',
-      'binneR::plotTIC(spectral_processed)'
+      'binneR::plotTIC(spectral_processed)',
+      comment = 'Plot sample total ion counts by randomised block'
     ),
     plot_purity_dist = target(
       'plot_purity_dist',
-      'binneR::plotPurity(spectral_processed)'
+      'binneR::plotPurity(spectral_processed)',
+      comment = 'Plot bin purity distribution'
     ),
     plot_centrality_dist = target(
       'plot_centrality_dist',
-      'binneR::plotCentrality(spectral_processed)'
+      'binneR::plotCentrality(spectral_processed)',
+      comment = 'Plot bin centrality distribution'
     ),
     summarise_processed_features = target(
       'summarise_processed_features',
-      'metaboMisc::featureSummary(spectral_processed)'
+      'metaboMisc::featureSummary(spectral_processed)',
+      comment = 'Summarise spectrally binned features'
     ),
     export_processed_data = target(
       'export_processed_data',
       'metaboMisc::export(spectral_processed,outPath = "exports/spectral_processing")',
-      type = 'tar_files'
+      type = 'tar_files',
+      comment = 'Export spectrally binned data'
     )
   )
 }
@@ -223,7 +244,8 @@ profilingParameters <- function(x){
                                     `NP-LC-HRMS profiling` = 'LCMS-NP')
   target(
     'spectral_processing_parameters',
-    glue('profilePro::profileParameters("{parameter_specification}")')
+    glue('profilePro::profileParameters("{parameter_specification}")'),
+    comment = 'Generate spectral processing parameters'
   )
 }
 
@@ -234,7 +256,8 @@ profilingProcessing <- function(x){
       'spectral_processed',
       'profilePro::profileProcess(mzML,
                                   sample_information,
-                                  spectral_processing_parameters)'
+                                  spectral_processing_parameters)',
+      comment = 'Perform spectral processing'
     )
   )
 }
@@ -262,38 +285,46 @@ targetsPretreatment <- function(x){
   list(
     pre_treatment_parameters = target(
       'pre_treatment_parameters',
-      'metaboMisc::detectPretreatmentParameters(spectral_processed)'
+      'metaboMisc::detectPretreatmentParameters(spectral_processed)',
+      comment = 'Detect pre-treatment routine parameters'
     ),
     pre_treated = target(
       'pre_treated',
       'metaboMisc::preTreatModes(spectral_processed,
-                                          pre_treatment_parameters)'
+                                          pre_treatment_parameters)',
+      comment = 'Perform data pre-treatment'
     ),
     export_pre_treated_data = target(
       'export_pre_treated',
       'metaboMisc::exportData(pre_treated,type = "pre-treated",outPath = "exports/pre-treated")',
-      type = 'tar_file'
+      type = 'tar_file',
+      comment = 'Export pre-treated data'
     ),
     export_pre_treated_sample_info = target(
       'export_pre_treated_sample_info',
       'metaboMisc::exportSampleInfo(pre_treated,outPath = "exports/pre-treated")',
-      type = 'tar_file'
+      type = 'tar_file',
+      comment = 'Export sample information of pre-treated data'
     ),
     plot_PCA = target(
       'plot_PCA',
-      'metabolyseR::plotPCA(pre_treated,type = "pre-treated")'
+      'metabolyseR::plotPCA(pre_treated,type = "pre-treated")',
+      comment = 'Plot Principle Component Analysis'
     ),
     plot_LDA = target(
       'plot_LDA',
-      'metabolyseR::plotLDA(pre_treated,type = "pre-treated")'
+      'metabolyseR::plotLDA(pre_treated,type = "pre-treated")',
+      comment = 'Plot Priniciple Component Analysis - Linear Discriminant Analysis'
     ),
     plot_unsupervised_RF = target(
       'plot_unsupervised_RF',
-      'metabolyseR::plotUnsupervisedRF(pre_treated,type = "pre-treated")'
+      'metabolyseR::plotUnsupervisedRF(pre_treated,type = "pre-treated")',
+      comment = 'Plot multidimensional scaling plot of unsupervised random forest'
     ),
     plot_supervised_RF = target(
       'plot_supervised_RF',
-      'metabolyseR::plotSupervisedRF(pre_treated,type = "pre-treated")'
+      'metabolyseR::plotSupervisedRF(pre_treated,type = "pre-treated")',
+      comment = 'Plot multidimensional scaling plot of supervised random forest'
     )
   )
 }
@@ -307,7 +338,8 @@ assignmentParameters <- function(x){
   
   target(
     'molecular_formula_assignment_parameters',
-    glue('MFassign::assignmentParameters("{technique}")')
+    glue('MFassign::assignmentParameters("{technique}")'),
+    comment = 'Generate molecular formula assignment parameters'
   )
 }
 
@@ -324,20 +356,24 @@ targetsMFassignment <- function(x){
       'pre_treated %>% 
                   metabolyseR::dat(type = "pre-treated") %>% 
                   MFassign::assignMFs(molecular_formula_assignment_parameters)', 
-      args = list(memory = 'transient')
+      args = list(memory = 'transient'),
+      comment = 'Perform molecular formula assignment'
     ),
     assigned_data = target(
       'assigned_data',
-      'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)'
+      'metaboMisc::addAssignments(pre_treated,molecular_formula_assignment)',
+      comment = 'Add molecular formula assignments to pre-treated data features'
     ),
     summarise_assignments = target(
       'summarise_assignments',
-      'MFassign::summariseAssignment(molecular_formula_assignment)'
+      'MFassign::summariseAssignment(molecular_formula_assignment)',
+      comment = 'Summarise the assigned molecular formulas'
     ),
     export_assignments = target(
       'export_assignments',
       'metaboMisc::export(molecular_formula_assignment,outPath = "exports/molecular_formula_assignments")',
-      type = 'tar_files'
+      type = 'tar_files',
+      comment = 'Export molecular formula assignments'
     )
   )
 }
@@ -351,29 +387,35 @@ modellingTargets <- function(x){
   list(
     modelling_parameters = target(
       'modelling_parameters',
-      glue('metaboMisc::detectModellingParameters({object_name},cls = "class")')
+      glue('metaboMisc::detectModellingParameters({object_name},cls = "class")'),
+      comment = 'Detect appropriate modelling parameters'
     ),
     modelling = target(
       'modelling',
       glue('metabolyseR::reAnalyse({object_name},
-                          modelling_parameters)')
+                          modelling_parameters)'),
+      comment = 'Perform modelling'
     ),
     plot_explanatory_heatmap = target(
       'plot_explanatory_heatmap',
-      'metabolyseR::plotExplanatoryHeatmap(modelling)'
+      'metabolyseR::plotExplanatoryHeatmap(modelling)',
+      comment = 'Plot a heat map of explanatory features'
     ),
     summarise_modelling_metrics = target(
       'summarise_model_metrics',
-      'metabolyseR::metrics(modelling)'
+      'metabolyseR::metrics(modelling)',
+      comment = 'Retrieve modelling metrics'
     ),
     summarise_modelling_importance = target(
       'summarise_model_importance',
-      'metabolyseR::importance(modelling)'
+      'metabolyseR::importance(modelling)',
+      comment = 'Retireve modelling feature importance'
     ),
     export_modelling = target(
       'export_modelling',
       'metaboMisc::exportModelling(modelling,outPath = "exports/modelling")',
-      type = 'tar_files'
+      type = 'tar_files',
+      comment = 'Export modelling results'
     )
   )
 }
@@ -402,21 +444,25 @@ correlationsTargets <- function(x){
   list(
     correlations_parameters = target(
       'correlations_parameters',
-      'metabolyseR::analysisParameters("correlations")'
+      'metabolyseR::analysisParameters("correlations")',
+      comment = 'Generate parameters for correlation analysis'
     ),
     correlations = target(
       'correlations',
       glue('metabolyseR::reAnalyse({object_name},
-                          correlations_parameters)')
+                          correlations_parameters)'),
+      comment = 'Perform correlation analysis'
     ),
     summarise_correlations = target(
       'summarise_correlations',
-      'metabolyseR::analysisResults(correlations,"correlations")'
+      'metabolyseR::analysisResults(correlations,"correlations")',
+      comment = 'Retrieve correlation analysis results'
     ),
     export_correlations = target(
       'export_correlations',
       'metaboMisc::exportCorrelations(correlations,outPath = "exports/correlations")',
-      type = 'tar_files'
+      type = 'tar_files',
+      comment = 'Export correlation analysis results'
     )
   )
 }
