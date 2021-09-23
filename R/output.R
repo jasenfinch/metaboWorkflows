@@ -55,10 +55,14 @@ reportBody <- function(x){
         }
         
         if (str_detect(.x,'summarise')){
+          sig_fig <- glue('{.x} <- mutate_if({.x},is.numeric,signif,digits = 3)') %>% 
+          as.character() %>% 
+            parse_expr()
           summary_table <- glue('DT::datatable({.x},rownames = FALSE,filter = "top")') %>% 
             as.character() %>% 
             parse_expr()
           target_chunk <- chunk(tar_load(!!target_name),
+                                !!sig_fig,
                                 !!summary_table)
         }
         
