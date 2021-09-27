@@ -55,7 +55,7 @@ reportBody <- function(x){
         }
         
         if (str_detect(.x,'summarise')){
-          sig_fig <- glue('{.x} <- dplyr::mutate_if({.x},is.numeric,signif,digits = 3)') %>% 
+          sig_fig <- glue('{.x} <- metaboMisc::sanitiseTable({.x})') %>% 
           as.character() %>% 
             parse_expr()
           summary_table <- glue('DT::datatable({.x},rownames = FALSE,filter = "top")') %>% 
