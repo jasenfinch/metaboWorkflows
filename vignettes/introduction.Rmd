@@ -34,13 +34,15 @@ if (available_datasets$status[available_datasets$technique == 'FIE-HRMS' &
 
 Metabolomics encompasses a wide range of techniques that includes mass spectrometry based fingerprinting and profiling.
 Analysis of the this data requires number of steps that includes spectral processing, data pre-treatment, quality control, data mining and visualisation in order to extract relevant biological information.
-The goal of `metaboWorkflows` is to provide project directory templates for a range of mass spectrometry based techniques.
-This leverages a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code.
+The goal of `metaboWorkflows` is to provide project directory templates for a range of mass spectrometry based metabolomic techniques.
+The generated project template directories can then be easily extended by the user to meet the needs of particular analysis goals.
+
+This project templates utilise a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code.
 These tools include:
 
 * [targets](https://docs.ropensci.org/targets/) - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.
 * [renv](https://rstudio.github.io/renv/) - an R package for project-local R package dependency management for maintaining reproducible R package environments.
-* [git](https://git-scm.com/) - a widely used, open source distributed version control system.
+* [git](https://git-scm.com/) - a widely used, open-source distributed version control system.
 * [docker](https://www.docker.com/) - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.
 
 While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of `targets` based workflows outlined [here](https://books.ropensci.org/targets/walkthrough.html).
@@ -52,9 +54,9 @@ These are as follows:
 * **define** - define the workflow steps based on the metabolomic technique
 * **generate** - generate the workflow project directory
 
-This introduction will outline each of these steps and provided an overview of an example workflow project directory along with how to execute one of these workflows.
+This introduction will outline each of these steps, provide an overview of an example workflow project directory and how to execute one of these workflows.
 
-To begin, first load the package:
+To begin, firstly load the package:
 
 ```{r setup}
 library(metaboWorkflows)
@@ -62,15 +64,15 @@ library(metaboWorkflows)
 
 ## Workflow input
 
-Prior to defining a workflow, the user needs to know what sort of input the type the workflow will use.
-`metaboWorkflows` currently supports two types: use of remote data obtained through the use of a [`grover`](https://jasenfinch.github.io/grover/) API or through providing a vector .mzML file paths and a [`tibble`](https://tibble.tidyverse.org/) of sample information.
+Prior to defining a workflow, the user needs to know what sort of input type the workflow will use.
+`metaboWorkflows` currently supports two types: remote data obtained through the use of a [`grover`](https://jasenfinch.github.io/grover/) API or through providing a vector .mzML file paths and a [`tibble`](https://tibble.tidyverse.org/) of sample information.
 
 ### `grover` API input
 
-The [`grover`](https://jasenfinch.github.io/grover/) R provides a framework for hosting web APIs for remote access and conversion of raw metabolomics data to mzML format.
+The [`grover`](https://jasenfinch.github.io/grover/) R package provides a framework for hosting RESTful web APIs for remote access and conversion of raw metabolomics data to the .mzML format.
 
 This type of input can be declared by providing the host information of the [`grover`](https://jasenfinch.github.io/grover/) API to the `inputGrover` function.
-Below shows an example for a ficticious [`grover`](https://jasenfinch.github.io/grover/) API host.
+Below shows an example for a fictitious [`grover`](https://jasenfinch.github.io/grover/) API host.
 
 ```{r grover-input}
 workflow_input <- inputGrover(instrument = 'An_instrument',
@@ -88,7 +90,7 @@ print(workflow_input)
 
 If the raw mass spectrometry .mzML format data files are already availble for a sample set, their file paths and a [`tibble`](https://tibble.tidyverse.org/) of the sample information can be provided for workflow input.
 
-Below shows an example file path input for the FIE-HRMS fingerprinting data set of *Brachypodium distachyonn* ecotype comparisons available in the [`metaboData`](https://aberhrml.github.io/metaboData/) package.
+Below shows an example file path input for the FIE-HRMS fingerprinting data set of *Brachypodium distachyon* ecotype comparisons available in the [`metaboData`](https://aberhrml.github.io/metaboData/) package.
 
 ```{r file-path-input}
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
@@ -107,13 +109,13 @@ This example input will be used throughout the rest of this introduction.
 
 Workflow definition is simple and requires the input definition outlined in the previous section, the name of the metabolomic technique and the project name.
 
-To return the metabolomic workflow templates that are currently available, use:
+To return the currently available metabolomic workflow templates, use:
 
 ```{r available-workflows}
 availableWorkflows()
 ```
 
-This example uses the `FIE-HRMS fingerprinting` template and the project will be named `Example project`. 
+This example will use the `FIE-HRMS fingerprinting` template and the project will be named `Example project`. 
 
 ```{r workflow-definition}
 workflow_definition <- defineWorkflow(
@@ -123,7 +125,9 @@ workflow_definition <- defineWorkflow(
 )
 ```
 
-Printing the resulting workflow definition will provide information about the workflow.
+Further project template options can also be specified at this point such as the output directory path or the use of `renv` for R package management. 
+See `?defineWorkflow` for more details.
+Printing the resulting workflow definition will provide information about the defined workflow.
 
 ```{r print-workflow}
 print(workflow_definition)
@@ -161,7 +165,8 @@ The final step is the generation of the project directory for the defined workfl
 generateWorkflow(workflow_definition)
 ```
 
-The additional `start` argument can be used to automatically open the project directory in RStudio after project generation.
+This will then generate the project directory at the specifed directory path.
+The additional `start` argument can be used to automatically open the project directory in the RStudio IDE after project generation.
 
 ## The project directory
 
@@ -193,19 +198,19 @@ Example_project/
 └── run.R
 ```
 
-The presence of some of these components will be dependent the defined project options and the input type that were selected in the workflow definition.
+The presence of some of these components will be dependent on the defined project options and the input type that was selected in the workflow definition.
 Here, a brief overview of some of the important components will be given.
 
-`Dockerfile` - This can be used build a suitable docker image from which the workflow can be executed within a containerised environment.
+`Dockerfile` - This can be used build a suitable docker image from which the workflow can be executed within a containerised OS environment.
 
 `R/functions` - Scripts containing additional functions can be placed here.
 
 `R/utils.R` - This contains any code related to loading packages.
 
-`_targets.R` - This script contains the formal definition of the workflow, containing the analysis code for each of the target components of the workflow. 
+`_targets.R` - This script contains the formal definition of the workflow with the analysis code for each of the target components of the workflow. 
 See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about the this file.
 
-`data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected
+`data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected.
 
 `exports` - Any outputs from the workflow will be directed here including the HTML output and any .csv data table outputs.
 
