@@ -161,7 +161,11 @@ The final step is the generation of the project directory for the defined workfl
 generateWorkflow(workflow_definition)
 ```
 
+The additional `start` argument can be used to automatically open the project directory in RStudio after project generation.
+
 ## The project directory
+
+Below shows an overview of the generated `Example project` project directory:
 
 ```
 Example_project/
@@ -184,8 +188,43 @@ Example_project/
 │   ├── settings.dcf
 │   └── staging
 ├── renv.lock
+├── report
+│   └── report.Rmd
 └── run.R
 ```
 
+The presence of some of these components will be dependent the defined project options and the input type that were selected in the workflow definition.
+Here, a brief overview of some of the important components will be given.
+
+`Dockerfile` - This can be used build a suitable docker image from which the workflow can be executed within a containerised environment.
+
+`R/functions` - Scripts containing additional functions can be placed here.
+
+`R/utils.R` - This contains any code related to loading packages.
+
+`_targets.R` - This script contains the formal definition of the workflow, containing the analysis code for each of the target components of the workflow. 
+See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about the this file.
+
+`data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected
+
+`exports` - Any outputs from the workflow will be directed here including the HTML output and any .csv data table outputs.
+
+`misc` - Any miscellaneous scripts and files can be placed here.
+
+`renv.lock` - A lock file used by the `renv` package to capture the state of the R package library used in the project.
+
+`report/report.Rmd` - An R Markdown report for summarising the workflow results. 
+It's output will be saved in `exports`.
+
+`run.R` - An script that can be used to execute the workflow. See the section below for more information.
+
 ## Executing an analysis workflow
 
+There are a number of ways in which the workflow can be executed after the project directory has been generated.
+The targets package provides some information on this topic [here](https://books.ropensci.org/targets/walkthrough.html#run-the-pipeline).
+
+The recommended method is through opening the project in the [RStudio IDE](https://www.rstudio.com/) and running the workflow as a job using the [`rstudioapi`](https://rstudio.github.io/rstudioapi/) package and `run.R` script as follows:
+
+```{r execute, eval=FALSE}
+rstudioapi::jobRunScript('run.R')
+```
