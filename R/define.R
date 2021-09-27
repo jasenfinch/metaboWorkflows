@@ -4,8 +4,11 @@
 #' @param input S4 object of class `GroverInput` or `FilePathInput`
 #' @param workflow workflow name as returned by `availableWorkflows()`
 #' @param project_name the project name
-#' @param ... arguments to pass to `defineProject`
+#' @param ... arguments to pass to `defineProject`. See details.
 #' @return An S4 object of class `Workflow`
+#' @details 
+#' Further project template options such as the use of the R package `renv` for R package management can also be declared which are passed to `defineProject()`. See the [defineProject()] documentation for details on these options.
+#' @seealso [defineProject()]
 #' @examples 
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')

@@ -19,13 +19,16 @@ defineWorkflow(input, workflow, project_name, ...)
 
 \item{project_name}{the project name}
 
-\item{...}{arguments to pass to \code{defineProject}}
+\item{...}{arguments to pass to \code{defineProject}. See details.}
 }
 \value{
 An S4 object of class \code{Workflow}
 }
 \description{
 Define a metabolomics data analysis workflow for a given input type and workflow name.
+}
+\details{
+Further project template options such as the use of the R package \code{renv} for R package management can also be declared which are passed to \code{defineProject()}. See the \code{\link[=defineProject]{defineProject()}} documentation for details on these options.
 }
 \examples{
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
@@ -37,4 +40,7 @@ workflow_definition <- defineWorkflow(workflow_input,
                                       'FIE-HRMS fingerprinting',
                                       'Example project')
 workflow_definition
+}
+\seealso{
+\code{\link[=defineProject]{defineProject()}}
 }
