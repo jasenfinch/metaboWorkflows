@@ -37,7 +37,7 @@ Analysis of the this data requires number of steps that includes spectral proces
 The goal of `metaboWorkflows` is to provide project directory templates for a range of mass spectrometry based metabolomic techniques.
 The generated project template directories can then be easily extended by the user to meet the needs of particular analysis goals.
 
-This project templates utilise a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code.
+These project templates utilise a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code.
 These tools include:
 
 * [targets](https://docs.ropensci.org/targets/) - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.
