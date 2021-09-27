@@ -6,3 +6,5 @@
 ^\.github$
 ^doc$
 ^Meta$
+^README.Rmd$
+^Example_project$
