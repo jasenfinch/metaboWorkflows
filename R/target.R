@@ -198,6 +198,7 @@ setGeneric('code',function(x)
 #' @importFrom glue glue
 #' @importFrom purrr map_chr
 #' @importFrom styler style_text
+#' @importFrom rlang expr_text
 
 setMethod('code',signature = 'Target',
           function(x){
@@ -221,15 +222,14 @@ setMethod('code',signature = 'Target',
               target_arguments <- ''
             }
             
-            # target_command <- x %>% 
-            #   command() %>% 
-            #   glue_collapse(sep = '
-            #                 ')
+            target_command <- x %>%
+              command() %>%
+              map(expr_text)
             
             target_code <- glue('
 {type(x)}(
   {name(x)},
-  {command(x)}{target_arguments}
+  {target_command}{target_arguments}
 )
 ') 
 
