@@ -9,14 +9,14 @@
 setClass('Target',
          slots = list(
            name = 'character',
-           command = 'character',
+           command = 'list',
            type = 'character',
            args = 'list',
            comment = 'character'
          ),
          prototype = list(
            name = 'a_target',
-           command = '1 + 1',
+           command = list(1 + 1),
            type = 'tar_target',
            args = list(),
            comment = character()
@@ -197,6 +197,7 @@ setGeneric('code',function(x)
 #' @rdname Target-accessors
 #' @importFrom glue glue
 #' @importFrom purrr map_chr
+#' @importFrom styler style_text
 
 setMethod('code',signature = 'Target',
           function(x){
@@ -220,6 +221,11 @@ setMethod('code',signature = 'Target',
               target_arguments <- ''
             }
             
+            # target_command <- x %>% 
+            #   command() %>% 
+            #   glue_collapse(sep = '
+            #                 ')
+            
             target_code <- glue('
 {type(x)}(
   {name(x)},
@@ -238,6 +244,8 @@ setMethod('code',signature = 'Target',
               target_code <- glue('{target_comment}
                                   {target_code}')
             }
+            
+            target_code <- style_text(target_code)
             
             return(target_code)
           })
@@ -262,6 +270,8 @@ setMethod('code',signature = 'Target',
 #' @export
 
 target <- function(name,command,type = 'tar_target',args = list(),comment = character()){
+  
+  command <- enexprs(command)
   
   new('Target',
       name = name,
