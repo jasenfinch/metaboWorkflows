@@ -116,7 +116,8 @@ targetsList <- function(workflow_targets){
           target_code <- code(wt[[.x]])
           
           if (length(target_code) > 1){
-            target_code <- glue_collapse(target_code)
+            target_code <- glue_collapse(target_code,sep = '
+                                         ')
           }
           
           if (length(comment(wt[[.x]])) > 0) {
