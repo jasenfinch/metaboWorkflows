@@ -1,1 +1,1 @@
-globalVariables(c('.'))
+globalVariables(c('.','assigned_data','pre_treated','file_paths_list'))
