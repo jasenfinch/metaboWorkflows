@@ -115,6 +115,10 @@ targetsList <- function(workflow_targets){
         map(~{
           target_code <- code(wt[[.x]])
           
+          if (length(target_code) > 1){
+            target_code <- glue_collapse(target_code)
+          }
+          
           if (length(comment(wt[[.x]])) > 0) {
             glue('
 {.x} = 
