@@ -235,22 +235,20 @@ setMethod('code',signature = 'Target',
 )
 ') 
 
-            target_comment <- 
-
-            if (length(comment(x)) > 0){
-              target_comment <- 
-              target_comment <- x %>% 
-                comment() %>% 
-                {glue('## {.}')}
-              
-              target_code <- glue('{target_comment}
+  if (length(comment(x)) > 0){
+    target_comment <- x %>% 
+      comment() %>% 
+      {glue('## {.}')}
+  
+    target_code <- glue('{target_comment}
                                   {target_code}')
-            }
-            
-            target_code <- style_text(target_code)
-            
-            return(target_code)
-          })
+  }
+
+  target_code <- style_text(target_code)
+
+  return(target_code)
+  }
+)
 
 #' Create a workflow target definition
 #' @description Create a workflow target definition.
@@ -264,7 +262,7 @@ setMethod('code',signature = 'Target',
 #' Target types can be one of any provided by the `targets` or `tarchetypes` packages.
 #' @examples 
 #' workflow_target <- target('a_target',
-#'                           '1 + 1',
+#'                           1 + 1,
 #'                           args = list(memory = 'persistent'), 
 #'                           comment = 'A target')
 #' 

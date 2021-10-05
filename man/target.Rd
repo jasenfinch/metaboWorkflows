@@ -34,7 +34,7 @@ Target types can be one of any provided by the \code{targets} or \code{tarchetyp
 }
 \examples{
 workflow_target <- target('a_target',
-                          '1 + 1',
+                          1 + 1,
                           args = list(memory = 'persistent'), 
                           comment = 'A target')
 
