@@ -102,6 +102,8 @@ setGeneric('command<-',function(x,value)
 
 setMethod('command<-',signature = 'Target',
           function(x,value){
+            value <- enexprs(value)
+            
             x@command <- value
             return(x)
           })
