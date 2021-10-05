@@ -27,7 +27,7 @@ reportBody <- function(x){
     map(~{
       .x %>% 
         map_chr(name) %>% 
-        .[str_detect(.,'plot') | str_detect(.,'summarise')]
+        .[str_detect(.,'plot') | str_detect(.,'summary')]
     }) %>% 
     compact()
   
@@ -54,7 +54,7 @@ reportBody <- function(x){
           target_chunk <- chunk(tar_read(!!target_name)) 
         }
         
-        if (str_detect(.x,'summarise')){
+        if (str_detect(.x,'summary')){
           sig_fig <- glue('{.x} <- metaboMisc::sanitiseTable({.x})') %>% 
           as.character() %>% 
             parse_expr()
