@@ -1,8 +1,6 @@
 ---
-title: "Introduction"
-subtitle: "`r paste0('metaboWorkflows v',packageVersion('metaboWorkflows'))`"
+title: "metaboWorkflows"
 author: "Jasen Finch"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   prettydoc::html_pretty:
     toc: true
