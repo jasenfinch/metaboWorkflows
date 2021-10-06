@@ -35,3 +35,22 @@ sampleInformation(x) <- value
 \description{
 Get and set methods for the \code{FilePathInput} S4 class.
 }
+\examples{
+file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+workflow_input <- inputFilePath(file_paths,sample_information)
+
+## Return the input file paths
+\dontrun{
+filePaths(workflow_input)
+}
+## Set the input file paths
+filePaths(workflow_input) <- c('a_file.mzML')
+
+## Return the sample information 
+sampleInformation(workflow_input)
+
+## Set the sample information
+sampleInformation(workflow_input) <- tibble::tibble(fileName = 'a_file.mzML')
+}

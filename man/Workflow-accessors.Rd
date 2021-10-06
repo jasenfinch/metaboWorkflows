@@ -89,3 +89,103 @@ modules(x)
 \description{
 Get and set methods for the \code{Workflow} S4 class.
 }
+\examples{
+## Define a workflow with file path input
+file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+workflow_input <- inputFilePath(file_paths,sample_information)
+
+workflow_definition <- defineWorkflow(workflow_input,
+                                      'FIE-HRMS fingerprinting',
+                                      'Example project')
+
+## Return the workflow type
+type(workflow_definition)
+
+## Set the workflow type
+type(workflow_definition) <- "RP-LC-HRMS profiling" 
+
+## Return the workflow input
+input(workflow_definition)
+
+## Set the workflow input
+\dontrun{
+input(workflow_definition) <- inputGrover(instrument = 'An_instrument',
+                                          directory = 'Experiment_directory',
+                                          host = 'a.grover.host',
+                                          port = 80,
+                                          auth = '1234')
+}
+
+## Return the workflow targets for the input module
+targets(workflow_definition)$input
+
+## Set the workflow targets
+targets(workflow_definition) <- list(
+                                     a_module = list(
+                                     a_target =  target('a_target',
+                                                        1 + 1,
+                                                        args = list(memory = 'persistent'), 
+                                                        comment = 'A target')
+                                               )
+                                     )
+
+## Return the workflow modules
+modules(workflow_definition)
+
+## Return the workflow file paths
+\dontrun{
+filePaths(workflow_definition)
+}
+
+## Set the workflow file paths
+filePaths(workflow_definition) <- 'a_file.mzML'
+
+## Return the workflow sample information
+sampleInformation(workflow_definition)
+
+## Set the workflow sample information
+sampleInformation(workflow_definition) <- tibble::tibble(fileName = 'a_file.mzML')
+
+## Define a workflow with grover input
+workflow_input <- inputGrover(instrument = 'An_instrument',
+                              directory = 'Experiment_directory',
+                              host = 'a.grover.host',
+                              port = 80,
+                              auth = '1234')
+
+workflow_definition <- defineWorkflow(workflow_input,
+                                      'FIE-HRMS fingerprinting',
+                                      'Example project')
+
+## Return the workflow instrument
+instrument(workflow_definition)
+
+## Set the workflow Instrument
+instrument(workflow_definition) <- 'A_different_instrument'
+
+## Return the workflow directory
+directory(workflow_definition)
+
+## Set the workflow directory
+directory(workflow_definition) <- 'Another_experiment'
+
+## Return the workflow host
+host(workflow_definition)
+
+## Set the workflow_host
+host(workflow_definition) <- 'a.new.host'
+
+## Return the workflow port
+port(workflow_definition)
+
+## Set the workflow port
+port(workflow_definition) <- 81
+
+## Return the workflow auth
+auth(workflow_definition)
+
+## Set the workflow auth
+auth(workflow_definition) <- 'abcd'
+}

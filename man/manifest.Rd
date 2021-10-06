@@ -13,7 +13,7 @@ manifest(x)
 \item{x}{S4 object of class Workflow}
 }
 \description{
-Return a dataframe of information about the targets in a workflow definition.
+Return a tibble of information about the targets in a workflow definition.
 }
 \examples{
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

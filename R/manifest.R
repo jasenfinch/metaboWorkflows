@@ -1,6 +1,6 @@
 #' Workflow definition target information
 #' @rdname manifest
-#' @description Return a dataframe of information about the targets in a workflow definition.
+#' @description Return a tibble of information about the targets in a workflow definition.
 #' @param x S4 object of class Workflow
 #' @examples 
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

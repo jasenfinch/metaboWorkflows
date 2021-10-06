@@ -26,3 +26,12 @@ Use .mzML files retrieved from a grover API for workflow input.
 \details{
 This specifies the retrieval of sample data files and information using a grover API. See \href{jasenfinch.github.io/grover/}{\code{grover}} for more information about mass spectral data retrieval from a grover API.
 }
+\examples{
+workflow_input <- inputGrover(instrument = 'An_instrument',
+                              directory = 'Experiment_directory',
+                              host = 'a.grover.host',
+                              port = 80,
+                              auth = '1234')
+
+workflow_input
+}

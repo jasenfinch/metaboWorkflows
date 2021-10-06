@@ -28,7 +28,7 @@ An S4 object of class \code{Workflow}
 Define a metabolomics data analysis workflow for a given input type and workflow name.
 }
 \details{
-Further project template options such as the use of the R package \code{renv} for R package management can also be declared which are passed to \code{defineProject()}. See the \code{\link[=defineProject]{defineProject()}} documentation for details on these options.
+Further project template options such as the use of the R package \code{renv} for R package management can also be declared, which are passed to \code{defineProject()}. See the \code{\link[=defineProject]{defineProject()}} documentation for details on these options.
 }
 \examples{
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

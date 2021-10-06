@@ -40,4 +40,6 @@ Define the project directory for a workflow
 }
 \examples{
 workflow_project <- defineProject('A metabolomics project')
+
+workflow_project
 }

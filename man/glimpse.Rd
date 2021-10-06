@@ -13,7 +13,7 @@ glimpse(x)
 \item{x}{S4 object of class Workflow}
 }
 \description{
-Visualise the directed acyclic graph of a workflow targets.
+Visualise the directed acyclic graph for a workflow's targets.
 }
 \examples{
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

@@ -1,7 +1,7 @@
 #' Validate a workflow definition
 #' @rdname validate
 #' @description Validate a workflow definition, checking for issues.
-#' An error or a warning will be returned if a warning is detected.
+#' An error or a warning will be returned if a problem is detected.
 #' @param x S4 object of class Workflow
 #' @examples 
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

@@ -48,6 +48,24 @@ setMethod('show',signature = 'FilePathInput',
 #' @description Get and set methods for the `FilePathInput` S4 class.
 #' @param x S4 object of class `FilePathInput`
 #' @param value value to set
+#' @examples 
+#' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+#' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+#'
+#' workflow_input <- inputFilePath(file_paths,sample_information)
+#' 
+#' ## Return the input file paths
+#' \dontrun{
+#' filePaths(workflow_input)
+#' }
+#' ## Set the input file paths
+#' filePaths(workflow_input) <- c('a_file.mzML')
+#' 
+#' ## Return the sample information 
+#' sampleInformation(workflow_input)
+#' 
+#' ## Set the sample information
+#' sampleInformation(workflow_input) <- tibble::tibble(fileName = 'a_file.mzML')
 #' @export
 
 setGeneric('filePaths',
@@ -166,6 +184,42 @@ setMethod('show',signature = 'GroverInput',
 #' @description Get and set methods for the `GroverInput` S4 class.
 #' @param x S4 object of class `GroverInput`
 #' @param value value to set
+#' @examples 
+#' workflow_input <- inputGrover(instrument = 'An_instrument',
+#'                               directory = 'Experiment_directory',
+#'                               host = 'a.grover.host',
+#'                               port = 80,
+#'                               auth = '1234')
+#'
+#' ## Return input instrument
+#' instrument(workflow_input)
+#' 
+#' ## Set the input instrument
+#' instrument(workflow_input) <- 'A_different_instrument'
+#' 
+#' ## Return input directory
+#' directory(workflow_input)
+#' 
+#' ## Set the input directory
+#' directory(workflow_input) <- 'Another_experiment'
+#' 
+#' ## Return input host
+#' host(workflow_input)
+#' 
+#' ## Set the input host
+#' host(workflow_input) <- 'a.new.host'
+#' 
+#' ## Return the input port
+#' port(workflow_input)
+#' 
+#' ## Set the input port
+#' port(workflow_input) <- 81
+#' 
+#' ## Return the input auth
+#' auth(workflow_input)
+#' 
+#' ## Set the input auth
+#' auth(workflow_input) <- 'abcd'
 #' @export
 
 setGeneric('instrument',
@@ -319,6 +373,14 @@ setMethod('auth<-',signature = 'GroverInput',
 #' @param auth grover API host authentication code
 #' @return An S4 object of class GroverInput
 #' @details This specifies the retrieval of sample data files and information using a grover API. See [`grover`](jasenfinch.github.io/grover/) for more information about mass spectral data retrieval from a grover API.
+#' @examples 
+#' workflow_input <- inputGrover(instrument = 'An_instrument',
+#'                               directory = 'Experiment_directory',
+#'                               host = 'a.grover.host',
+#'                               port = 80,
+#'                               auth = '1234')
+#' 
+#' workflow_input
 #' @export
 
 inputGrover <- function(instrument,directory,host,port,auth){

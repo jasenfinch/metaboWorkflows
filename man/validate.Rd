@@ -14,7 +14,7 @@ validate(x)
 }
 \description{
 Validate a workflow definition, checking for issues.
-An error or a warning will be returned if a warning is detected.
+An error or a warning will be returned if a problem is detected.
 }
 \examples{
 file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')

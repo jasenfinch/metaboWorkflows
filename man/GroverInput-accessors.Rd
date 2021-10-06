@@ -71,3 +71,40 @@ auth(x) <- value
 \description{
 Get and set methods for the \code{GroverInput} S4 class.
 }
+\examples{
+workflow_input <- inputGrover(instrument = 'An_instrument',
+                              directory = 'Experiment_directory',
+                              host = 'a.grover.host',
+                              port = 80,
+                              auth = '1234')
+
+## Return input instrument
+instrument(workflow_input)
+
+## Set the input instrument
+instrument(workflow_input) <- 'A_different_instrument'
+
+## Return input directory
+directory(workflow_input)
+
+## Set the input directory
+directory(workflow_input) <- 'Another_experiment'
+
+## Return input host
+host(workflow_input)
+
+## Set the input host
+host(workflow_input) <- 'a.new.host'
+
+## Return the input port
+port(workflow_input)
+
+## Set the input port
+port(workflow_input) <- 81
+
+## Return the input auth
+auth(workflow_input)
+
+## Set the input auth
+auth(workflow_input) <- 'abcd'
+}

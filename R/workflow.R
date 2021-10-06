@@ -60,6 +60,7 @@ setMethod('show',signature = 'Workflow',
 #' @param x S4 object of class `Workflow`
 #' @param value value to set
 #' @examples 
+#' ## Define a workflow with file path input
 #' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
 #' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
 #'
@@ -79,11 +80,13 @@ setMethod('show',signature = 'Workflow',
 #' input(workflow_definition)
 #' 
 #' ## Set the workflow input
+#' \dontrun{
 #' input(workflow_definition) <- inputGrover(instrument = 'An_instrument',
 #'                                           directory = 'Experiment_directory',
 #'                                           host = 'a.grover.host',
 #'                                           port = 80,
 #'                                           auth = '1234')
+#' }
 #' 
 #' ## Return the workflow targets for the input module
 #' targets(workflow_definition)$input
@@ -101,7 +104,60 @@ setMethod('show',signature = 'Workflow',
 #' ## Return the workflow modules
 #' modules(workflow_definition)
 #' 
-#' ## Return the workflow
+#' ## Return the workflow file paths
+#' \dontrun{
+#' filePaths(workflow_definition)
+#' }
+#' 
+#' ## Set the workflow file paths
+#' filePaths(workflow_definition) <- 'a_file.mzML'
+#' 
+#' ## Return the workflow sample information
+#' sampleInformation(workflow_definition)
+#' 
+#' ## Set the workflow sample information
+#' sampleInformation(workflow_definition) <- tibble::tibble(fileName = 'a_file.mzML')
+#' 
+#' ## Define a workflow with grover input
+#' workflow_input <- inputGrover(instrument = 'An_instrument',
+#'                               directory = 'Experiment_directory',
+#'                               host = 'a.grover.host',
+#'                               port = 80,
+#'                               auth = '1234')
+#' 
+#' workflow_definition <- defineWorkflow(workflow_input,
+#'                                       'FIE-HRMS fingerprinting',
+#'                                       'Example project')
+#' 
+#' ## Return the workflow instrument
+#' instrument(workflow_definition)
+#' 
+#' ## Set the workflow Instrument
+#' instrument(workflow_definition) <- 'A_different_instrument'
+#' 
+#' ## Return the workflow directory
+#' directory(workflow_definition)
+#' 
+#' ## Set the workflow directory
+#' directory(workflow_definition) <- 'Another_experiment'
+#' 
+#' ## Return the workflow host
+#' host(workflow_definition)
+#' 
+#' ## Set the workflow_host
+#' host(workflow_definition) <- 'a.new.host'
+#' 
+#' ## Return the workflow port
+#' port(workflow_definition)
+#' 
+#' ## Set the workflow port
+#' port(workflow_definition) <- 81
+#' 
+#' ## Return the workflow auth
+#' auth(workflow_definition)
+#' 
+#' ## Set the workflow auth
+#' auth(workflow_definition) <- 'abcd'
 
 setMethod('type',signature = 'Workflow',
           function(x){

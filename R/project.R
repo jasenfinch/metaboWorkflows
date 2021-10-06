@@ -48,6 +48,56 @@ setMethod('show',signature = 'Project',
 #' @description Get and set methods for the `Project` S4 class.
 #' @param x S4 object of class `Project`
 #' @param value value to set
+#' @examples 
+#' workflow_project <- defineProject('A metabolomics project')
+#' 
+#' ## Return the project name
+#' projectName(workflow_project)
+#' 
+#' ## Set the project name
+#' projectName(workflow_project) <- 'A new name'
+#' 
+#' ## Return the project directory path
+#' path(workflow_project)
+#' 
+#' ## Set the project directory path
+#' path(workflow_project) <- './a_directory'
+#' 
+#' ## Return the project renv option
+#' renv(workflow_project)
+#' 
+#' ## Set the project renv option
+#' renv(workflow_project) <- FALSE
+#' 
+#' ## Return the project docker option
+#' docker(workflow_project)
+#' 
+#' ## Set the project docker option
+#' docker(workflow_project) <- FALSE
+#' 
+#' ## Return the project github option
+#' github(workflow_project)
+#' 
+#' ## Set the project github option
+#' github(workflow_project) <- TRUE
+#' 
+#' ## Return the project private option
+#' private(workflow_project)
+#' 
+#' ## Set the project private option
+#' private(workflow_project) <- TRUE
+#' 
+#' ## Return the project github actions option
+#' githubActions(workflow_project)
+#' 
+#' ## Set the project github actions option
+#' githubActions(workflow_project) <- TRUE
+#' 
+#' ## Return the project force option
+#' force(workflow_project)
+#' 
+#' ## Set the project force option
+#' force(workflow_project) <- TRUE
 #' @export
 
 setGeneric('projectName',function(x)
@@ -276,6 +326,8 @@ setMethod('force<-',signature = 'Project',
 #' @return An S4 object of class `Project`.
 #' @examples 
 #' workflow_project <- defineProject('A metabolomics project')
+#' 
+#' workflow_project
 #' @export
 
 defineProject <- function(project_name,

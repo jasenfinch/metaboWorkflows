@@ -107,3 +107,54 @@ force(x) <- value
 \description{
 Get and set methods for the \code{Project} S4 class.
 }
+\examples{
+workflow_project <- defineProject('A metabolomics project')
+
+## Return the project name
+projectName(workflow_project)
+
+## Set the project name
+projectName(workflow_project) <- 'A new name'
+
+## Return the project directory path
+path(workflow_project)
+
+## Set the project directory path
+path(workflow_project) <- './a_directory'
+
+## Return the project renv option
+renv(workflow_project)
+
+## Set the project renv option
+renv(workflow_project) <- FALSE
+
+## Return the project docker option
+docker(workflow_project)
+
+## Set the project docker option
+docker(workflow_project) <- FALSE
+
+## Return the project github option
+github(workflow_project)
+
+## Set the project github option
+github(workflow_project) <- TRUE
+
+## Return the project private option
+private(workflow_project)
+
+## Set the project private option
+private(workflow_project) <- TRUE
+
+## Return the project github actions option
+githubActions(workflow_project)
+
+## Set the project github actions option
+githubActions(workflow_project) <- TRUE
+
+## Return the project force option
+force(workflow_project)
+
+## Set the project force option
+force(workflow_project) <- TRUE
+}
