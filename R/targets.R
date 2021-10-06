@@ -388,7 +388,8 @@ assignment_commands <- list(
   molecular_formula_assignment = 'pre_treated %>% 
                                   metabolyseR::dat(type = "pre-treated") %>% 
                                   MFassign::assignMFs(molecular_formula_assignment_parameters)',
-  assigned_data = 'MFassign::assignedData(molecular_formula_assignment)',
+  assigned_data = 'metaboMisc::addAssignments(pre_treated,
+                                              molecular_formula_assignment)',
   summary_assignments = 'MFassign::summariseAssignment(molecular_formula_assignment)',
   export_assignments = 'metaboMisc::export(molecular_formula_assignment,
                                            outPath = "exports/molecular_formula_assignments")'
