@@ -86,7 +86,8 @@ input_commands <- list(
                              instrument,
                              experiment) %>% 
                   .[!grepl("Ctrl",.)] %>%
-                  .[!grepl("Play",.)]',
+                  .[!grepl("Play",.)] %>% 
+                  sort()',
     mzML = 'grover::convertFile(grover_client,
                                     instrument,
                                     experiment,
