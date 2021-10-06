@@ -1,5 +1,5 @@
 #' Edit workflow targets and modules
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @description Edit the targets of a workflow definition.
 #' @param x S4 object of class `Workflow`
 #' @param module the workflow module name
@@ -51,7 +51,7 @@
 setGeneric('moduleReplace',function(x,module,replacement)
   standardGeneric('moduleReplace'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('moduleReplace',signature = 'Workflow',
           function(x,module,replacement){
@@ -64,13 +64,13 @@ setMethod('moduleReplace',signature = 'Workflow',
             return(x)
           })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('modulesRemove',function(x,modules)
   standardGeneric('modulesRemove'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('modulesRemove',signature = 'Workflow',
           function(x,modules){
@@ -84,13 +84,13 @@ setMethod('modulesRemove',signature = 'Workflow',
             return(x)
           })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('modulesKeep',function(x,modules)
   standardGeneric('modulesKeep'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('modulesKeep',signature = 'Workflow',
           function(x,modules){
@@ -104,13 +104,13 @@ setMethod('modulesKeep',signature = 'Workflow',
             return(x)
           })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('moduleAdd',function(x,module,addition)
   standardGeneric('moduleAdd'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('moduleAdd',signature = 'Workflow',
           function(x,module,addition){
@@ -127,13 +127,13 @@ setMethod('moduleAdd',signature = 'Workflow',
             return(x)
           })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('targetReplace',function(x,module,target,replacement)
   standardGeneric('targetReplace'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('targetReplace',signature = 'Workflow',
           function(x,module,target,replacement){
@@ -147,13 +147,13 @@ setMethod('targetReplace',signature = 'Workflow',
             return(x)
 })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('targetRemove',function(x,module,target)
   standardGeneric('targetRemove'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('targetRemove',signature = 'Workflow',
           function(x,module,target){
@@ -171,13 +171,13 @@ setMethod('targetRemove',signature = 'Workflow',
             return(x)
           })
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 #' @export
 
 setGeneric('targetAdd',function(x,module,target,addition)
   standardGeneric('targetAdd'))
 
-#' @rdname workflowEdit
+#' @rdname workflow-edit
 
 setMethod('targetAdd',signature = 'Workflow',
           function(x,module,target,addition){
