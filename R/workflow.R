@@ -59,6 +59,49 @@ setMethod('show',signature = 'Workflow',
 #' @description Get and set methods for the `Workflow` S4 class.
 #' @param x S4 object of class `Workflow`
 #' @param value value to set
+#' @examples 
+#' file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+#' sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+#'
+#' workflow_input <- inputFilePath(file_paths,sample_information)
+#' 
+#' workflow_definition <- defineWorkflow(workflow_input,
+#'                                       'FIE-HRMS fingerprinting',
+#'                                       'Example project')
+#' 
+#' ## Return the workflow type
+#' type(workflow_definition)
+#' 
+#' ## Set the workflow type
+#' type(workflow_definition) <- "RP-LC-HRMS profiling" 
+#' 
+#' ## Return the workflow input
+#' input(workflow_definition)
+#' 
+#' ## Set the workflow input
+#' input(workflow_definition) <- inputGrover(instrument = 'An_instrument',
+#'                                           directory = 'Experiment_directory',
+#'                                           host = 'a.grover.host',
+#'                                           port = 80,
+#'                                           auth = '1234')
+#' 
+#' ## Return the workflow targets for the input module
+#' targets(workflow_definition)$input
+#' 
+#' ## Set the workflow targets
+#' targets(workflow_definition) <- list(
+#'                                      a_module = list(
+#'                                      a_target =  target('a_target',
+#'                                                         1 + 1,
+#'                                                         args = list(memory = 'persistent'), 
+#'                                                         comment = 'A target')
+#'                                                )
+#'                                      )
+#' 
+#' ## Return the workflow modules
+#' modules(workflow_definition)
+#' 
+#' ## Return the workflow
 
 setMethod('type',signature = 'Workflow',
           function(x){
@@ -148,9 +191,14 @@ setMethod('modules',signature = 'Workflow',
 
 setMethod('filePaths',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              filePaths()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'FilePathInput') {
+              filePaths(workflow_input) 
+            } else {
+              stop('File paths only available for file path input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
@@ -158,8 +206,14 @@ setMethod('filePaths',signature = 'Workflow',
 setMethod('filePaths<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
-            filePaths(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'FilePathInput') {
+              filePaths(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('File paths can only be set for file path input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -167,18 +221,30 @@ setMethod('filePaths<-',signature = 'Workflow',
 
 setMethod('sampleInformation',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              sampleInformation()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'FilePathInput') {
+              sampleInformation(workflow_input) 
+            } else {
+              stop('Sample information only available for file path input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
 
 setMethod('sampleInformation<-',signature = 'Workflow',
           function(x,value){
+            
             workflow_input <- input(x)
-            sampleInformation(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'FilePathInput') {
+              sampleInformation(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Sample information can only be set for file path input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -187,18 +253,30 @@ setMethod('sampleInformation<-',signature = 'Workflow',
 
 setMethod('instrument',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              instrument()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'GroverInput') {
+              instrument(workflow_input) 
+            } else {
+              stop('Instrument only available for grover input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
 
 setMethod('instrument<-',signature = 'Workflow',
           function(x,value){
+            
             workflow_input <- input(x)
-            instrument(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'GroverInput') {
+              instrument(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Instrument can only be set for grover input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -206,9 +284,14 @@ setMethod('instrument<-',signature = 'Workflow',
 
 setMethod('directory',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              directory()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'GroverInput') {
+              directory(workflow_input) 
+            } else {
+              stop('Directory only available for grover input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
@@ -216,8 +299,14 @@ setMethod('directory',signature = 'Workflow',
 setMethod('directory<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
-            directory(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'GroverInput') {
+              directory(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Directory can only be set for grover input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -225,9 +314,14 @@ setMethod('directory<-',signature = 'Workflow',
 
 setMethod('host',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              host()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'GroverInput') {
+              host(workflow_input) 
+            } else {
+              stop('Host only available for grover input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
@@ -235,8 +329,14 @@ setMethod('host',signature = 'Workflow',
 setMethod('host<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
-            host(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'GroverInput') {
+              host(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Host can only be set for grover input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -244,9 +344,14 @@ setMethod('host<-',signature = 'Workflow',
 
 setMethod('port',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              port()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'GroverInput') {
+              port(workflow_input) 
+            } else {
+              stop('Port only available for grover input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
@@ -254,8 +359,14 @@ setMethod('port',signature = 'Workflow',
 setMethod('port<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
-            port(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'GroverInput') {
+              port(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Port can only be set for grover input.',call. = FALSE)
+            }
+            
             return(x)
           })
 
@@ -263,9 +374,14 @@ setMethod('port<-',signature = 'Workflow',
 
 setMethod('auth',signature = 'Workflow',
           function(x){
-            x %>% 
-              input() %>% 
-              auth()
+            workflow_input <- x %>% 
+              input()
+            
+            if (class(workflow_input) == 'GroverInput') {
+              auth(workflow_input) 
+            } else {
+              stop('Auth only available for grover input.',call. = FALSE)
+            }
           })
 
 #' @rdname Workflow-accessors
@@ -273,7 +389,13 @@ setMethod('auth',signature = 'Workflow',
 setMethod('auth<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
-            auth(workflow_input) <- value
-            input(x) <- workflow_input
+            
+            if (class(workflow_input) == 'GroverInput') {
+              auth(workflow_input) <- value
+              input(x) <- workflow_input 
+            } else {
+              stop('Auth can only be set for grover input.',call. = FALSE)
+            }
+            
             return(x)
           })
