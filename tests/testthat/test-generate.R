@@ -1,6 +1,10 @@
 test_that('generateWorkflow works for file path input',{
   temp_dir <- tempdir()
   
+  if (dir.exists(paste0(temp_dir,'/Example_project'))){
+    unlink(paste0(temp_dir,'/Example_project'),recursive = TRUE)
+  }
+  
   file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
   sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
   
@@ -22,6 +26,10 @@ test_that('generateWorkflow works for file path input',{
 
 test_that('generateWorkflow works for grover API input',{
   temp_dir <- tempdir()
+  
+  if (dir.exists(paste0(temp_dir,'/Example_project'))){
+    unlink(paste0(temp_dir,'/Example_project'),recursive = TRUE)
+  }
   
   workflow_input <- inputGrover('an_instrument',
                                 'a_directory',
