@@ -77,6 +77,16 @@ test_that('Workflow slots can be set',{
   
   expect_identical(filePaths(workflow_file_path),file_paths)
   expect_identical(sampleInformation(workflow_file_path),sample_information)
+  expect_error(instrument(workflow_file_path))
+  expect_error(instrument(workflow_file_path) <- 'a')
+  expect_error(directory(workflow_file_path))
+  expect_error(directory(workflow_file_path) <- 'a')
+  expect_error(host(workflow_file_path))
+  expect_error(host(workflow_file_path) <- 'a')
+  expect_error(port(workflow_file_path))
+  expect_error(port(workflow_file_path) <- 1)
+  expect_error(auth(workflow_file_path))
+  expect_error(auth(workflow_file_path) <- 'a')
   
   instrument(workflow_grover) <- 'New Instrument'
   directory(workflow_grover) <- 'New Experiment'
@@ -89,4 +99,8 @@ test_that('Workflow slots can be set',{
   expect_identical(host(workflow_grover),'new.grover.host')
   expect_identical(port(workflow_grover),8000)
   expect_identical(auth(workflow_grover),'4321')
+  expect_error(filePaths(workflow_grover))
+  expect_error(filePaths(workflow_grover) <- 'a.mzML')
+  expect_error(sampleInformation(workflow_grover))
+  expect_error(sampleInformation(workflow_grover) <- tibble::tibble(fileName = 'a.mzML'))
 })
