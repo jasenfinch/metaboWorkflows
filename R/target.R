@@ -74,7 +74,7 @@ setMethod('show',signature = 'Target',
 #' type(workflow_target)
 #' 
 #' ## Set the target type
-#' type(workfow_target) <- 'tar_file'
+#' type(workflow_target) <- 'tar_file'
 #' 
 #' ## Return the list target arguments
 #' args(workflow_target)
