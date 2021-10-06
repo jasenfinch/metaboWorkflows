@@ -14,7 +14,8 @@ test_that('generateWorkflow works for file path input',{
                                         'FIE-HRMS fingerprinting',
                                         'Example project',
                                         path = temp_dir,
-                                        renv = FALSE
+                                        renv = FALSE,
+                                        force = TRUE
                                         )
   
   generateWorkflow(workflow_definition,start = FALSE)
@@ -41,7 +42,8 @@ test_that('generateWorkflow works for grover API input',{
                                         'FIE-HRMS fingerprinting',
                                         'Example project',
                                         path = temp_dir,
-                                        renv = FALSE
+                                        renv = FALSE,
+                                        force = TRUE
   )
   
   generateWorkflow(workflow_definition,start = FALSE)
