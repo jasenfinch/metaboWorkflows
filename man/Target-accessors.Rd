@@ -77,3 +77,39 @@ code(x)
 \description{
 Get and set methods for the Target S4 class.
 }
+\examples{
+workflow_target <- target('a_target',
+                          1 + 1,
+                          args = list(memory = 'persistent'), 
+                          comment = 'A target')
+
+## Return the target name
+name(workflow_target)
+
+## Set the target name
+name(workflow_target) <- 'a_new_name'
+
+## Return the target R code
+command(workflow_target)
+
+## Set the target R code
+command(workflow_target) <- rlang::expr(1 * 2)
+
+## Return the target type
+type(workflow_target)
+
+## Set the target type
+type(workfow_target) <- 'tar_file'
+
+## Return the list target arguments
+args(workflow_target)
+
+## Set the target arguments
+args(workflow_target) <- list(error = 'continue')
+
+## Return the target comment
+comment(workflow_target)
+
+## Set the workflow comment
+comment(workflow_target) <- 'A new comment'
+}
