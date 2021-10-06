@@ -31,7 +31,7 @@ if (available_datasets$status[available_datasets$technique == 'FIE-HRMS' &
 ## Introduction
 
 Metabolomics encompasses a wide range of techniques that includes mass spectrometry based fingerprinting and profiling.
-Analysis of the this data requires number of steps that includes spectral processing, data pre-treatment, quality control, data mining and visualisation in order to extract relevant biological information.
+The analysis of this data requires a number of steps that includes spectral processing, data pre-treatment, quality control, data mining and visualisation in order to extract relevant biological information.
 The goal of `metaboWorkflows` is to provide project directory templates for a range of mass spectrometry based metabolomic techniques.
 The generated project template directories can then be easily extended by the user to meet the needs of particular analysis goals.
 
@@ -43,13 +43,13 @@ These tools include:
 * [git](https://git-scm.com/) - a widely used, open-source distributed version control system.
 * [docker](https://www.docker.com/) - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.
 
-While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of `targets` based workflows outlined [here](https://books.ropensci.org/targets/walkthrough.html).
+While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of `targets` based pipelines outlined [here](https://books.ropensci.org/targets/walkthrough.html).
 
 There are three steps in using `metaboWorkflows` to generate a workflow project template directory. 
 These are as follows:
 
 * **input** - define the input data source of the workflow
-* **define** - define the workflow steps based on the metabolomic technique
+* **define** - define the workflow steps based on the metabolomic technique and project directory structure
 * **generate** - generate the workflow project directory
 
 This introduction will outline each of these steps, provide an overview of an example workflow project directory and how to execute one of these workflows.
@@ -63,7 +63,7 @@ library(metaboWorkflows)
 ## Workflow input
 
 Prior to defining a workflow, the user needs to know what sort of input type the workflow will use.
-`metaboWorkflows` currently supports two types: remote data obtained through the use of a [`grover`](https://jasenfinch.github.io/grover/) API or through providing a vector .mzML file paths and a [`tibble`](https://tibble.tidyverse.org/) of sample information.
+`metaboWorkflows` currently supports two types: remote data obtained through the use of a [`grover`](https://jasenfinch.github.io/grover/) RESTful web API or through providing a vector of .mzML file paths and a [`tibble`](https://tibble.tidyverse.org/) of sample information.
 
 ### `grover` API input
 
@@ -86,7 +86,7 @@ print(workflow_input)
 
 ### File path input
 
-If the raw mass spectrometry .mzML format data files are already availble for a sample set, their file paths and a [`tibble`](https://tibble.tidyverse.org/) of the sample information can be provided for workflow input.
+If the raw mass spectrometry .mzML format data files are locally available for a sample set, their file paths and a [`tibble`](https://tibble.tidyverse.org/) of the sample information can be provided for workflow input.
 
 Below shows an example file path input for the FIE-HRMS fingerprinting data set of *Brachypodium distachyon* ecotype comparisons available in the [`metaboData`](https://aberhrml.github.io/metaboData/) package.
 
@@ -132,7 +132,7 @@ print(workflow_definition)
 ```
 
 As shown above, this workflow definition contains `r targets(workflow_definition) %>% unlist(recursive = TRUE) %>% length()` targets.
-These targets are the individual steps in the pipeline.
+These targets are the individual steps in the analysis pipeline.
 The full workflow graph, showing the relationships between these targets, can be plotted as shown below:
 
 ```{r glimpse-workflow}
@@ -150,7 +150,7 @@ The final step is the generation of the project directory for the defined workfl
 generateWorkflow(workflow_definition)
 ```
 
-This will then generate the project directory at the specifed directory path.
+This will then generate the project directory at the specified directory path.
 The additional `start` argument can be used to automatically open the project directory in the RStudio IDE after project generation.
 
 ## The project directory

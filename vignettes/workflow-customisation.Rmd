@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This vignette will cover the utilities provided for the user to modifying workflow targets prior to generating project directories.
+This vignette will cover the utilities provided for the user to modify workflow targets prior to generating project directories.
 Most users will likely not need this functionality as the workflows can easily be edited in the `_targets.R` file after project generation.
 However, where there is need for workflow targets to be modified routinely, the package provides this functionality for programmatic customisation and extension. 
 
@@ -56,8 +56,8 @@ Printing `workflow_target` will display the R code for the target definition:
 workflow_target
 ```
 
-The object can be further modified if needed accessor methods for the `Target` class.
-The following will set the target R code:
+The object can be further modified if needed using accessor methods for the `Target` class.
+For instance, the following will modify the target R code:
 
 ```{r modify-target-example}
 command(workflow_target) <- rlang::expr(1 * 2)
@@ -67,7 +67,7 @@ workflow_target
 
 See `` ?`Target-accessors` `` for more details of the available accessor methods.
 
-It is recommended that the source package names for any functions used in the R command, be specified using the `pkg::function` notation.
+It is recommended that the source package names, for any functions used in the R command, be specified using the `pkg::function` notation.
 This will ensure that these dependency packages can be detected and installed by `renv` during project directory generation.
 
 Any custom targets from which either a plot or table output is to be included in the R Markdown report output, `plot` or `summary` should be included respectively in the target name to ensure that the relevant R Markdown code chunks are generated in the report. 
@@ -93,12 +93,9 @@ Printing `workflow_definition` provides an overview of the definition.
 workflow_definition
 ```
 
-This shows that the workflow contains  `r targets(workflow_definition) %>% unlist(recursive = TRUE) %>% length()` targets.
-
 ### Inspecting a workflow
 
-When modifying a workflow, it is essential to properly inspect the resulting modified pipeline. 
-Due to the interdependence of the workflow targets,
+When modifying a workflow, it is essential to properly inspect the resulting pipeline, due to the interdependence of the workflow targets,
 The package contains a number of tools based on those available in the [targets](https://books.ropensci.org/targets/walkthrough.html#inspect-the-pipeline) package, that facilitate the user to inspect workflow definitions prior to project generation.
 
 A tibble of the containing information about the targets within a workflow definition can be returned using:
@@ -129,7 +126,7 @@ The template workflow targets are arranged into modules.
 These modules allow the user to specify groups of related targets.
 These also specify the individual section headings of the R Markdown report output. 
 
-Below shows the modules currently defined in the example definition.
+Below shows the modules defined in the example workflow.
 
 ```{r workflow-modules}
 modules(workflow_definition)
