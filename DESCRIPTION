@@ -33,7 +33,7 @@ Suggests:
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R edit.R utils.R generate.R
          define.R reexports.R glimpse.R check.R output.R
-         readme.R docker.R validate.R
+         readme.R docker.R validate.R manifest.R
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
