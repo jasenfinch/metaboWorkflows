@@ -139,21 +139,8 @@ The full workflow graph, showing the relationships between these targets, can be
 glimpse(workflow_definition)
 ```
 
-The individual workflow targets are stored as lists, nested into a number of modules.
-The modules available within a given workflow can be viewed:
-
-```{r workfow-modules}
-modules(workflow_definition)
-```
-
-The individual analysis targets can also be viewed.
-The following shows the nested list of targets found within the input module.
-
-```{r input-targets}
-targets(workflow_definition)$input
-```
-
-These workflow targets are fully customisable which is outlined in the [Workflow customisation](customisation.html) vignette.
+The package also contains functionality for modifying and extending the targets available in the workflow templates.
+This is outlined in the [Workflow customisation](customisation.html) vignette.
 
 ## Generate a workflow project directory
 
