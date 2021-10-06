@@ -140,7 +140,7 @@ glimpse(workflow_definition)
 ```
 
 The package also contains functionality for modifying and extending the targets available in the workflow templates.
-This is outlined in the [Workflow customisation](customisation.html) vignette.
+This is outlined in the [Workflow customisation and extension](customisation.html) vignette.
 
 ## Generate a workflow project directory
 
