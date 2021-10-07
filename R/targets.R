@@ -170,7 +170,8 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'mzML',
                 !!parse_expr(input_commands$grover$mzML),
                 args = list(pattern = 'map(raw_files)',
-                            format = 'file'),
+                            format = 'file',
+                            memory = 'transient'),
                 comment = 'Retrieve converted raw data files in mzML format via grover API'
               ),
               raw_sample_information = target(
@@ -237,26 +238,41 @@ fingerprintProcessing <- function(){
     plot_fingerprint = target(
       'plot_fingerprint',
       !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Plot average spectrum fingerprint'
     ),
     plot_chromatogram = target(
       'plot_chromatogram',
       !!parse_expr(processing_commands$fingerprinting$plot_chromatogram),
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Plot average infusion chromatogram'
     ),
     plot_TIC = target(
       'plot_TIC',
       !!parse_expr(processing_commands$fingerprinting$plot_TIC),
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Plot sample total ion counts by randomised block'
     ),
     plot_purity_dist = target(
       'plot_purity_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_purity_dist),
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Plot bin purity distribution'
     ),
     plot_centrality_dist = target(
       'plot_centrality_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_centrality_dist),
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Plot bin centrality distribution'
     ),
     summary_processed_features = target(
@@ -268,6 +284,9 @@ fingerprintProcessing <- function(){
       'export_processed_data',
       !!parse_expr(processing_commands$fingerprinting$export_processed_data),
       type = 'tar_files',
+      args = list(
+        memory = 'transient'
+      ),
       comment = 'Export spectrally binned data'
     )
   )
