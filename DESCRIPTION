@@ -1,59 +1,45 @@
 Package: metaboWorkflows
-Title: Workflows for Metabolomics Analyses
-Version: 0.8.10
+Title: Workflow Project Templates for Metabolomics Analyses
+Version: 0.9.0
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
-Description: Workflows for metabolomics analyses.
+Description: Reproducible workflow project templates for metabolomics analyses using the `hrm` <https://jasenfinch.github.io/hrm/> R package ecosystem.
+URL: https://jasenfinch.github.io/metaboWorkflows
+BugReports: https://github.com/jasenfinch/metaboWorkflows/issues
 biocViews: Metabolomics
-Depends: R (>= 3.4.0)
-Imports: binneR,
-    metabolyseR,
-    magrittr,
-    methods,
-    MFassign,
-    tibble,
-    dplyr,
-    stringr,
-    purrr,
-    crayon,
-    cli,
-    metaboMisc,
-    callr,
-    profilePro
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.1.1
-Collate:
-    allGenerics.R
-    allClasses.R
-    workflowParameters.R
-    FIE-HRMS_fingerprinting.R
-    NSI-HRMS_fingerprinting.R
-    workflow.R
-    doWorkflow-method.R
-    restartWorkflow.R
-    RP-LC-HRMS_profiling.R
-    parameters.R
-    show-method.R
-    results.R
-    NP-LC-HRMS_profiling.R
-    GC-MS_profiling_deconvolution.R
-    flags.R
-    metaboWorkflows.R
-    access.R
-    plotting.R
-    availableWorkflows.R
-Suggests: knitr,
-    rmarkdown,
+Depends: R (>= 3.4.0)
+Imports: projecttemplates, 
+        chunky,
+        cli, 
+        crayon, 
+        gh,
+        glue,
+        magrittr,
+        methods,
+        purrr,
+        rlang,
+        rstudioapi,
+        stringr,
+        styler,
+        tarchetypes,
+        targets,
+        yaml
+Suggests: 
+    knitr,
+    testthat (>= 3.0.0),
     metaboData,
-    readr,
+    covr,
+    visNetwork,
+    rmarkdown,
     prettydoc,
-    testthat,
-    covr
-Remotes: aberHRML/binneR,
-        jasenfinch/metabolyseR,
-        jasenfinch/MFassign,
-        jasenfinch/profilePro,
-        jasenfinch/metaboMisc
+    tibble
+Collate: input.R metaboWorkflows.R project.R target.R 
+         workflow.R targets.R edit.R utils.R generate.R
+         define.R reexports.R glimpse.R check.R output.R
+         readme.R docker.R validate.R manifest.R
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
-Additional_repositories: https://aberhrml.github.io/drat/
+Remotes: jasenfinch/projecttemplates,
+        jasenfinch/chunky

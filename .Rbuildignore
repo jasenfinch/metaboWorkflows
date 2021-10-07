@@ -4,3 +4,10 @@
 ^LICENSE\.md$
 ^codecov\.yml$
 ^\.github$
+^doc$
+^Meta$
+^README.Rmd$
+^Example_project$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

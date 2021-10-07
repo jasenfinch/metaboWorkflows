@@ -1,0 +1,208 @@
+---
+title: "Workflow customisation and extension"
+author: "Jasen Finch"
+output: 
+  prettydoc::html_pretty:
+    toc: true
+    highlight: github
+    theme: tactile
+vignette: >
+  %\VignetteIndexEntry{Workflow customisation and extension}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette will cover the utilities provided for the user to modify workflow targets prior to generating project directories.
+Most users will likely not need this functionality as the workflows can easily be edited in the `_targets.R` file after project generation.
+However, where there is need for workflow targets to be modified routinely, the package provides this functionality for programmatic customisation and extension. 
+
+If not already familiar with the basics of how to use the package, see the [Introduction vignette](metaboWorkflows.html) for details on how to get started.
+
+This vignette will not cover the aspects of what makes good workflow targets. 
+For more information on this topic, see the targets package [documenation](https://books.ropensci.org/targets/targets.html).
+
+Firstly, load the package:
+
+```{r setup}
+library(metaboWorkflows)
+```
+
+## Generating custom workflow targets
+
+The `target()` function can be used for easy programmatic definition of a workflow target.
+The following defines a `tar_target` called `a_target`, that will execute the R expression `1 + 1`, and includes the persistent memory argument with a preceding comment.
+
+```{r target-example}
+workflow_target <- target('a_target',
+                          1 + 1,
+                          type = 'tar_target',
+                          args = list(memory = 'persistent'), 
+                          comment = 'A target')
+```
+
+This creates an S4 object of class `Target` that contains the target definition.
+Printing `workflow_target` will display the R code for the target definition:
+
+```{r target-example-print}
+workflow_target
+```
+
+The object can be further modified if needed using accessor methods for the `Target` class.
+For instance, the following will modify the target R code:
+
+```{r modify-target-example}
+command(workflow_target) <- rlang::expr(1 * 2)
+
+workflow_target
+```
+
+See `` ?`Target-accessors` `` for more details of the available accessor methods.
+
+It is recommended that the source package names, for any functions used in the R command, be specified using the `pkg::function` notation.
+This will ensure that these dependency packages can be detected and installed by `renv` during project directory generation.
+
+Any custom targets from which either a plot or table output is to be included in the R Markdown report output, `plot` or `summary` should be included respectively in the target name to ensure that the relevant R Markdown code chunks are generated in the report. 
+
+## Modifying existing workflow template targets
+
+We can first define an example workflow:
+
+```{r workflow-definition}
+file_paths <- metaboData::filePaths('FIE-HRMS','BdistachyonEcotypes')
+sample_information <- metaboData::runinfo('FIE-HRMS','BdistachyonEcotypes')
+
+workflow_input <- inputFilePath(file_paths,sample_information)
+
+workflow_definition <- defineWorkflow(workflow_input,
+                                      'FIE-HRMS fingerprinting',
+                                      'Example project')
+```
+
+Printing `workflow_definition` provides an overview of the definition.
+
+```{r workflow-definition-print}
+workflow_definition
+```
+
+### Inspecting a workflow
+
+When modifying a workflow, it is essential to properly inspect the resulting pipeline, due to the interdependence of the workflow targets,
+The package contains a number of tools based on those available in the [targets](https://books.ropensci.org/targets/walkthrough.html#inspect-the-pipeline) package, that facilitate the user to inspect workflow definitions prior to project generation.
+
+A tibble of the containing information about the targets within a workflow definition can be returned using:
+
+```{r workflow-manifest}
+manifest(workflow_definition)
+```
+
+The workflow network graph can be plotted to visualise the links between the individual targets.
+
+```{r glimpse-workflow}
+glimpse(workflow_definition)
+```
+
+This is useful when modifying a workflow as it allows its integrity to be visually inspected, ensuring that targets are correctly connected.
+
+The workflow can also validated to check for any potential problems.
+
+```{r validate-workflow}
+validate(workflow_definition)
+```
+
+An error or a warning will be thrown if problems are encountered.
+
+### Workflow structure
+
+The template workflow targets are arranged into modules.
+These modules allow the user to specify groups of related targets.
+These also specify the individual section headings of the R Markdown report output. 
+
+Below shows the modules defined in the example workflow.
+
+```{r workflow-modules}
+modules(workflow_definition)
+```
+
+The workflow target definitions are stored as a list, nested by the modules. 
+This list can be accessed using the `targets()` method.
+Below shows the targets available in the `input` module.
+
+```{r input-targets}
+targets(workflow_definition)$input
+```
+
+### Modifying individual workflow targets
+
+There are a number of convenience methods available to facilitate modifying the individual targets within a workflow defnintion.
+
+These methods include:
+
+* `targetReplace()`
+* `targetRemove()`
+* `targetAdd()`
+
+See `` ?`workflow-edit` `` for more details on these methods.
+
+As a simple example, the following will remove the `mzML` target from the `input` module of the workflow definition.
+
+```{r remove-target}
+workflow_definition <- targetRemove(workflow_definition,
+                                 'input',
+                                 'mzML')
+```
+
+The modified workflow can then be visualised.
+
+```{r glimpse-removed-target}
+glimpse(workflow_definition)
+```
+
+As can be seen above, the `file_paths_list` target is now isolated.
+This suggest that the generated workflow project may not function as expected and pipeline errors could be encountered.
+
+### Modifying workflow modules
+
+Similarly as for modifying workflow targets, there are also methods for modifying whole module groups of targets.
+
+These methods include:
+
+* `moduleReplace()`
+* `modulesRemove()`
+* `modulesKeep()`
+* `moduleAdd()`
+
+See `` ?`workflow-edit` `` for more details on these target methods.
+
+For example, the following will replace the `spectral_processing` module with a list group of alternative of targets.
+
+```{r replace-module}
+workflow_definition <- moduleReplace(workflow_definition,
+                                     'spectral_processing',
+                                     list(
+                                       a_target = target('a_target',
+                                              1 + 1,
+                                              args = list(memory = 'persistent'),
+                                              comment = 'A target')
+
+                                     ))
+```
+
+Then visualising the modified workflow definition to check the resulting pipeline.
+
+```{r glimpse-replaced-module}
+glimpse(workflow_definition)
+```
+
+As can be seen above, there are now a number of targets that have been orphaned by the replacement of this module, including the replacement targets, where before the targets were connected between the modules.
+
+With this modification, it is unlikely that the generated workflow project from this definition could be successfully executed by the user and errors would be encountered.
+Further modifications would be needed to ensure that a valid pipeline is generated.
