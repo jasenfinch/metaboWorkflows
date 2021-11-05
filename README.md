@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/jasenfinch/metaboWorkflows/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/metaboWorkflows?branch=master)
 [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jasenfinch/metaboWorkflows/blob/master/DESCRIPTION)
+[![GitHub
+release](https://img.shields.io/github/release/jasenfinch/metaboWorkflows.svg)](https://GitHub.com/jasenfinch/metaboWorkflows/releases/)
 <!-- badges: end -->
 
 > Workflow Project Templates for Metabolomics Analyses
