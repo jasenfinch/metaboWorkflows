@@ -346,9 +346,11 @@ pre_treatment_commands <- list(
   plot_LDA = 'metabolyseR::plotLDA(pre_treated,
                                    type = "pre-treated")',
   plot_unsupervised_RF = 'metabolyseR::plotUnsupervisedRF(pre_treated,
-                                                          type = "pre-treated")',
+                                                          type = "pre-treated",
+                                                          title = "Unsupervised random forest")',
   plot_supervised_RF = 'metabolyseR::plotSupervisedRF(pre_treated,
-                                                      type = "pre-treated")'
+                                                      type = "pre-treated",
+                                                      title = "Supervised random forest")'
 )
 
 #' @rdname targetsWorkflow
