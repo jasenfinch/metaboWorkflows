@@ -1,3 +1,7 @@
+# metaboWOrkflows 0.9.1
+
+* Added titles to supervised and unsupervised random forest MDS plots.
+
 # metaboWorkflows 0.9.0
 
 * Added a `NEWS.md` file to track changes to the package.
