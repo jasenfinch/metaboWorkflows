@@ -258,31 +258,31 @@
 <span class='r-in'><span class='fu'>targets</span><span class='op'>(</span><span class='va'>workflow_definition</span><span class='op'>)</span><span class='op'>$</span><span class='va'>input</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $file_paths_list</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retrieve data file paths</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_file</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   file_paths_list,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #BBBB00;'>"data/file_paths.txt"</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "data/file_paths.txt"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $mzML</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Track individual data files</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_files</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   mzML,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #00BBBB;'>readLines</span><span style='color: #0000BB;'>(</span>file_paths_list<span style='color: #0000BB;'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   readLines(file_paths_list)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $sample_information_file</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Sample information file path</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_file</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   sample_information_file,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #BBBB00;'>"data/runinfo.csv"</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "data/runinfo.csv"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $sample_information</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Parse sample information</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   sample_information,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   readr::<span style='color: #00BBBB;'>read_csv</span><span style='color: #0000BB;'>(</span>sample_information_file<span style='color: #0000BB;'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   readr::read_csv(sample_information_file)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## Set the workflow targets</span></span>
