@@ -67,7 +67,7 @@ setGeneric('biocDependencies',function(x)
 
 setMethod('biocDependencies',signature = 'Workflow',
           function(x){
-            c('mzR','BiocParallel','xcms','MSnbase')
+            c('mzR','BiocParallel','xcms','MSnbase','rawrr')
           })
 
 setGeneric('otherInputDependencies',function(x)
@@ -80,7 +80,7 @@ setMethod('otherInputDependencies',signature = 'FilePathInput',
 
 setMethod('otherInputDependencies',signature = 'GroverInput',
           function(x){
-            'http://fgcz-ms.uzh.ch/~cpanse/rawrr_0.2.5.tar.gz'
+            character()
           })
 
 setGeneric('otherDependencies',function(x)
