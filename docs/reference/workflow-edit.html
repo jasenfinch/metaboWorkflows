@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -204,44 +204,44 @@
     <p>S4 object of class <code>Workflow</code> with edited targets</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Define a workflow</span>
-<span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-<span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-
-<span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span>
-
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineWorkflow.html'>defineWorkflow</a></span><span class='op'>(</span><span class='va'>workflow_input</span>,
-                                     <span class='st'>'FIE-HRMS fingerprinting'</span>,
-                                     <span class='st'>'Example project'</span><span class='op'>)</span>
-                                     
-<span class='co'>## Add a module</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>moduleAdd</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                 <span class='st'>'additional_module'</span>,
-                                 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>new_target <span class='op'>=</span> <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 1'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'>## Replace the additional module</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>moduleReplace</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                     <span class='st'>'additional_module'</span>,
-                                     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>replacement_target <span class='op'>=</span> <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'replacement_target'</span>,
-                                     <span class='st'>'1 + 2'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'>## Remove the additional module</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>modulesRemove</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                    <span class='st'>'additional_module'</span><span class='op'>)</span>
-
-<span class='co'>## Add a target to the input module</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetAdd</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                 <span class='st'>'input'</span>,
-                                 <span class='st'>'new_target'</span>,
-                                 <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 1'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'>## Replace the additional target</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetReplace</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                 <span class='st'>'input'</span>,
-                                 <span class='st'>'new_target'</span>,
-                                 <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 2'</span><span class='op'>)</span><span class='op'>)</span> 
-<span class='co'>## Remove the additional target</span>
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetRemove</span><span class='op'>(</span><span class='va'>workflow_definition</span>,
-                                 <span class='st'>'input'</span>,
-                                 <span class='st'>'new_target'</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## Define a workflow</span></span>
+<span class='r-in'><span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineWorkflow.html'>defineWorkflow</a></span><span class='op'>(</span><span class='va'>workflow_input</span>,</span>
+<span class='r-in'>                                     <span class='st'>'FIE-HRMS fingerprinting'</span>,</span>
+<span class='r-in'>                                     <span class='st'>'Example project'</span><span class='op'>)</span></span>
+<span class='r-in'>                                     </span>
+<span class='r-in'><span class='co'>## Add a module</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>moduleAdd</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                 <span class='st'>'additional_module'</span>,</span>
+<span class='r-in'>                                 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>new_target <span class='op'>=</span> <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 1'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Replace the additional module</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>moduleReplace</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                     <span class='st'>'additional_module'</span>,</span>
+<span class='r-in'>                                     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>replacement_target <span class='op'>=</span> <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'replacement_target'</span>,</span>
+<span class='r-in'>                                     <span class='st'>'1 + 2'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Remove the additional module</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>modulesRemove</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                    <span class='st'>'additional_module'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Add a target to the input module</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetAdd</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                 <span class='st'>'input'</span>,</span>
+<span class='r-in'>                                 <span class='st'>'new_target'</span>,</span>
+<span class='r-in'>                                 <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 1'</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Replace the additional target</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetReplace</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                 <span class='st'>'input'</span>,</span>
+<span class='r-in'>                                 <span class='st'>'new_target'</span>,</span>
+<span class='r-in'>                                 <span class='fu'><a href='target.html'>target</a></span><span class='op'>(</span><span class='st'>'new_target'</span>,<span class='st'>'1 + 2'</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='co'>## Remove the additional target</span></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'>targetRemove</span><span class='op'>(</span><span class='va'>workflow_definition</span>,</span>
+<span class='r-in'>                                 <span class='st'>'input'</span>,</span>
+<span class='r-in'>                                 <span class='st'>'new_target'</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

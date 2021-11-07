@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -230,56 +230,64 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>workflow_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineProject.html'>defineProject</a></span><span class='op'>(</span><span class='st'>'A metabolomics project'</span><span class='op'>)</span>
-
-<span class='co'>## Return the project name</span>
-<span class='fu'>projectName</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "A metabolomics project"</div><div class='input'>
-<span class='co'>## Set the project name</span>
-<span class='fu'>projectName</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'A new name'</span>
-
-<span class='co'>## Return the project directory path</span>
-<span class='fu'>path</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "."</div><div class='input'>
-<span class='co'>## Set the project directory path</span>
-<span class='fu'>path</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'./a_directory'</span>
-
-<span class='co'>## Return the project renv option</span>
-<span class='fu'>renv</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'>## Set the project renv option</span>
-<span class='fu'>renv</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span>
-
-<span class='co'>## Return the project docker option</span>
-<span class='fu'>docker</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'>## Set the project docker option</span>
-<span class='fu'>docker</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span>
-
-<span class='co'>## Return the project github option</span>
-<span class='fu'>github</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## Set the project github option</span>
-<span class='fu'>github</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-
-<span class='co'>## Return the project private option</span>
-<span class='fu'>private</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## Set the project private option</span>
-<span class='fu'>private</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-
-<span class='co'>## Return the project github actions option</span>
-<span class='fu'>githubActions</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## Set the project github actions option</span>
-<span class='fu'>githubActions</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-
-<span class='co'>## Return the project force option</span>
-<span class='fu'>force</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## Set the project force option</span>
-<span class='fu'>force</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>workflow_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineProject.html'>defineProject</a></span><span class='op'>(</span><span class='st'>'A metabolomics project'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project name</span></span>
+<span class='r-in'><span class='fu'>projectName</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "A metabolomics project"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project name</span></span>
+<span class='r-in'><span class='fu'>projectName</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'A new name'</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project directory path</span></span>
+<span class='r-in'><span class='fu'>path</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "."</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project directory path</span></span>
+<span class='r-in'><span class='fu'>path</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'./a_directory'</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project renv option</span></span>
+<span class='r-in'><span class='fu'>renv</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project renv option</span></span>
+<span class='r-in'><span class='fu'>renv</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project docker option</span></span>
+<span class='r-in'><span class='fu'>docker</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project docker option</span></span>
+<span class='r-in'><span class='fu'>docker</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project github option</span></span>
+<span class='r-in'><span class='fu'>github</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project github option</span></span>
+<span class='r-in'><span class='fu'>github</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project private option</span></span>
+<span class='r-in'><span class='fu'>private</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project private option</span></span>
+<span class='r-in'><span class='fu'>private</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project github actions option</span></span>
+<span class='r-in'><span class='fu'>githubActions</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project github actions option</span></span>
+<span class='r-in'><span class='fu'>githubActions</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the project force option</span></span>
+<span class='r-in'><span class='fu'>force</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the project force option</span></span>
+<span class='r-in'><span class='fu'>force</span><span class='op'>(</span><span class='va'>workflow_project</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
