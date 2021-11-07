@@ -2,6 +2,8 @@
 
 * Added titles to supervised and unsupervised random forest MDS plots.
 
+* [`rawrr`](https://bioconductor.org/packages/release/bioc/html/rawrr.html) package now install now directed to Bioconductor for  [`renv`](https://rstudio.github.io/renv/) initialisation.
+
 # metaboWorkflows 0.9.0
 
 * Added a `NEWS.md` file to track changes to the package.
