@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -170,37 +170,38 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-<span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-
-<span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span>
-
-<span class='co'>## Return the input file paths</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>filePaths</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='co'>## Set the input file paths</span>
-<span class='fu'>filePaths</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a_file.mzML'</span><span class='op'>)</span>
-
-<span class='co'>## Return the sample information </span>
-<span class='fu'>sampleInformation</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 68 × 7</span>
-#&gt;    fileOrder injOrder fileName   batch block name    class
-#&gt;        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>         1       64 1.mzML.gz      1     5 ABR1_1  ABR1 
-#&gt; <span style='color: #BCBCBC;'> 2</span>         2       40 10.mzML.gz     1     3 ABR1_10 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 3</span>         3       52 11.mzML.gz     1     4 ABR1_11 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 4</span>         4       67 12.mzML.gz     1     5 ABR1_12 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 5</span>         5       32 13.mzML.gz     1     3 ABR1_13 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 6</span>         6       53 14.mzML.gz     1     4 ABR1_14 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 7</span>         7        4 15.mzML.gz     1     1 ABR1_15 ABR1 
-#&gt; <span style='color: #BCBCBC;'> 8</span>         8       34 16.mzML.gz     1     3 ABR5_1  ABR5 
-#&gt; <span style='color: #BCBCBC;'> 9</span>         9       38 17.mzML.gz     1     3 ABR5_2  ABR5 
-#&gt; <span style='color: #BCBCBC;'>10</span>        10       59 18.mzML.gz     1     5 ABR5_3  ABR5 
-#&gt; <span style='color: #949494;'># … with 58 more rows</span></div><div class='input'>
-<span class='co'>## Set the sample information</span>
-<span class='fu'>sampleInformation</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>fileName <span class='op'>=</span> <span class='st'>'a_file.mzML'</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the input file paths</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>filePaths</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='co'>## Set the input file paths</span></span>
+<span class='r-in'><span class='fu'>filePaths</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a_file.mzML'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Return the sample information </span></span>
+<span class='r-in'><span class='fu'>sampleInformation</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 68 × 7</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    fileOrder injOrder fileName   batch block name    class</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>         1       64 1.mzML.gz      1     5 ABR1_1  ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>         2       40 10.mzML.gz     1     3 ABR1_10 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>         3       52 11.mzML.gz     1     4 ABR1_11 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>         4       67 12.mzML.gz     1     5 ABR1_12 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>         5       32 13.mzML.gz     1     3 ABR1_13 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>         6       53 14.mzML.gz     1     4 ABR1_14 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>         7        4 15.mzML.gz     1     1 ABR1_15 ABR1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>         8       34 16.mzML.gz     1     3 ABR5_1  ABR5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>         9       38 17.mzML.gz     1     3 ABR5_2  ABR5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>        10       59 18.mzML.gz     1     5 ABR5_3  ABR5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 58 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Set the sample information</span></span>
+<span class='r-in'><span class='fu'>sampleInformation</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>fileName <span class='op'>=</span> <span class='st'>'a_file.mzML'</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

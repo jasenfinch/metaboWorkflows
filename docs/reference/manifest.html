@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -151,30 +151,31 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-<span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span>
-
-<span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span>
-
-<span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineWorkflow.html'>defineWorkflow</a></span><span class='op'>(</span><span class='va'>workflow_input</span>,
-                                      <span class='st'>'FIE-HRMS fingerprinting'</span>,
-                                      <span class='st'>'Example project'</span><span class='op'>)</span>
-                 
-<span class='fu'>manifest</span><span class='op'>(</span><span class='va'>workflow_definition</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 42 × 3</span>
-#&gt;    name                                    command                     pattern  
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 1</span> correlations_parameters                 <span style='color: #949494;'>"</span>metabolyseR::analysisPara… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 2</span> molecular_formula_assignment_parameters <span style='color: #949494;'>"</span>MFassign::assignmentParam… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 3</span> sample_information_file                 <span style='color: #949494;'>"</span>\"data/runinfo.csv\"<span style='color: #949494;'>"</span>      <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 4</span> file_paths_list                         <span style='color: #949494;'>"</span>\"data/file_paths.txt\"<span style='color: #949494;'>"</span>   <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 5</span> sample_information                      <span style='color: #949494;'>"</span>readr::read_csv(sample_in… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 6</span> mzML_files                              <span style='color: #949494;'>"</span>readLines(file_paths_list… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 7</span> mzML                                    <span style='color: #949494;'>"</span>mzML_files<span style='color: #949494;'>"</span>                map(mzML…
-#&gt; <span style='color: #BCBCBC;'> 8</span> spectral_processing_parameters          <span style='color: #949494;'>"</span>binneR::detectParameters(… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'> 9</span> spectral_processed                      <span style='color: #949494;'>"</span>binneR::binneRlyse(mzML, … <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #BCBCBC;'>10</span> plot_TIC                                <span style='color: #949494;'>"</span>binneR::plotTIC(spectral_… <span style='color: #BB0000;'>NA</span>       
-#&gt; <span style='color: #949494;'># … with 32 more rows</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>file_paths</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/filePaths.html'>filePaths</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sample_information</span> <span class='op'>&lt;-</span> <span class='fu'>metaboData</span><span class='fu'>::</span><span class='fu'><a href='https://aberHRML.github.io/metaboData//reference/runinfo.html'>runinfo</a></span><span class='op'>(</span><span class='st'>'FIE-HRMS'</span>,<span class='st'>'BdistachyonEcotypes'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>workflow_input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='inputFilePath.html'>inputFilePath</a></span><span class='op'>(</span><span class='va'>file_paths</span>,<span class='va'>sample_information</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>workflow_definition</span> <span class='op'>&lt;-</span> <span class='fu'><a href='defineWorkflow.html'>defineWorkflow</a></span><span class='op'>(</span><span class='va'>workflow_input</span>,</span>
+<span class='r-in'>                                      <span class='st'>'FIE-HRMS fingerprinting'</span>,</span>
+<span class='r-in'>                                      <span class='st'>'Example project'</span><span class='op'>)</span></span>
+<span class='r-in'>                 </span>
+<span class='r-in'><span class='fu'>manifest</span><span class='op'>(</span><span class='va'>workflow_definition</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 42 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    name                                    command                     pattern  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> correlations_parameters                 <span style='color: #949494;'>"</span>metabolyseR::analysisPara… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> molecular_formula_assignment_parameters <span style='color: #949494;'>"</span>MFassign::assignmentParam… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> sample_information_file                 <span style='color: #949494;'>"</span>\"data/runinfo.csv\"<span style='color: #949494;'>"</span>      <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> file_paths_list                         <span style='color: #949494;'>"</span>\"data/file_paths.txt\"<span style='color: #949494;'>"</span>   <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> sample_information                      <span style='color: #949494;'>"</span>readr::read_csv(sample_in… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> mzML_files                              <span style='color: #949494;'>"</span>readLines(file_paths_list… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> mzML                                    <span style='color: #949494;'>"</span>mzML_files<span style='color: #949494;'>"</span>                map(mzML…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> spectral_processing_parameters          <span style='color: #949494;'>"</span>binneR::detectParameters(… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> spectral_processed                      <span style='color: #949494;'>"</span>binneR::binneRlyse(mzML, … <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> plot_TIC                                <span style='color: #949494;'>"</span>binneR::plotTIC(spectral_… <span style='color: #BB0000;'>NA</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 32 more rows</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
