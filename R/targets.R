@@ -35,8 +35,8 @@ fingerprinting <- function(x){
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
     pre_treatment = targetsPretreatment(workflow_type),
-    molecular_formula_assignment = targetsMFassignment(workflow_type),
-    modelling = targetsModelling(workflow_type),
+    results_molecular_formula_assignment = targetsMFassignment(workflow_type),
+    results_modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
     report = targetsReport(workflow_type)
   )
@@ -53,7 +53,7 @@ GCprofiling <- function(x){
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
     pre_treatment = targetsPretreatment(workflow_type),
-    modelling = targetsModelling(workflow_type),
+    results_modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
     report = targetsReport(workflow_type)
   )
@@ -318,22 +318,22 @@ targetsSpectralProcessing <- function(x){
 }
 
 pre_treatment_commands <- list(
-  pre_treatment_parameters = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
-  pre_treated = 'metaboMisc::preTreatModes(results_spectral_processing,
-                                           pre_treatment_parameters)',
-  export_pre_treated = 'metaboMisc::exportData(pre_treated,
+  parameters_pre_treatment = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
+  results_pre_treatment = 'metaboMisc::preTreatModes(results_spectral_processing,
+                                           parameters_pre_treatment)',
+  export_results_pre_treatment = 'metaboMisc::exportData(results_pre_treatment,
                                                type = "pre-treated",
                                                outPath = "exports/pre-treated")',
-  export_pre_treated_sample_info = 'metaboMisc::exportSampleInfo(pre_treated,
+  export_results_pre_treatment_sample_info = 'metaboMisc::exportSampleInfo(results_pre_treatment,
                                                                  outPath = "exports/pre-treated")',
-  plot_PCA = 'metabolyseR::plotPCA(pre_treated,
+  plot_PCA = 'metabolyseR::plotPCA(results_pre_treatment,
                                    type = "pre-treated")',
-  plot_LDA = 'metabolyseR::plotLDA(pre_treated,
+  plot_LDA = 'metabolyseR::plotLDA(results_pre_treatment,
                                    type = "pre-treated")',
-  plot_unsupervised_RF = 'metabolyseR::plotUnsupervisedRF(pre_treated,
+  plot_unsupervised_RF = 'metabolyseR::plotUnsupervisedRF(results_pre_treatment,
                                                           type = "pre-treated",
                                                           title = "Unsupervised random forest")',
-  plot_supervised_RF = 'metabolyseR::plotSupervisedRF(pre_treated,
+  plot_supervised_RF = 'metabolyseR::plotSupervisedRF(results_pre_treatment,
                                                       type = "pre-treated",
                                                       title = "Supervised random forest")'
 )
@@ -345,25 +345,25 @@ targetsPretreatment <- function(x){
   workflow <- checkWorkflow(x)
   
   list(
-    pre_treatment_parameters = target(
-      'pre_treatment_parameters',
-      !!parse_expr(pre_treatment_commands$pre_treatment_parameters),
+    parameters_pre_treatment = target(
+      'parameters_pre_treatment',
+      !!parse_expr(pre_treatment_commands$parameters_pre_treatment),
       comment = 'Detect pre-treatment routine parameters'
     ),
-    pre_treated = target(
-      'pre_treated',
-      !!parse_expr(pre_treatment_commands$pre_treated),
+    results_pre_treatment = target(
+      'results_pre_treatment',
+      !!parse_expr(pre_treatment_commands$results_pre_treatment),
       comment = 'Perform data pre-treatment'
     ),
-    export_pre_treated_data = target(
-      'export_pre_treated',
-      !!parse_expr(pre_treatment_commands$export_pre_treated),
+    export_results_pre_treatment_data = target(
+      'export_results_pre_treatment',
+      !!parse_expr(pre_treatment_commands$export_results_pre_treatment),
       type = 'tar_file',
       comment = 'Export pre-treated data'
     ),
-    export_pre_treated_sample_info = target(
-      'export_pre_treated_sample_info',
-      !!parse_expr(pre_treatment_commands$export_pre_treated_sample_info),
+    export_results_pre_treatment_sample_info = target(
+      'export_results_pre_treatment_sample_info',
+      !!parse_expr(pre_treatment_commands$export_results_pre_treatment_sample_info),
       type = 'tar_file',
       comment = 'Export sample information of pre-treated data'
     ),
@@ -391,14 +391,14 @@ targetsPretreatment <- function(x){
 }
 
 assignment_commands <- list(
-  molecular_formula_assignment_parameters = 'MFassign::assignmentParameters("{technique}")',
-  molecular_formula_assignment = 'pre_treated %>% 
+  parameters_molecular_formula_assignment = 'MFassign::assignmentParameters("{technique}")',
+  results_molecular_formula_assignment = 'results_pre_treatment %>% 
                                   metabolyseR::dat(type = "pre-treated") %>% 
-                                  MFassign::assignMFs(molecular_formula_assignment_parameters)',
-  assigned_data = 'metaboMisc::addAssignments(pre_treated,
-                                              molecular_formula_assignment)',
-  summary_assignments = 'MFassign::summariseAssignment(molecular_formula_assignment)',
-  export_assignments = 'metaboMisc::export(molecular_formula_assignment,
+                                  MFassign::assignMFs(parameters_molecular_formula_assignment)',
+  assigned_data = 'metaboMisc::addAssignments(results_pre_treatment,
+                                              results_molecular_formula_assignment)',
+  summary_assignments = 'MFassign::summariseAssignment(results_molecular_formula_assignment)',
+  export_assignments = 'metaboMisc::export(results_molecular_formula_assignment,
                                            outPath = "exports/molecular_formula_assignments")'
 )
 
@@ -409,9 +409,9 @@ assignmentParameters <- function(x){
                       `RP-LC-HRMS profiling` = 'RP-LC',
                       `NP-LC-HRMS profiling` = 'NP-LC')
   
-  target_command <- glue(assignment_commands$molecular_formula_assignment_parameters)
+  target_command <- glue(assignment_commands$parameters_molecular_formula_assignment)
   target(
-    'molecular_formula_assignment_parameters',
+    'parameters_molecular_formula_assignment',
     !!parse_expr(target_command),
     comment = 'Generate molecular formula assignment parameters'
   )
@@ -424,10 +424,10 @@ targetsMFassignment <- function(x){
   workflow <- checkWorkflow(x)
   
   list(
-    molecular_formula_assignment_parameters = assignmentParameters(workflow),
-    molecular_formula_assignment = target(
-      'molecular_formula_assignment',
-      !!parse_expr(assignment_commands$molecular_formula_assignment), 
+    parameters_molecular_formula_assignment = assignmentParameters(workflow),
+    results_molecular_formula_assignment = target(
+      'results_molecular_formula_assignment',
+      !!parse_expr(assignment_commands$results_molecular_formula_assignment), 
       args = list(memory = 'transient'),
       comment = 'Perform molecular formula assignment'
     ),
@@ -451,15 +451,15 @@ targetsMFassignment <- function(x){
 }
 
 modelling_commands <- list(
-  modelling_parameters = 'metaboMisc::detectModellingParameters({object_name},
+  parameters_modelling = 'metaboMisc::detectModellingParameters({object_name},
                                                                 cls = "class")',
-  modelling = 'metabolyseR::reAnalyse({object_name},
-                                      modelling_parameters)',
-  plot_explanatory_heatmap = 'metabolyseR::plotExplanatoryHeatmap(modelling)',
-  summary_modelling_metrics = 'metabolyseR::metrics(modelling)',
-  summary_modelling_importance = 'metabolyseR::importance(modelling)',
-  export_modelling = 'metaboMisc::exportModelling(modelling,
-                                                  outPath = "exports/modelling")'
+  results_modelling = 'metabolyseR::reAnalyse({object_name},
+                                      parameters_modelling)',
+  plot_explanatory_heatmap = 'metabolyseR::plotExplanatoryHeatmap(results_modelling)',
+  summary_modelling_metrics = 'metabolyseR::metrics(results_modelling)',
+  summary_modelling_importance = 'metabolyseR::importance(results_modelling)',
+  export_modelling = 'metaboMisc::exportModelling(results_modelling,
+                                                  outPath = "exports/results_modelling")'
 )
 
 #' @importFrom rlang expr
@@ -468,28 +468,28 @@ modellingTargets <- function(x){
   
   object_name <- switch(x,
                         assigned = expr(assigned_data),
-                        unassigned = expr(pre_treated))
+                        unassigned = expr(results_pre_treatment))
   
   list(
-    modelling_parameters = target(
-      'modelling_parameters',
-      !!parse_expr(glue(modelling_commands$modelling_parameters)),
-      comment = 'Detect appropriate modelling parameters'
+    parameters_modelling = target(
+      'parameters_modelling',
+      !!parse_expr(glue(modelling_commands$parameters_modelling)),
+      comment = 'Detect appropriate results_modelling parameters'
     ),
-    modelling = target(
-      'modelling',
-      !!parse_expr(glue(modelling_commands$modelling)),
-      comment = 'Perform modelling'
+    results_modelling = target(
+      'results_modelling',
+      !!parse_expr(glue(modelling_commands$results_modelling)),
+      comment = 'Perform results_modelling'
     ),
     summary_modelling_metrics = target(
       'summary_model_metrics',
       !!parse_expr(modelling_commands$summary_modelling_metrics),
-      comment = 'Retrieve modelling metrics'
+      comment = 'Retrieve results_modelling metrics'
     ),
     summary_modelling_importance = target(
       'summary_model_importance',
       !!parse_expr(modelling_commands$summary_modelling_importance),
-      comment = 'Retireve modelling feature importance'
+      comment = 'Retireve results_modelling feature importance'
     ),
     plot_explanatory_heatmap = target(
       'plot_explanatory_heatmap',
@@ -500,7 +500,7 @@ modellingTargets <- function(x){
       'export_modelling',
       !!parse_expr(modelling_commands$export_modelling),
       type = 'tar_files',
-      comment = 'Export modelling results'
+      comment = 'Export results_modelling results'
     )
   )
 }
@@ -521,11 +521,11 @@ targetsModelling <- function(x){
 }
 
 correlations_commands <- list(
-  correlations_parameters = 'metabolyseR::analysisParameters("correlations")',
+  parameters_correlations = 'metabolyseR::analysisParameters("correlations")',
   correlations = 'metabolyseR::reAnalyse({object_name},
-                                         correlations_parameters)',
-  summary_correlations = 'metabolyseR::analysisResults(correlations,"correlations")',
-  export_correlations = 'metaboMisc::exportCorrelations(correlations,
+                                         parameters_correlations)',
+  summary_correlations = 'metabolyseR::analysisResults(results_correlations,"correlations")',
+  export_correlations = 'metaboMisc::exportCorrelations(results_correlations,
                                                         outPath = "exports/correlations")'
 )
 
@@ -533,16 +533,16 @@ correlationsTargets <- function(x){
   
   object_name <- switch(x,
                         assigned = expr(assigned_data),
-                        unassigned = expr(pre_treated))
+                        unassigned = expr(results_pre_treatment))
   
   list(
-    correlations_parameters = target(
-      'correlations_parameters',
-      !!parse_expr(correlations_commands$correlations_parameters),
+    parameters_correlations = target(
+      'parameters_correlations',
+      !!parse_expr(correlations_commands$parameters_correlations),
       comment = 'Generate parameters for correlation analysis'
     ),
-    correlations = target(
-      'correlations',
+    results_correlations = target(
+      'results_correlations',
       !!parse_expr(glue(correlations_commands$correlations)),
       comment = 'Perform correlation analysis'
     ),
