@@ -19,7 +19,7 @@ reportOptions <- function(){
 
 #' @importFrom chunky chunk rmd label<-
 #' @importFrom purrr compact
-#' @importFrom stringr str_replace_all str_to_title str_detect
+#' @importFrom stringr str_replace_all str_to_title str_detect str_to_sentence
 #' @importFrom rlang parse_expr
 
 reportBody <- function(x){
@@ -60,7 +60,14 @@ reportBody <- function(x){
           sig_fig <- glue('{.x} <- metaboMisc::sanitiseTable({.x})') %>% 
           as.character() %>% 
             parse_expr()
-          summary_table <- glue('DT::datatable({.x},rownames = FALSE,filter = "top")') %>% 
+          
+          table_caption <- target_name %>% 
+            deparse() %>% 
+            str_replace_all('_',' ') %>%
+            str_replace_all('summary','summary of') %>%
+            str_to_sentence()
+          
+          summary_table <- glue('DT::datatable({.x},rownames = FALSE,filter = "top",caption = "{table_caption}")') %>% 
             as.character() %>% 
             parse_expr()
           target_chunk <- chunk(tar_load(!!target_name),
