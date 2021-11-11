@@ -457,7 +457,7 @@ modelling_commands <- list(
                                       parameters_modelling)',
   plot_explanatory_heatmap = 'metabolyseR::plotExplanatoryHeatmap(results_modelling)',
   summary_modelling_metrics = 'metabolyseR::metrics(results_modelling)',
-  summary_modelling_importance = 'metabolyseR::importance(results_modelling)',
+  summary_explanatory_features = 'metabolyseR::explanatoryFeatures(results_modelling)',
   export_modelling = 'metaboMisc::exportModelling(results_modelling,
                                                   outPath = "exports/results_modelling")'
 )
@@ -474,22 +474,22 @@ modellingTargets <- function(x){
     parameters_modelling = target(
       'parameters_modelling',
       !!parse_expr(glue(modelling_commands$parameters_modelling)),
-      comment = 'Detect appropriate results_modelling parameters'
+      comment = 'Detect appropriate modelling parameters'
     ),
     results_modelling = target(
       'results_modelling',
       !!parse_expr(glue(modelling_commands$results_modelling)),
-      comment = 'Perform results_modelling'
+      comment = 'Perform modelling'
     ),
     summary_modelling_metrics = target(
       'summary_model_metrics',
       !!parse_expr(modelling_commands$summary_modelling_metrics),
-      comment = 'Retrieve results_modelling metrics'
+      comment = 'Retrieve modelling metrics'
     ),
-    summary_modelling_importance = target(
-      'summary_model_importance',
-      !!parse_expr(modelling_commands$summary_modelling_importance),
-      comment = 'Retireve results_modelling feature importance'
+    summary_explanatory_features = target(
+      'summary_explanatory_features',
+      !!parse_expr(modelling_commands$summary_explanatory_features),
+      comment = 'Retireve modelling explanatory features'
     ),
     plot_explanatory_heatmap = target(
       'plot_explanatory_heatmap',
