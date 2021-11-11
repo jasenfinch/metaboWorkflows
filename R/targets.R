@@ -199,36 +199,36 @@ setMethod('targetsInput',signature = 'Workflow',
 
 processing_commands <- list(
   fingerprinting = list(
-    spectral_processing_parameters = 'binneR::detectParameters(mzML)',
+    parameters_spectral_processing = 'binneR::detectParameters(mzML)',
     spectral_processing = 'binneR::binneRlyse(mzML,
                                               sample_information,
-                                              spectral_processing_parameters)',
-    plot_fingerprint = 'binneR::plotFingerprint(spectral_processed)',
-    plot_chromatogram = 'binneR::plotChromatogram(spectral_processed)',
-    plot_TIC = 'binneR::plotTIC(spectral_processed)',
-    plot_purity_dist = 'binneR::plotPurity(spectral_processed)',
-    plot_centrality_dist = 'binneR::plotCentrality(spectral_processed)',
-    summary_processed_features = 'metaboMisc::featureSummary(spectral_processed)',
-    export_processed_data = 'metaboMisc::export(spectral_processed,
+                                              parameters_spectral_processing)',
+    plot_fingerprint = 'binneR::plotFingerprint(results_spectral_processing)',
+    plot_chromatogram = 'binneR::plotChromatogram(results_spectral_processing)',
+    plot_TIC = 'binneR::plotTIC(results_spectral_processing)',
+    plot_purity_dist = 'binneR::plotPurity(results_spectral_processing)',
+    plot_centrality_dist = 'binneR::plotCentrality(results_spectral_processing)',
+    summary_processed_features = 'metaboMisc::featureSummary(results_spectral_processing)',
+    export_processed_data = 'metaboMisc::export(results_spectral_processing,
                                                 outPath = "exports/spectral_processing")'
   ),
   profiling = list(
-    spectral_processing_parameters = 'profilePro::profileParameters("{parameter_specification}")',
-    spectral_processed = 'profilePro::profileProcess(mzML,
+    parameters_spectral_processing = 'profilePro::profileParameters("{parameter_specification}")',
+    results_spectral_processing = 'profilePro::profileProcess(mzML,
                                                       sample_information,
-                                                      spectral_processing_parameters)'
+                                                      parameters_spectral_processing)'
   )
 )
 
 fingerprintProcessing <- function(){
   list(
-    spectral_processing_parameters = target(
-      'spectral_processing_parameters',
-      !!parse_expr(processing_commands$fingerprinting$spectral_processing_parameters),
+    parameters_spectral_processing = target(
+      'parameters_spectral_processing',
+      !!parse_expr(processing_commands$fingerprinting$parameters_spectral_processing),
       comment = 'Detect spectral binning parameters'
     ),
-    spectral_processed = target(
-      'spectral_processed',
+    results_spectral_processing = target(
+      'results_spectral_processing',
       !!parse_expr(processing_commands$fingerprinting$spectral_processing),
       args = list(
         memory = 'transient'
@@ -238,41 +238,26 @@ fingerprintProcessing <- function(){
     plot_fingerprint = target(
       'plot_fingerprint',
       !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot average spectrum fingerprint'
     ),
     plot_chromatogram = target(
       'plot_chromatogram',
       !!parse_expr(processing_commands$fingerprinting$plot_chromatogram),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot average infusion chromatogram'
     ),
     plot_TIC = target(
       'plot_TIC',
       !!parse_expr(processing_commands$fingerprinting$plot_TIC),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot sample total ion counts by randomised block'
     ),
     plot_purity_dist = target(
       'plot_purity_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_purity_dist),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot bin purity distribution'
     ),
     plot_centrality_dist = target(
       'plot_centrality_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_centrality_dist),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot bin centrality distribution'
     ),
     summary_processed_features = target(
@@ -298,10 +283,10 @@ profilingParameters <- function(x){
                                     `NP-LC-HRMS profiling` = 'LCMS-NP',
                                     `GC-MS profiling` = 'GCMS-eRah')
   
-  target_command <-glue(processing_commands$profiling$spectral_processing_parameters) 
+  target_command <-glue(processing_commands$profiling$parameters_spectral_processing) 
   
   target(
-    'spectral_processing_parameters',
+    'parameters_spectral_processing',
     !!parse_expr(target_command),
     comment = 'Generate spectral processing parameters'
   )
@@ -309,10 +294,10 @@ profilingParameters <- function(x){
 
 profilingProcessing <- function(x){
   list(
-    spectral_processing_parameters = profilingParameters(x),
-    spectral_processed = target(
-      'spectral_processed',
-      !!parse_expr(processing_commands$profiling$spectral_processed),
+    parameters_spectral_processing = profilingParameters(x),
+    results_spectral_processing = target(
+      'results_spectral_processing',
+      !!parse_expr(processing_commands$profiling$results_spectral_processing),
       comment = 'Perform spectral processing'
     )
   )
@@ -333,8 +318,8 @@ targetsSpectralProcessing <- function(x){
 }
 
 pre_treatment_commands <- list(
-  pre_treatment_parameters = 'metaboMisc::detectPretreatmentParameters(spectral_processed)',
-  pre_treated = 'metaboMisc::preTreatModes(spectral_processed,
+  pre_treatment_parameters = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
+  pre_treated = 'metaboMisc::preTreatModes(results_spectral_processing,
                                            pre_treatment_parameters)',
   export_pre_treated = 'metaboMisc::exportData(pre_treated,
                                                type = "pre-treated",
