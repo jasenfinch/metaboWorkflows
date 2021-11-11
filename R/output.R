@@ -27,7 +27,11 @@ reportBody <- function(x){
     map(~{
       .x %>% 
         map_chr(name) %>% 
-        .[str_detect(.,'plot') | str_detect(.,'summary')]
+        .[str_detect(.,'parameters') |
+            str_detect(.,'results') |
+            str_detect(.,'plot') | 
+            str_detect(.,'summary')
+            ]
     }) %>% 
     compact()
   
