@@ -481,11 +481,6 @@ modellingTargets <- function(x){
       !!parse_expr(glue(modelling_commands$modelling)),
       comment = 'Perform modelling'
     ),
-    plot_explanatory_heatmap = target(
-      'plot_explanatory_heatmap',
-      !!parse_expr(modelling_commands$plot_explanatory_heatmap),
-      comment = 'Plot a heat map of explanatory features'
-    ),
     summary_modelling_metrics = target(
       'summary_model_metrics',
       !!parse_expr(modelling_commands$summary_modelling_metrics),
@@ -495,6 +490,11 @@ modellingTargets <- function(x){
       'summary_model_importance',
       !!parse_expr(modelling_commands$summary_modelling_importance),
       comment = 'Retireve modelling feature importance'
+    ),
+    plot_explanatory_heatmap = target(
+      'plot_explanatory_heatmap',
+      !!parse_expr(modelling_commands$plot_explanatory_heatmap),
+      comment = 'Plot a heat map of explanatory features'
     ),
     export_modelling = target(
       'export_modelling',
