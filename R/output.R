@@ -50,7 +50,9 @@ reportBody <- function(x){
         target_name <- .x %>% 
           parse_expr()
         
-        if (str_detect(.x,'plot')){
+        if (str_detect(.x,'parameters') |
+            str_detect(.x,'results') |
+            str_detect(.x,'plot')){
           target_chunk <- chunk(tar_read(!!target_name)) 
         }
         
