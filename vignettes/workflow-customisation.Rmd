@@ -71,6 +71,9 @@ It is recommended that the source package names, for any functions used in the R
 This will ensure that these dependency packages can be detected and installed by `renv` during project directory generation.
 
 Any custom targets from which either a plot or table output is to be included in the R Markdown report output, `plot` or `summary` should be included respectively in the target name to ensure that the relevant R Markdown code chunks are generated in the report. 
+The table caption for targets prefixed with `summary` will be generated from the target name after `summary`, replacing `_` with a space.
+
+Targets prefixed with `parameters` and `results` will also generate R markdown report output chunks that will print the information about target object. 
 
 ## Modifying existing workflow template targets
 

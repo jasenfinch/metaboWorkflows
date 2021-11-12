@@ -53,7 +53,7 @@ GCprofiling <- function(x){
     input = targetsInput(x),
     spectral_processing = targetsSpectralProcessing(workflow_type),
     pre_treatment = targetsPretreatment(workflow_type),
-    modelling = targetsModelling(workflow_type),
+    results_modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
     report = targetsReport(workflow_type)
   )
@@ -199,80 +199,65 @@ setMethod('targetsInput',signature = 'Workflow',
 
 processing_commands <- list(
   fingerprinting = list(
-    spectral_processing_parameters = 'binneR::detectParameters(mzML)',
-    spectral_processing = 'binneR::binneRlyse(mzML,
+    parameters_spectral_processing = 'binneR::detectParameters(mzML)',
+    results_spectral_processing = 'binneR::binneRlyse(mzML,
                                               sample_information,
-                                              spectral_processing_parameters)',
-    plot_fingerprint = 'binneR::plotFingerprint(spectral_processed)',
-    plot_chromatogram = 'binneR::plotChromatogram(spectral_processed)',
-    plot_TIC = 'binneR::plotTIC(spectral_processed)',
-    plot_purity_dist = 'binneR::plotPurity(spectral_processed)',
-    plot_centrality_dist = 'binneR::plotCentrality(spectral_processed)',
-    summary_processed_features = 'metaboMisc::featureSummary(spectral_processed)',
-    export_processed_data = 'metaboMisc::export(spectral_processed,
+                                              parameters_spectral_processing)',
+    plot_chromatogram = 'binneR::plotChromatogram(results_spectral_processing)',
+    plot_fingerprint = 'binneR::plotFingerprint(results_spectral_processing)',
+    plot_TIC = 'binneR::plotTIC(results_spectral_processing)',
+    plot_purity_dist = 'binneR::plotPurity(results_spectral_processing)',
+    plot_centrality_dist = 'binneR::plotCentrality(results_spectral_processing)',
+    summary_processed_features = 'metaboMisc::featureSummary(results_spectral_processing)',
+    export_processed_data = 'metaboMisc::export(results_spectral_processing,
                                                 outPath = "exports/spectral_processing")'
   ),
   profiling = list(
-    spectral_processing_parameters = 'profilePro::profileParameters("{parameter_specification}")',
-    spectral_processed = 'profilePro::profileProcess(mzML,
+    parameters_spectral_processing = 'profilePro::profileParameters("{parameter_specification}")',
+    results_spectral_processing = 'profilePro::profileProcess(mzML,
                                                       sample_information,
-                                                      spectral_processing_parameters)'
+                                                      parameters_spectral_processing)'
   )
 )
 
 fingerprintProcessing <- function(){
   list(
-    spectral_processing_parameters = target(
-      'spectral_processing_parameters',
-      !!parse_expr(processing_commands$fingerprinting$spectral_processing_parameters),
+    parameters_spectral_processing = target(
+      'parameters_spectral_processing',
+      !!parse_expr(processing_commands$fingerprinting$parameters_spectral_processing),
       comment = 'Detect spectral binning parameters'
     ),
-    spectral_processed = target(
-      'spectral_processed',
-      !!parse_expr(processing_commands$fingerprinting$spectral_processing),
+    results_spectral_processing = target(
+      'results_spectral_processing',
+      !!parse_expr(processing_commands$fingerprinting$results_spectral_processing),
       args = list(
         memory = 'transient'
       ),
       comment = 'Perform spectral binning'
     ),
-    plot_fingerprint = target(
-      'plot_fingerprint',
-      !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
-      args = list(
-        memory = 'transient'
-      ),
-      comment = 'Plot average spectrum fingerprint'
-    ),
     plot_chromatogram = target(
       'plot_chromatogram',
       !!parse_expr(processing_commands$fingerprinting$plot_chromatogram),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot average infusion chromatogram'
+    ),
+    plot_fingerprint = target(
+      'plot_fingerprint',
+      !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
+      comment = 'Plot average spectrum fingerprint'
     ),
     plot_TIC = target(
       'plot_TIC',
       !!parse_expr(processing_commands$fingerprinting$plot_TIC),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot sample total ion counts by randomised block'
     ),
     plot_purity_dist = target(
       'plot_purity_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_purity_dist),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot bin purity distribution'
     ),
     plot_centrality_dist = target(
       'plot_centrality_dist',
       !!parse_expr(processing_commands$fingerprinting$plot_centrality_dist),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Plot bin centrality distribution'
     ),
     summary_processed_features = target(
@@ -298,10 +283,10 @@ profilingParameters <- function(x){
                                     `NP-LC-HRMS profiling` = 'LCMS-NP',
                                     `GC-MS profiling` = 'GCMS-eRah')
   
-  target_command <-glue(processing_commands$profiling$spectral_processing_parameters) 
+  target_command <-glue(processing_commands$profiling$parameters_spectral_processing) 
   
   target(
-    'spectral_processing_parameters',
+    'parameters_spectral_processing',
     !!parse_expr(target_command),
     comment = 'Generate spectral processing parameters'
   )
@@ -309,10 +294,10 @@ profilingParameters <- function(x){
 
 profilingProcessing <- function(x){
   list(
-    spectral_processing_parameters = profilingParameters(x),
-    spectral_processed = target(
-      'spectral_processed',
-      !!parse_expr(processing_commands$profiling$spectral_processed),
+    parameters_spectral_processing = profilingParameters(x),
+    results_spectral_processing = target(
+      'results_spectral_processing',
+      !!parse_expr(processing_commands$profiling$results_spectral_processing),
       comment = 'Perform spectral processing'
     )
   )
@@ -333,22 +318,22 @@ targetsSpectralProcessing <- function(x){
 }
 
 pre_treatment_commands <- list(
-  pre_treatment_parameters = 'metaboMisc::detectPretreatmentParameters(spectral_processed)',
-  pre_treated = 'metaboMisc::preTreatModes(spectral_processed,
-                                           pre_treatment_parameters)',
-  export_pre_treated = 'metaboMisc::exportData(pre_treated,
+  parameters_pre_treatment = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
+  results_pre_treatment = 'metaboMisc::preTreatModes(results_spectral_processing,
+                                           parameters_pre_treatment)',
+  export_pre_treatment = 'metaboMisc::exportData(results_pre_treatment,
                                                type = "pre-treated",
                                                outPath = "exports/pre-treated")',
-  export_pre_treated_sample_info = 'metaboMisc::exportSampleInfo(pre_treated,
+  export_pre_treatment_sample_info = 'metaboMisc::exportSampleInfo(results_pre_treatment,
                                                                  outPath = "exports/pre-treated")',
-  plot_PCA = 'metabolyseR::plotPCA(pre_treated,
+  plot_PCA = 'metabolyseR::plotPCA(results_pre_treatment,
                                    type = "pre-treated")',
-  plot_LDA = 'metabolyseR::plotLDA(pre_treated,
+  plot_LDA = 'metabolyseR::plotLDA(results_pre_treatment,
                                    type = "pre-treated")',
-  plot_unsupervised_RF = 'metabolyseR::plotUnsupervisedRF(pre_treated,
+  plot_unsupervised_RF = 'metabolyseR::plotUnsupervisedRF(results_pre_treatment,
                                                           type = "pre-treated",
                                                           title = "Unsupervised random forest")',
-  plot_supervised_RF = 'metabolyseR::plotSupervisedRF(pre_treated,
+  plot_supervised_RF = 'metabolyseR::plotSupervisedRF(results_pre_treatment,
                                                       type = "pre-treated",
                                                       title = "Supervised random forest")'
 )
@@ -360,25 +345,25 @@ targetsPretreatment <- function(x){
   workflow <- checkWorkflow(x)
   
   list(
-    pre_treatment_parameters = target(
-      'pre_treatment_parameters',
-      !!parse_expr(pre_treatment_commands$pre_treatment_parameters),
+    parameters_pre_treatment = target(
+      'parameters_pre_treatment',
+      !!parse_expr(pre_treatment_commands$parameters_pre_treatment),
       comment = 'Detect pre-treatment routine parameters'
     ),
-    pre_treated = target(
-      'pre_treated',
-      !!parse_expr(pre_treatment_commands$pre_treated),
+    results_pre_treatment = target(
+      'results_pre_treatment',
+      !!parse_expr(pre_treatment_commands$results_pre_treatment),
       comment = 'Perform data pre-treatment'
     ),
-    export_pre_treated_data = target(
-      'export_pre_treated',
-      !!parse_expr(pre_treatment_commands$export_pre_treated),
+    export_pre_treatment_data = target(
+      'export_pre_treatment',
+      !!parse_expr(pre_treatment_commands$export_pre_treatment),
       type = 'tar_file',
       comment = 'Export pre-treated data'
     ),
-    export_pre_treated_sample_info = target(
-      'export_pre_treated_sample_info',
-      !!parse_expr(pre_treatment_commands$export_pre_treated_sample_info),
+    export_pre_treatment_sample_info = target(
+      'export_pre_treatment_sample_info',
+      !!parse_expr(pre_treatment_commands$export_pre_treatment_sample_info),
       type = 'tar_file',
       comment = 'Export sample information of pre-treated data'
     ),
@@ -406,14 +391,14 @@ targetsPretreatment <- function(x){
 }
 
 assignment_commands <- list(
-  molecular_formula_assignment_parameters = 'MFassign::assignmentParameters("{technique}")',
-  molecular_formula_assignment = 'pre_treated %>% 
+  parameters_molecular_formula_assignment = 'MFassign::assignmentParameters("{technique}")',
+  results_molecular_formula_assignment = 'results_pre_treatment %>% 
                                   metabolyseR::dat(type = "pre-treated") %>% 
-                                  MFassign::assignMFs(molecular_formula_assignment_parameters)',
-  assigned_data = 'metaboMisc::addAssignments(pre_treated,
-                                              molecular_formula_assignment)',
-  summary_assignments = 'MFassign::summariseAssignment(molecular_formula_assignment)',
-  export_assignments = 'metaboMisc::export(molecular_formula_assignment,
+                                  MFassign::assignMFs(parameters_molecular_formula_assignment)',
+  assigned_data = 'metaboMisc::addAssignments(results_pre_treatment,
+                                              results_molecular_formula_assignment)',
+  summary_assignments = 'MFassign::summariseAssignment(results_molecular_formula_assignment)',
+  export_assignments = 'metaboMisc::export(results_molecular_formula_assignment,
                                            outPath = "exports/molecular_formula_assignments")'
 )
 
@@ -424,9 +409,9 @@ assignmentParameters <- function(x){
                       `RP-LC-HRMS profiling` = 'RP-LC',
                       `NP-LC-HRMS profiling` = 'NP-LC')
   
-  target_command <- glue(assignment_commands$molecular_formula_assignment_parameters)
+  target_command <- glue(assignment_commands$parameters_molecular_formula_assignment)
   target(
-    'molecular_formula_assignment_parameters',
+    'parameters_molecular_formula_assignment',
     !!parse_expr(target_command),
     comment = 'Generate molecular formula assignment parameters'
   )
@@ -439,10 +424,10 @@ targetsMFassignment <- function(x){
   workflow <- checkWorkflow(x)
   
   list(
-    molecular_formula_assignment_parameters = assignmentParameters(workflow),
-    molecular_formula_assignment = target(
-      'molecular_formula_assignment',
-      !!parse_expr(assignment_commands$molecular_formula_assignment), 
+    parameters_molecular_formula_assignment = assignmentParameters(workflow),
+    results_molecular_formula_assignment = target(
+      'results_molecular_formula_assignment',
+      !!parse_expr(assignment_commands$results_molecular_formula_assignment), 
       args = list(memory = 'transient'),
       comment = 'Perform molecular formula assignment'
     ),
@@ -466,15 +451,15 @@ targetsMFassignment <- function(x){
 }
 
 modelling_commands <- list(
-  modelling_parameters = 'metaboMisc::detectModellingParameters({object_name},
+  parameters_modelling = 'metaboMisc::detectModellingParameters({object_name},
                                                                 cls = "class")',
-  modelling = 'metabolyseR::reAnalyse({object_name},
-                                      modelling_parameters)',
-  plot_explanatory_heatmap = 'metabolyseR::plotExplanatoryHeatmap(modelling)',
-  summary_modelling_metrics = 'metabolyseR::metrics(modelling)',
-  summary_modelling_importance = 'metabolyseR::importance(modelling)',
-  export_modelling = 'metaboMisc::exportModelling(modelling,
-                                                  outPath = "exports/modelling")'
+  results_modelling = 'metabolyseR::reAnalyse({object_name},
+                                      parameters_modelling)',
+  plot_explanatory_heatmap = 'metabolyseR::plotExplanatoryHeatmap(results_modelling)',
+  summary_modelling_metrics = 'metabolyseR::metrics(results_modelling)',
+  summary_explanatory_features = 'metabolyseR::explanatoryFeatures(results_modelling)',
+  export_modelling = 'metaboMisc::exportModelling(results_modelling,
+                                                  outPath = "exports/results_modelling")'
 )
 
 #' @importFrom rlang expr
@@ -483,39 +468,39 @@ modellingTargets <- function(x){
   
   object_name <- switch(x,
                         assigned = expr(assigned_data),
-                        unassigned = expr(pre_treated))
+                        unassigned = expr(results_pre_treatment))
   
   list(
-    modelling_parameters = target(
-      'modelling_parameters',
-      !!parse_expr(glue(modelling_commands$modelling_parameters)),
+    parameters_modelling = target(
+      'parameters_modelling',
+      !!parse_expr(glue(modelling_commands$parameters_modelling)),
       comment = 'Detect appropriate modelling parameters'
     ),
-    modelling = target(
-      'modelling',
-      !!parse_expr(glue(modelling_commands$modelling)),
+    results_modelling = target(
+      'results_modelling',
+      !!parse_expr(glue(modelling_commands$results_modelling)),
       comment = 'Perform modelling'
-    ),
-    plot_explanatory_heatmap = target(
-      'plot_explanatory_heatmap',
-      !!parse_expr(modelling_commands$plot_explanatory_heatmap),
-      comment = 'Plot a heat map of explanatory features'
     ),
     summary_modelling_metrics = target(
       'summary_model_metrics',
       !!parse_expr(modelling_commands$summary_modelling_metrics),
       comment = 'Retrieve modelling metrics'
     ),
-    summary_modelling_importance = target(
-      'summary_model_importance',
-      !!parse_expr(modelling_commands$summary_modelling_importance),
-      comment = 'Retireve modelling feature importance'
+    summary_explanatory_features = target(
+      'summary_explanatory_features',
+      !!parse_expr(modelling_commands$summary_explanatory_features),
+      comment = 'Retireve modelling explanatory features'
+    ),
+    plot_explanatory_heatmap = target(
+      'plot_explanatory_heatmap',
+      !!parse_expr(modelling_commands$plot_explanatory_heatmap),
+      comment = 'Plot a heat map of explanatory features'
     ),
     export_modelling = target(
       'export_modelling',
       !!parse_expr(modelling_commands$export_modelling),
       type = 'tar_files',
-      comment = 'Export modelling results'
+      comment = 'Export results_modelling results'
     )
   )
 }
@@ -536,11 +521,11 @@ targetsModelling <- function(x){
 }
 
 correlations_commands <- list(
-  correlations_parameters = 'metabolyseR::analysisParameters("correlations")',
+  parameters_correlations = 'metabolyseR::analysisParameters("correlations")',
   correlations = 'metabolyseR::reAnalyse({object_name},
-                                         correlations_parameters)',
-  summary_correlations = 'metabolyseR::analysisResults(correlations,"correlations")',
-  export_correlations = 'metaboMisc::exportCorrelations(correlations,
+                                         parameters_correlations)',
+  summary_correlations = 'metabolyseR::analysisResults(results_correlations,"correlations")',
+  export_correlations = 'metaboMisc::exportCorrelations(results_correlations,
                                                         outPath = "exports/correlations")'
 )
 
@@ -548,16 +533,16 @@ correlationsTargets <- function(x){
   
   object_name <- switch(x,
                         assigned = expr(assigned_data),
-                        unassigned = expr(pre_treated))
+                        unassigned = expr(results_pre_treatment))
   
   list(
-    correlations_parameters = target(
-      'correlations_parameters',
-      !!parse_expr(correlations_commands$correlations_parameters),
+    parameters_correlations = target(
+      'parameters_correlations',
+      !!parse_expr(correlations_commands$parameters_correlations),
       comment = 'Generate parameters for correlation analysis'
     ),
-    correlations = target(
-      'correlations',
+    results_correlations = target(
+      'results_correlations',
       !!parse_expr(glue(correlations_commands$correlations)),
       comment = 'Perform correlation analysis'
     ),

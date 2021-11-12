@@ -158,11 +158,19 @@ The additional `start` argument can be used to automatically open the project di
 Below shows an overview of the generated `Example project` project directory:
 
 ```
-Example_project/
+Example_project
 ├── Dockerfile
 ├── Example_project.Rproj
 ├── R
 │   ├── functions
+│   ├── targets
+│   │   ├── correlations_targets.R
+│   │   ├── input_targets.R
+│   │   ├── modelling_targets.R
+│   │   ├── molecular_formula_assignment_targets.R
+│   │   ├── pre_treatment_targets.R
+│   │   ├── report_targets.R
+│   │   └── spectral_processing_targets.R
 │   └── utils.R
 ├── README.md
 ├── _targets.R
@@ -190,9 +198,11 @@ Here, a brief overview of some of the important components will be given.
 
 `R/functions` - Scripts containing additional functions can be placed here.
 
+`R/targets` - This directory contains scripts for the target definitions of each module of the workflow.
+
 `R/utils.R` - This contains any code related to loading packages.
 
-`_targets.R` - This script contains the formal definition of the workflow with the analysis code for each of the target components of the workflow. 
+`_targets.R` - This script contains the formal definition of the workflow. This script sets options for the workflow as well as sources all the necessary scripts in the project directory.
 See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about the this file.
 
 `data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected.
