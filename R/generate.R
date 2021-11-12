@@ -139,9 +139,9 @@ editTargetsScript <- function(project_directory){
 #' @importFrom glue glue_collapse
 #' @importFrom styler style_file
 
-targetsList <- function(workflow_targets){
+targetsList <- function(module_targets){
   
-  workflow_targets <- workflow_targets %>%
+  module_targets <- module_targets %>%
     map(~{
       wt <- .x
       wt %>%
@@ -184,18 +184,27 @@ targetsList <- function(workflow_targets){
   return(workflow_targets)
 }
 
+modulesList <- function(workflow_targets){
+  workflow_modules <- workflow_targets %>% 
+    names() %>% 
+    paste0('_targets') %>% 
+    paste0(collapse = ',\n')
+  
+  glue('list({workflow_modules})')
+}
+
 #' @importFrom utils capture.output
 
 writeTargets <- function(workflow_targets,project_directory){
   
   dir.create(paste0(project_directory,'/R/targets'))
   
-  targets_list <- targetsList(workflow_targets)
+  modules_list <- modulesList(workflow_targets)
   
   file_path <- paste0(project_directory,
                       '/_targets.R')
   
-  write(targets_list,
+  write(modules_list,
         file_path,
         append = TRUE)
   
