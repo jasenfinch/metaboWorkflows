@@ -46,11 +46,12 @@ setMethod('generateWorkflow',signature = 'Workflow',
             targetsRun(project_directory,
                        renv = renv(workflow))
             
-            writeTargets(targets(workflow),paste0(project_directory,'/_targets.R'))
+            writeTargets(targets(workflow),
+                         project_directory)
             
             utils(glue('{project_directory}/R'),
                   cran = c('purrr','targets','tarchetypes')
-                  )
+            )
             
             inputPrep(workflow)
             
@@ -123,11 +124,17 @@ addHeader <- function(file){
 editTargetsScript <- function(project_directory){
   addHeader(paste0(project_directory,'/_targets.R'))
   
-  write('\nmetaboMisc::suitableParallelPlan()\n',
+  write('metaboMisc::suitableParallelPlan()\n',
+        file = paste0(project_directory,'/_targets.R'),
+        append = TRUE)
+  
+  write('"R/targets/" %>%
+    list.files(full.names = TRUE) %>%
+    walk(source)\n',
         file = paste0(project_directory,'/_targets.R'),
         append = TRUE)
 }
-  
+
 #' @importFrom purrr map
 #' @importFrom glue glue_collapse
 #' @importFrom styler style_file
@@ -179,11 +186,18 @@ targetsList <- function(workflow_targets){
 
 #' @importFrom utils capture.output
 
-writeTargets <- function(workflow_targets,file_path){
+writeTargets <- function(workflow_targets,project_directory){
+  
+  dir.create(paste0(project_directory,'/R/targets'))
   
   targets_list <- targetsList(workflow_targets)
   
-  write(targets_list,file_path,append = TRUE)
+  file_path <- paste0(project_directory,
+                      '/_targets.R')
+  
+  write(targets_list,
+        file_path,
+        append = TRUE)
   
   out <- capture.output(style_file(file_path))
 }
