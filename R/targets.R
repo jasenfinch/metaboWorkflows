@@ -321,10 +321,10 @@ pre_treatment_commands <- list(
   parameters_pre_treatment = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
   results_pre_treatment = 'metaboMisc::preTreatModes(results_spectral_processing,
                                            parameters_pre_treatment)',
-  export_results_pre_treatment = 'metaboMisc::exportData(results_pre_treatment,
+  export_pre_treatment = 'metaboMisc::exportData(results_pre_treatment,
                                                type = "pre-treated",
                                                outPath = "exports/pre-treated")',
-  export_results_pre_treatment_sample_info = 'metaboMisc::exportSampleInfo(results_pre_treatment,
+  export_pre_treatment_sample_info = 'metaboMisc::exportSampleInfo(results_pre_treatment,
                                                                  outPath = "exports/pre-treated")',
   plot_PCA = 'metabolyseR::plotPCA(results_pre_treatment,
                                    type = "pre-treated")',
@@ -355,15 +355,15 @@ targetsPretreatment <- function(x){
       !!parse_expr(pre_treatment_commands$results_pre_treatment),
       comment = 'Perform data pre-treatment'
     ),
-    export_results_pre_treatment_data = target(
-      'export_results_pre_treatment',
-      !!parse_expr(pre_treatment_commands$export_results_pre_treatment),
+    export_pre_treatment_data = target(
+      'export_pre_treatment',
+      !!parse_expr(pre_treatment_commands$export_pre_treatment),
       type = 'tar_file',
       comment = 'Export pre-treated data'
     ),
-    export_results_pre_treatment_sample_info = target(
-      'export_results_pre_treatment_sample_info',
-      !!parse_expr(pre_treatment_commands$export_results_pre_treatment_sample_info),
+    export_pre_treatment_sample_info = target(
+      'export_pre_treatment_sample_info',
+      !!parse_expr(pre_treatment_commands$export_pre_treatment_sample_info),
       type = 'tar_file',
       comment = 'Export sample information of pre-treated data'
     ),
