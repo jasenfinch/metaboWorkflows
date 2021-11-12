@@ -200,11 +200,11 @@ setMethod('targetsInput',signature = 'Workflow',
 processing_commands <- list(
   fingerprinting = list(
     parameters_spectral_processing = 'binneR::detectParameters(mzML)',
-    spectral_processing = 'binneR::binneRlyse(mzML,
+    results_spectral_processing = 'binneR::binneRlyse(mzML,
                                               sample_information,
                                               parameters_spectral_processing)',
-    plot_fingerprint = 'binneR::plotFingerprint(results_spectral_processing)',
     plot_chromatogram = 'binneR::plotChromatogram(results_spectral_processing)',
+    plot_fingerprint = 'binneR::plotFingerprint(results_spectral_processing)',
     plot_TIC = 'binneR::plotTIC(results_spectral_processing)',
     plot_purity_dist = 'binneR::plotPurity(results_spectral_processing)',
     plot_centrality_dist = 'binneR::plotCentrality(results_spectral_processing)',
@@ -229,21 +229,21 @@ fingerprintProcessing <- function(){
     ),
     results_spectral_processing = target(
       'results_spectral_processing',
-      !!parse_expr(processing_commands$fingerprinting$spectral_processing),
+      !!parse_expr(processing_commands$fingerprinting$results_spectral_processing),
       args = list(
         memory = 'transient'
       ),
       comment = 'Perform spectral binning'
     ),
-    plot_fingerprint = target(
-      'plot_fingerprint',
-      !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
-      comment = 'Plot average spectrum fingerprint'
-    ),
     plot_chromatogram = target(
       'plot_chromatogram',
       !!parse_expr(processing_commands$fingerprinting$plot_chromatogram),
       comment = 'Plot average infusion chromatogram'
+    ),
+    plot_fingerprint = target(
+      'plot_fingerprint',
+      !!parse_expr(processing_commands$fingerprinting$plot_fingerprint),
+      comment = 'Plot average spectrum fingerprint'
     ),
     plot_TIC = target(
       'plot_TIC',
