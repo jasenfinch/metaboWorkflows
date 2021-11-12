@@ -158,11 +158,19 @@ The additional `start` argument can be used to automatically open the project di
 Below shows an overview of the generated `Example project` project directory:
 
 ```
-Example_project/
+Example_project
 ├── Dockerfile
 ├── Example_project.Rproj
 ├── R
 │   ├── functions
+│   ├── targets
+│   │   ├── correlations_targets.R
+│   │   ├── input_targets.R
+│   │   ├── modelling_targets.R
+│   │   ├── molecular_formula_assignment_targets.R
+│   │   ├── pre_treatment_targets.R
+│   │   ├── report_targets.R
+│   │   └── spectral_processing_targets.R
 │   └── utils.R
 ├── README.md
 ├── _targets.R
@@ -189,6 +197,8 @@ Here, a brief overview of some of the important components will be given.
 `Dockerfile` - This can be used build a suitable docker image from which the workflow can be executed within a containerised OS environment.
 
 `R/functions` - Scripts containing additional functions can be placed here.
+
+`R/targets` - 
 
 `R/utils.R` - This contains any code related to loading packages.
 
