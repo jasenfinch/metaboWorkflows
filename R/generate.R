@@ -103,6 +103,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             }
           })
 
+#' @importFrom utils packageVersion
+
 scriptHeader <- function(prefix){
   version <- packageVersion('metaboWorkflows') %>% 
     as.character()
