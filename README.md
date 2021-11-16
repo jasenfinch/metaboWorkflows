@@ -5,15 +5,13 @@ metaboWorkflows
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/jasenfinch/metaboWorkflows/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/metaboWorkflows/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/jasenfinch/metaboWorkflows/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/metaboWorkflows?branch=master)
 [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jasenfinch/metaboWorkflows/blob/master/DESCRIPTION)
 [![GitHub
 release](https://img.shields.io/github/release/jasenfinch/metaboWorkflows.svg)](https://GitHub.com/jasenfinch/metaboWorkflows/releases/)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 > Workflow Project Templates for Metabolomics Analyses
