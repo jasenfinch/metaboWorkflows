@@ -129,12 +129,15 @@ editHeader <- function(file){
 }
 
 editTargetsScript <- function(project_directory){
+  file <- paste0(project_directory,'/_targets.R')
   
   write('"R/targets/" %>%
     list.files(full.names = TRUE) %>%
     walk(source)\n',
-        file = paste0(project_directory,'/_targets.R'),
+        file = file,
         append = TRUE)
+  
+  editHeader(file)
 }
 
 targetsOptions <- function(project_directory,...){
