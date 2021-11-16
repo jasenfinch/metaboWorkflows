@@ -53,6 +53,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
                   cran = c('purrr','targets','tarchetypes')
             )
             
+            parallelOptions(project_directory)
+            
             inputPrep(workflow)
             
             if ('report' %in% modules(workflow)) {
@@ -124,16 +126,20 @@ editHeader <- function(file){
 }
 
 editTargetsScript <- function(project_directory){
-  editHeader(paste0(project_directory,'/_targets.R'))
-  
-  write('metaboMisc::suitableParallelPlan()\n',
-        file = paste0(project_directory,'/_targets.R'),
-        append = TRUE)
   
   write('"R/targets/" %>%
     list.files(full.names = TRUE) %>%
     walk(source)\n',
         file = paste0(project_directory,'/_targets.R'),
+        append = TRUE)
+}
+
+parallelOptions <- function(project_directory){
+  # editHeader(paste0(project_directory,'/R/utils.R'))
+  
+  write(c('## Set future parallel backend',
+          'metaboMisc::suitableParallelPlan()\n'),
+        file = paste0(project_directory,'/R/utils.R'),
         append = TRUE)
 }
 
