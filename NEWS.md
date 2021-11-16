@@ -1,3 +1,11 @@
+# metaboWorkflows 0.9.3
+
+* The workflow parallel options now set in `R/utils.R`.
+
+* The targets `"transient"` memory option now set for all targets in `tar_options_set()` in `R/utils.R`.
+
+* Updated the package [introduction vignette](https://jasenfinch.github.io/metaboWorkflows/articles/metaboWorkflows.html#the-project-directory-1) to include the setting of package options in `R/utils.R`.
+
 # metaboWorkflows 0.9.2
 
 * Renamed relevant targets with the prefixes `results` and `parameters`.

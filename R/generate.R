@@ -53,6 +53,11 @@ setMethod('generateWorkflow',signature = 'Workflow',
                   cran = c('purrr','targets','tarchetypes')
             )
             
+            parallelOptions(project_directory)
+            targetsOptions(project_directory,
+                           error = 'continue',
+                           memory = 'transient')
+            
             inputPrep(workflow)
             
             if ('report' %in% modules(workflow)) {
@@ -124,16 +129,46 @@ editHeader <- function(file){
 }
 
 editTargetsScript <- function(project_directory){
-  editHeader(paste0(project_directory,'/_targets.R'))
-  
-  write('metaboMisc::suitableParallelPlan()\n',
-        file = paste0(project_directory,'/_targets.R'),
-        append = TRUE)
+  file <- paste0(project_directory,'/_targets.R')
   
   write('"R/targets/" %>%
     list.files(full.names = TRUE) %>%
     walk(source)\n',
-        file = paste0(project_directory,'/_targets.R'),
+        file = file,
+        append = TRUE)
+  
+  editHeader(file)
+}
+
+targetsOptions <- function(project_directory,...){
+  target_options <- enexprs(...) %>% 
+    map(expr_text)
+  
+  target_options = target_options %>% 
+    names() %>% 
+    map_chr(~{
+        glue('{.x} = {target_options[[.x]]}') 
+    }) %>% 
+    glue_collapse(',\n')
+  
+  file <- glue('{project_directory}/R/utils.R')
+
+  file_lines <- readLines(file)
+  line_index <- which(str_detect(file_lines,'tar_option_set'))
+
+  file_lines[line_index] <- glue('tar_option_set({target_options})')
+
+  writeLines(file_lines,file)
+  
+  out <- capture.output(style_file(file))
+}
+
+parallelOptions <- function(project_directory){
+  # editHeader(paste0(project_directory,'/R/utils.R'))
+  
+  write(c('## Set future parallel backend',
+          'metaboMisc::suitableParallelPlan()\n'),
+        file = paste0(project_directory,'/R/utils.R'),
         append = TRUE)
 }
 
@@ -149,28 +184,28 @@ modulesList <- function(workflow_targets){
 moduleTargetsList <- function(module_targets){
   module_targets <- module_targets %>%
     map(~{
-          target_code <- code(.x)
-          
-          if (length(target_code) > 1){
-            target_code <- glue_collapse(target_code,sep = '
+      target_code <- code(.x)
+      
+      if (length(target_code) > 1){
+        target_code <- glue_collapse(target_code,sep = '
                                          ')
-          }
-          
-          if (length(comment(.x)) > 0) {
-            glue('
+      }
+      
+      if (length(comment(.x)) > 0) {
+        glue('
 {name(.x)} = 
        {target_code}')
-          } else {
-            glue('
+      } else {
+        glue('
 {name(.x)} = {target_code}')
-          }
-        }) %>%
-        glue_collapse(sep = ',
+      }
+    }) %>%
+    glue_collapse(sep = ',
 ')
   
   targets_list <- module_targets %>% 
     paste0(collapse = ',\n')
-   
+  
   
   glue('list(
        {targets_list}
@@ -215,12 +250,12 @@ writeTargets <- function(workflow_targets,project_directory){
             file_path)
       
       write(targets_lists[[.x]],
-                 file_path,
+            file_path,
             append = TRUE)
       
       out <- capture.output(style_file(file_path))
     })
-    
+  
 }
 
 setGeneric('inputPrep',function(x)

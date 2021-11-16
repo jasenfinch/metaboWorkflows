@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -230,8 +230,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform spectral binning</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_spectral_processing,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_chromatogram</span>
@@ -280,8 +279,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export spectrally binned data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_processed_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing"),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
@@ -365,8 +363,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_molecular_formula_assignment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment <span style='color: #00BB00;'>%&gt;%</span> metabolyseR::<span style='color: #00BBBB;'>dat</span><span style='color: #0000BB;'>(</span>type = <span style='color: #BBBB00;'>"pre-treated"</span><span style='color: #0000BB;'>)</span> <span style='color: #00BB00;'>%&gt;%</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span>,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = <span style='color: #BBBB00;'>"transient"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$assigned_data</span>
@@ -488,8 +485,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform spectral binning</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_spectral_processing,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_chromatogram</span>
@@ -538,8 +534,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export spectrally binned data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_processed_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing"),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsInput</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span></span>
@@ -650,8 +645,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_molecular_formula_assignment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment <span style='color: #00BB00;'>%&gt;%</span> metabolyseR::<span style='color: #00BBBB;'>dat</span><span style='color: #0000BB;'>(</span>type = <span style='color: #BBBB00;'>"pre-treated"</span><span style='color: #0000BB;'>)</span> <span style='color: #00BB00;'>%&gt;%</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span>,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = <span style='color: #BBBB00;'>"transient"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $assigned_data</span>

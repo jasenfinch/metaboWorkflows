@@ -5,7 +5,7 @@ metaboWorkflows
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/jasenfinch/metaboWorkflows/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/metaboWorkflows/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/jasenfinch/metaboWorkflows/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/metaboWorkflows?branch=master)
