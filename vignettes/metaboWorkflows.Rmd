@@ -200,9 +200,9 @@ Here, a brief overview of some of the important components will be given.
 
 `R/targets` - This directory contains scripts for the target definitions of each module of the workflow.
 
-`R/utils.R` - This contains any code related to loading packages.
+`R/utils.R` - This contains any code related to loading packages and setting package options.
 
-`_targets.R` - This script contains the formal definition of the workflow. This script sets options for the workflow as well as sources all the necessary scripts in the project directory.
+`_targets.R` - This script sources all the necessary scripts in the project directory and contains the formal definition of the workflow. 
 See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about the this file.
 
 `data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected.
