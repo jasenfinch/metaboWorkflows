@@ -216,7 +216,14 @@ processing_commands <- list(
     parameters_spectral_processing = 'profilePro::profileParameters("{parameter_specification}")',
     results_spectral_processing = 'profilePro::profileProcess(mzML,
                                                       sample_information,
-                                                      parameters_spectral_processing)'
+                                                      parameters_spectral_processing)',
+    plot_chromatogram = 'profilePro::plotChromatogram(results_spectral_processing,
+                                                      cls = "class",
+                                                      group = TRUE)',
+    plot_TIC = 'profilePro::plotTIC(results_spectral_processing)',
+    summary_processed_features = 'metaboMisc::featureSummary(results_spectral_processing)',
+    export_processed_data = 'metaboMisc::export(results_spectral_processing,
+                                                outPath = "exports/spectral_processing")'
   )
 )
 
@@ -299,6 +306,26 @@ profilingProcessing <- function(x){
       'results_spectral_processing',
       !!parse_expr(processing_commands$profiling$results_spectral_processing),
       comment = 'Perform spectral processing'
+    ),
+    plot_chromatogram = target(
+      'plot_chromatogram',
+      !!parse_expr(processing_commands$profiling$plot_chromatogram),
+      comment = 'Plot averaged profile chromatogram'
+    ),
+    plot_TIC = target(
+      'plot_TIC',
+      !!parse_expr(processing_commands$profiling$plot_TIC),
+      comment = 'Plot sample total ion counts'
+    ),
+    summary_processed_features = target(
+      'summary_processed_features',
+      !!parse_expr(processing_commands$fingerprinting$summary_processed_features),
+      comment = 'Summary of spectrally processed features'
+    ),
+    export_processed_data= target(
+      'export_processed_data',
+      !!parse_expr(processing_commands$profiling$export_processed_data),
+      comment = 'Export spectral processed data'
     )
   )
 }
