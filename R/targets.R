@@ -170,8 +170,7 @@ setMethod('targetsInput',signature = 'GroverInput',
                 'mzML',
                 !!parse_expr(input_commands$grover$mzML),
                 args = list(pattern = 'map(raw_files)',
-                            format = 'file',
-                            memory = 'transient'),
+                            format = 'file'),
                 comment = 'Retrieve converted raw data files in mzML format via grover API'
               ),
               raw_sample_information = target(
@@ -237,9 +236,6 @@ fingerprintProcessing <- function(){
     results_spectral_processing = target(
       'results_spectral_processing',
       !!parse_expr(processing_commands$fingerprinting$results_spectral_processing),
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Perform spectral binning'
     ),
     plot_chromatogram = target(
@@ -276,9 +272,6 @@ fingerprintProcessing <- function(){
       'export_processed_data',
       !!parse_expr(processing_commands$fingerprinting$export_processed_data),
       type = 'tar_files',
-      args = list(
-        memory = 'transient'
-      ),
       comment = 'Export spectrally binned data'
     )
   )
@@ -459,7 +452,6 @@ targetsMFassignment <- function(x){
     results_molecular_formula_assignment = target(
       'results_molecular_formula_assignment',
       !!parse_expr(assignment_commands$results_molecular_formula_assignment), 
-      args = list(memory = 'transient'),
       comment = 'Perform molecular formula assignment'
     ),
     assigned_data = target(

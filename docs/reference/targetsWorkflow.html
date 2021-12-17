@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -219,125 +219,121 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$spectral_processing_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$parameters_spectral_processing</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect spectral binning parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   spectral_processing_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_spectral_processing,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::detectParameters(mzML)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$spectral_processed</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$results_spectral_processing</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform spectral binning</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   spectral_processed,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, spectral_processing_parameters),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_fingerprint</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average spectrum fingerprint</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_fingerprint,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotFingerprint(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_spectral_processing,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_chromatogram</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average infusion chromatogram</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_chromatogram,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotChromatogram(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotChromatogram(results_spectral_processing)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_fingerprint</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average spectrum fingerprint</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_fingerprint,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotFingerprint(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_TIC</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot sample total ion counts by randomised block</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_TIC,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotTIC(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotTIC(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_purity_dist</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot bin purity distribution</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_purity_dist,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotPurity(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotPurity(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$plot_centrality_dist</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot bin centrality distribution</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_centrality_dist,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotCentrality(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotCentrality(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$summary_processed_features</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Summary of spectrally binned features</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_processed_features,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::featureSummary(spectral_processed)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::featureSummary(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing$export_processed_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export spectrally binned data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_processed_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(spectral_processed, outPath = "exports/spectral_processing"),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$pre_treatment_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$parameters_pre_treatment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect pre-treatment routine parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treatment_parameters,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectPretreatmentParameters(spectral_processed)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectPretreatmentParameters(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$pre_treated</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$results_pre_treatment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform data pre-treatment</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treated,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::preTreatModes(spectral_processed, pre_treatment_parameters)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::preTreatModes(results_spectral_processing, parameters_pre_treatment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$export_pre_treated_data</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$export_pre_treatment_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export pre-treated data</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treated,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportData(pre_treated, type = "pre-treated", outPath = "exports/pre-treated")</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_file</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::<span style='color: #00BBBB;'>exportData</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     outPath = <span style='color: #BBBB00;'>"exports/pre-treated"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$export_pre_treated_sample_info</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$export_pre_treatment_sample_info</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export sample information of pre-treated data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treated_sample_info,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportSampleInfo(pre_treated, outPath = "exports/pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treatment_sample_info,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportSampleInfo(results_pre_treatment, outPath = "exports/pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$plot_PCA</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot Principle Component Analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_PCA,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotPCA(pre_treated, type = "pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotPCA(results_pre_treatment, type = "pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$plot_LDA</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot Priniciple Component Analysis - Linear Discriminant Analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_LDA,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotLDA(pre_treated, type = "pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotLDA(results_pre_treatment, type = "pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment$plot_unsupervised_RF</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot multidimensional scaling plot of unsupervised random forest</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_unsupervised_RF,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotUnsupervisedRF</span><span style='color: #0000BB;'>(</span>pre_treated,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotUnsupervisedRF</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     title = <span style='color: #BBBB00;'>"Unsupervised random forest"</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
@@ -347,7 +343,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot multidimensional scaling plot of supervised random forest</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_supervised_RF,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotSupervisedRF</span><span style='color: #0000BB;'>(</span>pre_treated,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotSupervisedRF</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     title = <span style='color: #BBBB00;'>"Supervised random forest"</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
@@ -355,114 +351,114 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$molecular_formula_assignment_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$parameters_molecular_formula_assignment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Generate molecular formula assignment parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   molecular_formula_assignment_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_molecular_formula_assignment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::assignmentParameters("FIE")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$molecular_formula_assignment</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$results_molecular_formula_assignment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform molecular formula assignment</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   molecular_formula_assignment,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treated %&gt;% metabolyseR::dat(type = "pre-treated") %&gt;% MFassign::assignMFs(molecular_formula_assignment_parameters),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_molecular_formula_assignment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment <span style='color: #00BB00;'>%&gt;%</span> metabolyseR::<span style='color: #00BBBB;'>dat</span><span style='color: #0000BB;'>(</span>type = <span style='color: #BBBB00;'>"pre-treated"</span><span style='color: #0000BB;'>)</span> <span style='color: #00BB00;'>%&gt;%</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$assigned_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retieve pre-treated data with molecular formula assignments added to the feature names</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   assigned_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::addAssignments(pre_treated, molecular_formula_assignment)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::addAssignments(results_pre_treatment, results_molecular_formula_assignment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$summary_assignments</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Summarise the assigned molecular formulas</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_assignments,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::summariseAssignment(molecular_formula_assignment)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::summariseAssignment(results_molecular_formula_assignment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment$export_assignments</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export molecular formula assignments</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_assignments,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(molecular_formula_assignment, outPath = "exports/molecular_formula_assignments")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_molecular_formula_assignment, outPath = "exports/molecular_formula_assignments")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$modelling_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$parameters_modelling</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect appropriate modelling parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   modelling_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_modelling,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectModellingParameters(assigned_data, cls = "class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$modelling</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$results_modelling</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform modelling</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   modelling,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, modelling_parameters)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$plot_explanatory_heatmap</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot a heat map of explanatory features</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_explanatory_heatmap,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotExplanatoryHeatmap(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_modelling,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, parameters_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$summary_modelling_metrics</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retrieve modelling metrics</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_model_metrics,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::metrics(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::metrics(results_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$summary_modelling_importance</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retireve modelling feature importance</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$summary_explanatory_features</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retireve modelling explanatory features</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_model_importance,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::importance(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_explanatory_features,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::explanatoryFeatures(results_modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$plot_explanatory_heatmap</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot a heat map of explanatory features</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_explanatory_heatmap,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotExplanatoryHeatmap(results_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling$export_modelling</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export modelling results</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export results_modelling results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_modelling,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportModelling(modelling, outPath = "exports/modelling")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportModelling(results_modelling, outPath = "exports/results_modelling")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$correlations_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$parameters_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Generate parameters for correlation analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   correlations_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_correlations,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisParameters("correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$correlations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$results_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform correlation analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, correlations_parameters)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_correlations,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, parameters_correlations)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$summary_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retrieve correlation analysis results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisResults(correlations, "correlations")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisResults(results_correlations, "correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations$export_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export correlation analysis results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportCorrelations(correlations, outPath = "exports/correlations")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportCorrelations(results_correlations, outPath = "exports/correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
@@ -478,74 +474,67 @@
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## Examples for individual modules</span></span>
 <span class='r-in'><span class='fu'>targetsSpectralProcessing</span><span class='op'>(</span><span class='st'>'FIE-HRMS fingerprinting'</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processing_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters_spectral_processing</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect spectral binning parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   spectral_processing_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_spectral_processing,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::detectParameters(mzML)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $spectral_processed</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results_spectral_processing</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform spectral binning</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   spectral_processed,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, spectral_processing_parameters),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_fingerprint</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average spectrum fingerprint</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_fingerprint,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotFingerprint(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_spectral_processing,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::binneRlyse(mzML, sample_information, parameters_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_chromatogram</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average infusion chromatogram</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_chromatogram,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotChromatogram(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotChromatogram(results_spectral_processing)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_fingerprint</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot average spectrum fingerprint</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_fingerprint,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotFingerprint(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_TIC</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot sample total ion counts by randomised block</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_TIC,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotTIC(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotTIC(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_purity_dist</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot bin purity distribution</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_purity_dist,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotPurity(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotPurity(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_centrality_dist</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot bin centrality distribution</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_centrality_dist,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotCentrality(spectral_processed),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   binneR::plotCentrality(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_processed_features</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Summary of spectrally binned features</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_processed_features,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::featureSummary(spectral_processed)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::featureSummary(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $export_processed_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export spectrally binned data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_processed_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(spectral_processed, outPath = "exports/spectral_processing"),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_spectral_processing, outPath = "exports/spectral_processing")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsInput</span><span class='op'>(</span><span class='va'>workflow_input</span><span class='op'>)</span></span>
@@ -578,53 +567,56 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsPretreatment</span><span class='op'>(</span><span class='st'>'FIE-HRMS fingerprinting'</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treatment_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters_pre_treatment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect pre-treatment routine parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treatment_parameters,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectPretreatmentParameters(spectral_processed)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectPretreatmentParameters(results_spectral_processing)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_treated</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results_pre_treatment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform data pre-treatment</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treated,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::preTreatModes(spectral_processed, pre_treatment_parameters)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::preTreatModes(results_spectral_processing, parameters_pre_treatment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $export_pre_treated_data</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $export_pre_treatment_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export pre-treated data</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treated,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportData(pre_treated, type = "pre-treated", outPath = "exports/pre-treated")</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_file</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::<span style='color: #00BBBB;'>exportData</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     outPath = <span style='color: #BBBB00;'>"exports/pre-treated"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $export_pre_treated_sample_info</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $export_pre_treatment_sample_info</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export sample information of pre-treated data</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_file(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treated_sample_info,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportSampleInfo(pre_treated, outPath = "exports/pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   export_pre_treatment_sample_info,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportSampleInfo(results_pre_treatment, outPath = "exports/pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_PCA</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot Principle Component Analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_PCA,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotPCA(pre_treated, type = "pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotPCA(results_pre_treatment, type = "pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_LDA</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot Priniciple Component Analysis - Linear Discriminant Analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_LDA,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotLDA(pre_treated, type = "pre-treated")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotLDA(results_pre_treatment, type = "pre-treated")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_unsupervised_RF</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot multidimensional scaling plot of unsupervised random forest</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_unsupervised_RF,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotUnsupervisedRF</span><span style='color: #0000BB;'>(</span>pre_treated,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotUnsupervisedRF</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     title = <span style='color: #BBBB00;'>"Unsupervised random forest"</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
@@ -634,119 +626,119 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot multidimensional scaling plot of supervised random forest</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_supervised_RF,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotSupervisedRF</span><span style='color: #0000BB;'>(</span>pre_treated,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::<span style='color: #00BBBB;'>plotSupervisedRF</span><span style='color: #0000BB;'>(</span>results_pre_treatment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     type = <span style='color: #BBBB00;'>"pre-treated"</span>,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     title = <span style='color: #BBBB00;'>"Supervised random forest"</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #0000BB;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsMFassignment</span><span class='op'>(</span><span class='st'>'FIE-HRMS fingerprinting'</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters_molecular_formula_assignment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Generate molecular formula assignment parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   molecular_formula_assignment_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_molecular_formula_assignment,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::assignmentParameters("FIE")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $molecular_formula_assignment</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results_molecular_formula_assignment</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform molecular formula assignment</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   molecular_formula_assignment,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   pre_treated %&gt;% metabolyseR::dat(type = "pre-treated") %&gt;% MFassign::assignMFs(molecular_formula_assignment_parameters),</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   memory = "transient"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>tar_target</span><span style='color: #BBBB00;'>(</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_molecular_formula_assignment,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_pre_treatment <span style='color: #00BB00;'>%&gt;%</span> metabolyseR::<span style='color: #00BBBB;'>dat</span><span style='color: #0000BB;'>(</span>type = <span style='color: #BBBB00;'>"pre-treated"</span><span style='color: #0000BB;'>)</span> <span style='color: #00BB00;'>%&gt;%</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     MFassign::<span style='color: #00BBBB;'>assignMFs</span><span style='color: #0000BB;'>(</span>parameters_molecular_formula_assignment<span style='color: #0000BB;'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BBBB00;'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $assigned_data</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retieve pre-treated data with molecular formula assignments added to the feature names</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   assigned_data,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::addAssignments(pre_treated, molecular_formula_assignment)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::addAssignments(results_pre_treatment, results_molecular_formula_assignment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_assignments</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Summarise the assigned molecular formulas</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_assignments,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::summariseAssignment(molecular_formula_assignment)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   MFassign::summariseAssignment(results_molecular_formula_assignment)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $export_assignments</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export molecular formula assignments</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_assignments,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(molecular_formula_assignment, outPath = "exports/molecular_formula_assignments")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::export(results_molecular_formula_assignment, outPath = "exports/molecular_formula_assignments")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsModelling</span><span class='op'>(</span><span class='st'>'FIE-HRMS fingerprinting'</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters_modelling</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Detect appropriate modelling parameters</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   modelling_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_modelling,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::detectModellingParameters(assigned_data, cls = "class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $modelling</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results_modelling</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform modelling</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   modelling,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, modelling_parameters)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_explanatory_heatmap</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot a heat map of explanatory features</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_explanatory_heatmap,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotExplanatoryHeatmap(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_modelling,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, parameters_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_modelling_metrics</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retrieve modelling metrics</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_model_metrics,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::metrics(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::metrics(results_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_modelling_importance</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retireve modelling feature importance</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_explanatory_features</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retireve modelling explanatory features</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_model_importance,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::importance(modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_explanatory_features,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::explanatoryFeatures(results_modelling)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $plot_explanatory_heatmap</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Plot a heat map of explanatory features</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   plot_explanatory_heatmap,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::plotExplanatoryHeatmap(results_modelling)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $export_modelling</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export modelling results</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export results_modelling results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_modelling,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportModelling(modelling, outPath = "exports/modelling")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportModelling(results_modelling, outPath = "exports/results_modelling")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'>targetsCorrelations</span><span class='op'>(</span><span class='st'>'FIE-HRMS fingerprinting'</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations_parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Generate parameters for correlation analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   correlations_parameters,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   parameters_correlations,</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisParameters("correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $correlations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Perform correlation analysis</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, correlations_parameters)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   results_correlations,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::reAnalyse(assigned_data, parameters_correlations)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $summary_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Retrieve correlation analysis results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_target(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary_correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisResults(correlations, "correlations")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metabolyseR::analysisResults(results_correlations, "correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $export_correlations</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #9E9E9E; font-style: italic;'>## Export correlation analysis results</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> tar_files(</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   export_correlations,</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportCorrelations(correlations, outPath = "exports/correlations")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   metaboMisc::exportCorrelations(results_correlations, outPath = "exports/correlations")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 </pre>
