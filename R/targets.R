@@ -319,13 +319,17 @@ profilingProcessing <- function(x){
     ),
     summary_processed_features = target(
       'summary_processed_features',
-      !!parse_expr(processing_commands$fingerprinting$summary_processed_features),
+      !!parse_expr(processing_commands$profiling$summary_processed_features),
       comment = 'Summary of spectrally processed features'
     ),
-    export_processed_data= target(
+    export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$profiling$export_processed_data),
-      comment = 'Export spectral processed data'
+      type = 'tar_files',
+      args = list(
+        memory = 'transient'
+      ),
+      comment = 'Export spectrally processed data'
     )
   )
 }
