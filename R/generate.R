@@ -52,6 +52,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             utils(glue('{project_directory}/R'),
                   cran = c('purrr','targets','tarchetypes')
             )
+            editHeader(paste0(project_directory,'/R/utils.R'))
             
             parallelOptions(project_directory)
             targetsOptions(project_directory,

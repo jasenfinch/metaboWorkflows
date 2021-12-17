@@ -1,3 +1,11 @@
+# metaboWorkflows 0.9.4
+
+* Plotting and summary targets added to the spectral processing module for profiling workflows.
+
+* Script edited header added to generated `R/utils.R` file.
+
+* Added the [`prettycode`](https://github.com/r-lib/prettycode) package to suggests.
+
 # metaboWorkflows 0.9.3
 
 * The workflow parallel options now set in `R/utils.R`.

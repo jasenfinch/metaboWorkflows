@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/metaboWorkflows.html">Get started</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jasenfinch/metaboWorkflows/">
+  <a href="https://github.com/jasenfinch/metaboWorkflows/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -84,29 +80,29 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="metaboworkflows" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#metaboworkflows" class="anchor"></a>metaboWorkflows</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="metaboworkflows">metaboWorkflows<a class="anchor" aria-label="anchor" href="#metaboworkflows"></a>
+</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
 <blockquote>
 <p>Workflow Project Templates for Metabolomics Analyses</p>
 </blockquote>
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>This package provides reproducible workflow project templates for metabolomics analyses using the <a href="https://jasenfinch.github.io/hrm/">hrm</a> R package ecosystem.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>This package provides reproducible workflow project templates for metabolomics analyses using the <a href="https://jasenfinch.github.io/hrm/" class="external-link">hrm</a> R package ecosystem.</p>
 <p>These project templates utilise a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code. These tools include:</p>
 <ul>
 <li>
-<a href="https://docs.ropensci.org/targets/">targets</a> - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.</li>
+<a href="https://docs.ropensci.org/targets/" class="external-link">targets</a> - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.</li>
 <li>
-<a href="https://rstudio.github.io/renv/">renv</a> - an R package for project-local R package dependency management for maintaining reproducible R package environments.</li>
+<a href="https://rstudio.github.io/renv/" class="external-link">renv</a> - an R package for project-local R package dependency management for maintaining reproducible R package environments.</li>
 <li>
-<a href="https://git-scm.com/">git</a> - a widely used, open-source distributed version control system.</li>
+<a href="https://git-scm.com/" class="external-link">git</a> - a widely used, open-source distributed version control system.</li>
 <li>
-<a href="https://www.docker.com/">docker</a> - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.</li>
+<a href="https://www.docker.com/" class="external-link">docker</a> - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.</li>
 </ul>
 <p>Project templates are available for the following metabolomic techniques:</p>
 <ul>
@@ -117,67 +113,78 @@
 <li>GC-MS profiling</li>
 </ul>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>The <code>metaboWorkflows</code> package can be installed from GitHub using the following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'jasenfinch/metaboWorkflows'</span>,build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'jasenfinch/metaboWorkflows'</span>,build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="learn-more" class="section level2">
-<h2 class="hasAnchor">
-<a href="#learn-more" class="anchor"></a>Learn more</h2>
+<div class="section level2">
+<h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
+</h2>
 <p>The package documentation can be browsed online at <a href="https://jasenfinch.github.io/metaboWorkflows/" class="uri">https://jasenfinch.github.io/metaboWorkflows/</a>.</p>
 <p>If this is your first time using <code>metaboWorkflows</code> see the <a href="https://jasenfinch.github.io/metaboWorkflows/articles/metaboWorkflows.html">Introduction</a> vignette for information on how to get started.</p>
-<p>If you believe you’ve found a bug in <code>metaboWorkflows</code>, please file a bug (and, if possible, a <a href="https://reprex.tidyverse.org">reproducible example</a>) at <a href="https://github.com/jasenfinch/metaboWorkflows/issues" class="uri">https://github.com/jasenfinch/metaboWorkflows/issues</a>.</p>
+<p>If you believe you’ve found a bug in <code>metaboWorkflows</code>, please file a bug (and, if possible, a <a href="https://reprex.tidyverse.org" class="external-link">reproducible example</a>) at <a href="https://github.com/jasenfinch/metaboWorkflows/issues" class="external-link uri">https://github.com/jasenfinch/metaboWorkflows/issues</a>.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/jasenfinch/metaboWorkflows/">https://​github.com/​jasenfinch/​metaboWorkflows/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/jasenfinch/metaboWorkflows/issues">https://​github.com/​jasenfinch/​metaboWorkflows/​issues</a>
-</li>
+<li><a href="https://github.com/jasenfinch/metaboWorkflows/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/jasenfinch/metaboWorkflows/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing metaboWorkflows</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Jasen Finch <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="https://github.com/jasenfinch/metaboWorkflows/actions"><img src="https://github.com/jasenfinch/metaboWorkflows/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/jasenfinch/metaboWorkflows?branch=master"><img src="https://codecov.io/gh/jasenfinch/metaboWorkflows/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/jasenfinch/metaboWorkflows/blob/master/DESCRIPTION"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="license"></a></li>
-<li><a href="https://GitHub.com/jasenfinch/metaboWorkflows/releases/"><img src="https://img.shields.io/github/release/jasenfinch/metaboWorkflows.svg" alt="GitHub release"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://github.com/jasenfinch/metaboWorkflows/actions" class="external-link"><img src="https://github.com/jasenfinch/metaboWorkflows/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/jasenfinch/metaboWorkflows?branch=master" class="external-link"><img src="https://codecov.io/gh/jasenfinch/metaboWorkflows/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/jasenfinch/metaboWorkflows/blob/master/DESCRIPTION" class="external-link"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="license"></a></li>
+<li><a href="https://GitHub.com/jasenfinch/metaboWorkflows/releases/" class="external-link"><img src="https://img.shields.io/github/release/jasenfinch/metaboWorkflows.svg" alt="GitHub release"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jasen Finch.</p>
+  <p></p>
+<p>Developed by Jasen Finch.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -185,6 +192,8 @@
 
   
 
+
+  
 
   </body>
 </html>

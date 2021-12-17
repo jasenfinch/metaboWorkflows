@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metaboWorkflows</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/metaboWorkflows.html">Get started</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jasenfinch/metaboWorkflows/">
+  <a href="https://github.com/jasenfinch/metaboWorkflows/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,37 +78,37 @@
 
       
 
-      </header><script src="metaboWorkflows_files/header-attrs-2.11/header-attrs.js"></script><script src="metaboWorkflows_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="metaboWorkflows_files/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+      </header><script src="metaboWorkflows_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="metaboWorkflows_files/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="metaboWorkflows_files/vis-9.1.0/vis-network.min.js"></script><script src="metaboWorkflows_files/visNetwork-binding-2.1.0/visNetwork.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>metaboWorkflows</h1>
-                        <h4 class="author">Jasen Finch</h4>
+                        <h4 data-toc-skip class="author">Jasen Finch</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jasenfinch/metaboWorkflows/blob/master/vignettes/metaboWorkflows.Rmd"><code>vignettes/metaboWorkflows.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jasenfinch/metaboWorkflows/blob/HEAD/vignettes/metaboWorkflows.Rmd" class="external-link"><code>vignettes/metaboWorkflows.Rmd</code></a></small>
       <div class="hidden name"><code>metaboWorkflows.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>Metabolomics encompasses a wide range of techniques that includes mass spectrometry based fingerprinting and profiling. The analysis of this data requires a number of steps that includes spectral processing, data pre-treatment, quality control, data mining and visualisation in order to extract relevant biological information. The goal of <code>metaboWorkflows</code> is to provide project directory templates for a range of mass spectrometry based metabolomic techniques. The generated project template directories can then be easily extended by the user to meet the needs of particular analysis goals.</p>
 <p>These project templates utilise a number of tools to promote efficient and reproducible analysis, agnostic of the actual analysis R code. These tools include:</p>
 <ul>
 <li>
-<a href="https://docs.ropensci.org/targets/">targets</a> - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.</li>
+<a href="https://docs.ropensci.org/targets/" class="external-link">targets</a> - an R focused pipeline toolkit for efficiently maintaining reproducible analysis workflows.</li>
 <li>
-<a href="https://rstudio.github.io/renv/">renv</a> - an R package for project-local R package dependency management for maintaining reproducible R package environments.</li>
+<a href="https://rstudio.github.io/renv/" class="external-link">renv</a> - an R package for project-local R package dependency management for maintaining reproducible R package environments.</li>
 <li>
-<a href="https://git-scm.com/">git</a> - a widely used, open-source distributed version control system.</li>
+<a href="https://git-scm.com/" class="external-link">git</a> - a widely used, open-source distributed version control system.</li>
 <li>
-<a href="https://www.docker.com/">docker</a> - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.</li>
+<a href="https://www.docker.com/" class="external-link">docker</a> - enables the containerization of operating system (OS) level environments. This can be used to define reproducible OS environments in which a workflow analysis can be performed.</li>
 </ul>
-<p>While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of <code>targets</code> based pipelines outlined <a href="https://books.ropensci.org/targets/walkthrough.html">here</a>.</p>
+<p>While the use of most of these tools is optional but highly encouraged, it is recommended for the user to at least be familiar with the basic use of <code>targets</code> based pipelines outlined <a href="https://books.ropensci.org/targets/walkthrough.html" class="external-link">here</a>.</p>
 <p>There are three steps in using <code>metaboWorkflows</code> to generate a workflow project template directory. These are as follows:</p>
 <ul>
 <li>
@@ -125,22 +121,23 @@
 <p>This introduction will outline each of these steps, provide an overview of an example workflow project directory and how to execute one of these workflows.</p>
 <p>To begin, firstly load the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jasenfinch.github.io/metaboWorkflows">metaboWorkflows</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jasenfinch.github.io/metaboWorkflows">metaboWorkflows</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'metaboWorkflows'</span>
 <span class="co">#&gt; The following object is masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     args</span></code></pre></div>
 </div>
-<div id="workflow-input" class="section level2">
-<h2 class="hasAnchor">
-<a href="#workflow-input" class="anchor"></a>Workflow input</h2>
-<p>Prior to defining a workflow, the user needs to know what sort of input type the workflow will use. <code>metaboWorkflows</code> currently supports two types: remote data obtained through the use of a <a href="https://jasenfinch.github.io/grover/"><code>grover</code></a> RESTful web API or through providing a vector of .mzML file paths and a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> of sample information.</p>
-<div id="grover-api-input" class="section level3">
-<h3 class="hasAnchor">
-<a href="#grover-api-input" class="anchor"></a><code>grover</code> API input</h3>
-<p>The <a href="https://jasenfinch.github.io/grover/"><code>grover</code></a> R package provides a framework for hosting RESTful web APIs for remote access and conversion of raw metabolomics data to the .mzML format.</p>
-<p>This type of input can be declared by providing the host information of the <a href="https://jasenfinch.github.io/grover/"><code>grover</code></a> API to the <code>inputGrover</code> function. Below shows an example for a fictitious <a href="https://jasenfinch.github.io/grover/"><code>grover</code></a> API host.</p>
+<div class="section level2">
+<h2 id="workflow-input">Workflow input<a class="anchor" aria-label="anchor" href="#workflow-input"></a>
+</h2>
+<p>Prior to defining a workflow, the user needs to know what sort of input type the workflow will use. <code>metaboWorkflows</code> currently supports two types: remote data obtained through the use of a <a href="https://jasenfinch.github.io/grover/" class="external-link"><code>grover</code></a> RESTful web API or through providing a vector of .mzML file paths and a <a href="https://tibble.tidyverse.org/" class="external-link"><code>tibble</code></a> of sample information.</p>
+<div class="section level3">
+<h3 id="grover-api-input">
+<code>grover</code> API input<a class="anchor" aria-label="anchor" href="#grover-api-input"></a>
+</h3>
+<p>The <a href="https://jasenfinch.github.io/grover/" class="external-link"><code>grover</code></a> R package provides a framework for hosting RESTful web APIs for remote access and conversion of raw metabolomics data to the .mzML format.</p>
+<p>This type of input can be declared by providing the host information of the <a href="https://jasenfinch.github.io/grover/" class="external-link"><code>grover</code></a> API to the <code>inputGrover</code> function. Below shows an example for a fictitious <a href="https://jasenfinch.github.io/grover/" class="external-link"><code>grover</code></a> API host.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/inputGrover.html">inputGrover</a></span><span class="op">(</span>instrument <span class="op">=</span> <span class="st">'An_instrument'</span>,
                               directory <span class="op">=</span> <span class="st">'Experiment_directory'</span>,
@@ -148,7 +145,7 @@
                               port <span class="op">=</span> <span class="fl">80</span>,
                               auth <span class="op">=</span> <span class="st">'1234'</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">workflow_input</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">workflow_input</span><span class="op">)</span>
 <span class="co">#&gt; Grover API workflow input </span>
 <span class="co">#&gt; Instrument: An_instrument </span>
 <span class="co">#&gt; Directory: Experiment_directory </span>
@@ -156,26 +153,26 @@
 <span class="co">#&gt; Port: 80 </span>
 <span class="co">#&gt; Authentication: 1234</span></code></pre></div>
 </div>
-<div id="file-path-input" class="section level3">
-<h3 class="hasAnchor">
-<a href="#file-path-input" class="anchor"></a>File path input</h3>
-<p>If the raw mass spectrometry .mzML format data files are locally available for a sample set, their file paths and a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> of the sample information can be provided for workflow input.</p>
-<p>Below shows an example file path input for the FIE-HRMS fingerprinting data set of <em>Brachypodium distachyon</em> ecotype comparisons available in the <a href="https://aberhrml.github.io/metaboData/"><code>metaboData</code></a> package.</p>
+<div class="section level3">
+<h3 id="file-path-input">File path input<a class="anchor" aria-label="anchor" href="#file-path-input"></a>
+</h3>
+<p>If the raw mass spectrometry .mzML format data files are locally available for a sample set, their file paths and a <a href="https://tibble.tidyverse.org/" class="external-link"><code>tibble</code></a> of the sample information can be provided for workflow input.</p>
+<p>Below shows an example file path input for the FIE-HRMS fingerprinting data set of <em>Brachypodium distachyon</em> ecotype comparisons available in the <a href="https://aberhrml.github.io/metaboData/" class="external-link"><code>metaboData</code></a> package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberHRML.github.io/metaboData//reference/filePaths.html">filePaths</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span>
-<span class="va">sample_information</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberHRML.github.io/metaboData//reference/runinfo.html">runinfo</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberHRML.github.io/metaboData//reference/filePaths.html" class="external-link">filePaths</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span>
+<span class="va">sample_information</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberHRML.github.io/metaboData//reference/runinfo.html" class="external-link">runinfo</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span>
 
 <span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/inputFilePath.html">inputFilePath</a></span><span class="op">(</span><span class="va">file_paths</span>,<span class="va">sample_information</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">workflow_input</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">workflow_input</span><span class="op">)</span>
 <span class="co">#&gt; File path workflow input</span>
 <span class="co">#&gt; # files: 68</span></code></pre></div>
 <p>This example input will be used throughout the rest of this introduction.</p>
 </div>
 </div>
-<div id="define-a-workflow" class="section level2">
-<h2 class="hasAnchor">
-<a href="#define-a-workflow" class="anchor"></a>Define a workflow</h2>
+<div class="section level2">
+<h2 id="define-a-workflow">Define a workflow<a class="anchor" aria-label="anchor" href="#define-a-workflow"></a>
+</h2>
 <p>Workflow definition is simple and requires the input definition outlined in the previous section, the name of the metabolomic technique and the project name.</p>
 <p>To return the currently available metabolomic workflow templates, use:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -192,7 +189,7 @@
 <span class="op">)</span></code></pre></div>
 <p>Further project template options can also be specified at this point such as the output directory path or the use of <code>renv</code> for R package management. See <code><a href="../reference/defineWorkflow.html">?defineWorkflow</a></code> for more details. Printing the resulting workflow definition will provide information about the defined workflow.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span>
 <span class="co">#&gt; Workflow:  FIE-HRMS fingerprinting </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Project name: Example project </span>
@@ -211,20 +208,20 @@
 <p>As shown above, this workflow definition contains 37 targets. These targets are the individual steps in the analysis pipeline. The full workflow graph, showing the relationships between these targets, can be plotted as shown below:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-d8ced79b45fc6eaf0f91" style="width:700px;height:432.632880098888px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d8ced79b45fc6eaf0f91">{"x":{"nodes":{"name":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"type":["stem","pattern","stem","pattern","stem","stem","stem","stem","stem","stem","stem","stem","pattern","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","pattern","stem","pattern","stem","stem","stem"],"status":["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],"seconds":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"id":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"label":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"level":[6,12,10,3,8,6,13,8,11,5,1,8,7,11,2,2,8,12,8,6,6,6,6,12,9,12,12,1,9,8,6,8,9,7,4,6,13,10,10,1,1,11],"color":["#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac"],"shape":["dot","square","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","square","dot","square","dot","dot","dot"]},"edges":{"from":["results_spectral_processing","export_correlations_files","assigned_data","parameters_correlations","mzML_files","results_pre_treatment","results_spectral_processing","parameters_correlations","parameters_modelling","parameters_molecular_formula_assignment","parameters_pre_treatment","parameters_spectral_processing","plot_centrality_dist","plot_chromatogram","plot_explanatory_heatmap","plot_fingerprint","plot_LDA","plot_PCA","plot_purity_dist","plot_supervised_RF","plot_TIC","plot_unsupervised_RF","results_correlations","results_modelling","results_molecular_formula_assignment","results_pre_treatment","results_spectral_processing","summary_assignments","summary_correlations","summary_explanatory_features","summary_model_metrics","summary_processed_features","results_pre_treatment","results_correlations","mzML","parameters_spectral_processing","sample_information","parameters_molecular_formula_assignment","results_pre_treatment","export_processed_data_files","assigned_data","parameters_modelling","file_paths_list","sample_information_file","results_pre_treatment","results_modelling","results_pre_treatment","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_modelling","results_molecular_formula_assignment","results_modelling","results_modelling","results_molecular_formula_assignment","results_pre_treatment","results_pre_treatment","results_spectral_processing","results_pre_treatment","results_molecular_formula_assignment","parameters_pre_treatment","results_spectral_processing","mzML","results_spectral_processing","export_modelling_files","assigned_data","export_assignments_files","results_correlations"],"to":["plot_TIC","export_correlations","results_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_molecular_formula_assignment","results_molecular_formula_assignment","export_processed_data","results_modelling","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","assigned_data","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","summary_correlations"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Stem","Pattern"],"shape":["dot","square"],"color":["#899DA4","#899DA4"]},"nodesToDataframe":true}},"evals":[],"jsHooks":[]}</script><p>The package also contains functionality for modifying and extending the targets available in the workflow templates. This is outlined in the <a href="customisation.html">Workflow customisation and extension</a> vignette.</p>
+<div id="htmlwidget-bf19ca7d96a542e03c65" style="width:700px;height:432.632880098888px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf19ca7d96a542e03c65">{"x":{"nodes":{"name":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"type":["stem","pattern","stem","pattern","stem","stem","stem","stem","stem","stem","stem","stem","pattern","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","pattern","stem","pattern","stem","stem","stem"],"status":["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],"seconds":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"id":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"label":["plot_TIC","export_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","sample_information_file","results_molecular_formula_assignment","export_processed_data","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","file_paths_list","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","parameters_correlations","parameters_molecular_formula_assignment","summary_correlations"],"level":[6,12,10,3,8,6,13,8,11,5,1,8,7,11,2,2,8,12,8,6,6,6,6,12,9,12,12,1,9,8,6,8,9,7,4,6,13,10,10,1,1,11],"color":["#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac","#94a4ac"],"shape":["dot","square","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","square","dot","square","dot","dot","dot"]},"edges":{"from":["results_spectral_processing","export_correlations_files","assigned_data","parameters_correlations","mzML_files","results_pre_treatment","results_spectral_processing","parameters_correlations","parameters_modelling","parameters_molecular_formula_assignment","parameters_pre_treatment","parameters_spectral_processing","plot_centrality_dist","plot_chromatogram","plot_explanatory_heatmap","plot_fingerprint","plot_LDA","plot_PCA","plot_purity_dist","plot_supervised_RF","plot_TIC","plot_unsupervised_RF","results_correlations","results_modelling","results_molecular_formula_assignment","results_pre_treatment","results_spectral_processing","summary_assignments","summary_correlations","summary_explanatory_features","summary_model_metrics","summary_processed_features","results_pre_treatment","results_correlations","mzML","parameters_spectral_processing","sample_information","parameters_molecular_formula_assignment","results_pre_treatment","export_processed_data_files","assigned_data","parameters_modelling","file_paths_list","sample_information_file","results_pre_treatment","results_modelling","results_pre_treatment","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_modelling","results_molecular_formula_assignment","results_modelling","results_modelling","results_molecular_formula_assignment","results_pre_treatment","results_pre_treatment","results_spectral_processing","results_pre_treatment","results_molecular_formula_assignment","parameters_pre_treatment","results_spectral_processing","mzML","results_spectral_processing","export_modelling_files","assigned_data","export_assignments_files","results_correlations"],"to":["plot_TIC","export_correlations","results_correlations","results_correlations","mzML","plot_supervised_RF","plot_chromatogram","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","report","plot_unsupervised_RF","export_correlations_files","results_spectral_processing","results_spectral_processing","results_spectral_processing","results_molecular_formula_assignment","results_molecular_formula_assignment","export_processed_data","results_modelling","results_modelling","mzML_files","sample_information","export_pre_treatment_sample_info","summary_explanatory_features","plot_PCA","export_processed_data_files","plot_fingerprint","parameters_pre_treatment","plot_centrality_dist","summary_model_metrics","summary_assignments","export_modelling_files","plot_explanatory_heatmap","assigned_data","assigned_data","export_pre_treatment","summary_processed_features","plot_LDA","export_assignments_files","results_pre_treatment","results_pre_treatment","parameters_spectral_processing","plot_purity_dist","export_modelling","parameters_modelling","export_assignments","summary_correlations"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Stem","Pattern"],"shape":["dot","square"],"color":["#899DA4","#899DA4"]},"nodesToDataframe":true}},"evals":[],"jsHooks":[]}</script><p>The package also contains functionality for modifying and extending the targets available in the workflow templates. This is outlined in the <a href="customisation.html">Workflow customisation and extension</a> vignette.</p>
 </div>
-<div id="generate-a-workflow-project-directory" class="section level2">
-<h2 class="hasAnchor">
-<a href="#generate-a-workflow-project-directory" class="anchor"></a>Generate a workflow project directory</h2>
+<div class="section level2">
+<h2 id="generate-a-workflow-project-directory">Generate a workflow project directory<a class="anchor" aria-label="anchor" href="#generate-a-workflow-project-directory"></a>
+</h2>
 <p>The final step is the generation of the project directory for the defined workflow.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/generateWorkflow.html">generateWorkflow</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></code></pre></div>
 <p>This will then generate the project directory at the specified directory path. The additional <code>start</code> argument can be used to automatically open the project directory in the RStudio IDE after project generation.</p>
 </div>
-<div id="the-project-directory" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-project-directory" class="anchor"></a>The project directory</h2>
+<div class="section level2">
+<h2 id="the-project-directory">The project directory<a class="anchor" aria-label="anchor" href="#the-project-directory"></a>
+</h2>
 <p>Below shows an overview of the generated <code>Example project</code> project directory:</p>
 <pre><code>Example_project
 ├── Dockerfile
@@ -262,7 +259,7 @@
 <p><code>R/functions</code> - Scripts containing additional functions can be placed here.</p>
 <p><code>R/targets</code> - This directory contains scripts for the target definitions of each module of the workflow.</p>
 <p><code>R/utils.R</code> - This contains any code related to loading packages and setting package options.</p>
-<p><code>_targets.R</code> - This script sources all the necessary scripts in the project directory and contains the formal definition of the workflow. See <a href="https://books.ropensci.org/targets/walkthrough.html#target-script-file">here</a> for more information about the this file.</p>
+<p><code>_targets.R</code> - This script sources all the necessary scripts in the project directory and contains the formal definition of the workflow. See <a href="https://books.ropensci.org/targets/walkthrough.html#target-script-file" class="external-link">here</a> for more information about the this file.</p>
 <p><code>data</code> - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected.</p>
 <p><code>exports</code> - Any outputs from the workflow will be directed here including the HTML output and any .csv data table outputs.</p>
 <p><code>misc</code> - Any miscellaneous scripts and files can be placed here.</p>
@@ -270,13 +267,13 @@
 <p><code>report/report.Rmd</code> - An R Markdown report for summarising the workflow results. It’s output will be saved in <code>exports</code>.</p>
 <p><code>run.R</code> - An script that can be used to execute the workflow. See the section below for more information.</p>
 </div>
-<div id="executing-an-analysis-workflow" class="section level2">
-<h2 class="hasAnchor">
-<a href="#executing-an-analysis-workflow" class="anchor"></a>Executing an analysis workflow</h2>
-<p>There are a number of ways in which the workflow can be executed after the project directory has been generated. The targets package provides some information on this topic <a href="https://books.ropensci.org/targets/walkthrough.html#run-the-pipeline">here</a>.</p>
-<p>The recommended method is through opening the project in the <a href="https://www.rstudio.com/">RStudio IDE</a> and running the workflow as a job using the <a href="https://rstudio.github.io/rstudioapi/"><code>rstudioapi</code></a> package and <code>run.R</code> script as follows:</p>
+<div class="section level2">
+<h2 id="executing-an-analysis-workflow">Executing an analysis workflow<a class="anchor" aria-label="anchor" href="#executing-an-analysis-workflow"></a>
+</h2>
+<p>There are a number of ways in which the workflow can be executed after the project directory has been generated. The targets package provides some information on this topic <a href="https://books.ropensci.org/targets/walkthrough.html#run-the-pipeline" class="external-link">here</a>.</p>
+<p>The recommended method is through opening the project in the <a href="https://www.rstudio.com/" class="external-link">RStudio IDE</a> and running the workflow as a job using the <a href="https://rstudio.github.io/rstudioapi/" class="external-link"><code>rstudioapi</code></a> package and <code>run.R</code> script as follows:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rstudioapi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstudioapi/man/jobRunScript.html">jobRunScript</a></span><span class="op">(</span><span class="st">'run.R'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">rstudioapi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstudioapi/man/jobRunScript.html" class="external-link">jobRunScript</a></span><span class="op">(</span><span class="st">'run.R'</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -291,11 +288,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jasen Finch.</p>
+  <p></p>
+<p>Developed by Jasen Finch.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -303,6 +302,8 @@
 
   
 
+
+  
 
   </body>
 </html>
