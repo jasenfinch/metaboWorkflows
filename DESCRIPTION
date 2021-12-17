@@ -32,6 +32,7 @@ Suggests:
     visNetwork,
     rmarkdown,
     prettydoc,
+    prettycode,
     tibble
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R edit.R utils.R generate.R
