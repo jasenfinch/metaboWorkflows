@@ -349,7 +349,7 @@ pre_treatment_commands <- list(
                                                type = "pre-treated",
                                                outPath = "exports/pre-treated")',
   export_pre_treatment_sample_info = 'metaboMisc::exportSampleInfo(results_pre_treatment,
-                                                                  type = "pre-treated"
+                                                                  type = "pre-treated",
                                                                   outPath = "exports/pre-treated")',
   plot_PCA = 'metabolyseR::plotPCA(results_pre_treatment,
                                    type = "pre-treated")',
