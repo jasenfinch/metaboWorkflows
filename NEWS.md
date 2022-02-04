@@ -1,3 +1,7 @@
+# metaboWorkflows 0.9.5
+
+* The correct sample information table is now exported for the pre-treated data.
+
 # metaboWorkflows 0.9.4
 
 * Plotting and summary targets added to the spectral processing module for profiling workflows.
