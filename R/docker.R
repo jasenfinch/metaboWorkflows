@@ -11,7 +11,7 @@ dockerImage <- function(project_directory){
     flatten_chr() %>% 
     .[2]
   
-  dockerfile_path <- paste0(project_directory,'/Dockerfile')
+  dockerfile_path <- paste0(project_directory,'/misc/docker/Dockerfile')
   dockerfile <- readLines(dockerfile_path)
   dockerfile[grepl('FROM',dockerfile)] <- paste0('FROM ghcr.io/jasenfinch/hrm-docker:',latest_hrm_docker_tag)
   

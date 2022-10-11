@@ -49,8 +49,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             writeTargets(targets(workflow),
                          project_directory)
             
-            utils(glue('{project_directory}/R'),
-                  cran = c('purrr','targets','tarchetypes')
+            utils(glue('{project_directory}/R')
             )
             editHeader(paste0(project_directory,'/R/utils.R'))
             
@@ -78,7 +77,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
                                        path = path(workflow),
                                        renv = renv(workflow)) 
               dockerImage(project_directory)
-              editHeader(paste0(project_directory,'/Dockerfile'))
+              editHeader(paste0(project_directory,'/misc/docker/Dockerfile'))
             }
             
             write(reportFooter(workflow),
