@@ -7,7 +7,7 @@ setMethod('githubWorkflowDependencies',signature = 'Workflow',
 
             standard_deps <- c(
               'jasenfinch/metaboMisc',
-              'jasenfinch/MFassign',
+              'aberHRML/assignments',
               'jasenfinch/metabolyseR'
             )
             

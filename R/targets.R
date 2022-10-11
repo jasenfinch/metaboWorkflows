@@ -416,23 +416,23 @@ targetsPretreatment <- function(x){
 }
 
 assignment_commands <- list(
-  parameters_molecular_formula_assignment = 'MFassign::assignmentParameters("{technique}")',
+  parameters_molecular_formula_assignment = 'assignments::assignmentParameters("{technique}")',
   results_molecular_formula_assignment = 'results_pre_treatment %>% 
                                   metabolyseR::dat(type = "pre-treated") %>% 
-                                  MFassign::assignMFs(parameters_molecular_formula_assignment)',
+                                  assignments::assignMFs(parameters_molecular_formula_assignment)',
   assigned_data = 'metaboMisc::addAssignments(results_pre_treatment,
                                               results_molecular_formula_assignment)',
-  summary_assignments = 'MFassign::summariseAssignment(results_molecular_formula_assignment)',
+  summary_assignments = 'assignments::summariseAssignment(results_molecular_formula_assignment)',
   export_assignments = 'metaboMisc::export(results_molecular_formula_assignment,
                                            outPath = "exports/molecular_formula_assignments")'
 )
 
 assignmentParameters <- function(x){
   technique <- switch(x,
-                      `FIE-HRMS fingerprinting` = 'FIE',
-                      `NSI-HRMS fingerprinting` = 'FIE',
-                      `RP-LC-HRMS profiling` = 'RP-LC',
-                      `NP-LC-HRMS profiling` = 'NP-LC')
+                      `FIE-HRMS fingerprinting` = 'FIE-HRMS',
+                      `NSI-HRMS fingerprinting` = 'FIE-HRMS',
+                      `RP-LC-HRMS profiling` = 'RP-LC-HRMS',
+                      `NP-LC-HRMS profiling` = 'NP-LC-HRMS')
   
   target_command <- glue(assignment_commands$parameters_molecular_formula_assignment)
   target(
