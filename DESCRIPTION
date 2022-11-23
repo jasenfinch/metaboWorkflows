@@ -1,6 +1,6 @@
 Package: metaboWorkflows
 Title: Workflow Project Templates for Metabolomics Analyses
-Version: 0.9.5
+Version: 0.9.6
 Authors@R: person("Jasen", "Finch", email = "jsf9@aber.ac.uk", role = c("aut", "cre"))
 Description: Reproducible workflow project templates for metabolomics analyses using the `hrm` <https://jasenfinch.github.io/hrm/> R package ecosystem.
 URL: https://jasenfinch.github.io/metaboWorkflows
