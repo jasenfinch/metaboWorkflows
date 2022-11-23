@@ -76,20 +76,29 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/filePaths.html" class="external-link">filePaths</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span><span class="va">sample_information</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/runinfo.html" class="external-link">runinfo</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="inputFilePath.html">inputFilePath</a></span><span class="op">(</span><span class="va">file_paths</span>,<span class="va">sample_information</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in initialize(value, ...):</span> object 'file_paths' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu"><a href="defineWorkflow.html">defineWorkflow</a></span><span class="op">(</span><span class="va">workflow_input</span>,</span></span>
 <span class="r-in"><span>                                      <span class="st">'FIE-HRMS fingerprinting'</span>,</span></span>
 <span class="r-in"><span>                                      <span class="st">'Example project'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'input' in selecting a method for function 'defineWorkflow': object 'workflow_input' not found</span>
 <span class="r-in"><span>                 </span></span>
 <span class="r-in"><span><span class="fu">manifest</span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'manifest': object 'workflow_definition' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 42 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    name                                    command                       pattern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> parameters_correlations                 <span style="color: #949494;">"</span>metabolyseR::analysisParame… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> parameters_molecular_formula_assignment <span style="color: #949494;">"</span>MFassign::assignmentParamet… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> sample_information_file                 <span style="color: #949494;">"</span>\"data/runinfo.csv\"<span style="color: #949494;">"</span>        <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> file_paths_list                         <span style="color: #949494;">"</span>\"data/file_paths.txt\"<span style="color: #949494;">"</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> sample_information                      <span style="color: #949494;">"</span>readr::read_csv(sample_info… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> mzML_files                              <span style="color: #949494;">"</span>readLines(file_paths_list)<span style="color: #949494;">"</span>  <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> mzML                                    <span style="color: #949494;">"</span>mzML_files<span style="color: #949494;">"</span>                  map(mz…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> parameters_spectral_processing          <span style="color: #949494;">"</span>binneR::detectParameters(mz… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> results_spectral_processing             <span style="color: #949494;">"</span>binneR::binneRlyse(mzML, sa… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> plot_TIC                                <span style="color: #949494;">"</span>binneR::plotTIC(results_spe… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 32 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
