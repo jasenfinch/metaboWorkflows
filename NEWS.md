@@ -1,3 +1,7 @@
+# metaboWorkflows 0.9.6
+
+* Ensure that the latest hrm-docker tag date is selected for the output project template `Dockerfile`.
+
 # metaboWorkflows 0.9.5
 
 * The correct sample information table is now exported for the pre-treated data.

@@ -9,6 +9,7 @@ dockerImage <- function(project_directory){
     map(~{.x$metadata$container$tags}) %>% 
     flatten() %>% 
     flatten_chr() %>% 
+    sort(decreasing = TRUE) %>% 
     .[2]
   
   dockerfile_path <- paste0(project_directory,'/misc/docker/Dockerfile')
