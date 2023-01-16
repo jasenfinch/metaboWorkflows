@@ -1,19 +1,37 @@
 
-setGeneric('githubWorkflowDependencies',function(x)
-  standardGeneric('githubWorkflowDependencies'))
+setGeneric('inputDependencies',function(x)
+  standardGeneric('inputDependencies'))
 
-setMethod('githubWorkflowDependencies',signature = 'Workflow',
+setMethod('inputDependencies',signature = 'FilePathInput',
+          function(x){
+            character()
+          })
+
+setMethod('inputDependencies',signature = 'GroverInput',
+          function(x){
+            c('jasenfinch/grover',
+              'jasenfinch/metaboMisc@devel')
+          })
+
+setGeneric('workflowDependencies',function(x)
+  standardGeneric('workflowDependencies'))
+
+setMethod('workflowDependencies',signature = 'Workflow',
           function(x){
 
             standard_deps <- c(
-              'jasenfinch/metaboMisc',
-              'aberHRML/assignments',
-              'jasenfinch/metabolyseR'
+              'bioc::ChemmineOB',
+              'bioc::BiocParallel',
+              'bioc::MSnbase',
+              'bioc::xcms',
+              'jasenfinch/metabolyseR@devel',
+              'jasenfinch/MFassign@devel',
+              'jasenfinch/metaboMisc@devel'
             )
             
             fingerprinting_deps <- 'aberHRML/binneR'
             
-            profiling_deps <- 'jasenfinch/profilePro'
+            profiling_deps <- 'jasenfinch/profilePro@devel'
             
             workflow_deps <- switch(type(x),
               `FIE-HRMS fingerprinting` = c(standard_deps,
@@ -26,73 +44,12 @@ setMethod('githubWorkflowDependencies',signature = 'Workflow',
                                          profiling_deps)
             )
             
-            return(workflow_deps)
-          })
-
-setGeneric('githubInputDependencies',function(x)
-  standardGeneric('githubInputDependencies'))
-
-setMethod('githubInputDependencies',signature = 'FilePathInput',
-          function(x){
-            character()
-          })
-
-setMethod('githubInputDependencies',signature = 'GroverInput',
-          function(x){
-            c('jasenfinch/grover',
-              'jasenfinch/metaboMisc')
-          })
-
-setGeneric('githubDependencies',function(x)
-  standardGeneric('githubDependencies'))
-
-setMethod('githubDependencies',signature = 'Workflow',
-          function(x){
-            
             input_dependencies <- x %>% 
               input() %>% 
-              githubInputDependencies()
-            
-            workflow_deps <- githubWorkflowDependencies(x)
+              inputDependencies()
             
             c(input_dependencies,
               workflow_deps) %>% 
               unique() %>% 
-              return()
-          })
-
-setGeneric('biocDependencies',function(x)
-  standardGeneric('biocDependencies'))
-
-
-setMethod('biocDependencies',signature = 'Workflow',
-          function(x){
-            c('mzR','BiocParallel','xcms','MSnbase','rawrr')
-          })
-
-setGeneric('otherInputDependencies',function(x)
-  standardGeneric('otherInputDependencies'))
-
-setMethod('otherInputDependencies',signature = 'FilePathInput',
-          function(x){
-            character()
-          })
-
-setMethod('otherInputDependencies',signature = 'GroverInput',
-          function(x){
-            character()
-          })
-
-setGeneric('otherDependencies',function(x)
-  standardGeneric('otherDependencies'))
-
-setMethod('otherDependencies',signature = 'Workflow',
-          function(x){
-            
-            input_dependencies <- x %>% 
-              input() %>% 
-              otherInputDependencies()
-            
-            input_dependencies %>% 
               return()
           })

@@ -67,9 +67,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
-                             bioc = biocDependencies(workflow),
-                             github = c(otherDependencies(workflow),
-                                        githubDependencies(workflow)))
+                             bioconductor = TRUE,
+                             dependencies = workflowDependencies(workflow))
             }
             
             if (isTRUE(docker(workflow))) {
@@ -146,9 +145,7 @@ targetsOptions <- function(project_directory,...){
   
   target_options = target_options %>% 
     names() %>% 
-    map_chr(~{
-        glue('{.x} = {target_options[[.x]]}') 
-    }) %>% 
+    map_chr(~glue('{.x} = {target_options[[.x]]}')) %>% 
     glue_collapse(',\n')
   
   file <- glue('{project_directory}/R/utils.R')
