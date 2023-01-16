@@ -99,7 +99,7 @@ command(workflow_target) <- rlang::expr(1 * 2)
 type(workflow_target)
 
 ## Set the target type
-type(workflow_target) <- 'tar_file'
+type(workflow_target) <- 'tarchetypes::tar_file'
 
 ## Return the list target arguments
 args(workflow_target)

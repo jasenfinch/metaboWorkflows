@@ -26,13 +26,13 @@ test_that('target elements can be set',{
   
   name(workflow_target) <- 'new_target'
   command(workflow_target) <- rlang::expr(2 + 2)
-  type(workflow_target) <- 'tar_file'
+  type(workflow_target) <- 'tarchetypes::tar_file'
   args(workflow_target) <- list(format = 'file')
   comment(workflow_target) <- 'a target'
   
   expect_identical(name(workflow_target),'new_target')
   expect_identical(command(workflow_target),rlang::exprs(2 + 2))
-  expect_identical(type(workflow_target),'tar_file')
+  expect_identical(type(workflow_target),'tarchetypes::tar_file')
   expect_identical(args(workflow_target),list(format = 'file'))
   expect_identical(comment(workflow_target),'a target')
   expect_type(code(workflow_target),'character') 

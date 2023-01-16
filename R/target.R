@@ -30,11 +30,11 @@ setValidity('Target',function(object){
     return('The target name should not include spaces.')
   }
   
-  target_types <- c(ls(asNamespace('targets')),ls(asNamespace('tarchetypes'))) %>% 
+  target_types <- c(ls(asNamespace('targets'))) %>% 
     .[grepl('tar_',.)]
   
-  if (!(type(object) %in% target_types)) {
-    return(glue('Target type "{type(object)}" unavailable in targets or tarchetypes packages.'))
+  if (!grepl('::',type(object)) & !(type(object) %in% target_types)) {
+    return(glue('Target type "{type(object)}" unavailable in the targets package.'))
   }
   
   return(TRUE)
@@ -74,7 +74,7 @@ setMethod('show',signature = 'Target',
 #' type(workflow_target)
 #' 
 #' ## Set the target type
-#' type(workflow_target) <- 'tar_file'
+#' type(workflow_target) <- 'tarchetypes::tar_file'
 #' 
 #' ## Return the list target arguments
 #' args(workflow_target)
