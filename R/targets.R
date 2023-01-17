@@ -82,22 +82,11 @@ input_commands <- list(
   ),
   grover = list(
     grover_client = 'grover::readGrover(grover_client_config)',
-    raw_files = 'grover::listRawFiles(grover_client,
-                             instrument,
-                             experiment) %>% 
-                  .[!grepl("Ctrl",.)] %>%
-                  .[!grepl("Play",.)] %>% 
-                  sort()',
-    mzML = 'grover::convertFile(grover_client,
-                                    instrument,
-                                    experiment,
-                                    raw_files,
-                                    args = grover::conversionArgsPeakPick(),
-                                    outDir = "data/mzML")',
-    raw_sample_information = 'grover::sampleInfo(grover_client,
-                                   instrument,
-                                   experiment,
-                                   raw_files)',
+    mzML = 'grover::convertDirectory(grover_client, instrument, experiment,
+                                     args = grover::conversionArgsPeakPick(), outDir = "data/mzML",
+                                     exclude = c("Ctrl","Play"))',
+    raw_sample_information = 'grover::runInfo(grover_client, instrument, experiment,
+                                              exclude = c("Ctrl","Play"))',
     sample_information = 'metaboMisc::convertSampleInfo(raw_sample_information)'
   )
 )
@@ -133,7 +122,7 @@ setMethod('targetsInput',signature = 'FilePathInput',
                 comment = 'Parse sample information'
               ))
           })
-  
+
 #' @rdname targetsWorkflow
 #' @importFrom rlang parse_expr
 
@@ -161,22 +150,15 @@ setMethod('targetsInput',signature = 'GroverInput',
                 !!parse_expr(input_commands$grover$grover_client),
                 comment = 'Parse grover API host information'
               ),
-              raw_files = target(
-                'raw_files',
-                !!parse_expr(input_commands$grover$raw_files),
-                comment = 'Retrieve available raw data files, excluding control and play samples'
-              ),
               mzML = target(
                 'mzML',
                 !!parse_expr(input_commands$grover$mzML),
-                args = list(pattern = 'map(raw_files)',
-                            format = 'file'),
+                type = 'tarchetypes::tar_files',
                 comment = 'Retrieve converted raw data files in mzML format via grover API'
               ),
               raw_sample_information = target(
                 'raw_sample_information',
                 !!parse_expr(input_commands$grover$raw_sample_information),
-                args = list(pattern = 'map(raw_files)'),
                 comment = 'Retrieve sample information from grover API'
               ),
               sample_information = target(
