@@ -59,7 +59,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             parallelOptions(project_directory)
             targetsOptions(project_directory,
                            error = 'continue',
-                           memory = 'transient')
+                           memory = 'transient',
+                           garbage_collection = TRUE)
             
             inputPrep(workflow)
             
