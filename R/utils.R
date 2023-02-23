@@ -10,7 +10,7 @@ setMethod('inputDependencies',signature = 'FilePathInput',
 setMethod('inputDependencies',signature = 'GroverInput',
           function(x){
             c('jasenfinch/grover',
-              'jasenfinch/metaboMisc@devel')
+              'jasenfinch/metaboMisc')
           })
 
 setGeneric('workflowDependencies',function(x)
@@ -24,14 +24,14 @@ setMethod('workflowDependencies',signature = 'Workflow',
               'bioc::BiocParallel',
               'bioc::MSnbase',
               'bioc::xcms',
-              'jasenfinch/metabolyseR@devel',
-              'jasenfinch/MFassign@devel',
-              'jasenfinch/metaboMisc@devel'
+              'jasenfinch/metabolyseR',
+              'aberHRML/assignments',
+              'jasenfinch/metaboMisc'
             )
             
             fingerprinting_deps <- 'aberHRML/binneR'
             
-            profiling_deps <- 'jasenfinch/profilePro@devel'
+            profiling_deps <- 'jasenfinch/profilePro'
             
             workflow_deps <- switch(type(x),
               `FIE-HRMS fingerprinting` = c(standard_deps,
