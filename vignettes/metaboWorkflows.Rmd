@@ -158,8 +158,7 @@ The additional `start` argument can be used to automatically open the project di
 Below shows an overview of the generated `Example project` project directory:
 
 ```
-Example_project
-├── Dockerfile
+Example_project/
 ├── Example_project.Rproj
 ├── R
 │   ├── functions
@@ -174,57 +173,68 @@ Example_project
 │   └── utils.R
 ├── README.md
 ├── _targets.R
+├── _targets.yaml
 ├── data
 │   ├── file_paths.txt
 │   └── runinfo.csv
 ├── exports
 ├── misc
+│   ├── build_project.sh
+│   ├── docker
+│   │   ├── Dockerfile
+│   │   ├── build_image.sh
+│   │   └── run_container.sh
+│   └── run.R
 ├── renv
 │   ├── activate.R
 │   ├── library
-│   ├── local
+│   ├── sandbox
 │   ├── settings.dcf
 │   └── staging
 ├── renv.lock
-├── report
-│   └── report.Rmd
-└── run.R
+└── report
+    └── report.Rmd
 ```
 
 The presence of some of these components will be dependent on the defined project options and the input type that was selected in the workflow definition.
 Here, a brief overview of some of the important components will be given.
 
-`Dockerfile` - This can be used build a suitable docker image from which the workflow can be executed within a containerised OS environment.
-
-`R/functions` - Scripts containing additional functions can be placed here.
+`R/functions` - R scripts containing additional functions can be placed here.
 
 `R/targets` - This directory contains scripts for the target definitions of each module of the workflow.
 
 `R/utils.R` - This contains any code related to loading packages and setting package options.
 
-`_targets.R` - This script sources all the necessary scripts in the project directory and contains the formal definition of the workflow. 
-See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about the this file.
+`_targets.R` - This R script sources all the necessary scripts in the project directory and contains the formal definition of the workflow. 
+See [here](https://books.ropensci.org/targets/walkthrough.html#target-script-file) for more information about this file.
+
+`_targets.yaml` - A YAML file for `targets` pipeline configuration settings.
 
 `data` - Where workflow input data is stored. The contents of this directory will differ depending on whether a grover API or file path input type has been selected.
 
-`exports` - Any outputs from the workflow will be directed here including the HTML output and any .csv data table outputs.
+`exports` - Any outputs from the workflow will be directed here including the HTML report output and any .csv data table outputs.
 
 `misc` - Any miscellaneous scripts and files can be placed here.
+
+`misc/docker` - This directory contains infrastructure for building a suitable docker image from which the workflow pipeline can be executed within a reproducible containerised OS environment.
+
+`misc/build_project.sh` - A convenience shell script to build and run the workflow pipeline with a docker container.
+
+`misc/run.R` - An R script that can be used to execute the workflow. See the section below for more information.
 
 `renv.lock` - A lock file used by the `renv` package to capture the state of the R package library used in the project.
 
 `report/report.Rmd` - An R Markdown report for summarising the workflow results. 
 It's output will be saved in `exports`.
 
-`run.R` - An script that can be used to execute the workflow. See the section below for more information.
+## Executing the workflow analysis pipeline of the generated project
 
-## Executing an analysis workflow
+There are a number of ways in which the workflow targets pipeline can be executed after the project directory has been generated.
+The simplest way is to execute `tar_make()` in an R session run from within the project directory.
+The targets package provides further information on this topic [here](https://books.ropensci.org/targets/walkthrough.html#run-the-pipeline).
 
-There are a number of ways in which the workflow can be executed after the project directory has been generated.
-The targets package provides some information on this topic [here](https://books.ropensci.org/targets/walkthrough.html#run-the-pipeline).
-
-The recommended method is through opening the project in the [RStudio IDE](https://www.rstudio.com/) and running the workflow as a job using the [`rstudioapi`](https://rstudio.github.io/rstudioapi/) package and `run.R` script as follows:
+A recommended method is to open the project in the [RStudio IDE](https://www.rstudio.com/) and to run the workflow as a background job using the [`rstudioapi`](https://rstudio.github.io/rstudioapi/) package and `misc/run.R` script as follows:
 
 ```{r execute, eval=FALSE}
-rstudioapi::jobRunScript('run.R')
+rstudioapi::jobRunScript('misc/run.R')
 ```
