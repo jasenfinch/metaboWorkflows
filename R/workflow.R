@@ -250,7 +250,7 @@ setMethod('filePaths',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'FilePathInput') {
+            if (inherits(workflow_input,'FilePathInput')) {
               filePaths(workflow_input) 
             } else {
               stop('File paths only available for file path input.',call. = FALSE)
@@ -263,7 +263,7 @@ setMethod('filePaths<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'FilePathInput') {
+            if (inherits(workflow_input,'FilePathInput')) {
               filePaths(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -280,7 +280,7 @@ setMethod('sampleInformation',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'FilePathInput') {
+            if (inherits(workflow_input,'FilePathInput')) {
               sampleInformation(workflow_input) 
             } else {
               stop('Sample information only available for file path input.',call. = FALSE)
@@ -294,7 +294,7 @@ setMethod('sampleInformation<-',signature = 'Workflow',
             
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'FilePathInput') {
+            if (inherits(workflow_input,'FilePathInput')) {
               sampleInformation(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -312,7 +312,7 @@ setMethod('instrument',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               instrument(workflow_input) 
             } else {
               stop('Instrument only available for grover input.',call. = FALSE)
@@ -326,7 +326,7 @@ setMethod('instrument<-',signature = 'Workflow',
             
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               instrument(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -343,7 +343,7 @@ setMethod('directory',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               directory(workflow_input) 
             } else {
               stop('Directory only available for grover input.',call. = FALSE)
@@ -356,7 +356,7 @@ setMethod('directory<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               directory(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -373,7 +373,7 @@ setMethod('host',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               host(workflow_input) 
             } else {
               stop('Host only available for grover input.',call. = FALSE)
@@ -386,7 +386,7 @@ setMethod('host<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               host(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -403,7 +403,7 @@ setMethod('port',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               port(workflow_input) 
             } else {
               stop('Port only available for grover input.',call. = FALSE)
@@ -416,7 +416,7 @@ setMethod('port<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               port(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
@@ -433,7 +433,7 @@ setMethod('auth',signature = 'Workflow',
             workflow_input <- x %>% 
               input()
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               auth(workflow_input) 
             } else {
               stop('Auth only available for grover input.',call. = FALSE)
@@ -446,7 +446,7 @@ setMethod('auth<-',signature = 'Workflow',
           function(x,value){
             workflow_input <- input(x)
             
-            if (class(workflow_input) == 'GroverInput') {
+            if (inherits(workflow_input,'GroverInput')) {
               auth(workflow_input) <- value
               input(x) <- workflow_input 
             } else {
