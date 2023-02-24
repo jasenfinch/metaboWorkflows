@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   metaboWorkflows: metaboWorkflows.html
   workflow-customisation: workflow-customisation.html
-last_built: 2022-11-23T15:12Z
+last_built: 2023-02-24T09:02Z
 urls:
   reference: https://jasenfinch.github.io/metaboWorkflows/reference
   article: https://jasenfinch.github.io/metaboWorkflows/articles
