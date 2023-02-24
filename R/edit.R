@@ -204,7 +204,7 @@ isModule <- function(module){
 }
 
 isTarget <- function(target){
-  if (class(target) == 'Target'){
+  if (inherits(target,'Target')){
     TRUE
   } else {
     FALSE

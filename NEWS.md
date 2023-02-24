@@ -1,3 +1,17 @@
+# metaboWorkflows 0.10.0
+
+* Workflow templates now include a `_targets.yaml` file for targets configuraion settings.
+
+* Workflow templates now include a customised `.Rprofile` file.
+
+* Target factories from packages other than [`targets`](https://docs.ropensci.org/targets/) or [`tarchetypes`](https://docs.ropensci.org/tarchetypes/) can now be specified in `targets()`.
+
+* The `Dockerfile` is now generated with the `latest` tag if the [hrm-docker](https://github.com/jasenfinch/hrm-docker) release information cannot be accessed with a warning printed if so.
+
+* The template grover input targets now correctly track the .mzML files without causing an error if the `mzML` target later becomes invalidated. `grover::runInfo()` is now used to retrieve the sample information.
+
+* The targets option `garbage_collection` is now set as `TRUE` in `targets::tar_option_set() ` in the template `R/utils.R` to improve memory usage during pipeline execution.
+
 # metaboWorkflows 0.9.6
 
 * Ensure that the latest hrm-docker tag date is selected for the output project template `Dockerfile`.

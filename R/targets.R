@@ -82,22 +82,11 @@ input_commands <- list(
   ),
   grover = list(
     grover_client = 'grover::readGrover(grover_client_config)',
-    raw_files = 'grover::listRawFiles(grover_client,
-                             instrument,
-                             experiment) %>% 
-                  .[!grepl("Ctrl",.)] %>%
-                  .[!grepl("Play",.)] %>% 
-                  sort()',
-    mzML = 'grover::convertFile(grover_client,
-                                    instrument,
-                                    experiment,
-                                    raw_files,
-                                    args = grover::conversionArgsPeakPick(),
-                                    outDir = "data/mzML")',
-    raw_sample_information = 'grover::sampleInfo(grover_client,
-                                   instrument,
-                                   experiment,
-                                   raw_files)',
+    mzML = 'grover::convertDirectory(grover_client, instrument, experiment,
+                                     args = grover::conversionArgsPeakPick(), outDir = "data/mzML",
+                                     exclude = c("Ctrl","Play"))',
+    raw_sample_information = 'grover::runInfo(grover_client, instrument, experiment,
+                                              exclude = c("Ctrl","Play"))',
     sample_information = 'metaboMisc::convertSampleInfo(raw_sample_information)'
   )
 )
@@ -115,16 +104,16 @@ setMethod('targetsInput',signature = 'FilePathInput',
             list(
               file_paths_list = target('file_paths_list',
                                        "data/file_paths.txt",
-                                       type = 'tar_file',
+                                       type = 'tarchetypes::tar_file',
                                        comment = 'Retrieve data file paths'),
               mzML = target('mzML',
                             readLines(file_paths_list),
-                            type = 'tar_files',
+                            type = 'tarchetypes::tar_files',
                             comment = 'Track individual data files'),
               sample_information_file = target(
                 'sample_information_file',
                 "data/runinfo.csv",
-                type = 'tar_file',
+                type = 'tarchetypes::tar_file',
                 comment = 'Sample information file path'
               ),
               sample_information = target(
@@ -133,7 +122,7 @@ setMethod('targetsInput',signature = 'FilePathInput',
                 comment = 'Parse sample information'
               ))
           })
-  
+
 #' @rdname targetsWorkflow
 #' @importFrom rlang parse_expr
 
@@ -153,7 +142,7 @@ setMethod('targetsInput',signature = 'GroverInput',
               grover_client_config = target(
                 'grover_client_config',
                 "misc/grover_client.yml",
-                type = 'tar_file',
+                type = 'tarchetypes::tar_file',
                 comment = 'File path to grover API host information'
               ),
               grover_client = target(
@@ -161,22 +150,15 @@ setMethod('targetsInput',signature = 'GroverInput',
                 !!parse_expr(input_commands$grover$grover_client),
                 comment = 'Parse grover API host information'
               ),
-              raw_files = target(
-                'raw_files',
-                !!parse_expr(input_commands$grover$raw_files),
-                comment = 'Retrieve available raw data files, excluding control and play samples'
-              ),
               mzML = target(
                 'mzML',
                 !!parse_expr(input_commands$grover$mzML),
-                args = list(pattern = 'map(raw_files)',
-                            format = 'file'),
+                type = 'tarchetypes::tar_files',
                 comment = 'Retrieve converted raw data files in mzML format via grover API'
               ),
               raw_sample_information = target(
                 'raw_sample_information',
                 !!parse_expr(input_commands$grover$raw_sample_information),
-                args = list(pattern = 'map(raw_files)'),
                 comment = 'Retrieve sample information from grover API'
               ),
               sample_information = target(
@@ -271,7 +253,7 @@ fingerprintProcessing <- function(){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$fingerprinting$export_processed_data),
-      type = 'tar_files',
+      type = 'tarchetypes::tar_files',
       comment = 'Export spectrally binned data'
     )
   )
@@ -318,7 +300,7 @@ profilingProcessing <- function(x){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$profiling$export_processed_data),
-      type = 'tar_files',
+      type = 'tarchetypes::tar_files',
       args = list(
         memory = 'transient'
       ),
@@ -383,13 +365,13 @@ targetsPretreatment <- function(x){
     export_pre_treatment_data = target(
       'export_pre_treatment',
       !!parse_expr(pre_treatment_commands$export_pre_treatment),
-      type = 'tar_file',
+      type = 'tarchetypes::tar_file',
       comment = 'Export pre-treated data'
     ),
     export_pre_treatment_sample_info = target(
       'export_pre_treatment_sample_info',
       !!parse_expr(pre_treatment_commands$export_pre_treatment_sample_info),
-      type = 'tar_file',
+      type = 'tarchetypes::tar_file',
       comment = 'Export sample information of pre-treated data'
     ),
     plot_PCA = target(
@@ -416,23 +398,23 @@ targetsPretreatment <- function(x){
 }
 
 assignment_commands <- list(
-  parameters_molecular_formula_assignment = 'MFassign::assignmentParameters("{technique}")',
+  parameters_molecular_formula_assignment = 'assignments::assignmentParameters("{technique}")',
   results_molecular_formula_assignment = 'results_pre_treatment %>% 
                                   metabolyseR::dat(type = "pre-treated") %>% 
-                                  MFassign::assignMFs(parameters_molecular_formula_assignment)',
+                                  assignments::assignMFs(parameters_molecular_formula_assignment)',
   assigned_data = 'metaboMisc::addAssignments(results_pre_treatment,
                                               results_molecular_formula_assignment)',
-  summary_assignments = 'MFassign::summariseAssignment(results_molecular_formula_assignment)',
+  summary_assignments = 'assignments::summariseAssignments(results_molecular_formula_assignment)',
   export_assignments = 'metaboMisc::export(results_molecular_formula_assignment,
                                            outPath = "exports/molecular_formula_assignments")'
 )
 
 assignmentParameters <- function(x){
   technique <- switch(x,
-                      `FIE-HRMS fingerprinting` = 'FIE',
-                      `NSI-HRMS fingerprinting` = 'FIE',
-                      `RP-LC-HRMS profiling` = 'RP-LC',
-                      `NP-LC-HRMS profiling` = 'NP-LC')
+                      `FIE-HRMS fingerprinting` = 'FIE-HRMS',
+                      `NSI-HRMS fingerprinting` = 'FIE-HRMS',
+                      `RP-LC-HRMS profiling` = 'RP-LC-HRMS',
+                      `NP-LC-HRMS profiling` = 'NP-LC-HRMS')
   
   target_command <- glue(assignment_commands$parameters_molecular_formula_assignment)
   target(
@@ -468,7 +450,7 @@ targetsMFassignment <- function(x){
     export_assignments = target(
       'export_assignments',
       !!parse_expr(assignment_commands$export_assignments),
-      type = 'tar_files',
+      type = 'tarchetypes::tar_files',
       comment = 'Export molecular formula assignments'
     )
   )
@@ -523,7 +505,7 @@ modellingTargets <- function(x){
     export_modelling = target(
       'export_modelling',
       !!parse_expr(modelling_commands$export_modelling),
-      type = 'tar_files',
+      type = 'tarchetypes::tar_files',
       comment = 'Export results_modelling results'
     )
   )
@@ -578,7 +560,7 @@ correlationsTargets <- function(x){
     export_correlations = target(
       'export_correlations',
       !!parse_expr(correlations_commands$export_correlations),
-      type = 'tar_files',
+      type = 'tarchetypes::tar_files',
       comment = 'Export correlation analysis results'
     )
   )
@@ -607,7 +589,7 @@ targetsReport <- function(x){
     report = target(
       'report',
       "report/report.Rmd",
-      type = 'tar_render',
+      type = 'tarchetypes::tar_render',
       args = list(output_dir = "exports")
     )
   )

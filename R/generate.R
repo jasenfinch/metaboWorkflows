@@ -22,7 +22,8 @@ setGeneric('generateWorkflow',function(workflow,start = TRUE)
   standardGeneric('generateWorkflow'))
 
 #' @rdname generateWorkflow
-#' @importFrom projecttemplates projectDirectory projectSkeleton targetsScript targetsRun utils renvInitialise docker createGit githubActions createGithub
+#' @importFrom projecttemplates projectDirectory projectSkeleton targetsScript targetsConfig
+#' @importFrom projecttemplates targetsRun utils renvInitialise docker createGit githubActions createGithub Rprofile
 #' @importFrom cli symbol
 #' @importFrom crayon green
 #' @importFrom rstudioapi isAvailable openProject
@@ -38,9 +39,11 @@ setMethod('generateWorkflow',signature = 'Workflow',
                    type(workflow),
                    path(workflow),
                    renv = renv(workflow))
+            Rprofile(project_directory,renv = renv(workflow))
             
             message('Adding targets infrastructure')
             targetsScript(project_directory,type = 'report')
+            targetsConfig(project_directory)
             editTargetsScript(project_directory)
             
             targetsRun(project_directory,
@@ -49,15 +52,15 @@ setMethod('generateWorkflow',signature = 'Workflow',
             writeTargets(targets(workflow),
                          project_directory)
             
-            utils(glue('{project_directory}/R'),
-                  cran = c('purrr','targets','tarchetypes')
+            utils(glue('{project_directory}/R')
             )
             editHeader(paste0(project_directory,'/R/utils.R'))
             
             parallelOptions(project_directory)
             targetsOptions(project_directory,
                            error = 'continue',
-                           memory = 'transient')
+                           memory = 'transient',
+                           garbage_collection = TRUE)
             
             inputPrep(workflow)
             
@@ -68,9 +71,8 @@ setMethod('generateWorkflow',signature = 'Workflow',
             
             if (isTRUE(renv(workflow))){
               renvInitialise(project_directory,
-                             bioc = biocDependencies(workflow),
-                             github = c(otherDependencies(workflow),
-                                        githubDependencies(workflow)))
+                             bioconductor = TRUE,
+                             dependencies = workflowDependencies(workflow))
             }
             
             if (isTRUE(docker(workflow))) {
@@ -78,7 +80,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
                                        path = path(workflow),
                                        renv = renv(workflow)) 
               dockerImage(project_directory)
-              editHeader(paste0(project_directory,'/Dockerfile'))
+              editHeader(paste0(project_directory,'/misc/docker/Dockerfile'))
             }
             
             write(reportFooter(workflow),
@@ -134,7 +136,7 @@ editTargetsScript <- function(project_directory){
   
   write('"R/targets/" %>%
     list.files(full.names = TRUE) %>%
-    walk(source)\n',
+    purrr::walk(source)\n',
         file = file,
         append = TRUE)
   
@@ -147,9 +149,7 @@ targetsOptions <- function(project_directory,...){
   
   target_options = target_options %>% 
     names() %>% 
-    map_chr(~{
-        glue('{.x} = {target_options[[.x]]}') 
-    }) %>% 
+    map_chr(~glue('{.x} = {target_options[[.x]]}')) %>% 
     glue_collapse(',\n')
   
   file <- glue('{project_directory}/R/utils.R')
