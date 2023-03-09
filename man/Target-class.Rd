@@ -3,7 +3,7 @@
 \docType{class}
 \name{Target-class}
 \alias{Target-class}
-\title{S4 class to store target a definition}
+\title{S4 class to store a target definition}
 \description{
 An S4 class for storing a workflow target definition.
 }

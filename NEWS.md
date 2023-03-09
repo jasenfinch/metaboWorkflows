@@ -1,3 +1,7 @@
+# metaboWorkflows 0.10.1
+
+* Clarified the specification of argument `type` in the documentation of `target()`.
+
 # metaboWorkflows 0.10.0
 
 * Workflow templates now include a `_targets.yaml` file for targets configuraion settings.

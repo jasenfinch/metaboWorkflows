@@ -1,4 +1,4 @@
-#' S4 class to store target a definition
+#' S4 class to store a target definition
 #' @description An S4 class for storing a workflow target definition.
 #' @slot name the target name
 #' @slot command the R code to run the target as a string
@@ -294,7 +294,9 @@ setMethod('code',signature = 'Target',
 #' @param comment optional comment that precedes the target code
 #' @return An S4 object of class Target. 
 #' @details 
-#' Target types can be one of any provided by the `targets` or `tarchetypes` packages.
+#' The specified target `type` can be one of any provided by the `targets` package such as `tar_target`. 
+#' For target archetypes outside of `targets`, declare the package directly for argument 
+#' `type`. For instance, `type = "tarchetypes::tar_file"`. 
 #' @examples 
 #' workflow_target <- target('a_target',
 #'                           1 + 1,

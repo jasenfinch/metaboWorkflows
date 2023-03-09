@@ -30,7 +30,9 @@ An S4 object of class Target.
 Create a workflow target definition.
 }
 \details{
-Target types can be one of any provided by the \code{targets} or \code{tarchetypes} packages.
+The specified target \code{type} can be one of any provided by the \code{targets} package such as \code{tar_target}.
+For target archetypes outside of \code{targets}, declare the package directly for argument
+\code{type}. For instance, \code{type = "tarchetypes::tar_file"}.
 }
 \examples{
 workflow_target <- target('a_target',
