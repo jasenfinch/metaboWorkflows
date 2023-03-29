@@ -323,10 +323,27 @@ targetsSpectralProcessing <- function(x){
   return(processing_workflow)
 }
 
+preTreatmentRoutine <- function(x){
+  
+  pre_treat_modes <- 'metaboMisc::preTreatModes(results_spectral_processing,
+                                           parameters_pre_treatment)'
+  
+  pre_treat_GCMS <- 'metabolyseR::metabolyse(
+        profilePro::processedData(results_spectral_processing), 
+        profilePro::sampleInfo(results_spectral_processing),
+        parameters_pre_treatment)'
+  
+  switch(x,
+         `FIE-HRMS fingerprinting` = pre_treat_modes,
+         `NSI-HRMS fingerprinting` = pre_treat_modes,
+         `RP-LC-HRMS profiling` = pre_treat_modes,
+         `NP-LC-HRMS profiling` = pre_treat_modes,
+         `GC-MS profiling` = pre_treat_GCMS
+         )
+} 
+
 pre_treatment_commands <- list(
   parameters_pre_treatment = 'metaboMisc::detectPretreatmentParameters(results_spectral_processing)',
-  results_pre_treatment = 'metaboMisc::preTreatModes(results_spectral_processing,
-                                           parameters_pre_treatment)',
   export_pre_treatment = 'metaboMisc::exportData(results_pre_treatment,
                                                type = "pre-treated",
                                                outPath = "exports/pre-treated")',
@@ -359,7 +376,7 @@ targetsPretreatment <- function(x){
     ),
     results_pre_treatment = target(
       'results_pre_treatment',
-      !!parse_expr(pre_treatment_commands$results_pre_treatment),
+      !!parse_expr(preTreatmentRoutine(x)),
       comment = 'Perform data pre-treatment'
     ),
     export_pre_treatment_data = target(
