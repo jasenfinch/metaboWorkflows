@@ -2,6 +2,8 @@
 
 * Clarified the specification of argument `type` in the documentation of `target()`.
 
+* Added a suitable pre-treatment target expression for processing GC-MS profiling data.
+
 # metaboWorkflows 0.10.0
 
 * Workflow templates now include a `_targets.yaml` file for targets configuraion settings.
