@@ -25,15 +25,16 @@ Imports: projecttemplates,
         targets,
         yaml
 Suggests: 
-    knitr,
-    testthat (>= 3.0.0),
-    metaboData,
     covr,
-    visNetwork,
-    rmarkdown,
-    prettydoc,
+    hrmtargets,
+    knitr,
+    metaboData,
     prettycode,
-    tibble
+    prettydoc,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    tibble,
+    visNetwork
 Collate: input.R metaboWorkflows.R project.R target.R 
          workflow.R targets.R edit.R utils.R generate.R
          define.R reexports.R glimpse.R check.R output.R
@@ -42,5 +43,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
-Remotes: jasenfinch/projecttemplates,
-        jasenfinch/chunky
+Remotes:
+  jasenfinch/chunky,
+  jasenfinch/hrmtargets,
+  jasenfinch/projecttemplates
+  
