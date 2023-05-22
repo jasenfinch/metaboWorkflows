@@ -312,5 +312,5 @@ setMethod('output',signature = 'Workflow',
             }
             
             rmd(x) %>% 
-              writeLines(paste0(report_directory,'/report.Rmd'))
+              writeLines(paste0(report_directory,'/',basename(project_directory),'_report.Rmd'))
           })

@@ -38,7 +38,13 @@ fingerprinting <- function(x){
     molecular_formula_assignment = targetsMFassignment(workflow_type),
     modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
-    report = targetsReport(workflow_type)
+    report = targetsReport(
+      workflow_type,
+      projectDirectory(
+        projectName(x),
+        path(x)
+      )
+    )
   )
 }
 
@@ -55,7 +61,13 @@ GCprofiling <- function(x){
     pre_treatment = targetsPretreatment(workflow_type),
     results_modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
-    report = targetsReport(workflow_type)
+    report = targetsReport(
+      workflow_type,
+      projectDirectory(
+        projectName(x),
+        path(x)
+      )
+    )
   )
 }
 
@@ -339,7 +351,7 @@ preTreatmentRoutine <- function(x){
          `RP-LC-HRMS profiling` = pre_treat_modes,
          `NP-LC-HRMS profiling` = pre_treat_modes,
          `GC-MS profiling` = pre_treat_GCMS
-         )
+  )
 } 
 
 pre_treatment_commands <- list(
@@ -601,11 +613,17 @@ targetsCorrelations <- function(x){
 #' @rdname targetsWorkflow
 #' @export
 
-targetsReport <- function(x){
+targetsReport <- function(x,project_directory){
+  
+  report_name <- paste0(
+    'report/',
+    basename(project_directory),
+    '_report.Rmd') 
+  
   list(
     report = target(
       'report',
-      "report/report.Rmd",
+      !!report_name,
       type = 'tarchetypes::tar_render',
       args = list(output_dir = "exports")
     )

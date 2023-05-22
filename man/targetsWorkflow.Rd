@@ -37,7 +37,7 @@ targetsModelling(x)
 
 targetsCorrelations(x)
 
-targetsReport(x)
+targetsReport(x, project_directory)
 }
 \arguments{
 \item{x}{the workflow type or an S4 object of class \code{Workflow}, \code{FilePathInput} or \code{GroverInput}}
