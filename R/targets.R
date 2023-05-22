@@ -2,6 +2,7 @@
 #' @rdname targetsWorkflow
 #' @description Target definitions for workflow input.
 #' @param x the workflow type or an S4 object of class `Workflow`, `FilePathInput` or `GroverInput`
+#' @param project_directory the path of the project directory
 #' @return A list of `Target` S4 class target definitions.
 #' @examples 
 #' ## Full workflow example
