@@ -12,6 +12,7 @@ defineProject(
   github = FALSE,
   private = FALSE,
   github_actions = FALSE,
+  parallel_plan = jfmisc::suitableParallelPlan(),
   force = FALSE
 )
 }
@@ -29,6 +30,8 @@ defineProject(
 \item{private}{TRUE/FALSE. Should the GitHub repository be private? Evaluated only if argument \code{github} is TRUE.}
 
 \item{github_actions}{TRUE/FALSE. Add Github actions infrastructure? Evaluated only if argument \code{github} is TRUE.}
+
+\item{parallel_plan}{An expression denoting the \code{future} parallel plan to use in the project template. See \code{future::plan()} for more information on \code{future} parallel plans.}
 
 \item{force}{force project creation if project directory already exists}
 }

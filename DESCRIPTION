@@ -14,6 +14,7 @@ Imports: projecttemplates,
         crayon, 
         gh,
         glue,
+        jfmisc,
         magrittr,
         methods,
         purrr,
@@ -25,6 +26,7 @@ Imports: projecttemplates,
         yaml
 Suggests: 
     covr,
+    future,
     hrmtargets,
     knitr,
     metaboData,
@@ -45,6 +47,7 @@ RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Remotes:
   jasenfinch/chunky,
+  jasenfinch/jfmisc,
   jasenfinch/hrmtargets,
   jasenfinch/projecttemplates
   

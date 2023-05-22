@@ -20,6 +20,8 @@ test_that('Project elements can be returned',{
                    FALSE)
   expect_identical(githubActions(workflow_project),
                    FALSE)
+  expect_identical(parallelPlan(workflow_project),
+                   rlang::expr(jfmisc::suitableParallelPlan()))
   expect_identical(force(workflow_project),
                    FALSE)
 })
@@ -34,6 +36,7 @@ test_that('Project elements can be set',{
   github(workflow_project) <- TRUE
   private(workflow_project) <- TRUE
   githubActions(workflow_project) <- TRUE
+  parallelPlan(workflow_project) <- rlang::expr(future::plan())
   force(workflow_project) <- TRUE
   
   expect_identical(projectName(workflow_project),
@@ -49,6 +52,8 @@ test_that('Project elements can be set',{
                    TRUE)
   expect_identical(githubActions(workflow_project),
                    TRUE)
+  expect_identical(parallelPlan(workflow_project),
+                   rlang::expr(future::plan()))
   expect_identical(force(workflow_project),
                    TRUE)
 })
