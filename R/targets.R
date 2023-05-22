@@ -108,7 +108,7 @@ setMethod('targetsInput',signature = 'FilePathInput',
                                        comment = 'Retrieve data file paths'),
               mzML = target('mzML',
                             readLines(file_paths_list),
-                            type = 'tarchetypes::tar_files',
+                            type = 'hrmtargets::tar_export',
                             comment = 'Track individual data files'),
               sample_information_file = target(
                 'sample_information_file',
@@ -253,7 +253,7 @@ fingerprintProcessing <- function(){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$fingerprinting$export_processed_data),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export spectrally binned data'
     )
   )
@@ -300,7 +300,7 @@ profilingProcessing <- function(x){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$profiling$export_processed_data),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       args = list(
         memory = 'transient'
       ),
@@ -467,7 +467,7 @@ targetsMFassignment <- function(x){
     export_assignments = target(
       'export_assignments',
       !!parse_expr(assignment_commands$export_assignments),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export molecular formula assignments'
     )
   )
@@ -522,7 +522,7 @@ modellingTargets <- function(x){
     export_modelling = target(
       'export_modelling',
       !!parse_expr(modelling_commands$export_modelling),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export results_modelling results'
     )
   )
@@ -577,7 +577,7 @@ correlationsTargets <- function(x){
     export_correlations = target(
       'export_correlations',
       !!parse_expr(correlations_commands$export_correlations),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export correlation analysis results'
     )
   )
