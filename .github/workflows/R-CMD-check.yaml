@@ -41,11 +41,14 @@ jobs:
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libgit2-dev
+        run: sudo apt-get install -y libgit2-dev libnetcdf-dev libglpk-dev texlive-base libsodium-dev libopenbabel-dev libeigen3-dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: |
+            any::rcmdcheck
+            bioc::BiocParallel
+            bioc::MSnbase
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
