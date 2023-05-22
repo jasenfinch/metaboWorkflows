@@ -49,7 +49,7 @@ availableWorkflows() %>%
 The `metaboWorkflows` package can be installed from GitHub using the following:
 
 ```r
-devtools::install_github('jasenfinch/metaboWorkflows',build_vignettes = TRUE)
+remotes::install_github('jasenfinch/metaboWorkflows',build_vignettes = TRUE)
 ```
 
 ## Learn more
