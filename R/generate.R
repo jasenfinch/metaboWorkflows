@@ -147,7 +147,7 @@ targetsOptions <- function(project_directory,...){
   target_options <- enexprs(...) %>% 
     map(expr_text)
   
-  target_options = target_options %>% 
+  target_options <- target_options %>% 
     names() %>% 
     map_chr(~glue('{.x} = {target_options[[.x]]}')) %>% 
     glue_collapse(',\n')
