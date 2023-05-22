@@ -22,7 +22,7 @@ setClass('Target',
            comment = character()
          ))
 
-#' @import targets tarchetypes
+#' @import targets
 
 setValidity('Target',function(object){
   

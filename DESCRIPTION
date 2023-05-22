@@ -21,7 +21,6 @@ Imports: projecttemplates,
         rstudioapi,
         stringr,
         styler,
-        tarchetypes,
         targets,
         yaml
 Suggests: 
@@ -32,6 +31,7 @@ Suggests:
     prettycode,
     prettydoc,
     rmarkdown,
+    tarchetypes,
     testthat (>= 3.0.0),
     tibble,
     visNetwork
