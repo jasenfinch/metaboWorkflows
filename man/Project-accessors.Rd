@@ -29,6 +29,10 @@
 \alias{githubActions,Project-method}
 \alias{githubActions<-}
 \alias{githubActions<-,Project-method}
+\alias{parallelPlan}
+\alias{parallelPlan,Project-method}
+\alias{parallelPlan<-}
+\alias{parallelPlan<-,Project-method}
 \alias{force}
 \alias{force,Project-method}
 \alias{force<-}
@@ -91,6 +95,14 @@ githubActions(x) <- value
 
 \S4method{githubActions}{Project}(x) <- value
 
+parallelPlan(x)
+
+\S4method{parallelPlan}{Project}(x)
+
+parallelPlan(x) <- value
+
+\S4method{parallelPlan}{Project}(x) <- value
+
 force(x)
 
 \S4method{force}{Project}(x)
@@ -151,6 +163,12 @@ githubActions(workflow_project)
 
 ## Set the project github actions option
 githubActions(workflow_project) <- TRUE
+
+## Return the expression project parallel plan
+parallelPlan(workflow_project)
+
+## Set the expression for the project parallel plan
+parallelPlan(workflow_project) <- rlang::expr(future::plan(strategy = 'multisession',workers = 2))
 
 ## Return the project force option
 force(workflow_project)

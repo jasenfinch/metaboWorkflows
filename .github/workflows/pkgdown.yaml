@@ -30,11 +30,15 @@ jobs:
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libgit2-dev
+        run: sudo apt-get install -y libgit2-dev libnetcdf-dev libglpk-dev texlive-base libsodium-dev libopenbabel-dev libeigen3-dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: |
+            any::pkgdown
+            local::.
+            bioc::BiocParallel
+            bioc::MSnbase
           needs: website
 
       - name: Build site

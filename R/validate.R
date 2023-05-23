@@ -26,13 +26,18 @@ setGeneric('validate',function(x)
 setMethod('validate',signature = 'Workflow',
           function(x){
             
+            
+            project_directory <- projectDirectory(
+              projectName(x),
+              path(x)
+            )
+            
             validation <-  glue('targets::tar_dir({{
                               targets::tar_script({{
-                                library(tarchetypes)
                                 
                                 dir.create("./report")
-                                writeLines(\'{rmd(x)}\',"./report/report.Rmd")
-                                
+                                writeLines(\'{rmd(x)}\',"./report/{basename(project_directory)}_report.Rmd")
+                               
                                 {x %>%
                                   targets() %>% 
                                   targetsList()}

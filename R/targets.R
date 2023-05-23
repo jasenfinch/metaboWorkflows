@@ -2,6 +2,7 @@
 #' @rdname targetsWorkflow
 #' @description Target definitions for workflow input.
 #' @param x the workflow type or an S4 object of class `Workflow`, `FilePathInput` or `GroverInput`
+#' @param project_directory the path of the project directory
 #' @return A list of `Target` S4 class target definitions.
 #' @examples 
 #' ## Full workflow example
@@ -38,7 +39,13 @@ fingerprinting <- function(x){
     molecular_formula_assignment = targetsMFassignment(workflow_type),
     modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
-    report = targetsReport(workflow_type)
+    report = targetsReport(
+      workflow_type,
+      projectDirectory(
+        projectName(x),
+        path(x)
+      )
+    )
   )
 }
 
@@ -55,7 +62,13 @@ GCprofiling <- function(x){
     pre_treatment = targetsPretreatment(workflow_type),
     results_modelling = targetsModelling(workflow_type),
     correlations = targetsCorrelations(workflow_type),
-    report = targetsReport(workflow_type)
+    report = targetsReport(
+      workflow_type,
+      projectDirectory(
+        projectName(x),
+        path(x)
+      )
+    )
   )
 }
 
@@ -108,7 +121,7 @@ setMethod('targetsInput',signature = 'FilePathInput',
                                        comment = 'Retrieve data file paths'),
               mzML = target('mzML',
                             readLines(file_paths_list),
-                            type = 'tarchetypes::tar_files',
+                            type = 'hrmtargets::tar_export',
                             comment = 'Track individual data files'),
               sample_information_file = target(
                 'sample_information_file',
@@ -253,7 +266,7 @@ fingerprintProcessing <- function(){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$fingerprinting$export_processed_data),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export spectrally binned data'
     )
   )
@@ -300,7 +313,7 @@ profilingProcessing <- function(x){
     export_processed_data = target(
       'export_processed_data',
       !!parse_expr(processing_commands$profiling$export_processed_data),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       args = list(
         memory = 'transient'
       ),
@@ -339,7 +352,7 @@ preTreatmentRoutine <- function(x){
          `RP-LC-HRMS profiling` = pre_treat_modes,
          `NP-LC-HRMS profiling` = pre_treat_modes,
          `GC-MS profiling` = pre_treat_GCMS
-         )
+  )
 } 
 
 pre_treatment_commands <- list(
@@ -467,7 +480,7 @@ targetsMFassignment <- function(x){
     export_assignments = target(
       'export_assignments',
       !!parse_expr(assignment_commands$export_assignments),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export molecular formula assignments'
     )
   )
@@ -522,7 +535,7 @@ modellingTargets <- function(x){
     export_modelling = target(
       'export_modelling',
       !!parse_expr(modelling_commands$export_modelling),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export results_modelling results'
     )
   )
@@ -577,7 +590,7 @@ correlationsTargets <- function(x){
     export_correlations = target(
       'export_correlations',
       !!parse_expr(correlations_commands$export_correlations),
-      type = 'tarchetypes::tar_files',
+      type = 'hrmtargets::tar_export',
       comment = 'Export correlation analysis results'
     )
   )
@@ -601,11 +614,17 @@ targetsCorrelations <- function(x){
 #' @rdname targetsWorkflow
 #' @export
 
-targetsReport <- function(x){
+targetsReport <- function(x,project_directory){
+  
+  report_name <- paste0(
+    'report/',
+    basename(project_directory),
+    '_report.Rmd') 
+  
   list(
     report = target(
       'report',
-      "report/report.Rmd",
+      !!report_name,
       type = 'tarchetypes::tar_render',
       args = list(output_dir = "exports")
     )

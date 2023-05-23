@@ -56,7 +56,7 @@ setMethod('generateWorkflow',signature = 'Workflow',
             )
             editHeader(paste0(project_directory,'/R/utils.R'))
             
-            parallelOptions(project_directory)
+            parallelOptions(workflow)
             targetsOptions(project_directory,
                            error = 'continue',
                            memory = 'transient',
@@ -147,30 +147,35 @@ targetsOptions <- function(project_directory,...){
   target_options <- enexprs(...) %>% 
     map(expr_text)
   
-  target_options = target_options %>% 
+  target_options <- target_options %>% 
     names() %>% 
     map_chr(~glue('{.x} = {target_options[[.x]]}')) %>% 
     glue_collapse(',\n')
   
   file <- glue('{project_directory}/R/utils.R')
-
+  
   file_lines <- readLines(file)
   line_index <- which(str_detect(file_lines,'tar_option_set'))
-
+  
   file_lines[line_index] <- glue('tar_option_set({target_options})')
-
+  
   writeLines(file_lines,file)
   
   out <- capture.output(style_file(file))
 }
 
-parallelOptions <- function(project_directory){
-  # editHeader(paste0(project_directory,'/R/utils.R'))
+parallelOptions <- function(workflow_definition){
+  
+  project_directory <- projectDirectory(
+    projectName(workflow_definition),
+    path(workflow_definition)
+  )
   
   write(c('## Set future parallel backend',
-          'metaboMisc::suitableParallelPlan()\n'),
-        file = paste0(project_directory,'/R/utils.R'),
-        append = TRUE)
+          paste0(expr_text(parallelPlan(workflow_definition)),'\n')
+          ),
+  file = paste0(project_directory,'/R/utils.R'),
+  append = TRUE)
 }
 
 modulesList <- function(workflow_targets){
@@ -312,5 +317,5 @@ setMethod('output',signature = 'Workflow',
             }
             
             rmd(x) %>% 
-              writeLines(paste0(report_directory,'/report.Rmd'))
+              writeLines(paste0(report_directory,'/',basename(project_directory),'_report.Rmd'))
           })

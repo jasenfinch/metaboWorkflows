@@ -7,6 +7,7 @@
 #' @slot github creation of a GitHub repository
 #' @slot private private GitHub repository
 #' @slot github_actions creation of GitHub actions infrastructure
+#' @slot parallel_plan an expression to define the parallel future plan to use
 #' @slot force force project creation if the project directory already exists
 
 setClass('Project',
@@ -18,6 +19,7 @@ setClass('Project',
            github = 'logical',
            private = 'logical',
            github_actions = 'logical',
+           parallel_plan = 'call',
            force = 'logical'
          ),
          prototype = list(
@@ -28,6 +30,7 @@ setClass('Project',
            github = FALSE,
            private = FALSE,
            github_actions = FALSE,
+           parallel_plan = rlang::expr(jfmisc::suitableParallelPlan()),
            force = FALSE
          ))
 
@@ -40,6 +43,7 @@ setMethod('show',signature = 'Project',
             cat('GitHub repository:',github(object),'\n')
             cat('Private repository:',private(object),'\n')
             cat('GitHub Actions:',githubActions(object),'\n')
+            cat('Parallel plan:',expr_text(parallelPlan(object)),'\n')
             cat('Force creation:',force(object),'\n')
           })
 
@@ -92,6 +96,12 @@ setMethod('show',signature = 'Project',
 #' 
 #' ## Set the project github actions option
 #' githubActions(workflow_project) <- TRUE
+#'
+#' ## Return the expression project parallel plan
+#' parallelPlan(workflow_project)
+#' 
+#' ## Set the expression for the project parallel plan
+#' parallelPlan(workflow_project) <- rlang::expr(future::plan(strategy = 'multisession',workers = 2))
 #' 
 #' ## Return the project force option
 #' force(workflow_project)
@@ -289,6 +299,33 @@ setMethod('githubActions<-',signature = 'Project',
 #' @rdname Project-accessors
 #' @export
 
+setGeneric('parallelPlan',function(x)
+  standardGeneric('parallelPlan'))
+
+#' @rdname Project-accessors
+
+setMethod('parallelPlan',signature = 'Project',
+          function(x){
+            x@parallel_plan
+          })
+
+#' @rdname Project-accessors
+#' @export
+
+setGeneric('parallelPlan<-',function(x,value)
+  standardGeneric('parallelPlan<-'))
+
+#' @rdname Project-accessors
+
+setMethod('parallelPlan<-',signature = 'Project',
+          function(x,value){
+            x@parallel_plan <- value
+            return(x)
+          })
+
+#' @rdname Project-accessors
+#' @export
+
 setGeneric('force',function(x)
   standardGeneric('force'))
 
@@ -322,12 +359,14 @@ setMethod('force<-',signature = 'Project',
 #' @param github TRUE/FALSE. Create a GitHub repository?
 #' @param private TRUE/FALSE. Should the GitHub repository be private? Evaluated only if argument `github` is TRUE.
 #' @param github_actions TRUE/FALSE. Add Github actions infrastructure? Evaluated only if argument `github` is TRUE.
+#' @param parallel_plan An expression denoting the `future` parallel plan to use in the project template. See `future::plan()` for more information on `future` parallel plans.
 #' @param force force project creation if project directory already exists
 #' @return An S4 object of class `Project`.
 #' @examples 
 #' workflow_project <- defineProject('A metabolomics project')
 #' 
 #' workflow_project
+#' @importFrom rlang enexpr 
 #' @export
 
 defineProject <- function(project_name,
@@ -337,7 +376,11 @@ defineProject <- function(project_name,
                           github = FALSE,
                           private = FALSE,
                           github_actions = FALSE,
+                          parallel_plan = jfmisc::suitableParallelPlan(),
                           force = FALSE){
+  
+  parallel_plan <- enexpr(parallel_plan)
+  
   new('Project',
       project_name = project_name,
       path = path,
@@ -346,6 +389,7 @@ defineProject <- function(project_name,
       github = github,
       private = private,
       github_actions = github_actions,
+      parallel_plan = parallel_plan,
       force = force)
   
 }

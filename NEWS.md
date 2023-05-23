@@ -1,3 +1,11 @@
+# metaboWorkflows 0.10.2
+
+* [`hrmtargets::tar_export()`](https://jasenfinch.github.io/hrmtargets/reference/tar_export.html) is now used in project templates to track exported files.
+
+* The generated Rmarkdown reports now include the project name in the file name.
+
+* The argument `parallel_plan` has been added to `defineProject()` to allow the specification of the [`future`](https://future.futureverse.org/) parallel plan in the generated project.
+
 # metaboWorkflows 0.10.1
 
 * Clarified the specification of argument `type` in the documentation of `target()`.

@@ -24,6 +24,8 @@ An S4 class to store the workflow project directory definitions.
 
 \item{\code{github_actions}}{creation of GitHub actions infrastructure}
 
+\item{\code{parallel_plan}}{an expression to define the parallel future plan to use}
+
 \item{\code{force}}{force project creation if the project directory already exists}
 }}
 

@@ -26,7 +26,8 @@ setMethod('workflowDependencies',signature = 'Workflow',
               'bioc::xcms',
               'jasenfinch/metabolyseR',
               'aberHRML/assignments',
-              'jasenfinch/metaboMisc'
+              'jasenfinch/metaboMisc',
+              'jasenfinch/hrmtargets'
             )
             
             fingerprinting_deps <- 'aberHRML/binneR'

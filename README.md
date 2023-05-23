@@ -2,6 +2,7 @@ metaboWorkflows
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![Lifecycle:
@@ -26,26 +27,27 @@ These project templates utilise a number of tools to promote efficient
 and reproducible analysis, agnostic of the actual analysis R code. These
 tools include:
 
-- [targets](https://docs.ropensci.org/targets/) - an R focused pipeline
-  toolkit for efficiently maintaining reproducible analysis workflows.
-- [renv](https://rstudio.github.io/renv/) - an R package for
-  project-local R package dependency management for maintaining
-  reproducible R package environments.
-- [git](https://git-scm.com/) - a widely used, open-source distributed
-  version control system.
-- [docker](https://www.docker.com/) - enables the containerization of
-  operating system (OS) level environments. This can be used to define
-  reproducible OS environments in which a workflow analysis can be
-  performed.
+  - [targets](https://docs.ropensci.org/targets/) - an R focused
+    pipeline toolkit for efficiently maintaining reproducible analysis
+    workflows.
+  - [renv](https://rstudio.github.io/renv/) - an R package for
+    project-local R package dependency management for maintaining
+    reproducible R package environments.
+  - [git](https://git-scm.com/) - a widely used, open-source distributed
+    version control system.
+  - [docker](https://www.docker.com/) - enables the containerization of
+    operating system (OS) level environments. This can be used to define
+    reproducible OS environments in which a workflow analysis can be
+    performed.
 
 Project templates are available for the following metabolomic
 techniques:
 
-- FIE-HRMS fingerprinting
-- NSI-HRMS fingerprinting
-- RP-LC-HRMS profiling
-- NP-LC-HRMS profiling
-- GC-MS profiling
+  - FIE-HRMS fingerprinting
+  - NSI-HRMS fingerprinting
+  - RP-LC-HRMS profiling
+  - NP-LC-HRMS profiling
+  - GC-MS profiling
 
 ## Installation
 
@@ -53,7 +55,7 @@ The `metaboWorkflows` package can be installed from GitHub using the
 following:
 
 ``` r
-devtools::install_github('jasenfinch/metaboWorkflows',build_vignettes = TRUE)
+remotes::install_github('jasenfinch/metaboWorkflows',build_vignettes = TRUE)
 ```
 
 ## Learn more
