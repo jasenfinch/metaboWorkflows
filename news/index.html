@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">metaboWorkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,12 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.2" id="metaboworkflows-0102">metaboWorkflows 0.10.2<a class="anchor" aria-label="anchor" href="#metaboworkflows-0102"></a></h2>
+<ul><li><p><a href="https://jasenfinch.github.io/hrmtargets/reference/tar_export.html" class="external-link"><code>hrmtargets::tar_export()</code></a> is now used in project templates to track exported files.</p></li>
+<li><p>The generated Rmarkdown reports now include the project name in the file name.</p></li>
+<li><p>The argument <code>parallel_plan</code> has been added to <code><a href="../reference/defineProject.html">defineProject()</a></code> to allow the specification of the <a href="https://future.futureverse.org/" class="external-link"><code>future</code></a> parallel plan in the generated project.</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.1" id="metaboworkflows-0101">metaboWorkflows 0.10.1<a class="anchor" aria-label="anchor" href="#metaboworkflows-0101"></a></h2>
 <ul><li><p>Clarified the specification of argument <code>type</code> in the documentation of <code><a href="../reference/target.html">target()</a></code>.</p></li>
 <li><p>Added a suitable pre-treatment target expression for processing GC-MS profiling data.</p></li>
@@ -64,7 +70,7 @@
 <li><p>Workflow templates now include a customised <code>.Rprofile</code> file.</p></li>
 <li><p>Target factories from packages other than <a href="https://docs.ropensci.org/targets/" class="external-link"><code>targets</code></a> or <a href="https://docs.ropensci.org/tarchetypes/" class="external-link"><code>tarchetypes</code></a> can now be specified in <code><a href="../reference/Workflow-accessors.html">targets()</a></code>.</p></li>
 <li><p>The <code>Dockerfile</code> is now generated with the <code>latest</code> tag if the <a href="https://github.com/jasenfinch/hrm-docker" class="external-link">hrm-docker</a> release information cannot be accessed with a warning printed if so.</p></li>
-<li><p>The template grover input targets now correctly track the .mzML files without causing an error if the <code>mzML</code> target later becomes invalidated. <code>grover::runInfo()</code> is now used to retrieve the sample information.</p></li>
+<li><p>The template grover input targets now correctly track the .mzML files without causing an error if the <code>mzML</code> target later becomes invalidated. <code><a href="https://jasenfinch.github.io/grover/reference/info.html" class="external-link">grover::runInfo()</a></code> is now used to retrieve the sample information.</p></li>
 <li><p>The targets option <code>garbage_collection</code> is now set as <code>TRUE</code> in <code><a href="https://docs.ropensci.org/targets/reference/tar_option_set.html" class="external-link">targets::tar_option_set()</a></code> in the template <code>R/utils.R</code> to improve memory usage during pipeline execution.</p></li>
 </ul></div>
     <div class="section level2">

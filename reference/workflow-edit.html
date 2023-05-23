@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">metaboWorkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,41 +133,51 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Define a workflow</span></span></span>
 <span class="r-in"><span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/filePaths.html" class="external-link">filePaths</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span><span class="va">sample_information</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/runinfo.html" class="external-link">runinfo</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="inputFilePath.html">inputFilePath</a></span><span class="op">(</span><span class="va">file_paths</span>,<span class="va">sample_information</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'file_paths' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu"><a href="defineWorkflow.html">defineWorkflow</a></span><span class="op">(</span><span class="va">workflow_input</span>,</span></span>
 <span class="r-in"><span>                                     <span class="st">'FIE-HRMS fingerprinting'</span>,</span></span>
 <span class="r-in"><span>                                     <span class="st">'Example project'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'input' in selecting a method for function 'defineWorkflow': object 'workflow_input' not found</span>
 <span class="r-in"><span>                                     </span></span>
 <span class="r-in"><span><span class="co">## Add a module</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">moduleAdd</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'additional_module'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>new_target <span class="op">=</span> <span class="fu"><a href="target.html">target</a></span><span class="op">(</span><span class="st">'new_target'</span>,<span class="st">'1 + 1'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'moduleAdd': object 'workflow_definition' not found</span>
 <span class="r-in"><span><span class="co">## Replace the additional module</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">moduleReplace</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                     <span class="st">'additional_module'</span>,</span></span>
 <span class="r-in"><span>                                     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>replacement_target <span class="op">=</span> <span class="fu"><a href="target.html">target</a></span><span class="op">(</span><span class="st">'replacement_target'</span>,</span></span>
 <span class="r-in"><span>                                     <span class="st">'1 + 2'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'moduleReplace': object 'workflow_definition' not found</span>
 <span class="r-in"><span><span class="co">## Remove the additional module</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">modulesRemove</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                    <span class="st">'additional_module'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'modulesRemove': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Add a target to the input module</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">targetAdd</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'input'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'new_target'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="fu"><a href="target.html">target</a></span><span class="op">(</span><span class="st">'new_target'</span>,<span class="st">'1 + 1'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'targetAdd': object 'workflow_definition' not found</span>
 <span class="r-in"><span><span class="co">## Replace the additional target</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">targetReplace</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'input'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'new_target'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="fu"><a href="target.html">target</a></span><span class="op">(</span><span class="st">'new_target'</span>,<span class="st">'1 + 2'</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'targetReplace': object 'workflow_definition' not found</span>
 <span class="r-in"><span><span class="co">## Remove the additional target</span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu">targetRemove</span><span class="op">(</span><span class="va">workflow_definition</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'input'</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">'new_target'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'targetRemove': object 'workflow_definition' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

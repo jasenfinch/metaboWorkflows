@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">metaboWorkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,25 +149,29 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Define a workflow with file path input</span></span></span>
 <span class="r-in"><span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/filePaths.html" class="external-link">filePaths</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span><span class="va">sample_information</span> <span class="op">&lt;-</span> <span class="fu">metaboData</span><span class="fu">::</span><span class="fu"><a href="https://aberhrml.github.io/metaboData/reference/runinfo.html" class="external-link">runinfo</a></span><span class="op">(</span><span class="st">'FIE-HRMS'</span>,<span class="st">'BdistachyonEcotypes'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Session is non-interactive and user input is required. Use "ask = FALSE" to override this.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="inputFilePath.html">inputFilePath</a></span><span class="op">(</span><span class="va">file_paths</span>,<span class="va">sample_information</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'file_paths' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">workflow_definition</span> <span class="op">&lt;-</span> <span class="fu"><a href="defineWorkflow.html">defineWorkflow</a></span><span class="op">(</span><span class="va">workflow_input</span>,</span></span>
 <span class="r-in"><span>                                      <span class="st">'FIE-HRMS fingerprinting'</span>,</span></span>
 <span class="r-in"><span>                                      <span class="st">'Example project'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'input' in selecting a method for function 'defineWorkflow': object 'workflow_input' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow type</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Target-accessors.html">type</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FIE-HRMS fingerprinting"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'type': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the workflow type</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Target-accessors.html">type</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RP-LC-HRMS profiling"</span> </span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow input</span></span></span>
 <span class="r-in"><span><span class="fu">input</span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> File path workflow input</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # files: 68</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'input': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the workflow input</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -180,34 +184,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow targets for the input module</span></span></span>
 <span class="r-in"><span><span class="fu">targets</span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span><span class="op">$</span><span class="va">input</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $file_paths_list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E; font-style: italic;">## Retrieve data file paths</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tarchetypes::<span style="color: #00BBBB;">tar_file</span><span style="color: #BBBB00;">(</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   file_paths_list,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">"data/file_paths.txt"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $mzML</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E; font-style: italic;">## Track individual data files</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tarchetypes::<span style="color: #00BBBB;">tar_files</span><span style="color: #BBBB00;">(</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   mzML,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #00BBBB;">readLines</span><span style="color: #0000BB;">(</span>file_paths_list<span style="color: #0000BB;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sample_information_file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E; font-style: italic;">## Sample information file path</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tarchetypes::<span style="color: #00BBBB;">tar_file</span><span style="color: #BBBB00;">(</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   sample_information_file,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">"data/runinfo.csv"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sample_information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E; font-style: italic;">## Parse sample information</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">tar_target</span><span style="color: #BBBB00;">(</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   sample_information,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   readr::<span style="color: #00BBBB;">read_csv</span><span style="color: #0000BB;">(</span>sample_information_file<span style="color: #0000BB;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'targets': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the workflow targets</span></span></span>
 <span class="r-in"><span><span class="fu">targets</span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
@@ -218,10 +195,11 @@
 <span class="r-in"><span>                                                        comment <span class="op">=</span> <span class="st">'A target'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>                                               <span class="op">)</span></span></span>
 <span class="r-in"><span>                                     <span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow modules</span></span></span>
 <span class="r-in"><span><span class="fu">modules</span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a_module"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'modules': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow file paths</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -230,26 +208,15 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the workflow file paths</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="FilePathInput-accessors.html">filePaths</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">'a_file.mzML'</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the workflow sample information</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="FilePathInput-accessors.html">sampleInformation</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 68 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    fileOrder injOrder fileName   batch block name    class</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>         1       64 1.mzML.gz      1     5 ABR1_1  ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>         2       40 10.mzML.gz     1     3 ABR1_10 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>         3       52 11.mzML.gz     1     4 ABR1_11 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>         4       67 12.mzML.gz     1     5 ABR1_12 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>         5       32 13.mzML.gz     1     3 ABR1_13 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>         6       53 14.mzML.gz     1     4 ABR1_14 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>         7        4 15.mzML.gz     1     1 ABR1_15 ABR1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>         8       34 16.mzML.gz     1     3 ABR5_1  ABR5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>         9       38 17.mzML.gz     1     3 ABR5_2  ABR5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>        10       59 18.mzML.gz     1     5 ABR5_3  ABR5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 58 more rows</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'sampleInformation': object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the workflow sample information</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="FilePathInput-accessors.html">sampleInformation</a></span><span class="op">(</span><span class="va">workflow_definition</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>fileName <span class="op">=</span> <span class="st">'a_file.mzML'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'workflow_definition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Define a workflow with grover input</span></span></span>
 <span class="r-in"><span><span class="va">workflow_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="inputGrover.html">inputGrover</a></span><span class="op">(</span>instrument <span class="op">=</span> <span class="st">'An_instrument'</span>,</span></span>

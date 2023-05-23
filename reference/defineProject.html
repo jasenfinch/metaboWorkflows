@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">metaboWorkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@
 <span>  github <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  private <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  github_actions <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  parallel_plan <span class="op">=</span> <span class="fu">jfmisc</span><span class="fu">::</span><span class="fu"><a href="https://jasenfinch.github.io/jfmisc/reference/parallel.html" class="external-link">suitableParallelPlan</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  force <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -102,6 +103,10 @@
 <dd><p>TRUE/FALSE. Add Github actions infrastructure? Evaluated only if argument <code>github</code> is TRUE.</p></dd>
 
 
+<dt>parallel_plan</dt>
+<dd><p>An expression denoting the <code>future</code> parallel plan to use in the project template. See <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">future::plan()</a></code> for more information on <code>future</code> parallel plans.</p></dd>
+
+
 <dt>force</dt>
 <dd><p>force project creation if project directory already exists</p></dd>
 
@@ -125,6 +130,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> GitHub repository: FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Private repository: FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GitHub Actions: FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parallel plan: jfmisc::suitableParallelPlan() </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Force creation: FALSE </span>
 </code></pre></div>
     </div>

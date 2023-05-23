@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">metaboWorkflows</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,6 +130,16 @@
 <span><span class="co"># S4 method for Project</span></span>
 <span><span class="fu">githubActions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
+<span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Project</span></span>
+<span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for Project</span></span>
+<span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
 <span><span class="fu">force</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for Project</span></span>
@@ -204,6 +214,13 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Set the project github actions option</span></span></span>
 <span class="r-in"><span><span class="fu">githubActions</span><span class="op">(</span><span class="va">workflow_project</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Return the expression project parallel plan</span></span></span>
+<span class="r-in"><span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">workflow_project</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> jfmisc::suitableParallelPlan()</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Set the expression for the project parallel plan</span></span></span>
+<span class="r-in"><span><span class="fu">parallelPlan</span><span class="op">(</span><span class="va">workflow_project</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/expr.html" class="external-link">expr</a></span><span class="op">(</span><span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span>strategy <span class="op">=</span> <span class="st">'multisession'</span>,workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Return the project force option</span></span></span>
 <span class="r-in"><span><span class="fu">force</span><span class="op">(</span><span class="va">workflow_project</span><span class="op">)</span></span></span>
