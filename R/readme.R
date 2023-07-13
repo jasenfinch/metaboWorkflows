@@ -23,7 +23,7 @@ Files containing additional functions can be placed in `R/functions` and package
 
 ## Running the analysis
 
-To run the analysis, either run the `run.R` script or exucute `targets::tar_make()` in an R session loaded from within the project directory.
+To run the analysis, either run the `misc/run.R` script or execute `targets::tar_make()` in an R session loaded from within the project directory.
 
 ")
   
